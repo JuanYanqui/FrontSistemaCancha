@@ -1,0 +1,119 @@
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+}
+
+.cover-container {
+  max-width: 42em;
+ 
+}
+
+.contenedor{
+    
+    padding-top: 100px;
+    
+}
+#btns{
+    background-color: rgb(218, 211, 211);
+    border-bottom-color: rgb(2, 2, 2);
+    border-color: black;
+    margin: 50px;
+    padding: 15px;
+}
+
+#btns:hover,
+#btns:focus {
+    color:rgb(241, 241, 241) ;
+    border-bottom-color: rgb(8, 8, 8);
+  
+    border-color: black;
+    background-color:  rgb(9, 9, 9);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  */
