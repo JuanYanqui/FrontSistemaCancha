@@ -21,7 +21,7 @@ export class PersonaService {
   }
 
   postPersona(persona: Persona) {
-    return this.http.post<Persona>(this.URL + '?', persona);
+    return this.http.post<Persona>(this.URL + 'cre', persona);
   }
 
   updatePersona(persona: Persona, idPersona: any) {

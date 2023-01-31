@@ -24,8 +24,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs'; 
-import { EditUserComponent } from '../edit-user/pages/edit-user/edit-user.component';
+import { MatTabsModule } from '@angular/material/tabs';
 import { EditUserModule } from '../edit-user/edit-user.module';
 
 @NgModule({
@@ -56,7 +55,7 @@ import { EditUserModule } from '../edit-user/edit-user.module';
     CardModule,
     TableModule,
     DialogModule,
-    EditUserModule
+    EditUserModule,
   ]
 })
 export class RegUserModule { }

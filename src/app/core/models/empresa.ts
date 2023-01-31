@@ -12,7 +12,7 @@ export class Empresa {
     rolComercial: string = "";
     logo: string = "";
     pais: string = "";
-    provincia: string = "";
+    provincia: string = '';
     ciudad: string = "";
     direccion: string = "";
     codigoPostal: string = "";

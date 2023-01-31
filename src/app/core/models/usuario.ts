@@ -8,8 +8,6 @@ export class Usuario {
     username: string = "";
     password: string = "";
     estado: boolean = false;
-    foto?: string;
     persona?: Persona;
-    empresa?: Empresa;
     rol?: Roles;
 }

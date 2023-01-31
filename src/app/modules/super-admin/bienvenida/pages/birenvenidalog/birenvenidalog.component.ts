@@ -6,15 +6,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./birenvenidalog.component.css']
 })
 export class BirenvenidalogComponent {
-  constructor(private router : Router){}
+
+  constructor(private router: Router) { }
   ngOnInit(): void {
   }
-  
-  goToR($event: any) :void{
-   
+
+  goToR($event: any): void {
+
     this.router.navigate(['sup-admin/menu-spradmin'])
     console.log($event)
-  
-   }
-  
+
+  }
+
 }

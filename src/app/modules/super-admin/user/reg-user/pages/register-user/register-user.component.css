@@ -1,6 +1,4 @@
-
 /*   tercer css */
-
 
 .container {
   width: 90%;
@@ -11,7 +9,7 @@
 .panel {
   height: 575px;
 }
-#btnreg{
+#btnreg {
   background-color: black;
 }
 
@@ -19,11 +17,9 @@
   background-color: rgb(12, 12, 12);
   border-bottom-color: rgb(2, 2, 2);
   border-color: black;
- 
+
   color: white;
   letter-spacing: 0.1rem;
-
-
 }
 
 #btnreg:hover,
@@ -34,8 +30,8 @@
   border-color: black;
   background-color: rgb(13, 243, 166);
 }
-#panelregempresa{
- margin: 20px;
+#panelregempresa {
+  margin: 20px;
 }
 /*SCROLL VIEW*/
 
@@ -44,6 +40,6 @@
   background-color: #fff;
 }
 
-#paneregusuario{
+#paneregusuario {
   margin: 20px;
 }

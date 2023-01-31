@@ -10,59 +10,58 @@ import { Router } from '@angular/router';
 export class MenuSuperAdminUserComponent {
   title = 'dinamic-styles';
   cssUrl: string;
-  constructor(public sanitizer: DomSanitizer , private _CargarScripts:CargarscriptsService , private _Cargar:CargarscriptsService,private router : Router  ) {
+  constructor(public sanitizer: DomSanitizer, private _CargarScripts: CargarscriptsService, private _Cargar: CargarscriptsService, private router: Router) {
     this.cssUrl = 'assets/css/swiper-bundle.min.css';
     {
       _CargarScripts.cargajs(["swiper-bundle.min"])
 
-     }
-     {
+    }
+    {
       _Cargar.carga(["scriptCard"])
 
-     }
-     
+    }
+
   }
-  
-ngOnInit(): void {
-}
 
-goToR($event: any) :void{
- 
-  this.router.navigate(['/sup-admin/usuario/register-user'])
-  console.log($event)
+  ngOnInit(): void {
+  }
 
- }
- selectedTabIndex = 1;
- selectTab(index: number) {
- this.selectedTabIndex = index;
+  goToR($event: any): void {
 
+    this.router.navigate(['/sup-admin/usuario/register-user'])
+    console.log($event)
 
-}
-goTo($event: any) :void{
- 
-  this.router.navigate(['/sup-admin/usuario/edit-user'])
-  console.log($event)
+  }
 
-  this.selectTab
+  selectedTabIndex = 1;
+  selectTab(index: number) {
+    this.selectedTabIndex = index;
 
 
- }
+  }
+
+  goTo($event: any): void {
+
+    this.router.navigate(['/sup-admin/usuario/edit-user'])
+    console.log($event)
+
+    this.selectTab
 
 
-goT($event: any) :void{
- 
-  this.router.navigate(['/sup-admin/usuario/edit-user'])
-  console.log($event)
+  }
 
- }
+  goT($event: any): void {
 
-go($event: any) :void{
- 
-  this.router.navigate(['/sup-admin/empresa/edit-user'])
-  console.log($event)
+    this.router.navigate(['/sup-admin/usuario/edit-user'])
+    console.log($event)
 
- }
+  }
 
+  go($event: any): void {
 
+    this.router.navigate(['/sup-admin/empresa/edit-user'])
+    console.log($event)
+
+  }
 
 }

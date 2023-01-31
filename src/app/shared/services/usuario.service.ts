@@ -20,7 +20,7 @@ export class UsuarioService {
   }
 
   postUsuario(usuario: Usuario) {
-    return this.http.post<Usuario>(this.URL + '?', usuario);
+    return this.http.post<Usuario>(this.URL + 'cre', usuario);
   }
 
   updateUsuario(usuario: Usuario, idUsuario: any) {

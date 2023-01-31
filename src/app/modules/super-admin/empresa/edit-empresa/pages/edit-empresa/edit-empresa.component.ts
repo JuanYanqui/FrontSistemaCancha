@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Empresa } from 'src/app/core/models/empresa';
@@ -47,20 +48,121 @@ export class EditEmpresaComponent {
   numero: string = '';
 
   cuentas: string[] = [];
-  fechaNacimiento: Date = new Date;
 
   verfCorreo: string = '';
 
-  provincias: any[] = [
-    { pro: 'Azuay' }, { pro: 'Bolívar' }, { pro: 'Cañar' }, { pro: 'Carchi' }, { pro: 'Chimborazo' }, { pro: 'Cotopaxi' }, { pro: 'El Oro' }, { pro: 'Gallápagos' },
-    { pro: 'Guayas' }, { pro: 'Imbabura' }, { pro: 'Loja' }, { pro: 'Los Rios' }, { pro: 'Manabí' }, { pro: 'Morona Santiago' }, { pro: 'Napo' }, { pro: 'Orellana' }, { pro: 'Pastaza' }, { pro: 'Pichincha' }, { pro: 'Santa Elena' }, { pro: 'Santo Domingo de los Tsáchilas' },
-    { pro: 'Sucumbíos' }, { pro: 'Tunguragua' }, { pro: 'Zamora Chinchipe' }, { pro: 'Otro' }
+  selectedCountry: String = "ChooseCountry";
+
+  Countries: Array<any> = [
+    {
+      name: 'Azuay',
+      states: [{ name: 'Camilo Ponce Enríquez' }, { name: 'Chordeleg' }, { name: 'Cuenca' }, { name: 'El Pan' }, { name: 'Girón' }, { name: 'Guachapala' }, { name: 'Gualaceo' }, { name: 'Nabón' }, { name: 'Oña' }, { name: 'Paute' }, { name: 'Pucará' }, { name: 'San Fernando' }, { name: 'Santa Isabel' }, { name: 'Sevilla de Oro' }, { name: 'Sígsig' },]
+    },
+    {
+      name: 'Bolivar',
+      states: [{ name: 'Caluma' }, { name: 'Chillanes' }, { name: 'Chimbo' }, { name: 'Echeandía' }, { name: 'Guaranda' }, { name: 'Las Naves' }, { name: 'San Miguel' },]
+    },
+    {
+      name: 'Cañar',
+      states: [{ name: 'Azogues' }, { name: 'Biblían' }, { name: 'Cañar' }, { name: 'Déleg' }, { name: 'El Tambo' }, { name: 'La Troncal' }, { name: 'Suscal' },]
+    },
+    {
+      name: 'Carchi',
+      states: [{ name: 'Bolívar' }, { name: 'Espejo' }, { name: 'Huaca' }, { name: 'Mira' }, { name: 'Montúfar' }, { name: 'Tulcán' },]
+    },
+    {
+      name: 'Chimborazo',
+      states: [{ name: 'Alausí' }, { name: 'Chambo' }, { name: 'Chunchi' }, { name: 'Colta' }, { name: 'Cumandá' }, { name: 'Guámote' }, { name: 'Guano' }, { name: 'Pallatanga' }, { name: 'Penipe' }, { name: 'Riobamba' },]
+    },
+    {
+      name: 'Cotopaxi',
+      states: [{ name: 'La Maná' }, { name: 'Latacunga' }, { name: 'Pangua' }, { name: 'Pujilí' }, { name: 'Salcedo' }, { name: 'Saquisilí' }, { name: 'Sigchos' },]
+    },
+    {
+      name: 'El Oro',
+      states: [{ name: 'Arenillas' }, { name: 'Atahualpa' }, { name: 'Balsas' }, { name: 'Chilla' }, { name: 'El Guabo' }, { name: 'Huaquillas' }, { name: 'Las Lajas' }, { name: 'Machala' }, { name: 'Marcabelí' }, { name: 'Pasaje' }, { name: 'Piñas' }, { name: 'Portovelo' }, { name: 'Santa Rosa' }, { name: 'Zaruma' },]
+    },
+    {
+      name: 'Esmeraldas',
+      states: [{ name: 'Atacames' }, { name: 'Eloy Alfaro' }, { name: 'Esmeraldas' }, { name: 'Muisne' }, { name: 'Quinindé' }, { name: 'Rioverde' }, { name: 'San Lorenzo' },]
+    },
+    {
+      name: 'Exterior',
+      states: [{ name: 'Sin Especificar' },]
+    },
+    {
+      name: 'Galapagos',
+      states: [{ name: 'Isabela' }, { name: 'San Cristobal' }, { name: 'Santa Cruz' },]
+    },
+    {
+      name: 'Guayas',
+      states: [{ name: 'Balao' }, { name: 'Balzar' }, { name: 'Bucay' }, { name: 'Colimes' }, { name: 'Daule' }, { name: 'Duran' }, { name: 'El Empalme' }, { name: 'El Triunfo' }, { name: 'Guayaquil' }, { name: 'Isidro Ayora' }, { name: 'Jujan' }, { name: 'Lomas de Sargentillo' }, { name: 'Marcelino Maridueña' }, { name: 'Milagro' }, { name: 'Naranjal' }, { name: 'Naranjito' }, { name: 'Nobol' }, { name: 'Palestina' }, { name: 'Pedro Carbo' }, { name: 'Playas' }, { name: 'Salitre' }, { name: 'Samborondon' }, { name: 'Santa Lucia' }, { name: 'Simon Bolivar' }, { name: 'Yaguachi' },]
+    },
+    {
+      name: 'Imbabura',
+      states: [{ name: 'Antonio Ante' }, { name: 'Cotacachi' }, { name: 'Ibarra' }, { name: 'Otavalo' }, { name: 'Pimampiro' }, { name: 'San Miguel de Urcuquí' },]
+    },
+    {
+      name: 'Loja',
+      states: [{ name: 'Alamor' }, { name: 'Calvas' }, { name: 'Catamayo' }, { name: 'Celica' }, { name: 'Chaguarpamba' }, { name: 'Espíndola' }, { name: 'Gonzanamá' }, { name: 'Loja' }, { name: 'Macará' }, { name: 'Olmedo' }, { name: 'Paltas' }, { name: 'Pindal' }, { name: 'Puyango' }, { name: 'Quilanga' }, { name: 'Saraguro' }, { name: 'Sozoranga' }, { name: 'Zapotillo' },]
+    },
+    {
+      name: 'Los Rios',
+      states: [{ name: 'Baba' }, { name: 'Babahoyo' }, { name: 'Buena Fe' }, { name: 'Mocache' }, { name: 'Montalvo' }, { name: 'Palenque' }, { name: 'Pueblo Viejo' }, { name: 'Quevedo' }, { name: 'Quinsaloma' }, { name: 'Urdaneta' }, { name: 'Valencia' }, { name: 'Ventanas' }, { name: 'Vinces' },]
+    },
+    {
+      name: 'Manabi',
+      states: [{ name: '24 de Mayo' }, { name: 'Bolivar' }, { name: 'Calceta' }, { name: 'Chone' }, { name: 'El Carmen' }, { name: 'Flavio Alfaro' }, { name: 'Jama' }, { name: 'Jaramijó' }, { name: 'Jipijapa' }, { name: 'Junín' }, { name: 'Manta' }, { name: 'Montecristi' }, { name: 'Olmedo' }, { name: 'Pajan' }, { name: 'Pedernales' }, { name: 'Pichincha' }, { name: 'Portoviejo' }, { name: 'Puerto López' }, { name: 'Rocafuerte' }, { name: 'San Vicente' }, { name: 'Santa Ana' }, { name: 'Sucre' }, { name: 'Tosagua' },]
+    },
+    {
+      name: 'Morona Santiago',
+      states: [{ name: 'Gualaquiza' }, { name: 'Huamboya' }, { name: 'Limón Indanza' }, { name: 'Logroño' }, { name: 'Morona' }, { name: 'Pablo Sexto' }, { name: 'Palora' }, { name: 'San Juan Bosco' }, { name: 'Santiago de Méndez' }, { name: 'Sucúa' }, { name: 'Taisha' }, { name: 'Tiwintza' },]
+    },
+    {
+      name: 'Napo',
+      states: [{ name: 'Archidona' }, { name: 'Carlos Julio Arosemena Tola' }, { name: 'El Chaco' }, { name: 'Quijos' }, { name: 'Tena' },]
+    },
+    {
+      name: 'Orellana',
+      states: [{ name: 'Aguarico' }, { name: 'Francisco de Orellana' }, { name: 'La Joya de los Sachas' }, { name: 'Loreto' },]
+    },
+    {
+      name: 'Pastaza',
+      states: [{ name: 'Arajuno' }, { name: 'Mera' }, { name: 'Pastaza' }, { name: 'Santa Clara' },]
+    },
+    {
+      name: 'Pichincha',
+      states: [{ name: 'Cayambe' }, { name: 'Mejía' }, { name: 'Pedro Moncayo' }, { name: 'Pedro Vicente Maldonado' }, { name: 'Puerto Quito' }, { name: 'Quito' }, { name: 'Rumiñahui' }, { name: 'San Miguel de los Bancos' },]
+    },
+    {
+      name: 'Santa Elena',
+      states: [{ name: 'La Libertad' }, { name: 'Salinas' }, { name: 'Santa Elena' },]
+    },
+    {
+      name: 'Santo Domingo',
+      states: [{ name: 'La Concordia' }, { name: 'Santo Domingo' },]
+    },
+    {
+      name: 'Sin Especificar',
+      states: [{ name: 'Sin Especificar' },]
+    },
+    {
+      name: 'Sucumbios',
+      states: [{ name: 'Cascales' }, { name: 'Cuyabeno' }, { name: 'Gonzalo Pizarro' }, { name: 'Lago Agrio' }, { name: 'Putumayo' }, { name: 'Shushufindi' }, { name: 'Sucumbíos' },]
+    },
+    {
+      name: 'Tungurahua',
+      states: [{ name: 'Ambato' }, { name: 'Baños' }, { name: 'Cevallos' }, { name: 'Mocha' }, { name: 'Patate' }, { name: 'Pelileo' }, { name: 'Quero' }, { name: 'Santiago de Píllaro' }, { name: 'Tisaleo' },]
+    },
+    {
+      name: 'Zamora Chinchipe',
+      states: [{ name: 'Centinela del Cóndor' }, { name: 'Chinchipe' }, { name: 'El Pangui' }, { name: 'Nangaritza' }, { name: 'Palanda' }, { name: 'Paquisha' }, { name: 'Yacuambi' }, { name: 'Yantzaza' }, { name: 'Zamora' },]
+    },
   ];
-  ciudades: any[] = [
-    { ciu: 'Cuenca' }, { ciu: 'Guaranda' }, { ciu: 'Azogues' }, { ciu: 'Tulcán' }, { ciu: 'Riobamba' }, { ciu: 'Latacunga' }, { ciu: 'Machala' },
-    { ciu: 'Guayaquil' }, { ciu: 'Ibarra' }, { ciu: 'Loja' }, { ciu: 'Babahoyo' }, { ciu: 'Portoviejo' }, { ciu: 'Macas' }, { ciu: 'Tena' }, { ciu: 'Francisco de Orellana' }, { ciu: 'Puyo' }, { ciu: 'Quito' }, { ciu: 'Santa Elena' }, { ciu: 'Santo Domingo' },
-    { ciu: 'Nueva Loja' }, { ciu: 'Ambato' }, { ciu: 'Zamora' }, { ciu: 'Otro' }
-  ];
+
+  states: Array<any> = [];
+  cities: Array<any> = [];
+
   generos: any[] = [
     { gen: 'Masculino' }, { gen: 'Femenino' }, { gen: 'Otro' }
   ];
@@ -76,6 +178,7 @@ export class EditEmpresaComponent {
 
   ngOnInit(): void {
     this.obtenerEmpresas();
+  
   }
 
   obtenerEmpresas() {
@@ -86,7 +189,6 @@ export class EditEmpresaComponent {
             let empresa = new Empresa;
             empresa.acronimo = result.acronimo;
             empresa.celular = result.celular;
-            empresa.ciudad = result.ciudad;
             empresa.codigoPostal = result.codigoPostal;
             empresa.correo = result.correo;
             empresa.cuentasBancarias = result.cuentasBancarias;
@@ -100,6 +202,7 @@ export class EditEmpresaComponent {
             empresa.pais = result.pais;
             empresa.persona = result.persona;
             empresa.provincia = result.provincia;
+            empresa.ciudad = result.ciudad;
             empresa.rolComercial = result.rolComercial;
             empresa.ruc = result.ruc;
             empresa.telefono = result.telefono;
@@ -109,6 +212,7 @@ export class EditEmpresaComponent {
           }
         );
         this.loading = false;
+        this.changeCountry(this.empresa.provincia);
       }
     )
   }
@@ -123,6 +227,8 @@ export class EditEmpresaComponent {
       console.log("Correo malo");
     }
   }
+
+  selected = new FormControl(3);
 
   agregarCuentaBancaria() {
     if (this.banco != '' && this.tipo != '' && this.numero != '') {
@@ -150,16 +256,6 @@ export class EditEmpresaComponent {
     this.empresa.cuentasBancarias = this.cuentas;
   }
 
-  // onFileSelected(event: any) {
-  //   let file = event.target.files[0];
-  //   let reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => {
-  //     this.file = reader.result;
-  //     this.file = this.file.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-  //   };
-  // }
-
   editarEmpresa(empresa: Empresa) {
     this.displayEE = true;
 
@@ -184,15 +280,15 @@ export class EditEmpresaComponent {
     this.empresa.telefono = empresa.telefono;
     this.empresa.vision = empresa.vision;
 
-    this.persona.apellidos = this.empresa.persona?.apellidos;
+    this.persona.apellido = this.empresa.persona?.apellido;
     this.persona.cedula = this.empresa.persona?.cedula;
     this.persona.celular = this.empresa.persona?.celular;
-    this.persona.correo = this.empresa.persona?.correo;
+    this.persona.email = this.empresa.persona?.email;
     this.persona.direccion = this.empresa.persona?.direccion;
-    this.persona.fechaNacimiento = this.empresa.persona?.fechaNacimiento;
+    this.persona.fecha_nacimiento = this.empresa.persona?.fecha_nacimiento;
     this.persona.genero = this.empresa.persona?.genero;
     this.persona.idPersona = this.empresa.persona?.idPersona;
-    this.persona.nombres = this.empresa.persona?.nombres;
+    this.persona.nombre = this.empresa.persona?.nombre;
     this.persona.telefono = this.empresa.persona?.telefono;
 
     this.provincia = this.empresa.provincia;
@@ -280,6 +376,19 @@ export class EditEmpresaComponent {
     this.loading = true;
     this.listaEmpresas = [];
     this.obtenerEmpresas();
+  }
+
+  /* NO ESCOGE NINGUNA PROVINCIA POR QUE NO ESTA SELECCIONADO
+   SOLO CARGA EL QUE ESTABA SELECCIONADO PERO NO ENTRA AL METODO */
+  changeCountry(country: any) : string {
+    this.states = this.Countries.find((cntry: any) => cntry.name == country.target.value).states;
+    console.log('Entro');
+    return String(this.states);
+    
+  }
+
+  changeState(state: any) {
+    this.cities = this.Countries.find((cntry: any) => cntry.cities == this.selectedCountry).states.find((stat: any) => stat.name == state.target.value).cities;
   }
 
 }

@@ -7,7 +7,7 @@ import { Roles } from 'src/app/core/models/roles';
 })
 export class RolesService {
 
-  private URL = "http://localhost:5000/roles/";
+  private URL = "http://localhost:5000/rol/";
 
   constructor(private http: HttpClient) { }
 

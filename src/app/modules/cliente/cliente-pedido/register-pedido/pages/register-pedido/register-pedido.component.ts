@@ -40,7 +40,7 @@ export class RegisterPedidoComponent implements OnInit {
     this.usuarioService.getPorId(idUsuario).subscribe(
       data => {
         usuario = data;
-        empresa = data.empresa!;
+        // empresa = data.empresa!;
 
         this.clienteService.getByEmpresaUsuario(usuario.idUsuario, empresa.idEmpresa).subscribe(
           result => {

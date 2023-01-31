@@ -17,8 +17,8 @@
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
     url(../../../../../../assets/img/portada2.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   /* background: linear-gradient(rgba(0,0,0,0.4), transparent), url(https://images.unsplash.com/photo-1504610926078-a1611febcad3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80);
   
@@ -91,14 +91,6 @@ background: linear-gradient(rgba(0,0,0,0.4), transparent), url(https://images.un
   --white-text: #fff;
 }
 
-* {
-  padding: 0;
-  margin: 0;
-  text-decoration: none;
-  box-sizing: border-box;
-  border: none;
-}
-
 .container {
   display: flex;
   justify-content: center;
@@ -114,7 +106,7 @@ background: linear-gradient(rgba(0,0,0,0.4), transparent), url(https://images.un
   margin: 1.5rem;
   overflow: hidden;
   width: 25rem;
-  height: 35rem;
+  height: 40rem;
   backdrop-filter: blur(1rem);
   background-color: rgba(255, 255, 255, 0.06);
   color: var(--white-text);
@@ -171,7 +163,8 @@ background: linear-gradient(rgba(0,0,0,0.4), transparent), url(https://images.un
   border-radius: 15px;
 }
 
-.button {
+button {
+  margin-top: -25px;
   border-radius: 3rem;
   color: var(--white-text);
   font-size: 1.2rem;
@@ -180,6 +173,16 @@ background: linear-gradient(rgba(0,0,0,0.4), transparent), url(https://images.un
   background-color: rgba(174, 58, 180, 0.3);
   width: 50%;
   height: 3rem;
+}
+
+input {
+  letter-spacing: 0.5px;
+  font-family: "Poppins", sans-serif;
+  border-radius: 1rem;
+}
+
+:host ::ng-deep .p-password-input {
+  border-radius: 1rem;
 }
 
 .networks {

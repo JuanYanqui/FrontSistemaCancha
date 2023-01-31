@@ -11,6 +11,7 @@ import { UsuarioService } from '../../services/usuario.service';
   styleUrls: ['./sidebar-empresa-admin.component.css']
 })
 export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
+  
   items: MenuItem[] | any;
   idUsuario: any;
   nombreUsuario: any;
@@ -35,9 +36,9 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
     private personalCargoService: PersonalCargoService,
     private usuarioService: UsuarioService,
     private router: Router,
-    
 
-  ) { 
+
+  ) {
     {
       _CargarScripts.carga(["script"])
     }
@@ -60,7 +61,7 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
         if (data != null) {
           this.isLogin = true;
 
-          this.nombreUsuario = data.persona?.nombres + ' ' + data.persona?.apellidos;
+          this.nombreUsuario = data.persona?.nombre + ' ' + data.persona?.apellido;
           this.nombreRol = data.rol?.nombre
           console.log("Found the user => " + this.nombreFoto);
 
@@ -149,7 +150,7 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
     this.displayMaximizable = true;
   }
 
-   cerrarSesion() {
+  cerrarSesion() {
     sessionStorage.removeItem('productosPedido');
     localStorage.removeItem('idUsuario');
     location.replace('/login-usr');

@@ -96,8 +96,8 @@ body {
 
 .nav-masthead .nav-link:hover,
 .nav-masthead .nav-link:focus {
-    color: #333;
-  border-bottom-color:rgb(24, 188, 6);
+    color: #0df3a6;
+  border-bottom-color:rgb(13, 243, 166);
 }
 
 .nav-masthead .nav-link + .nav-link {
@@ -105,8 +105,8 @@ body {
 }
 
 .nav-masthead .active {
-  color: rgb(24, 188, 6);
-  border-bottom-color: rgb(24, 188, 6);
+  color: rgb(13, 243, 166);
+  border-bottom-color: rgb(13, 243, 166);
 }
 header{
     height: auto;

@@ -34,12 +34,17 @@ export class RegisterUserComponent {
     'Masculino', 'Femenino', 'Otro'
   ];
 
+  fecha: string = '';
+
   blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
   valCorreo: RegExp = /^[^<>*!$%^=\s+?`\|{}[~"']+$/
 
   flapersona: boolean = true;
 
-  constructor(private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private empresaService: EmpresaService, private router: Router) { }
+  constructor(private fotoService: FotoService, private toastr: ToastrService,
+    private personaService: PersonaService, private usuarioService: UsuarioService,
+    private rolService: RolesService, private empresaService: EmpresaService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.persona.genero = 'Genero';
@@ -83,6 +88,20 @@ export class RegisterUserComponent {
     )
   }
 
+  formatDate(date: string) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
   buscarPorCedula() {
 
     if (this.persona.cedula != null && this.persona.cedula != '') {
@@ -93,16 +112,17 @@ export class RegisterUserComponent {
 
             this.flapersona = false;
 
-            this.persona.apellidos = data.apellidos;
+
+            this.persona.apellido = data.apellido;
             this.persona.cedula = data.cedula;
             this.persona.celular = data.celular;
-            this.persona.correo = data.correo;
+            this.persona.email = data.email;
             this.persona.direccion = data.direccion;
             this.persona.genero = data.genero;
             this.persona.idPersona = data.idPersona;
-            this.persona.nombres = data.nombres;
+            this.persona.nombre = data.nombre;
             this.persona.telefono = data.telefono;
-            this.persona.fechaNacimiento = data.fechaNacimiento;
+            this.persona.fecha_nacimiento = data.fecha_nacimiento;
           } else if (this.persona.cedula?.length == 10) {
             this.flapersona = true;
 
@@ -116,20 +136,12 @@ export class RegisterUserComponent {
 
   }
 
-  resetRegistro() {
-    this.persona.cedula = '';
-    this.file = null;
-    // this.productoForm.patchValue({ categoria: '', proveedor: '' });
-  }
-
   registrarUsuario() {
 
     //this.persona.genero = this.genero.gen;
 
     this.usuario.estado = true;
-    this.usuario.empresa = this.empresa;
     this.usuario.rol = this.rol;
-    this.usuario.foto = this.nombre_orignal;
 
     if (this.flapersona) {
 
@@ -146,7 +158,6 @@ export class RegisterUserComponent {
                   result => {
                     console.log(data);
                     this.cargarImagen();
-                    this.resetRegistro();
                     this.toastr.success('Registro de usuario exitoso', 'Exitoso!');
                     console.log("es la 1");
                   }
@@ -166,7 +177,6 @@ export class RegisterUserComponent {
       this.usuarioService.postUsuario(this.usuario).subscribe(
         data => {
           console.log(data);
-          this.resetRegistro();
           this.toastr.success('Registro de usuario exitoso', 'Exitoso!');
           console.log("es la 2");
         }

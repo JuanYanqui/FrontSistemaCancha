@@ -6,6 +6,10 @@ const routes: Routes = [
     path: 'register-empresa',
     loadChildren: () => import("./register-empresa/register-empresa.module").then(m => m.RegisterEmpresaModule)
   },
+  {
+    path: 'edit-empresa',
+    loadChildren: () => import("./edit-empresa/edit-empresa.module").then(m => m.EditEmpresaModule)
+  },
 ];
 
 @NgModule({

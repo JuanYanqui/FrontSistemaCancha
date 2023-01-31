@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from 'src/app/core/models/usuario';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -35,10 +36,14 @@ export class LoginComponent {
 
           if (data.estado) {
             this.usuario.idUsuario = data.idUsuario;
-            this.user = data.foto;
-            this.empresa = data.empresa?.logo;
+            // this.user = data.foto;
+            // this.empresa = data.empresa?.logo;
 
-            this.toastr.success("Bienvenido " + data.username, "Login");
+            Swal.fire({
+              icon: 'success',
+              title: 'Login',
+              text: 'Bienvenido'+ data.username,
+            })
             localStorage.setItem('idUsuario', String(this.usuario.idUsuario));
             localStorage.setItem('nameImagen', String(this.user));
             localStorage.setItem('nameLogo', String(this.empresa));
@@ -50,7 +55,11 @@ export class LoginComponent {
           }
 
         } else {
-          this.toastr.error("USERNAME O PASSWORD INCORRECTOS!", "Login");
+          Swal.fire({
+            icon: 'error',
+            title: 'Login',
+            text: 'USERNAME O PASSWORD INCORRECTOS!',
+          })
           this.usuario = new Usuario;
 
         }

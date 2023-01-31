@@ -222,13 +222,23 @@
                                 <label for="float-input">País</label>
                             </span>
                         </div>
-                        <div class="p-col-3 p-md-4">
-                            <p-dropdown [options]="provincias" [(ngModel)]="provincia"
-                                placeholder="{{empresa.provincia}}" optionLabel="pro" [showClear]="true"></p-dropdown>
+                        <div class="content-select p-col-3 p-md-4">
+                            <span class="p-float-label">
+                                <select (click)="changeCountry($event)" [(ngModel)]="empresa.provincia">
+                                    <option *ngFor="let country of Countries" name="provincia">
+                                        {{country.name}}
+                                    </option>
+                                </select>
+                            </span>
                         </div>
-                        <div class="p-col-3 p-md-4">
-                            <p-dropdown [options]="ciudades" [(ngModel)]="ciudad" placeholder="{{empresa.ciudad}}"
-                                optionLabel="ciu" [showClear]="true"></p-dropdown>
+                        <div class="content-select p-col-3 p-md-4">
+                            <span class="p-float-label">
+                                <select (valueChange)="changeState($event)" [(ngModel)]="empresa.ciudad">
+                                    <option *ngFor="let state of states" name="ciudad">{{
+                                        state.name
+                                        }}</option>
+                                </select>
+                            </span>
                         </div>
                         <div class="p-col-3 p-md-4">
                             <span class="p-float-label">
@@ -254,7 +264,7 @@
                         </div>
                         <div class="p-col-3 p-md-4">
                             <span class="p-float-label">
-                                <p-inputMask mask=" 09-9999-9999" [(ngModel)]="empresa.celular"
+                                <p-inputMask mask=" 0999999999" [(ngModel)]="empresa.celular"
                                     placeholder=""></p-inputMask>
                                 <label for="float-input">Celular</label>
                             </span>

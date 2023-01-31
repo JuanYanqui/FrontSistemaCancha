@@ -20,7 +20,7 @@
 
 .home-section{
   position: relative;
-  background: linear-gradient(to right,rgb(69, 235, 182),30%, #022543);
+  background: linear-gradient(to right,rgb(119, 129, 128),30%, #299bfe);
   min-height: 87vh;
   width: calc(100% - 150px);
   left: 130px;

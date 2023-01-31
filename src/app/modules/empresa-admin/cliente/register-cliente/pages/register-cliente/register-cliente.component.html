@@ -1,0 +1,137 @@
+<div class="container">
+    <mat-tab-group [selectedIndex]="0" #tabGroup preserveContent>
+
+        <mat-tab routerLink="../register-cliente" routerLinkActive="active" label="Registro de Clientes">
+            <div class="content">
+
+                <p-panel id="panelregempresa" header="Registro Clientes">
+                    <div class="panel over overflow-auto p-grid p-fluid">
+
+                        <div class="tab-pane active" id="registrar">
+                            <h5 class="card-title">Registrar</h5>
+                            <main>
+                                <div class="row g-5">
+                                    <div class="col-12">
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <label for="name" class="form-label">Cedula</label>
+                                                <!-- <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search" (click)="buscarPorCedula()"></p-button> -->
+                                                <input name="cedula" ngModel type="text" class="form-control"
+                                                    id="cedula" [(ngModel)]="persona.cedula" [pKeyFilter]="'int'"
+                                                    maxlength="10" minlength="10" (ngModelChange)="buscarPorCedula()">
+
+                                                <div *ngIf="this.cedula===1">
+                                                    <div class="alertaCedula">
+                                                        <p class="text-danger">*Complete el campo requerido de la
+                                                            cedula</p>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Valid first name is required.
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="zip" class="form-label">Nombres</label>
+                                                <input name="nombres" [(ngModel)]="persona.nombre" type="text"
+                                                    class="form-control" id="nombres" required>
+                                                <div *ngIf="this.nombres===1">
+                                                    <div class="alertaNombres">
+                                                        <p class="text-danger">*Complete el campo requerido del
+                                                            nombre</p>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Ingrese el nombre del cliente
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="zip" class="form-label">Apellidos</label>
+                                                <input name="apellidos" [(ngModel)]="persona.apellido" type="text"
+                                                    class="form-control" id="apellidos" required>
+                                                <div class="invalid-feedback">
+                                                    Ingrese los apellidos del cliente
+                                                </div>
+                                            </div>
+
+                                            <!-- distribuidor -->
+                                            <div class="col-md-4">
+                                                <label for="zip" class="form-label">Correo</label>
+                                                <input mask="user@gmail.com" name="correo" [(ngModel)]="persona.email"
+                                                    type="email" class="form-control" id="correo" required>
+                                                <div class="invalid-feedback">
+                                                    Ingrese el correo del cliente
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="zip" class="form-label">Telefono</label>
+                                                <p-inputMask id="float-input" mask="09-9999999"
+                                                    [(ngModel)]="persona.telefono" placeholder=""></p-inputMask>
+                                                <div class="invalid-feedback">
+                                                    Ingrese el telefono del cliente
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="zip" class="form-label">Celular</label>
+                                                <p-inputMask mask=" 0999999999" [(ngModel)]="persona.celular"
+                                                    placeholder=""></p-inputMask>
+                                                <div class="invalid-feedback">
+                                                    Ingrese el celular del cliente
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="zip" class="form-label">Username</label>
+                                                <input name="username" [(ngModel)]="usuario.username" type="text"
+                                                    class="form-control" id="username" required>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="zip" class="form-label">Password</label>
+                                                <p-password [toggleMask]="true" [(ngModel)]="usuario.password"
+                                                    [pKeyFilter]="'alphanum'" maxlength="15" minlength="6"></p-password>
+                                                <!-- <input name="password" [(ngModel)]="usuario.password" type="password" class="form-control" id="password" required> -->
+                                            </div>
+                                        </div>
+                                        <!-- descripcion -->
+                                        <div class="form-floating mt-3">
+                                            <textarea name="direccion" [(ngModel)]="persona.direccion"
+                                                class="form-control" placeholder="Dirección" id="floatingTextarea2"
+                                                style="height: 100px" required></textarea>
+                                            <label for="floatingTextarea2">Dirección</label>
+                                            <div class="invalid-feedback">
+                                                Ingrese la dirección del cliente
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mt-3">
+                                            <!-- <textarea name="observacion" [(ngModel)]="clientes.observaciones"
+                                                class="form-control" placeholder="Observaciones" id="floatingTextarea2"
+                                                style="height: 100px"></textarea>
+                                            <label for="floatingTextarea2">Observación<span class="text-muted">
+                                                    (Optional)</span></label> -->
+                                        </div>
+                                        <hr class="my-4">
+                                        <div class="btn-group col-12 " role="group"
+                                            aria-label="Basic mixed styles example">
+                                            <button type="button " class="w-100 m-lg-1 btn btn-primary"
+                                                (click)="guardarDatos()" type="submit">Guardar Cliente</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+
+                    </div>
+                </p-panel>
+
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Listado Clientes" routerLink="../list-cliente" routerLinkActive="active">
+
+            <app-list-cliente></app-list-cliente>
+
+        </mat-tab>
+
+    </mat-tab-group>
+
+</div>

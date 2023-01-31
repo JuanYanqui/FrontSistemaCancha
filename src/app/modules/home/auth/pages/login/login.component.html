@@ -6,17 +6,30 @@
       <div class="card">
         <div class="top-row background-top-row"> <img
             src="../../../../../../assets/img/pelota.gif" width="130px"
-            height="110px"> </div>
+            height="px"> </div>
 
         <div class="content"> <i class="fa fa-lock" aria-hidden="true"></i>
           <h1>Iniciar Sesion</h1>
-          <h1>ServerGame</h1>
-          <p>Cedula</p>
-          <input type="text" class="text" name="" id="">
-          <p>Contraseña</p>
-          <input type="password" class="text" name="" id="">
-          <a href="#" id="btns" class="btn btn-lg btn-secondary fw-bold border-white " (click)="login()">Iniciar
-            Sesion</a>
+          <h1>ReserverGame</h1>
+              <label for="username1">Username</label>
+              <input id="username1" type="username" aria-describedby="username1-help" [(ngModel)]="usuario.username"
+                [pKeyFilter]="'alphanum'" maxlength="30" minlength="3" pInputText />
+
+              <label for="username1">Password</label>
+              <p-password [toggleMask]="true" [feedback]="false" [(ngModel)]="usuario.password"
+                [pKeyFilter]="'alphanum'" maxlength="15" minlength="6" pInputText></p-password>
+                
+                <p></p>
+
+              <button pButton pRipple type="button" label="Ingresar" icon="pi pi-check" iconPos="right"
+                class="p-button-rounded p-button-primary" (click)="login()"></button>
+        
+            <div style="text-align: center;">
+              <label>Aun no tienes cuenta? <a class="py-2 d-none d-md-inline-block" routerLink="../register-usr"
+                  routerLinkActive="false">registrate aqui</a></label>
+            </div>
+        
+
         </div>
         <div class="networks background-top-row"> <i class="fa fa-facebook" aria-hidden="true"></i> <i
             class="fa fa-google" aria-hidden="true"></i> <i class="fa fa-instagram" aria-hidden="true"></i>

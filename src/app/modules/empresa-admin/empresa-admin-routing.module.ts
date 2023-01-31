@@ -3,6 +3,37 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'reportes',
+    loadChildren: () => import("./reportes/reportes.module").then(m => m.ReportesModule)
+  },
+  {
+    path: 'venta',
+    loadChildren: () => import("./venta/venta.module").then(m => m.VentaModule)
+  },
+  {
+    path: 'personal',
+    loadChildren: () => import("./personal/personal.module").then(m => m.PersonalModule)
+  },
+
+  {
+    path: 'cliente',
+    loadChildren: () => import("./cliente/cliente.module").then(m => m.ClienteModule)
+  },
+  
+  {
+    path: 'pedidos',
+    loadChildren: () => import("./pedidos/pedidos.module").then(m => m.PedidosModule)
+  },
+
+  {
+    path: 'gestionpedidos',
+    loadChildren: () => import("./gestion-pedido/gestion-pedido.module").then(m => m.GestionPedidoModule)
+  },
+  {
+    path: 'proovedor',
+    loadChildren: () => import("./proovedor/proovedor.module").then(m => m.ProovedorModule)
+  },
+  {
     path: 'bienvenida',
     loadChildren: () => import("./bienvenida-admin-emp/bienvenida-admin-emp.module").then(m => m.BienvenidaAdminEmpModule)
   },

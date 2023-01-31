@@ -1,0 +1,193 @@
+<div class="container">
+    <mat-tab-group preserveContent>
+        <mat-tab label="Registro de Proveedor">
+            <div class="content">
+                <!-- COPY NEW -->
+                <p-panel class="panel" header="Registro Proveedor">
+                    <div class="panel over overflow-auto p-grid p-fluid">
+                        <!-- COPY -->
+                        <div class="row g-5">
+                            <div class="col-12">
+                                <form class="needs-validation" novalidate>
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <label for="name" class="form-label">Ruc</label>
+                                            <input maxlength="13" name="ruc" [(ngModel)]="proveedor.ruc" type="text"
+                                                [pKeyFilter]="blockSpecialCedula" class="form-control" id="ruc"
+                                                required />
+                                            <div class="invalid-feedback">
+                                                Ingrese el RUC del proveedor.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="zip" class="form-label">Nombre
+                                                Proveedor</label>
+                                            <input [(ngModel)]="proveedor.nombreProveedor" [pKeyFilter]="blockSpecial"
+                                                name="nombreProveedor" type="text" class="form-control"
+                                                id="nombreProveedor" required />
+                                            <div class="invalid-feedback">
+                                                Ingrese el nombre del proveedor.
+                                            </div>
+                                        </div>
+
+                                        <!-- distribuidor -->
+                                        <div class="col-md-4">
+                                            <label for="zip" class="form-label">Correo</label>
+                                            <input [(ngModel)]="proveedor.emailProveedor" [pKeyFilter]="blockSpecial"
+                                                name="correo" type="text" class="form-control" id="correo" required />
+                                            <div class="invalid-feedback">
+                                                Ingrese el correo del proveedor
+                                            </div>
+                                        </div>
+                                        <!-- distribuidor -->
+                                        <div class="col-md-4">
+                                            <label for="zip" class="form-label">Pagina web</label>
+                                            <input [(ngModel)]="proveedor.paginaWeb" [pKeyFilter]="blockSpecial"
+                                                name="paginaweb" type="text" class="form-control" id="paginaweb"
+                                                required />
+                                            <div class="invalid-feedback">
+                                                Ingrese la pagina web del proveedor
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="zip" class="form-label">Telefono</label>
+                                            <input maxlength="7" [(ngModel)]="proveedor.telefonoProveedor"
+                                                [pKeyFilter]="blockSpecialCedula" name="telefono" type="text"
+                                                class="form-control" id="telefono" required />
+                                            <div class="invalid-feedback">
+                                                Ingrese el telefono del telefono
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="zip" class="form-label">Celular</label>
+
+                                            <input maxlength="10" [(ngModel)]="proveedor.celularProveedor"
+                                                [pKeyFilter]="blockSpecialCedula" name="celular" type="text"
+                                                class="form-control" id="celular" required />
+                                            <div class="invalid-feedback">
+                                                Ingrese el celular del celular
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <hr />
+                                    <div class="row">
+                                        <h4 style="text-align: center">
+                                            Cuenta bancaria
+                                            <button pButton type="button" class="p-button-rounded p-button-primary"
+                                                icon="pi pi-plus" (click)="agregarCuentaBancaria()"></button>
+                                        </h4>
+                                        <div class="col">
+                                            <div class="p-col-3 p-md-4">
+                                                <!-- <label for="float-input" class="form-label">Tipo de
+                                                    banco</label> -->
+                                                <span class="p-float-label">
+                                                    <select name="tipoBanco" class="form-control" id="tipoBanco"
+                                                        [(ngModel)]="nombreBanco">
+                                                        <option disabled selected>Tipo de Banco
+                                                        </option>
+                                                        <option value="Pichincha">Pichincha</option>
+                                                        <option value="Jep">Jep</option>
+                                                        <option value="Banco de Guayauil">Banco de
+                                                            Guayaquil</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                            <div class="p-col-3 p-md-4">
+                                                <!-- <label for="float-input" class="form-label">Tipo de
+                                                    cuenta</label> -->
+                                                <span class="p-float-label">
+                                                    <select [(ngModel)]="tipoCuenta" name="tipoCuenta"
+                                                        class="form-control" id="tipoCuenta">
+                                                        <option value="tipo Cuenta">Tipo de Cuenta</option>
+                                                        <option value="Corriente">Corriente</option>
+                                                        <option value="Ahorro">Ahorro</option>
+                                                    </select>
+
+                                                </span>
+                                            </div>
+                                            <div class="p-col-3 p-md-4">
+                                                <!-- <label for="float-input" class="form-label">Numero de
+                                                    cuenta</label> -->
+                                                <span class="p-float-label">
+                                                    <input maxlength="20" [(ngModel)]="numeroCuenta"
+                                                        [pKeyFilter]="blockSpecialCedula" name="numeroCuenta"
+                                                        type="text" class="form-control" placeholder="Número de Cuenta"
+                                                        id="numeroCuenta" required />
+                                                </span>
+                                            </div>
+                                            <div class="p-col-3 p-md-4">
+                                                <!-- <label for="float-input" class="form-label">Nombre del
+                                                    titular</label> -->
+                                                <span class="p-float-label">
+                                                    <input [(ngModel)]="nombretitular" [pKeyFilter]="blockSpecial"
+                                                        name="nombrestitular" type="text"
+                                                        placeholder="Nombre del titular" class="form-control"
+                                                        id="nombrestitular" required />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-col-3 p-md-4">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr class="table-dark">
+                                                            <th scope="col">Nº</th>
+                                                            <th scope="col" style="text-align: center">
+                                                                Información de la cuenta
+                                                            </th>
+                                                            <th scope="col">Quitar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor=" let cuenta of listBancos; let i = index">
+                                                            <th>{{ i + 1 }}</th>
+                                                            <td>{{ cuenta }}</td>
+                                                            <td>
+                                                                <button pButton type="button"
+                                                                    class="p-button-rounded p-button-danger"
+                                                                    icon="pi pi-times"
+                                                                    (click)="quitarCuentaBancaria(i)"></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <hr />
+                                    <div class="form-floating mt-3">
+                                        <textarea name="observaciones" [(ngModel)]="proveedor.observaciones"
+                                            class="form-control" placeholder="Observaciones" id="floatingTextarea2"
+                                            style="height: 100px" required></textarea>
+                                        <label for="floatingTextarea2">Observaciones</label>
+                                        <div class="invalid-feedback">
+                                            Ingrese las Observaciones del proveedor
+                                        </div>
+                                    </div>
+                                    <hr class="my-4" />
+                                    <div class="p-col-12 p-md-4">
+                                        <button id="btnreg" pButton pRipple type="button" label="Registrar Proveedor"
+                                            icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
+                                            (click)="crearProveedor()"></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COPY -->
+                </p-panel>
+                <!-- COPY NEW-->
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Listado Proveedores" routerLink="../list-empresa" routerLinkActive="active">
+            <app-list-proveedor> </app-list-proveedor>
+        </mat-tab>
+
+    </mat-tab-group>
+
+</div>

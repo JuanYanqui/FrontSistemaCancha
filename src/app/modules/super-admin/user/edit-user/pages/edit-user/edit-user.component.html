@@ -13,7 +13,7 @@
                                 <i class="pi pi-search"></i>
                                 <input pInputText type="text"
                                     (input)="dt3.filterGlobal($any($event.target).value, 'contains')"
-                                    placeholder="Global search" />
+                                    placeholder="Ingrese Nombre de Usuario a Buscar" />
                             </span>
                         </div>
                     </ng-template>
@@ -124,28 +124,28 @@
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.nombres"
+                                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.nombre"
                                     [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                 <label for="float-input">Nombres</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.apellidos"
+                                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.apellido"
                                     [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                 <label for="float-input">Apellidos</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.correo"
+                                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.email"
                                     [pKeyFilter]="valCorreo" maxlength="30" minlength="6" pInputText>
                                 <label for="float-input">Correo</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="date" [(ngModel)]="persona.fechaNacimiento" pInputText>
+                                <input id="float-input" type="date" [(ngModel)]="persona.fecha_nacimiento" pInputText>
                                 <label for="float-input">Fecha de nacimiento</label>
                             </span>
                         </div>
@@ -171,7 +171,7 @@
                         </div>
                         <div class="p-col-3 p-md-4">
                             <span class="p-float-label">
-                                <p-inputMask mask=" 09-9999-9999" [(ngModel)]="persona.celular"
+                                <p-inputMask mask=" 0999999999" [(ngModel)]="persona.celular"
                                     placeholder=""></p-inputMask>
                                 <label for="float-input">Celular</label>
                             </span>
@@ -212,13 +212,3 @@
     </p-dialog>
 
 </div>
-
-
-
-
-
-
-
-
-
-<!--OTRO DISEÑO HACIENDO USO DEL FORMULARIO DEL PROYECTO ORIGINAL-->

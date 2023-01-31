@@ -1,282 +1,222 @@
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8" />
 
-    <!-- css de los iconos  -->
-    <link
-      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <div class="over overflow-auto sidebar">
-      <div class="logo-details">
-        <div class="logo_name">
-          <img
-            src="https://www.pngall.com/wp-content/uploads/5/Infinity-Symbol-PNG-Free-Image.png"
-            width="40px"
-            height="20px"
-          />
+<head>
+  <meta charset="UTF-8" />
 
-          TechSoft
-        </div>
-        <i class="bx bx-menu" id="btn"></i>
+  <!-- css de los iconos  -->
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div class="over overflow-auto sidebar">
+    <div class="logo-details">
+      <div class="logo_name" [hidden]="!isLogin" style="margin-right: 20px;">
+
+
+        <img class="circular--square" [src]="'http://localhost:5000/image/images/' + nombreLogo"
+          style="margin: 0 auto;  width: 30px; height: 30px;">
+
+        TechSoft
       </div>
-      <ul class="nav-list">
-        <li>
-          <i class="bx bx-search"></i>
-          <input type="text" placeholder="Search..." />
-          <span class="tooltip">Busqueda</span>
-        </li>
-        <li>
-          <a href="#" routerLink="/empresa-adm/bienvenida" >
-            <i class="bx bx-building-house"></i>
-            <span class="links_name">Bienvenida</span>
-          </a>
-          <span class="tooltip">Bienvenida</span>
-        </li>
-
-        <!-- ADMIN EMPRESA -->
-
-        <li>
-          <a href="#" routerLink="/empresa-adm/dashboard-emp-admin">
-            <i class="bx bx-grid-alt"></i>
-            <span class="links_name">Dashboard</span>
-          </a>
-          <span class="tooltip">Dashboard</span>
-        </li>
-
-        <li>
-          <a 
-          href="#"
-          routerLink="/empresa-adm/menu-clientes-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isVenta'
-          >
-            <i class="bx bx-user"></i>
-            <span class="links_name">Clientes</span>
-          </a>
-          <span class="tooltip">Clientes</span>
-        </li>
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-proveedores-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isGerente'
-          >
-            <i class="bx bx-task"></i>
-            <span class="links_name">Proveedores</span>
-          </a>
-          <span class="tooltip">Proveedores</span>
-        </li>
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-bodegas-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isBodega'
-          >
-            <i class="bx bx-sitemap"></i>
-            <span class="links_name">Bodegas</span>
-          </a>
-          <span class="tooltip">Bodegas</span>
-        </li>
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-productos-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isBodega'
-          >
-            <i class="bx bx-coffee-togo"></i>
-            <span class="links_name">Productos</span>
-          </a>
-          <span class="tooltip">Productos</span>
-        </li>
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-personal-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isGerente'
-          >
-            <i class="bx bx-walk"></i>
-            <span class="links_name">Personal</span>
-          </a>
-          <span class="tooltip">Personal</span>
-        </li>
-
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-compra-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isVenta'
-          >
-            <i class="bx bx-shopping-bag"></i>
-            <span class="links_name">Compra</span>
-          </a>
-          <span class="tooltip">Compra</span>
-        </li>
-
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-controlinv-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isBodega'
-          >
-            <i class="bx bx-list-check"></i>
-            <span class="links_name">Control de inventario</span>
-          </a>
-          <span class="tooltip">Control de inventario</span>
-        </li>
-
-        <li>
-          <a
-          href="#"
-          class="nav-link px-2 text-white"
-          routerLink="/empresa-adm/gestionpedidos/list-gestion-pedidos"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isVenta'
-          >
-            <i class="bx bx-list-ol"></i>
-            <span class="links_name">Pedidos</span>
-          </a>
-          <span class="tooltip">Pedidos</span>
-        </li>
-
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-ventas-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isVenta'
-          >
-            <i class="bx bx-cart-alt"></i>
-            <span class="links_name">Venta</span>
-          </a>
-          <span class="tooltip">Venta</span>
-        </li>
-
-        <li>
-          <a
-          href="#"
-          routerLink="/empresa-adm/menu-reportes-emp"
-          routerLinkActive="active"
-          *ngIf = 'isClientAdmin && isVenta'
-          >
-            <i class="bx bx-pie-chart-alt-2"></i>
-            <span class="links_name">Reportes</span>
-          </a>
-          <span class="tooltip">Reportes</span>
-        </li>
-
-        <!-- ADMIN EMPRESA -->
-
-        <!-- CLIENTES -->
-
-        <li>
-          <a
-          href="#"
-          class="nav-link px-2 text-white"
-          routerLink="/cliente/cliente-producto/catalogo-productos"
-          routerLinkActive="active"
-          *ngIf = 'isClient'
-          >
-            <i class="bx bx-pie-chart-alt-2"></i>
-            <span class="links_name">Catalogo de Producto</span>
-          </a>
-          <span class="tooltip">Catalogo de Producto</span>
-        </li>
-
-        <li>
-          <a
-          href="#"
-          routerLink="/cliente/cliente-pedido/register-pedido"
-          routerLinkActive="active"
-          *ngIf = 'isClient'
-          >
-            <i class="bx bx-pie-chart-alt-2"></i>
-            <span class="links_name">Pedidos(cliente)</span>
-          </a>
-          <span class="tooltip">Pedidos(cliente)</span>
-        </li>
-
-         <!-- CLIENTES -->
-
-        <!-- ADMIN SUPER -->
-
-        <li>
-          <a
-          href="#"
-          routerLink="/sup-admin/menu-spradmin-emp"
-          routerLinkActive="active"
-          *ngIf = 'isSuperAdmin'
-          >
-            <i class="bx bx-pie-chart-alt-2"></i>
-            <span class="links_name">Empresas</span>
-          </a>
-          <span class="tooltip">Empresas</span>
-        </li>
-
-        <li>
-          <a
-          href="#"
-          routerLink="/sup-admin/menu-spradmin-usr"
-          routerLinkActive="active"
-          *ngIf = 'isSuperAdmin'
-          >
-            <i class="bx bx-pie-chart-alt-2"></i>
-            <span class="links_name">Usuario</span>
-          </a>
-          <span class="tooltip">Usuarios</span>
-        </li>
-
-        <!-- ADMIN SUPER -->
-
-        <!-- INVITADO -->
-
-        <li>
-          <a
-          href="#"
-          routerLink="/invitado/catalogo/catalogo-emp"
-          routerLinkActive="active"
-          *ngIf = 'isPublic'
-          >
-            <i class="bx bx-pie-chart-alt-2"></i>
-            <span class="links_name">Catalogo de Empresas</span>
-          </a>
-          <span class="tooltip">Catalogo de Empresas</span>
-        </li>
-
-        <li>
-          <a href="#">
-            <i class="bx bx-cog"></i>
-            <span class="links_name">Configuraciones</span>
-          </a>
-          <span class="tooltip">Configuraciones</span>
-        </li>
-
-        <li class="profile">
-          <div class="profile-details">
-            <!--<img src="profile.jpg" alt="profileImg">-->
-            <div class="name_job">
-              <div class="name">{{ nombreUsuario }}</div>
-              <div class="job">{{ nombreRol}}</div>
-            </div>
-          </div>
-          <button
-            class="bx bx-log-out"
-            id="log_out"
-            (click)="cerrarSesion()"
-          ></button>
-        </li>
-      </ul>
+      <i class="bx bx-menu" id="btn"></i>
     </div>
-  </body>
+    <ul class="nav-list">
+      <li>
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Search..." />
+        <span class="tooltip">Busqueda</span>
+      </li>
+      <li>
+        <a href="#" routerLink="/empresa-adm/bienvenida">
+          <i class="bx bx-building-house"></i>
+          <span class="links_name">Bienvenida</span>
+        </a>
+        <span class="tooltip">Bienvenida</span>
+      </li>
+
+      <!-- ADMIN EMPRESA -->
+
+
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-clientes-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isVenta'>
+          <i class="bx bx-user"></i>
+          <span class="links_name">Clientes</span>
+        </a>
+        <span class="tooltip">Clientes</span>
+      </li>
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-proveedores-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isGerente'>
+          <i class="bx bx-task"></i>
+          <span class="links_name">Proveedores</span>
+        </a>
+        <span class="tooltip">Proveedores</span>
+      </li>
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-bodegas-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isBodega'>
+          <i class="bx bx-sitemap"></i>
+          <span class="links_name">Bodegas</span>
+        </a>
+        <span class="tooltip">Bodegas</span>
+      </li>
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-productos-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isBodega'>
+          <i class="bx bx-coffee-togo"></i>
+          <span class="links_name">Productos</span>
+        </a>
+        <span class="tooltip">Productos</span>
+      </li>
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-personal-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isGerente'>
+          <i class="bx bx-walk"></i>
+          <span class="links_name">Personal</span>
+        </a>
+        <span class="tooltip">Personal</span>
+      </li>
+
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-compra-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isVenta'>
+          <i class="bx bx-shopping-bag"></i>
+          <span class="links_name">Compra</span>
+        </a>
+        <span class="tooltip">Compra</span>
+      </li>
+
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-controlinv-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isBodega'>
+          <i class="bx bx-list-check"></i>
+          <span class="links_name">Control de inventario</span>
+        </a>
+        <span class="tooltip">Control de inventario</span>
+      </li>
+
+      <li>
+        <a href="#" class="nav-link px-2 text-white" routerLink="/empresa-adm/gestionpedidos/list-gestion-pedidos"
+          routerLinkActive="active" *ngIf='isClientAdmin && isVenta'>
+          <i class="bx bx-list-ol"></i>
+          <span class="links_name">Pedidos</span>
+        </a>
+        <span class="tooltip">Pedidos</span>
+      </li>
+
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-ventas-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isVenta'>
+          <i class="bx bx-cart-alt"></i>
+          <span class="links_name">Venta</span>
+        </a>
+        <span class="tooltip">Venta</span>
+      </li>
+
+      <li>
+        <a href="#" routerLink="/empresa-adm/menu-reportes-emp" routerLinkActive="active"
+          *ngIf='isClientAdmin && isVenta'>
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Reportes</span>
+        </a>
+        <span class="tooltip">Reportes</span>
+      </li>
+
+      <!-- ADMIN EMPRESA -->
+
+      <!-- CLIENTES -->
+
+      <li>
+        <a href="#" routerLink="/empresa-adm/dashboard-emp-admin" routerLinkActive="active" *ngIf='isClientAdmin'>
+          <i class="bx bx-grid-alt"></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+      </li>
+
+
+      <li>
+        <a href="#" class="nav-link px-2 text-white" routerLink="/cliente/cliente-producto/catalogo-productos"
+          routerLinkActive="active" *ngIf='isClient'>
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Catalogo de Producto</span>
+        </a>
+        <span class="tooltip">Catalogo de Producto</span>
+      </li>
+
+      <li>
+        <a href="#" routerLink="/cliente/cliente-pedido/register-pedido" routerLinkActive="active" *ngIf='isClient'>
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Pedidos(cliente)</span>
+        </a>
+        <span class="tooltip">Pedidos(cliente)</span>
+      </li>
+
+      <!-- CLIENTES -->
+
+      <!-- ADMIN SUPER -->
+
+      <li>
+        <a href="#" routerLink="/sup-admin/menu-spradmin-emp" routerLinkActive="active" *ngIf='isSuperAdmin'>
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Empresas</span>
+        </a>
+        <span class="tooltip">Empresas</span>
+      </li>
+
+      <li>
+        <a href="#" routerLink="/sup-admin/menu-spradmin-usr" routerLinkActive="active" *ngIf='isSuperAdmin'>
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Usuario</span>
+        </a>
+        <span class="tooltip">Usuarios</span>
+      </li>
+
+      <!-- ADMIN SUPER -->
+
+      <!-- INVITADO -->
+
+      <li>
+        <a href="#" routerLink="/invitado/catalogo/catalogo-emp" routerLinkActive="active" *ngIf='isPublic'>
+          <i class="bx bx-pie-chart-alt-2"></i>
+          <span class="links_name">Catalogo de Empresas</span>
+        </a>
+        <span class="tooltip">Catalogo de Empresas</span>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="bx bx-cog"></i>
+          <span class="links_name">Configuraciones</span>
+        </a>
+        <span class="tooltip">Configuraciones</span>
+      </li>
+
+      <li class="profile">
+        <div class="profile-details">
+          <!--<img src="profile.jpg" alt="profileImg">-->
+
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="true">
+            <div class="text-left">
+              <img class="circular--square" [src]="'http://localhost:5000/image/images/' + nombreFoto">
+              {{ nombreUsuario }}
+            </div>
+
+          </button>
+
+        </div>
+        <button class="bx bx-log-out" id="log_out" (click)="cerrarSesion()"></button>
+      </li>
+    </ul>
+  </div>
+   
+</body>
+
 </html>

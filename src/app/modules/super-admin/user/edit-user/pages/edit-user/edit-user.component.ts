@@ -21,6 +21,8 @@ export class EditUserComponent {
 
   genero: any;
 
+  fecha: string = '';
+
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario;
 
@@ -47,7 +49,6 @@ export class EditUserComponent {
           result => {
             let usuario = new Usuario;
             usuario.estado = result.estado;
-            usuario.empresa = result.empresa;
             usuario.idUsuario = result.idUsuario;
             usuario.password = result.password;
             usuario.persona = result.persona;
@@ -62,21 +63,36 @@ export class EditUserComponent {
     );
   }
 
+  formatDate(date: string) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
   editarUsuario(usuario: Usuario) {
+    
     this.displayEU = true;
 
-    this.persona.apellidos = usuario.persona?.apellidos;
-    this.persona.nombres = usuario.persona?.nombres;
+
+    this.persona.apellido = usuario.persona?.apellido;
+    this.persona.nombre = usuario.persona?.nombre;
     this.persona.celular = usuario.persona?.celular;
-    this.persona.correo = usuario.persona?.correo;
+    this.persona.email = usuario.persona?.email;
     this.persona.direccion = usuario.persona?.direccion;
-    this.persona.fechaNacimiento = usuario.persona?.fechaNacimiento;
+    this.persona.fecha_nacimiento = usuario.persona?.fecha_nacimiento;
     this.persona.genero = usuario.persona?.genero;
     this.persona.idPersona = usuario.persona?.idPersona;
     this.persona.telefono = usuario.persona?.telefono;
     this.persona.cedula = usuario.persona?.cedula;
 
-    this.usuario.empresa = usuario.empresa;
     this.usuario.rol = usuario.rol;
     this.usuario.estado = usuario.estado;
     this.usuario.idUsuario = usuario.idUsuario;

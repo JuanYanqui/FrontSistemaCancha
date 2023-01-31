@@ -14,58 +14,51 @@
                                             (ngModelChange)='buscarPorCedula()' pInputText required>
                                         <label for="float-input">Cédula</label>
                                     </span>
-                                    <!-- <div class="row">
-                                                    <div class="col-8">
-                                                        <span class="p-float-label">
-                                                            <input id="float-input" type="text" [(ngModel)]="persona.cedula" [pKeyFilter]="'int'" maxlength="10" minlength="10" pInputText required> 
-                                                            <label for="float-input">Cédula</label>
-                                                        </span>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search" (click)="buscarPorCedula()" style="float: right;"></p-button>
-                                                    </div>
-                                                </div>     -->
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="persona.nombres"
+                                        <input id="float-input" type="text" [(ngModel)]="persona.nombre"
                                             [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                         <label for="float-input">Nombres</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="persona.apellidos"
+                                        <input id="float-input" type="text" [(ngModel)]="persona.apellido"
                                             [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                         <label for="float-input">Apellidos</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="persona.correo"
+                                        <input id="float-input" type="text" [(ngModel)]="persona.email"
                                             [pKeyFilter]="valCorreo" maxlength="30" minlength="6" pInputText>
                                         <label for="float-input">Correo</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="date" [(ngModel)]="fechaNacimiento" pInputText>
+                                        <input id="float-input" type="date" [(ngModel)]="persona.fecha_nacimiento"
+                                            pInputText>
                                         <label for="float-input">Fecha de nacimiento</label>
                                     </span>
                                 </div>
                                 <div class="p-col-3 p-md-4">
-                                    <p-dropdown [options]="listaEmpresas" [(ngModel)]="empresa" placeholder="Empresa"
-                                        optionLabel="nombre" [filter]="true" [showClear]="true"></p-dropdown>
+                                    <p-dropdown [options]="listaEmpresas" appendTo="body" [(ngModel)]="empresa"
+                                        placeholder="Empresa" optionLabel="nombre" [filter]="true"
+                                        [showClear]="true"></p-dropdown>
                                 </div>
                                 <div class="p-col-3 p-md-4">
                                     <p-dropdown [options]="listaRoles" [(ngModel)]="rol" placeholder="Rol"
-                                        optionLabel="nombre" [filter]="true" [showClear]="true"></p-dropdown>
+                                        optionLabel="nombre" [filter]="true" [showClear]="true"
+                                        appendTo="body"></p-dropdown>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="p-col-3 p-md-4">
                                     <p-dropdown [options]="generos" [(ngModel)]="persona.genero"
-                                        placeholder="{{persona.genero}}" [showClear]="true"></p-dropdown>
+                                        placeholder="{{persona.genero}}" [disabled]="true"
+                                        [showClear]="true"></p-dropdown>
                                 </div>
                                 <div class="p-col-3 p-md-4">
                                     <span class="p-float-label">
@@ -83,7 +76,7 @@
                                 </div>
                                 <div class="p-col-3 p-md-4">
                                     <span class="p-float-label">
-                                        <p-inputMask mask=" 09-9999-9999" [(ngModel)]="persona.celular"
+                                        <p-inputMask mask=" 0999999999" [(ngModel)]="persona.celular"
                                             placeholder=""></p-inputMask>
                                         <label for="float-input">Celular</label>
                                     </span>

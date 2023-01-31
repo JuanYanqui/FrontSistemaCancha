@@ -1,12 +1,11 @@
 <div class="container">
-    <mat-tab-group [selectedIndex]="0" #tabGroup preserveContent>
-
+    <mat-tab-group [selectedIndex]="selected.value" #tabGroup preserveContent
+        (selectedIndexChange)="selected.setValue($event)">
         <mat-tab routerLink="../register-empresa" routerLinkActive="active" label="Registro de Empresas">
             <div class="content">
-
                 <p-panel id="panelregempresa" header="Registro Empresa">
                     <div class="panel over overflow-auto p-grid p-fluid">
-                        <h4 style="text-align: center;">Datos de la empresa</h4>
+                        <h4 style="text-align: center">Datos de la empresa</h4>
                         <div class="p-grid p-fluid">
                             <div class="row">
                                 <div class="col">
@@ -14,7 +13,7 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.ruc" [pKeyFilter]="'int'" maxlength="13"
-                                                minlength="13" pInputText required>
+                                                minlength="13" pInputText required />
                                             <label for="float-input">RUC</label>
                                         </span>
                                     </div>
@@ -22,7 +21,7 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.mision" [pKeyFilter]="blockSpecial" maxlength="100"
-                                                minlength="10" pInputText required>
+                                                minlength="10" pInputText required />
                                             <label for="float-input">Misión</label>
                                         </span>
                                     </div>
@@ -30,7 +29,7 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.vision" [pKeyFilter]="blockSpecial" maxlength="100"
-                                                minlength="10" pInputText required>
+                                                minlength="10" pInputText required />
                                             <label for="float-input">Visión</label>
                                         </span>
                                     </div>
@@ -38,7 +37,7 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.nombre" [pKeyFilter]="blockSpecial" maxlength="100"
-                                                minlength="5" pInputText required>
+                                                minlength="5" pInputText required />
                                             <label for="float-input">Nombre o razón social</label>
                                         </span>
                                     </div>
@@ -46,7 +45,7 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.acronimo" [pKeyFilter]="blockSpecial"
-                                                maxlength="100" minlength="5" pInputText required>
+                                                maxlength="100" minlength="5" pInputText required />
                                             <label for="float-input">Acrónimo</label>
                                         </span>
                                     </div>
@@ -54,14 +53,14 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.rolComercial" [pKeyFilter]="blockSpecial"
-                                                maxlength="100" minlength="10" pInputText required>
+                                                maxlength="100" minlength="10" pInputText required />
                                             <label for="float-input">Actividad comercial</label>
                                         </span>
                                     </div>
                                     <div class="p-col-3 p-md-4">
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" [(ngModel)]="empresa.paginaWeb"
-                                                maxlength="100" minlength="5" pInputText>
+                                                maxlength="100" minlength="5" pInputText />
                                             <label for="float-input">Página web</label>
                                         </span>
                                     </div>
@@ -72,34 +71,48 @@
                                             <label for="float-input"></label>
                                         </span>
                                         <div *ngIf="file" class="mt-3 text-center">
-                                            <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
+                                            <img [src]="file" class="rounded" alt="..." style="max-width: 50%" />
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="col">
                                     <div class="p-col-3 p-md-4">
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.pais" disabled="true" [pKeyFilter]="'alpha'"
-                                                maxlength="100" minlength="3" pInputText required>
+                                                maxlength="100" minlength="3" pInputText required />
                                             <label for="float-input">País</label>
                                         </span>
                                     </div>
-                                    <div class="p-col-3 p-md-4">
-                                        <p-dropdown [options]="provincias" [(ngModel)]="empresa.provincia"
-                                            [(ngModel)]="empresa.provincia"
-                                            placeholder="Provincia" [showClear]="true"></p-dropdown>
+                                    <div class="content-select p-col-3 p-md-4">
+                                        <span class="p-float-label">
+                                            <select class="form-control" (change)="changeCountry($event)"
+                                                [(ngModel)]="opcionprov">
+                                                <option value="" disabled selected>Seleccione una provincia
+                                                </option>
+                                                <option *ngFor="let country of Countries" name="provincia">
+                                                    {{country.name}}
+                                                </option>
+                                            </select>
+                                        </span>
                                     </div>
-                                    <div class="p-col-3 p-md-4">
-                                        <p-dropdown [options]="ciudades" [(ngModel)]="empresa.ciudad"
-                                            placeholder="Ciudad" [showClear]="true"></p-dropdown>
+                                    <div class="content-select p-col-3 p-md-4">
+                                        <span class="p-float-label">
+                                            <select class="form-control" (valueChange)="changeState($event)"
+                                                [(ngModel)]="opcionciu">
+                                                <option value="" disabled [selected]="true">Seleccione una provincia
+                                                </option>
+                                                <option *ngFor="let state of states" name="ciudad">{{
+                                                    state.name
+                                                    }}</option>
+                                            </select>
+                                        </span>
                                     </div>
                                     <div class="p-col-3 p-md-4">
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.direccion" [pKeyFilter]="blockSpecial"
-                                                maxlength="100" minlength="10" pInputText required>
+                                                maxlength="100" minlength="10" pInputText required />
                                             <label for="float-input">Dirección</label>
                                         </span>
                                     </div>
@@ -107,7 +120,7 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="empresa.codigoPostal" [pKeyFilter]="'int'" maxlength="6"
-                                                minlength="6" pInputText>
+                                                minlength="6" pInputText />
                                             <label for="float-input">Código postal</label>
                                         </span>
                                     </div>
@@ -120,7 +133,7 @@
                                     </div>
                                     <div class="p-col-3 p-md-4">
                                         <span class="p-float-label">
-                                            <p-inputMask mask=" 09-9999-9999" [(ngModel)]="empresa.celular"
+                                            <p-inputMask mask=" 0999999999" [(ngModel)]="empresa.celular"
                                                 placeholder="">
                                             </p-inputMask>
                                             <label for="float-input">Celular</label>
@@ -128,96 +141,60 @@
                                     </div>
                                     <div class="p-col-3 p-md-4">
                                         <span class="p-float-label">
-                                            <input id="float-input" type="text" class={{verfCorreo}}
+                                            <input id="float-input" type="text" class="{{ verfCorreo }}"
                                                 [(ngModel)]="empresa.correo" (ngModelChange)="validarCorreo()"
-                                                pInputText>
+                                                pInputText />
                                             <label for="float-input">Correo</label>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <h4 style="text-align: center;">Cuenta bancaria <button pButton type="button"
-                                            class="p-button-rounded p-button-primary" icon="pi pi-plus"
-                                            (click)="agregarCuentaBancaria()"></button>
+                                    <h4 style="text-align: center">
+                                        Cuenta bancaria
+                                        <button pButton type="button" class="p-button-rounded p-button-primary"
+                                            icon="pi pi-plus" (click)="agregarCuentaBancaria()"></button>
                                     </h4>
                                     <div class="col">
                                         <div class="p-col-3 p-md-4">
                                             <span class="p-float-label">
-                                                <input id="float-input" [(ngModel)]="banco" type="text"
-                                                    [pKeyFilter]="'alpha'" maxlength="20" minlength="3" pInputText>
+                                                <p-dropdown [options]="bancocoops" [(ngModel)]="banco"
+                                                    placeholder="Banco / Cooperativa" [showClear]="true"></p-dropdown>
                                                 <label for="float-input">Banco / Cooperativa</label>
                                             </span>
                                         </div>
                                         <div class="p-col-3 p-md-4">
                                             <span class="p-float-label">
-                                                <input id="float-input" [(ngModel)]="tipo" type="text"
-                                                    [pKeyFilter]="'alpha'" maxlength="20" minlength="3" pInputText>
+                                                <p-dropdown [options]="tipocuentas" [(ngModel)]="tipo"
+                                                    placeholder="Tipo Cuenta" [showClear]="true"></p-dropdown>
                                                 <label for="float-input">Tipo cuenta</label>
                                             </span>
                                         </div>
                                         <div class="p-col-3 p-md-4">
                                             <span class="p-float-label">
                                                 <input id="float-input" [(ngModel)]="numero" type="text"
-                                                    [pKeyFilter]="'int'" maxlength="20" minlength="3" pInputText>
+                                                    [pKeyFilter]="'int'" maxlength="20" minlength="3" pInputText />
                                                 <label for="float-input">Número de cuenta</label>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="p-col-3 p-md-4">
-                                            <!-- <p-table #dt2 [value]="empresa.cuentasBancarias" dataKey="id2" [rowHover]="true"
-                                                            [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true">
-                                                            <ng-template pTemplate="caption">
-                                                                <div class="table-header">
-                                                                    Lista de cuentas bancarias
-                                                                </div>
-                                                            </ng-template>
-                                                            <ng-template pTemplate="header">
-                                                                <tr>
-                                                                    <th>
-                                                                        Nº
-                                                                    </th>
-                                                                    <th>
-                                                                        Informacion de la cuenta
-                                                                    </th>
-                                                                    <th>
-                                                                        Quitar
-                                                                    </th>
-                                                                </tr>
-                                                            </ng-template>
-                                                            <ng-template pTemplate="body" let-cuenta let-i="rowIndex">
-                                                                <tr class="p-selectable-row">
-                                                                    <td>
-                                                                        {{i+1}}
-                                                                    </td>
-                                                                    <td>
-                                                                        {{cuenta}}
-                                                                    </td>
-                                                                    <td>
-                                                                        <button pButton type="button" class="p-button-rounded p-button-danger" icon="pi pi-times" (click)="quitarCuentaBancaria(i)"></button>
-                                                                    </td>
-                                                                </tr>                            
-                                                            </ng-template>
-                                                            <ng-template pTemplate="emptymessage">
-                                                                <tr>
-                                                                    <td colspan="8">No hay cuentas bancarias</td>
-                                                                </tr>
-                                                            </ng-template>
-                                                        </p-table> -->
                                             <table class="table">
                                                 <thead>
                                                     <tr class="table-dark">
                                                         <th scope="col">Nº</th>
-                                                        <th scope="col" style="text-align: center;">
-                                                            Información de la cuenta</th>
+                                                        <th scope="col" style="text-align: center">
+                                                            Información de la cuenta
+                                                        </th>
                                                         <th scope="col">Quitar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let cuenta of empresa.cuentasBancarias let i = index">
-                                                        <th>{{ i+1 }}</th>
+                                                    <tr *ngFor=" let cuenta of empresa.cuentasBancarias; let i = index">
+                                                        <th>{{ i + 1 }}</th>
                                                         <td>{{ cuenta }}</td>
-                                                        <td><button pButton type="button"
+                                                        <td>
+                                                            <button pButton type="button"
                                                                 class="p-button-rounded p-button-danger"
                                                                 icon="pi pi-times"
                                                                 (click)="quitarCuentaBancaria(i)"></button>
@@ -228,62 +205,48 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <h4 style="text-align: center;">Datos del representante</h4>
+                            <h4 style="text-align: center">Datos del representante</h4>
                             <div class="row">
                                 <div class="col">
                                     <div class="p-col-12 p-md-4">
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="persona.cedula" [pKeyFilter]="'int'" maxlength="10"
-                                                minlength="10" pInputText required>
+                                                minlength="10" pInputText required />
                                             <label for="float-input">Cédula</label>
                                         </span>
                                     </div>
                                     <div class="p-col-12 p-md-4">
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
-                                                [(ngModel)]="persona.nombres" [pKeyFilter]="blockSpecial" maxlength="30"
-                                                minlength="3" pInputText>
+                                                [(ngModel)]="persona.nombre" [pKeyFilter]="blockSpecial" maxlength="30"
+                                                minlength="3" pInputText />
                                             <label for="float-input">Nombres</label>
                                         </span>
                                     </div>
                                     <div class="p-col-12 p-md-4">
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
-                                                [(ngModel)]="persona.apellidos" [pKeyFilter]="blockSpecial"
-                                                maxlength="30" minlength="3" pInputText>
+                                                [(ngModel)]="persona.apellido" [pKeyFilter]="blockSpecial"
+                                                maxlength="30" minlength="3" pInputText />
                                             <label for="float-input">Apellidos</label>
                                         </span>
                                     </div>
                                     <div class="p-col-12 p-md-4">
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
-                                                [(ngModel)]="persona.correo" maxlength="30" minlength="6" pInputText>
+                                                [(ngModel)]="persona.email" maxlength="30" minlength="6" pInputText />
                                             <label for="float-input">Correo</label>
                                         </span>
                                     </div>
                                     <div class="p-col-12 p-md-4">
                                         <span class="p-float-label">
-                                            <input id="float-input" type="date" [(ngModel)]="persona.fechaNacimiento"
-                                                pInputText>
+                                            <input id="float-input" type="date" [(ngModel)]="persona.fecha_nacimiento"
+                                                pInputText />
                                             <label for="float-input">Fecha de nacimiento</label>
                                         </span>
                                     </div>
-                                    <!-- <div class="form-check form-check-inline p-col-3 p-md-4">
-                                                <label class="form-label" id="label" for="form3Example1c">Género:</label>
-                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                    id="maleGender" value="Masculino" [(ngModel)]="persona.genero" name="genero"/>
-                                                <label class="form-check-label" id="gen"
-                                                    for="femaleGender">Masculinos</label>
-                                                <div class="form-check form-check-inline" id="fem">
-                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                        id="femaleGender" value="Femenino" [(ngModel)]="persona.genero" name="genero"/>
-                                                    <label class="form-check-label" id="gen"
-                                                        for="maleGender">Femenino</label>
-                                                </div>
-                                            </div> -->
                                     <div class="p-col-3 p-md-4">
                                         <p-dropdown [options]="generos" [(ngModel)]="persona.genero"
                                             placeholder="Género" [showClear]="true"></p-dropdown>
@@ -294,7 +257,7 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="persona.direccion" [pKeyFilter]="blockSpecial"
-                                                maxlength="40" minlength="10" pInputText>
+                                                maxlength="40" minlength="10" pInputText />
                                             <label for="float-input">Dirección</label>
                                         </span>
                                     </div>
@@ -307,7 +270,7 @@
                                     </div>
                                     <div class="p-col-3 p-md-4">
                                         <span class="p-float-label">
-                                            <p-inputMask mask=" 09-9999-9999" [(ngModel)]="persona.celular"
+                                            <p-inputMask mask=" 0999999999" [(ngModel)]="persona.celular"
                                                 placeholder="">
                                             </p-inputMask>
                                             <label for="float-input">Celular</label>
@@ -317,13 +280,12 @@
                                         <span class="p-float-label">
                                             <input id="float-input" type="text" class="form-control"
                                                 [(ngModel)]="usuario.username" [pKeyFilter]="'alphanum'" maxlength="30"
-                                                minlength="3" pInputText>
+                                                minlength="3" pInputText />
                                             <label for="float-input">Username</label>
                                         </span>
                                     </div>
                                     <div class="p-col-12 p-md-4">
                                         <span class="p-float-label">
-
                                             <p-password [toggleMask]="true" name="password"
                                                 [(ngModel)]="usuario.password" [pKeyFilter]="'alphanum'" maxlength="15"
                                                 minlength="6">
@@ -351,12 +313,11 @@
                                             <label for="float-input"></label>
                                         </span>
                                         <div *ngIf="filem" class="mt-3 text-center">
-                                            <img [src]="filem" class="rounded" alt="..." style="max-width: 50%;" />
+                                            <img [src]="filem" class="rounded" alt="..." style="max-width: 50%" />
                                         </div>
                                     </div>
-
                                 </div>
-                                <br>
+                                <br />
                                 <div class="p-col-12 p-md-4">
                                     <button id="btnreg" pButton pRipple type="button" label="Registrar Empresa"
                                         icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
@@ -366,19 +327,12 @@
                         </div>
                     </div>
                 </p-panel>
-
             </div>
         </mat-tab>
 
-        <mat-tab label="Listado Empresarial">
-            <!-- <a   class="nav-link" aria-current="true" routerLink="../edit-empresa"
-                            routerLinkActive="active">Registrar nueva empresa</a>
-                       -->
-            <app-edit-empresa routerLink="../edit-empresa" routerLinkActive="active"></app-edit-empresa>
+        <mat-tab label="Listado Empresarial" routerLink="../edit-empresa" routerLinkActive="active">
+
+            <app-edit-empresa></app-edit-empresa>
         </mat-tab>
-
     </mat-tab-group>
-
 </div>
-
-<!--OTRO DISEÑO HACIENDO USO DEL FORMULARIO DEL PROYECTO ORIGINAL-->

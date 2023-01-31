@@ -1,11 +1,10 @@
 
+import { Persona } from "./persona";
 import { Usuario } from "./usuario";
 
 export class Cliente {
     
     idCliente: number = 0;
-    observaciones: string = "";
-    estado: boolean = false;
-    fechaRegistro: Date | undefined;
-    usuario?: Usuario;
+    lista_negra: boolean = false;
+    persona?: Persona;
 }
