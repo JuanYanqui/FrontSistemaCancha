@@ -20,7 +20,7 @@
 
 .home-section{
   position: relative;
-  background: linear-gradient(to right,rgb(119, 129, 128),30%, #299bfe);
+  background: linear-gradient(to right,rgb(6, 6, 6),30%, #0d0e0f);
   min-height: 87vh;
   width: calc(100% - 150px);
   left: 130px;
@@ -137,7 +137,7 @@
 }
 
 #contenedorbn{
-    background:linear-gradient(top, #808080,30%, #3FADA8);
+    background:linear-gradient(top, #151313,30%, #070707);
 
     margin-right: 60px;
 

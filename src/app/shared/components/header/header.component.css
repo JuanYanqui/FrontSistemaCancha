@@ -66,7 +66,7 @@ animation: glowing 20s linear infinite;
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
-  color: #333;
+  color: rgb(51, 51, 51);
   text-shadow: none; /* Prevent inheritance from `body` */
 }
 

@@ -113,6 +113,7 @@ export class RegisterUserComponent {
                       result => {
                         console.log(result);
                         this.usuario = result;
+                        this.isButtonEnabled2 = true;
                         localStorage.setItem('idUsuario', String(this.usuario.idUsuario));
                         Swal.fire({
                           icon: 'success',
