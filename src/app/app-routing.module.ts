@@ -39,6 +39,11 @@ const routes: Routes = [
     path: 'cliente',
     component: WelcomeClienteComponent,
     loadChildren: () => import('./modules/cliente/cliente.module').then(m => m.ClienteModule) // se importa un modulo que tiene routing es decir ruta 
+  },
+  {
+    path: 'administrador',
+    component: WelcomeClienteComponent,
+    loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule) // se importa un modulo que tiene routing es decir ruta 
   }
 ];
 
