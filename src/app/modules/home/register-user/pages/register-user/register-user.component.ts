@@ -66,7 +66,7 @@ export class RegisterUserComponent {
 
     if (this.persona.nombre === '' || this.persona.nombre === null) {
       this.verfNombres = 'ng-invalid ng-dirty';
-      this.toastr.error("Campo nombres vacio!", "Error!");
+      Swal.fire("Campo nombres vacio!", "Error!");
     }
 
     if (this.persona.apellido === '' || this.persona.apellido === null) {

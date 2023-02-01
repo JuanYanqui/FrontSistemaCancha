@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: () => import("./empresa/empresa.module").then(m => m.EmpresaModule)
   },
   {
-    path: 'reserva',
-    loadChildren: () => import("./reservas/reservas.module").then(m => m.ReservasModule)
-  },
-  {
     path: 'establecimiento',
     loadChildren: () => import("./establecimiento/establecimiento.module").then(m => m.EstablecimientoModule)
   },
@@ -24,13 +20,14 @@ const routes: Routes = [
     loadChildren: () => import("./menu-spradmin/menu-spradmin.module").then(m => m.MenuSpradminModule)
   },
   {
-    path: 'menu-spradmin-usr',
-    loadChildren: () => import("./menu-super-admin-user/menu-super-admin-user.module").then(m => m.MenuSuperAdminUserModule)
-  },
-  {
     path: '',
     loadChildren: () => import("./bienvenida/bienvenida.module").then(m => m.BienvenidaModule)
-  }
+  },
+
+  {
+    path: 'servicio',
+    loadChildren: () => import("./servicio/servicio.module").then(m => m.ServicioModule)
+  },
 ];
 
 @NgModule({

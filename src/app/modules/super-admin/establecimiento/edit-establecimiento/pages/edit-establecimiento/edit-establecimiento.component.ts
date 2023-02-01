@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Usuario } from 'src/app/core/models/usuario';
 
 @Component({
   selector: 'app-edit-establecimiento',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-establecimiento.component.css']
 })
 export class EditEstablecimientoComponent {
-
+  listaUsuarios: Usuario[] = [];
+  loading: boolean = true;
 }

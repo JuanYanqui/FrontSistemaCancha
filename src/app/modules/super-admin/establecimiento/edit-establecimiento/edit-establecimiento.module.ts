@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { EditEstablecimientoRoutingModule } from './edit-establecimiento-routing.module';
 import { EditEstablecimientoComponent } from './pages/edit-establecimiento/edit-establecimiento.component';
+import { TableModule } from 'primeng/table';
+import { PanelModule } from 'primeng/panel';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 @NgModule({
@@ -11,7 +14,13 @@ import { EditEstablecimientoComponent } from './pages/edit-establecimiento/edit-
   ],
   imports: [
     CommonModule,
-    EditEstablecimientoRoutingModule
+    EditEstablecimientoRoutingModule,
+    TableModule,
+    PanelModule,
+    ToggleButtonModule
+  ],
+  exports:[
+    EditEstablecimientoComponent
   ]
 })
 export class EditEstablecimientoModule { }
