@@ -10,13 +10,13 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
 import { CargarScriptsService } from 'src/app/cargar-scripts.service';
 import Swal from 'sweetalert2';
 import { FotoService } from 'src/app/shared/services/foto.service';
+import { Establecimiento } from 'src/app/core/models/establecimiento';
 @Component({
-  selector: 'app-register-user',
-  templateUrl: './register-user.component.html',
-  styleUrls: ['./register-user.component.css']
+  selector: 'app-registro-usuarios',
+  templateUrl: './registro-usuarios.component.html',
+  styleUrls: ['./registro-usuarios.component.css']
 })
-export class RegisterUserComponent {
-
+export class RegistroUsuariosComponent {
   rol: Rol = new Rol;
 
   persona: Persona = new Persona;
@@ -33,13 +33,16 @@ export class RegisterUserComponent {
   valCorreo: boolean = true;
   flapersona: boolean = true;
   blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-
+  listaRoles: any[] = [];
+  listaEmpresas: Establecimiento[] = [];
   constructor(private cargarScripts: CargarScriptsService, private fotoService: FotoService,  private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private router: Router) {
     cargarScripts.Carga(["register-user.component"])
+    this.obtenerRoles(); 
 
   }
 
   ngOnInit(): void {
+    
     this.persona.nombre = '';
     this.persona.apellido = '';
     this.persona.email = '';
@@ -47,7 +50,17 @@ export class RegisterUserComponent {
     this.usuario.password = '';
     localStorage.removeItem('idUsuario');
     sessionStorage.removeItem('productosPedido');
+    
   }
+
+  obtenerRoles() {
+    this.rolService.getAll().subscribe(
+      data => {
+        this.listaRoles = data;
+      }
+    )
+  }
+
   goTo($event: any): void {
 
     this.router.navigate(['/login-usr'])
@@ -100,16 +113,7 @@ export class RegisterUserComponent {
                 this.persona.idPersona = data.idPersona;
                 this.usuario.persona = this.persona;
                 this.usuario.estado = true;
-
-                this.rolService.getByName('CLIENTE').subscribe(
-                  data => {
-                    console.log(data);
-                    this.rol.descripcion = data.descripcion;
-                    this.rol.idRol = data.idRol;
-                    this.rol.nombre = data.nombre;
-
-                    this.usuario.rol = this.rol;
-
+                this.usuario.rol = this.rol;
                     this.usuarioService.postUsuario(this.usuario).subscribe(
                       result => {
                         console.log(result);
@@ -123,8 +127,7 @@ export class RegisterUserComponent {
                         })
                       }
                     )
-                  }
-                )
+                  
               }
             )
           } else {
@@ -152,6 +155,8 @@ export class RegisterUserComponent {
             this.persona.direccion = data.direccion;
             this.persona.celular = data.celular;
             this.persona.email = data.email;
+            this.cap_nombre_archivo = data.foto;
+            this.persona.fechaNacimmiento = data.fechaNacimmiento;
             this.persona.telefono = data.telefono
 
           } else if (this.persona.cedula?.length == 10) {
@@ -222,6 +227,7 @@ export class RegisterUserComponent {
               confirmButtonText: 'Si, Continuar!'
             }).then((result) => {
               if (result.isConfirmed) {
+                this.obtenerRoles();
                 this.isButtonEnabled = true;
                 Swal.fire(
                   'PROCESO',
@@ -256,6 +262,16 @@ export class RegisterUserComponent {
       
     } else {
       this.toastr.error('Datos incompletos')
+    }
+  }
+
+  filtersImplements(e: any) {
+    let filters = e.target.value;
+    if (filters === '' || filters === undefined || filters === null) {
+      console.log('Rol no seleccionado');
+    } else {
+      this.usuario.rol = filters;
+      console.log(this.usuario.rol);
     }
   }
 
@@ -301,5 +317,7 @@ export class RegisterUserComponent {
     cargarImagen() {
       this.fotoService.guararImagenes(this.selectedFile);
     }
+
+
 
 }

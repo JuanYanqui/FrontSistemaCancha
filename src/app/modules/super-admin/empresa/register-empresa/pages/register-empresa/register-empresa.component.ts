@@ -5,7 +5,7 @@ import { Router, RouterLinkWithHref } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Empresa } from 'src/app/core/models/empresa';
 import { Persona } from 'src/app/core/models/persona';
-import { Roles } from 'src/app/core/models/roles';
+import { Rol } from 'src/app/core/models/roles';
 import { Usuario } from 'src/app/core/models/usuario';
 import { FotoService } from 'src/app/shared/services/foto.service';
 import { PersonaService } from 'src/app/shared/services/persona.service';
@@ -24,7 +24,7 @@ export class RegisterEmpresaComponent {
   empresa: Empresa = new Empresa;
   usuario: Usuario = new Usuario;
   persona: Persona = new Persona;
-  rol: Roles = new Roles;
+  rol: Rol = new Rol;
 
   genero: any;
   bancocoop: any;
@@ -329,7 +329,7 @@ export class RegisterEmpresaComponent {
     this.empresa = new Empresa;
     this.persona = new Persona;
     this.usuario = new Usuario;
-    this.rol = new Roles;
+    this.rol = new Rol;
 
     this.file = '';
     this.empresa.cuentasBancarias = [];

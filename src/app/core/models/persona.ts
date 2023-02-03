@@ -4,8 +4,8 @@ export class Persona {
     cedula?: string;
     nombre?: string;
     apellido?: string;
-    fecha_nacimiento?: Date;
-    fecha_registro?: Date;
+    fechaNacimmiento?: Date;
+    fechaRegistro?: Date;
     genero?: string;
     email?: string;
     direccion?: string;

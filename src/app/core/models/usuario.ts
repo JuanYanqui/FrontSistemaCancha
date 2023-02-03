@@ -1,6 +1,6 @@
 import { Empresa } from "./empresa";
 import { Persona } from "./persona";
-import { Roles } from "./roles";
+import { Rol } from "./roles";
 
 export class Usuario {
 
@@ -9,5 +9,5 @@ export class Usuario {
     password: string = "";
     estado: boolean = false;
     persona?: Persona;
-    rol?: Roles;
+    rol?: Rol;
 }

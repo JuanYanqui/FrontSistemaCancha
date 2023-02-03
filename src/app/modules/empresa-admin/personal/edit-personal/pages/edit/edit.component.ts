@@ -80,7 +80,7 @@ export class EditComponent implements OnInit {
       this.persona.email = this.personalCarg.personal?.usuario?.persona?.email
       this.persona.telefono = this.personalCarg.personal?.usuario?.persona?.telefono
       this.persona.celular = this.personalCarg.personal?.usuario?.persona?.celular
-      this.persona.fecha_nacimiento = this.personalCarg.personal?.usuario?.persona?.fecha_nacimiento
+      this.persona.fechaNacimmiento = this.personalCarg.personal?.usuario?.persona?.fechaNacimmiento
       this.textCargo = this.personalCarg.cargo?.nombre
       this.foto = this.personalCarg.personal?.fotoPerfil
       console.log(this.foto)

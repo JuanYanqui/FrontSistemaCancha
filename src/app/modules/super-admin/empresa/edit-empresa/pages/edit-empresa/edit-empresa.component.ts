@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Empresa } from 'src/app/core/models/empresa';
 import { Persona } from 'src/app/core/models/persona';
-import { Roles } from 'src/app/core/models/roles';
+import { Rol } from 'src/app/core/models/roles';
 import { Usuario } from 'src/app/core/models/usuario';
 import { PersonaService } from 'src/app/shared/services/persona.service';
 import { RolesService } from 'src/app/shared/services/roles.service';
@@ -23,7 +23,7 @@ export class EditEmpresaComponent {
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario;
 
-  rol: Roles = new Roles;
+  rol: Rol = new Rol;
 
   listaEmpresas: Empresa[] = [];
 
@@ -285,7 +285,7 @@ export class EditEmpresaComponent {
     this.persona.celular = this.empresa.persona?.celular;
     this.persona.email = this.empresa.persona?.email;
     this.persona.direccion = this.empresa.persona?.direccion;
-    this.persona.fecha_nacimiento = this.empresa.persona?.fecha_nacimiento;
+    this.persona.fechaNacimmiento = this.empresa.persona?.fechaNacimmiento;
     this.persona.genero = this.empresa.persona?.genero;
     this.persona.idPersona = this.empresa.persona?.idPersona;
     this.persona.nombre = this.empresa.persona?.nombre;

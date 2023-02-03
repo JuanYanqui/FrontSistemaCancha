@@ -1,4 +1,4 @@
-export class Roles {
+export class Rol {
 
     idRol: number = 0;
     nombre: string = "";

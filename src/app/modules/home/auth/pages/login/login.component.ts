@@ -42,7 +42,7 @@ export class LoginComponent {
             Swal.fire({
               icon: 'success',
               title: 'Login',
-              text: 'Bienvenido'+ data.username,
+              text: 'Bienvenido' + data.username,
             })
             localStorage.setItem('idUsuario', String(this.usuario.idUsuario));
             localStorage.setItem('nameImagen', String(this.user));
@@ -55,11 +55,9 @@ export class LoginComponent {
           }
 
         } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Login',
-            text: 'USERNAME O PASSWORD INCORRECTOS!',
-          })
+          this.toastr.error('USERNAME O PASSWORD INCORRECTOS!')
+
+
           this.usuario = new Usuario;
 
         }

@@ -6,7 +6,7 @@ import { RegistrarEstablecimientoComponent } from './pages/registrar-establecimi
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EditEstablecimientoModule } from '../edit-establecimiento/edit-establecimiento.module';
-
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,8 @@ import { EditEstablecimientoModule } from '../edit-establecimiento/edit-establec
     RegistrarEstablecimientoRoutingModule,
     MatTableModule,
     MatTabsModule,
-    EditEstablecimientoModule
+    EditEstablecimientoModule,
+    PanelModule
   ]
 })
 export class RegistrarEstablecimientoModule { }

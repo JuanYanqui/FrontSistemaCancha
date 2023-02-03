@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import("./empresa/empresa.module").then(m => m.EmpresaModule)
   },
   {
+    path: 'usuarioadmin',
+    loadChildren: () => import("./usuarioadmin/usuarioadmin.module").then(m => m.UsuarioadminModule)
+  },
+  {
     path: 'establecimiento',
     loadChildren: () => import("./establecimiento/establecimiento.module").then(m => m.EstablecimientoModule)
   },

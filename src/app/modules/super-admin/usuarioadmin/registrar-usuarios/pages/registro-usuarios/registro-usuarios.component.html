@@ -1,17 +1,10 @@
-<body class="d-flex h-100 text-center">
+<form>
+    <mat-tab-group preserveContent>
 
-   
-
-        <div class="container">
-            <div class="card">
-                <div class="top-row background-top-row"> <img class="circular--square"
-                    src="../../../../assets/img/Reservegame.jpg" width="130px" height="80px"> </div>
-
-                <div class="content"> <i class="fa fa-lock" aria-hidden="true"></i>
-                    <h1>Registrar Usuario</h1>
-                    <h1>ReserverGame</h1>
-
-                    <div class="items panel over overflow-auto p-grid p-fluid">
+        <mat-tab label="Registro de Usuario" class="col-xs-12 col-sm-12">
+            
+                <div class="row jumbotron box8" style="background-color: transparent">
+                    
 
                         <div class="form-progress">
                             <div><img src="../../../../../../assets/img/pelota.gif" class="plane" alt="" /></div>
@@ -114,6 +107,9 @@
                                                         <div *ngIf="file" class="mt-3 text-center">
                                                             <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
                                                         </div>
+                                                        <div>
+                                                            <img alt="..." style="max-width: 50%;" [src]="'http://localhost:5000/image/images/' + persona.foto"/>
+                                                        </div>
                                                     </div>
     
                                                 </span>
@@ -130,10 +126,9 @@
                                             <button type="button" id="connecting" class="btn"
                                                 (click)="registrarPersona()"  >Crear Persona</button>
                                             <button type="button" id="connectingminus" class="btn hidden">-</button>
-                                            <p>_</p>
-                                            <p>_</p>
+                                            
                                             <button [disabled]="!isButtonEnabled" button id="korak1"
-                                                class="btn next">Next</button>
+                                                class="btn next mt-3">Next</button>
                                         </div>
                                      
                                     </div>
@@ -173,6 +168,16 @@
                                                             [(ngModel)]="persona.cedula" [pKeyFilter]="'int'" maxlength="10"
                                                             minlength="10" (ngModelChange)='buscarPorCedula()' pInputText
                                                             name="cedula2" id="cedula2" placeholder="Cedula:" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <h5>Rol:</h5>
+                                                              <select class="inputbox" pInputText placeholder="Sexo" id="genero" name="genero"
+                                                                (change)="filtersImplements($event)" [(ngModel)]="rol.idRol">
+                                                                <option value="">Seleccione su género</option>
+                                                                <option [value]="rol.idRol" *ngFor="let rol of listaRoles">{{rol.nombre}}</option>
+                                                              </select>
+
                                                     </div>
                                                     <p>_</p>
                                                     <p>_</p>
@@ -251,21 +256,25 @@
     
     
                         </form>
-                        <div>
+                        <div class="items panel over" class="col-xs-12 col-sm-12">
                             <button id="btnreg" pButton pRipple type="button" label="Terminar Proceso" icon="pi pi-check"
                                 iconPos="right" class="p-button-rounded p-button-primary" (click)="goTo($event)"></button>
                         </div>
                     </div>
 
-
-                </div>
-            </div>
-            <div class="networks background-top-row"> <i class="fa fa-facebook" aria-hidden="true"></i> <i
-                    class="fa fa-google" aria-hidden="true"></i> <i class="fa fa-instagram" aria-hidden="true"></i>
-            </div>
-        </div>
+                
+            
+        </mat-tab>
 
 
+        
+        <mat-tab label="Listado Usuarios" routerLink="../edit-usuarios" routerLinkActive="active">
+            <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
+                                            routerLinkActive="active">Registrar nueva empresa</a>
+                                            -->
+            <app-edit-usuarios></app-edit-usuarios>
+        </mat-tab>
+    </mat-tab-group>
 
 
-</body>
+</form>

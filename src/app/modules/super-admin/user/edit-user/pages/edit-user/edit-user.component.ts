@@ -87,7 +87,7 @@ export class EditUserComponent {
     this.persona.celular = usuario.persona?.celular;
     this.persona.email = usuario.persona?.email;
     this.persona.direccion = usuario.persona?.direccion;
-    this.persona.fecha_nacimiento = usuario.persona?.fecha_nacimiento;
+    this.persona.fechaNacimmiento = usuario.persona?.fechaNacimmiento;
     this.persona.genero = usuario.persona?.genero;
     this.persona.idPersona = usuario.persona?.idPersona;
     this.persona.telefono = usuario.persona?.telefono;

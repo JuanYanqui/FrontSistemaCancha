@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Establecimiento } from 'src/app/core/models/establecimiento';
 import { Usuario } from 'src/app/core/models/usuario';
 
 @Component({
@@ -9,4 +10,5 @@ import { Usuario } from 'src/app/core/models/usuario';
 export class EditEstablecimientoComponent {
   listaUsuarios: Usuario[] = [];
   loading: boolean = true;
+  establecimientos: Establecimiento[]=[];
 }

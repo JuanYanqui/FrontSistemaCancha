@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/core/models/cliente';
 import { Empresa } from 'src/app/core/models/empresa';
 import { Persona } from 'src/app/core/models/persona';
-import { Roles } from 'src/app/core/models/roles';
+import { Rol} from 'src/app/core/models/roles';
 import { Usuario } from 'src/app/core/models/usuario';
 import { ClientesService } from 'src/app/modules/empresa-admin/services/clientes.service';
 import { PersonaService } from 'src/app/shared/services/persona.service';
@@ -21,7 +21,7 @@ export class RegisterClienteComponent implements OnInit {
   persona: Persona = new Persona();
   empresa: Empresa = new Empresa;
   usuario: Usuario = new Usuario;
-  rol: Roles = new Roles;
+  rol: Rol = new Rol;
 
   cedula: any;
   nombres: any;
@@ -130,7 +130,7 @@ export class RegisterClienteComponent implements OnInit {
             this.persona.idPersona = data.idPersona;
             this.persona.nombre = data.nombre;
             this.persona.telefono = data.telefono;
-            this.persona.fecha_nacimiento = data.fecha_nacimiento;
+            this.persona.fechaNacimmiento = data.fechaNacimmiento;
           } else if (this.persona.cedula?.length == 10) {
             this.flagpersona = true;
 

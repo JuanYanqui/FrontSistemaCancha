@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Empresa } from 'src/app/core/models/empresa';
 import { Persona } from 'src/app/core/models/persona';
-import { Roles } from 'src/app/core/models/roles';
+import { Rol } from 'src/app/core/models/roles';
 import { Usuario } from 'src/app/core/models/usuario';
 import { EmpresaService } from 'src/app/modules/super-admin/empresa/services/empresa.service';
 import { FotoService } from 'src/app/shared/services/foto.service';
@@ -22,11 +22,11 @@ export class RegisterUserComponent {
   usuario: Usuario = new Usuario;
 
   empresa: Empresa = new Empresa;
-  rol: Roles = new Roles;
+  rol: Rol = new Rol;
 
   fechaNacimiento: Date = new Date;
 
-  listaRoles: Roles[] = [];
+  listaRoles: Rol[] = [];
   listaEmpresas: Empresa[] = [];
   genero: any;
 
@@ -58,7 +58,7 @@ export class RegisterUserComponent {
         console.log(data);
         this.listaRoles = data.map(
           result => {
-            let rol = new Roles;
+            let rol = new Rol;
             rol.descripcion = result.descripcion;
             rol.idRol = result.idRol;
             rol.nombre = result.nombre;
@@ -122,7 +122,7 @@ export class RegisterUserComponent {
             this.persona.idPersona = data.idPersona;
             this.persona.nombre = data.nombre;
             this.persona.telefono = data.telefono;
-            this.persona.fecha_nacimiento = data.fecha_nacimiento;
+            this.persona.fechaNacimmiento = data.fechaNacimmiento;
           } else if (this.persona.cedula?.length == 10) {
             this.flapersona = true;
 

@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.0.0",
+    "@angular/animations": "^15.1.2",
     "@angular/common": "^15.0.0",
     "@angular/compiler": "^15.0.0",
     "@angular/core": "^15.0.0",
@@ -22,7 +22,9 @@
     "@material/tabs": "^2.3.0",
     "angular-material": "^1.2.5",
     "file-saver": "^2.0.5",
+    "ngx-pagination": "^6.0.3",
     "ngx-spinner": "^15.0.1",
+    "ngx-toast-notifier": "^0.0.7",
     "ngx-toastr": "^16.0.2",
     "pdfmake-wrapper": "^2.1.3",
     "primeng": "^15.1.1",

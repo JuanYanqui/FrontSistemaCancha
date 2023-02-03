@@ -1,0 +1,53 @@
+
+<div class="container mt-3">
+<div class="row jumbotron box8" style="background-color: rgb(255, 255, 255);">
+    <div class="container">
+        <div class="row">
+         <section class="col-lg-12">
+           <div class="card">
+             <div class="card-header">
+               <i class="fa fa-align-justify"></i> Tabla Usuarios 
+             </div>
+             <div class="card-body">
+               <table class="table table-responsive-card">
+                 <thead>
+                   <tr>
+                    <th scope="col">ID</th>
+                     <th scope="col">Usuario</th>
+                     <th scope="col">Nombre</th>
+                     <th scope="col">Apellido</th>
+                     <th scope="col">Rol</th>
+                     <th scope="col">Estado</th>
+                     <th scope="col">Foto</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                    <tr *ngFor="let usuario of listaUsuarios | paginate: { itemsPerPage: 4, currentPage:pageActual}" >
+                        <th scode = "row">{{usuario.idUsuario}}</th>
+                        <td>{{usuario.username}}</td>
+                        <td>{{usuario.persona.nombre}}</td>
+                        <td>{{usuario.persona.apellido}}</td>
+                        <td>{{usuario.rol.nombre}}</td>
+                        <td>{{usuario.estado}}</td>
+                        <td><img class="circular--square" [src]="'http://localhost:5000/image/images/' + this.usuario.persona.foto"
+                          style="margin: 0 auto;  width: 70px; height: 70px;"></td>
+                        <td>
+                          <!-- <button type="button" name="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary">Editar</button> -->
+                        </td>
+                  </tr>
+                 </tbody>
+               </table>
+            <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+             </div>
+           </div>
+         </section>
+         <!--/.col-->
+     
+    
+         <!--/.col-->
+       </div>
+     </div>
+      
+
+</div>
+</div>
