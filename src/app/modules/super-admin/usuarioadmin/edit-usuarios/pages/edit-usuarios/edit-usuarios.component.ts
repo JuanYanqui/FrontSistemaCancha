@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Persona } from 'src/app/core/models/persona';
 import { Usuario } from 'src/app/core/models/usuario';
+import { FotoService } from 'src/app/shared/services/foto.service';
 import { PersonaService } from 'src/app/shared/services/persona.service';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
 
@@ -24,7 +25,7 @@ export class EditUsuariosComponent {
   pageActual:number=1;
   
 
-  constructor(private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private router: Router) {
+  constructor(private toastr: ToastrService, private fotoService: FotoService, private personaService: PersonaService, private usuarioService: UsuarioService, private router: Router) {
     this.obtenerUsuariosPrivilegios();
    }
 
@@ -90,7 +91,7 @@ export class EditUsuariosComponent {
     this.persona.idPersona = usuario.persona?.idPersona;
     this.persona.telefono = usuario.persona?.telefono;
     this.persona.cedula = usuario.persona?.cedula;
-
+    this.persona.foto = usuario.persona?.foto;
 
     this.usuario.rol = usuario.rol;
     this.usuario.estado = usuario.estado;
@@ -104,5 +105,45 @@ export class EditUsuariosComponent {
   solicitar(){
 
   }
+
+  
+  // IMAGEN
+  image!: any;
+  file: any = '';
+
+  // CAPTURO EL ARCHIVO
+  nombre_orignal: string = "";
+
+  cap_nombre_archivo: any;
+  selectedFile!: File;
+
+  public imageSelected(event: any) {
+
+    this.selectedFile = event.target.files[0];
+
+    // mostrar imagen seleccionada
+    this.image = this.selectedFile;
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = () => {
+      this.file = reader.result;
+    };
+
+
+    // CAPTURAR EL NAME DE LA IMAGEN
+    console.log("Seleciono una imagen: " + event.target.value);
+    this.cap_nombre_archivo = event.target.value;
+    console.log("Numero de datos del nombre del archivo => " + this.cap_nombre_archivo.length)
+    this.nombre_orignal = this.cap_nombre_archivo.slice(12);
+    console.log("Nombre imagen original => " + this.nombre_orignal);
+    console.log(this.nombre_orignal);
+
+  }
+
+  cargarImagen() {
+    this.fotoService.guararImagenes(this.selectedFile);
+  }
+
+
 
 }

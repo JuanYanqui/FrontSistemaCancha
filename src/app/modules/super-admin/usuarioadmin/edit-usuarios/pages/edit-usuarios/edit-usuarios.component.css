@@ -6,3 +6,54 @@
     border-bottom-right-radius: 100% 100%;
     border-bottom-left-radius: 100% 100%;
   }
+
+  .span4, h1 {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h3, #magic-text {
+    margin-top: 20px;
+}
+
+#warning-toggle-button,
+#danger-toggle-button,
+#info-toggle-button,
+#success-toggle-button,
+#transition-percent-toggle-button,
+#disabled-toggle-button {
+    margin-bottom: 10px;
+}
+
+
+.modal-dialog {
+  max-width: 1350px !important
+}
+
+
+.inputbox {
+  background-color: rgba(22, 44, 143, 0.3);
+  color: #030303;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 1.5px solid #140d32;
+  margin-bottom: 1rem;
+  border-radius: 0.3rem;
+  font-family: montserrat, arial, verdana;
+  color: #615a5a;
+  font-size: 1.1rem;
+  font-weight: 500;
+  outline: none;
+}
+
+
+
+
+
+
+
+
