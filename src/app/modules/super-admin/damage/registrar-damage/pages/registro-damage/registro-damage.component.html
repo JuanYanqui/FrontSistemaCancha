@@ -1,0 +1,60 @@
+<form>
+    <mat-tab-group>
+        <mat-tab label="Registro de daños" >
+            <div class="row jumbotron box8" style="background-color: transparent"> 
+                <div class="form-progress">
+                    <div><img src="../../../../../../../assets/img/pelota.gif" class="plane" alt=""/></div>
+                    <progress class="form-progress-bar" min="0" max="100" value="0" step="33"
+                    aria-labelledby="form-progress-completion"></progress>
+                    <div class="form-progress-indicator one active"></div>
+                    <div class="form-progress-indicator two"></div>
+                    <div class="form-progress-indicator three"></div>
+                    </div>
+            </div>
+            <form id="claim">
+                <section id="step1" class="form-step" data-step="1">
+                    <fieldset >
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <h2>Registro de daños</h2>
+                            </div>
+                            <div class="col-xs-12 col-sm-12">
+                                <span class="p-float-label">
+                                    <div class="form-group">
+                                        <h5>Cédula:</h5>
+                                        <input [(ngModel)]="persona.cedula" type="text" class="inputbox" 
+                                        name="Cedula" id="Cedula" placeholder="Ingrese la cédula del cliente" required (input)="buscarPorCedula()"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h5>Nombre:</h5>
+                                        <input type="text" class="inputbox" [(ngModel)]="persona.nombre"
+                                        name="nombre" id="nombre" placeholder="Nombre" disabled/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h5>Apellido:</h5>
+                                        <input type="text" class="inputbox" [(ngModel)]="persona.apellido"
+                                        name="apellido" id="apellido" placeholder="Apellido" disabled/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h5>Descripción:</h5>
+                                        <textarea type="text" class="inputbox"
+                                        name="descripcion" id="descripcion" placeholder="Información del daño"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <h5>Valor:</h5>
+                                        <input type="text" class="inputbox" 
+                                        name="valor" id="valor" placeholder="Ingrese el valor a pagar" required/>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12">
+                            <button type="button" id="connecting" class="btn">Registrar</button>
+                            <button [disabled]="!isButtonEnabled" type="button" id="next" class="btn next mt-3" >Siguiente</button>
+                        </div>
+                    </fieldset>
+                </section>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
+</form>
