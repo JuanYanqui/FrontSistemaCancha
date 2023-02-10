@@ -13,7 +13,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     UsuarioadminRoutingModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    
   ]
 })
 export class UsuarioadminModule { }

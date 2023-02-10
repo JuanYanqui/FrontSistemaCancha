@@ -35,10 +35,17 @@ export class RegistroUsuariosComponent {
   blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
   listaRoles: any[] = [];
   listaEmpresas: Establecimiento[] = [];
+
   constructor(private cargarScripts: CargarScriptsService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private router: Router) {
     cargarScripts.Carga(["register-user.component"])
     this.obtenerRoles();
 
+  }
+
+  recargar($event: any): void {
+
+    this.router.navigate(['/sup-admin/usuarioadmin/register-usuarioadmin'])
+    console.log($event)
   }
 
   ngOnInit(): void {
@@ -158,6 +165,7 @@ export class RegistroUsuariosComponent {
             this.persona.foto = data.foto;
             this.persona.fechaNacimmiento = data.fechaNacimmiento;
             this.persona.telefono = data.telefono
+          
 
           } else if (this.persona.cedula?.length == 10) {
             this.flapersona = true;

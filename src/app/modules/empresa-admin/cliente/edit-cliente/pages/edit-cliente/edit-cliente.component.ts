@@ -132,7 +132,7 @@ export class EditClienteComponent implements OnInit {
       this.personas = data.persona
       this.clientes = data
       this.usuarios = data.usuario
-      // console.log(this.clientes.usuario?.username)
+      console.log(this.clientes.usuario?.username)
       //  this.verificarDatos(this.personas.nombres)
     })
   }

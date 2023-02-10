@@ -25,7 +25,7 @@ export class PersonaService {
   }
 
   updatePersona(persona: Persona, idPersona: any) {
-    return this.http.put<Persona>(this.URL + `actualizar/${idPersona}`, persona);
+    return this.http.put<Persona>(this.URL + `upd/${idPersona}`, persona);
   }
 
   deletePersona(idPersona: number) {

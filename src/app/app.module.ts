@@ -7,13 +7,13 @@ import { AppComponent } from './app.component';
 // service compartido
 import { CargarscriptsService } from './shared/services/cargarscripts.service';
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InterceptorService } from './core/interceptors/services/interceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NoImageDirective } from './core/directive/no-image.directive';
-import { CargarScriptsService } from './cargar-scripts.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxToastNotifierModule } from 'ngx-toast-notifier';
+PdfMakeWrapper.setFonts(pdfFonts);
 
 @NgModule({
   declarations: [
@@ -25,12 +25,9 @@ import { NgxToastNotifierModule } from 'ngx-toast-notifier';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToastrModule.forRoot(), // ToastrModule added,
-    BrowserAnimationsModule,NgxToastNotifierModule,
-    
+    ToastrModule.forRoot(),
   ],
   providers: [
-    CargarScriptsService,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]

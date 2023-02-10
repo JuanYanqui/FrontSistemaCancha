@@ -1,155 +1,147 @@
 <!doctype html>
 <html lang="en" class="h-100">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
-    <title>Cover Template · Bootstrap v5.2</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.104.2">
+  <title>Cover Template · Bootstrap v5.2</title>
 
-    
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
 
-    
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
 
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-    </style>
 
-    
-    <!-- Custom styles for this template -->
- 
-  </head>
-  <body class="d-flex h-100 text-center ">
-    
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
- 
+  <!-- Custom styles for this template -->
 
-  <main class="contenedor">
-    <h1>Realiza tus reservas ya</h1>
+</head>
+
+<body class="d-flex h-100 text-center ">
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+    <main class="contenedor">
+      <h1>Realiza tus reservas ya</h1>
    
-    <p class="lead">La mejor plataforma web de reserva de canchas sinteticas que ofertan un catalogo de horarios disponibles..</p>
-    <p class="lead">
-      <a   (click)="goToR($event)"  id="btns" class="btn btn-lg btn-secondary fw-bold border-white ">Iniciar Sesion</a>
-    </p>
+      <p class="lead">La mejor plataforma web de reserva de canchas sinteticas que ofertan un catalogo de horarios disponibles..</p>
+      <p class="lead">
+        <a   (click)="goToR($event)"  id="btns" class="btn btn-lg btn-secondary fw-bold border-white ">Iniciar Sesion</a>
+      </p>
+    </main>
 
-    
-  </main>
 
-</div>
-    
-<section class="testimonial">
-  <div class="container">
-      <div class="row">
-          <div class="col-lg-6 d-none d-lg-block">
-              <ol class="carousel-indicators tabs">
-                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-                      <figure>
-                          <img src="../../../../../../assets/img/circulo1.png" class="img-fluid" alt="">
-                      </figure>
-                  </li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="1">
-                      <figure>
-                          <img src="../../../../../../assets/img/circulo22.png"  class="img-fluid" alt="">
-                      </figure>
-                  </li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="2">
-                      <figure>
-                          <img src="../../../../../../assets/img/circulo3.png"  class="img-fluid" alt="">
-                      </figure>
-                  </li>
-              </ol>
-          </div>
-          <div class="col-lg-6 d-flex justify-content-center align-items-center">
-              <div id="carouselExampleIndicators" data-interval="false" class="carousel slide" data-ride="carousel">
-                  <h3 style="color: aliceblue;">EL DEPORTE ES VIDA</h3>
-                  <h1>EXPERIENCIAS</h1>
-                  <div class="carousel-inner">
-                      <div class="carousel-item active">
-                          <div class="quote-wrapper">
-                              <p style="color: aliceblue;">Un jugador de fútbol que está acostumbrado a jugar en canchas de césped natural puede encontrar que al principio se siente un poco extraño al jugar en una cancha sintética. El césped sintético puede tener una sensación más dura y rígida bajo los pies, y el baló</p>
-                              <h3>peter lee</h3>
-                          </div>
-                      </div>
-                      <div class="carousel-item">
-                          <div class="quote-wrapper">
-                              <p style="color: aliceblue;">I have tried a lot of food delivery services but Plate is something out of this world! Their food is really healthy and it tastes great, which is why I recommend this company to all my friends!</p>
-                              <h3>peter lee</h3>
-                          </div>
-                      </div>
-                      <div class="carousel-item">
-                          <div class="quote-wrapper">
-                              <p style="color: aliceblue;">I have tried a lot of food delivery services but Plate is something out of this world! Their food is really healthy and it tastes great, which is why I recommend this company to all my friends!</p>
-                              <h3>peter lee</h3>
-                          </div>
-                      </div>
-                  </div>
-                  <ol class="carousel-indicators indicators">
-                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                  </ol>
-              </div>
-          </div>
-      </div>
   </div>
-</section>
-  </body>
+
+  <section class="testimonial">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-none d-lg-block">
+                <ol class="carousel-indicators tabs">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                        <figure>
+                            <img src="../../../../../../assets/img/circulo1.png" class="img-fluid" alt="">
+                        </figure>
+                    </li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1">
+                        <figure>
+                            <img src="../../../../../../assets/img/circulo22.png"  class="img-fluid" alt="">
+                        </figure>
+                    </li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2">
+                        <figure>
+                            <img src="../../../../../../assets/img/circulo3.png"  class="img-fluid" alt="">
+                        </figure>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                <div id="carouselExampleIndicators" data-interval="false" class="carousel slide" data-ride="carousel">
+                    <h3 style="color: aliceblue;">EL DEPORTE ES VIDA</h3>
+                    <h1>EXPERIENCIAS</h1>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="quote-wrapper">
+                                <p style="color: aliceblue;">Un jugador de fútbol que está acostumbrado a jugar en canchas de césped natural puede encontrar que al principio se siente un poco extraño al jugar en una cancha sintética. El césped sintético puede tener una sensación más dura y rígida bajo los pies, y el baló</p>
+                                <h3>peter lee</h3>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="quote-wrapper">
+                                <p style="color: aliceblue;">I have tried a lot of food delivery services but Plate is something out of this world! Their food is really healthy and it tastes great, which is why I recommend this company to all my friends!</p>
+                                <h3>peter lee</h3>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="quote-wrapper">
+                                <p style="color: aliceblue;">I have tried a lot of food delivery services but Plate is something out of this world! Their food is really healthy and it tastes great, which is why I recommend this company to all my friends!</p>
+                                <h3>peter lee</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <ol class="carousel-indicators indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+</body>
 
 </html>
-
-
-    

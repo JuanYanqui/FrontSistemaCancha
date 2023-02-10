@@ -1,5 +1,6 @@
-import { Administrador } from "./administrador";
+
 import { Persona } from "./persona";
+import { Ubicacion } from "./ubicacion";
 
 export class Establecimiento {
     
@@ -18,5 +19,7 @@ export class Establecimiento {
     ciudad: string = "";
     direccion: string = "";
     codigoPostal: string = "";
-    administrador?: Administrador;
+    fotoestablecimiento?: String;
+    persona?: Persona;
+    ubicacion?: Ubicacion;
 }

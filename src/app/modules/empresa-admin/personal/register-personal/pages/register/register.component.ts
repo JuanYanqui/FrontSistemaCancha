@@ -5,7 +5,7 @@ import { Empresa } from 'src/app/core/models/empresa';
 import { Persona } from 'src/app/core/models/persona';
 import { Personal } from 'src/app/core/models/personal';
 import { PersonalCargo } from 'src/app/core/models/personal-cargo';
-import { Rol } from 'src/app/core/models/roles';
+import { Rol} from 'src/app/core/models/roles';
 import { Usuario } from 'src/app/core/models/usuario';
 import { CargoService } from 'src/app/modules/empresa-admin/services/cargo.service';
 import { PersonalCargoService } from 'src/app/modules/empresa-admin/services/personal-cargo.service';
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   personalCargos: PersonalCargo = new PersonalCargo();
 
   empresa: Empresa = new Empresa;
-  rol: Rol= new Rol;
+  rol: Rol = new Rol;
 
   listaCargos: Cargo[] = [];
   selectedCargos: Cargo[] = [];
@@ -61,6 +61,7 @@ export class RegisterComponent implements OnInit {
     let idUsuario = localStorage.getItem('idUsuario');
     this.usuarioService.getPorId(idUsuario).subscribe(
       data => {
+        // this.empresa = data.empresa!;
 
         console.log(this.empresa);
       }
@@ -144,8 +145,10 @@ export class RegisterComponent implements OnInit {
             this.personal.horario = "inicio"
             this.personal.estado = true;
 
+            // this.usuario.empresa = this.empresa;
             this.usuario.estado = true;
             this.usuario.rol = this.rol;
+            this.persona.foto = this.nombre_orignal
 
             if (this.flagPersona) {
               this.servicePersona.postPersona(this.persona).subscribe(

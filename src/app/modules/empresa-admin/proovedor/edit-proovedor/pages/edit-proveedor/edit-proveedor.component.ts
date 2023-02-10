@@ -118,7 +118,8 @@ export class EditProveedorComponent implements OnInit {
     let idUsuario = localStorage.getItem('idUsuario');
     this.usuarioService.getPorId(idUsuario).subscribe(
       data => {
-
+        // this.empresa = data.empresa!;
+        // this.idEMpresa = data.empresa!.idEmpresa
       }
     )
   }

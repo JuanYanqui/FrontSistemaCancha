@@ -17,7 +17,7 @@ body {
   width: 100%;
   padding: 15px 200px;
   background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
-  url(../../../../assets/img/fonfo2.jpeg);
+  url(../../../../assets/img/Fifa-World-Cup-Logo-Design-2022.jpg);
 background-repeat: no-repeat;
 background-size: cover;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -26,6 +26,28 @@ background-size: cover;
     left: 0;
     width: 100%;
     z-index: 1;
+}
+
+
+.usuario{
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+    url(../../../../assets/img/icons8-añadir-usuario-masculino-64.png);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.casa{
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+    url(../../../../assets/img/icons8-home-62.png);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.establecimiento{
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+    url(../../../../assets/img/icons8-tienda-en-línea-64.png);
+background-repeat: no-repeat;
+background-size: cover;
 }
 .nav,
 .nav .nav-links {
@@ -188,7 +210,14 @@ a {
     background:  rgb(13, 243, 166);
     color: #11101d;
   }
-
+  .circular--square{
+    width: 50px;
+    height: 50px;
+    border-top-left-radius: 100% 100%;
+    border-top-right-radius: 100% 100%;
+    border-bottom-right-radius: 100% 100%;
+    border-bottom-left-radius: 100% 100%;
+  }
 
 
 }

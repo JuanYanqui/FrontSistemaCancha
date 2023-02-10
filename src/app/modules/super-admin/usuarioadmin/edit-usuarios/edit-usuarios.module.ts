@@ -22,7 +22,6 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -53,7 +52,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CardModule,
     TableModule,
     DialogModule,
-    NgxPaginationModule
   ],
   exports:[
     EditUsuariosComponent

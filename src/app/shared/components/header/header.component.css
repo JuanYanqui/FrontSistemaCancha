@@ -66,7 +66,7 @@ animation: glowing 20s linear infinite;
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
-  color: rgb(51, 51, 51);
+  color: #333;
   text-shadow: none; /* Prevent inheritance from `body` */
 }
 
@@ -183,7 +183,6 @@ header{
 .menu-item:hover{
     color: var(--main-color);
 }
-
 .circular--square {
   width: 50px;
   height: 50px;

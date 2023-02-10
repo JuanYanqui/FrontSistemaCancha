@@ -10,6 +10,7 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
 import { CargarScriptsService } from 'src/app/cargar-scripts.service';
 import Swal from 'sweetalert2';
 import { FotoService } from 'src/app/shared/services/foto.service';
+
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
@@ -21,22 +22,21 @@ export class RegisterUserComponent {
 
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario;
+  isButtonEnabled: boolean = false;
+  isButtonEnabled2: boolean = false;
 
   verfNombres: any;
+  flapersona: boolean = true;
   verfApellidos: any;
   verfCorreo: any;
   verfUsername: any;
   verfPassword: any;
-  isButtonEnabled: boolean = false;
-  isButtonEnabled2: boolean = false;
+
   expCorreo: RegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
   valCorreo: boolean = true;
-  flapersona: boolean = true;
-  blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
 
-  constructor(private cargarScripts: CargarScriptsService, private fotoService: FotoService,  private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private router: Router) {
-    cargarScripts.Carga(["register-user.component"])
-
+  constructor(private cargarScripts: CargarScriptsService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private router: Router) {
+    cargarScripts.Carga(["register-user.component"]);
   }
 
   ngOnInit(): void {
@@ -47,11 +47,6 @@ export class RegisterUserComponent {
     this.usuario.password = '';
     localStorage.removeItem('idUsuario');
     sessionStorage.removeItem('productosPedido');
-  }
-  goTo($event: any): void {
-
-    this.router.navigate(['/login-usr'])
-    console.log($event)
   }
 
   validarCorreo() {
@@ -94,13 +89,13 @@ export class RegisterUserComponent {
       this.usuarioService.verfUsername(this.usuario.username).subscribe(
         data => {
           if (!data) {
-            this.personaService.postPersona(this.persona).subscribe(
+            this.personaService.getPorCedula(this.persona.cedula).subscribe(
               data => {
                 console.log(data);
                 this.persona.idPersona = data.idPersona;
                 this.usuario.persona = this.persona;
                 this.usuario.estado = true;
-
+                
                 this.rolService.getByName('CLIENTE').subscribe(
                   data => {
                     console.log(data);
@@ -109,7 +104,6 @@ export class RegisterUserComponent {
                     this.rol.nombre = data.nombre;
 
                     this.usuario.rol = this.rol;
-
                     this.usuarioService.postUsuario(this.usuario).subscribe(
                       result => {
                         console.log(result);
@@ -134,6 +128,7 @@ export class RegisterUserComponent {
       )
     }
   }
+  
   buscarPorCedula() {
 
     if (this.persona.cedula != null && this.persona.cedula != '') {
@@ -153,6 +148,8 @@ export class RegisterUserComponent {
             this.persona.celular = data.celular;
             this.persona.email = data.email;
             this.persona.telefono = data.telefono
+            this.persona.foto = data.foto;
+            this.persona.fechaNacimmiento = data.fechaNacimmiento;
 
           } else if (this.persona.cedula?.length == 10) {
             this.flapersona = true;
@@ -259,47 +256,43 @@ export class RegisterUserComponent {
     }
   }
 
-  // limpiar(){
-  //   console.log("limpiar")
-  //   this.form.reset();
 
-  // }
+  // IMAGEN
+  image!: any;
+  file: any = '';
 
-    // IMAGEN
-    image!: any;
-    file: any = '';
-  
-    // CAPTURO EL ARCHIVO
-    nombre_orignal: string = "";
-  
-    cap_nombre_archivo: any;
-    selectedFile!: File;
-  
-    public imageSelected(event: any) {
-  
-      this.selectedFile = event.target.files[0];
-  
-      // mostrar imagen seleccionada
-      this.image = this.selectedFile;
-      const reader = new FileReader();
-      reader.readAsDataURL(this.selectedFile);
-      reader.onload = () => {
-        this.file = reader.result;
-      };
-      
-  
-      // CAPTURAR EL NAME DE LA IMAGEN
-      console.log("Seleciono una imagen: " + event.target.value);
-      this.cap_nombre_archivo = event.target.value;
-      console.log("Numero de datos del nombre del archivo => " + this.cap_nombre_archivo.length)
-      this.nombre_orignal = this.cap_nombre_archivo.slice(12);
-      console.log("Nombre imagen original => " + this.nombre_orignal);
-      console.log(this.nombre_orignal);
-  
-    }
-  
-    cargarImagen() {
-      this.fotoService.guararImagenes(this.selectedFile);
-    }
+  // CAPTURO EL ARCHIVO
+  nombre_orignal: string = "";
+
+  cap_nombre_archivo: any;
+  selectedFile!: File;
+
+  public imageSelected(event: any) {
+
+    this.selectedFile = event.target.files[0];
+
+    // mostrar imagen seleccionada
+    this.image = this.selectedFile;
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = () => {
+      this.file = reader.result;
+    };
+
+
+    // CAPTURAR EL NAME DE LA IMAGEN
+    console.log("Seleciono una imagen: " + event.target.value);
+    this.cap_nombre_archivo = event.target.value;
+    console.log("Numero de datos del nombre del archivo => " + this.cap_nombre_archivo.length)
+    this.nombre_orignal = this.cap_nombre_archivo.slice(12);
+    console.log("Nombre imagen original => " + this.nombre_orignal);
+    console.log(this.nombre_orignal);
+
+  }
+
+  cargarImagen() {
+    this.fotoService.guararImagenes(this.selectedFile);
+  }
+
 
 }

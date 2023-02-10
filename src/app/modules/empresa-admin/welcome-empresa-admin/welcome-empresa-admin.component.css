@@ -20,9 +20,10 @@
 
 .home-section{
   position: relative;
-  background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../assets/img/uefa-champions.gif);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+  url(../../../../assets/img/qatar2022.jpg);
+background-repeat: no-repeat;
+background-size: cover;
   min-height: 87vh;
   width: calc(100% - 150px);
   left: 130px;
@@ -40,7 +41,6 @@
 .home-section .home-content{
   position:static;
   padding-top: 15px;
-  color: rgba(255, 255, 255, 0.5)
 }
 
 

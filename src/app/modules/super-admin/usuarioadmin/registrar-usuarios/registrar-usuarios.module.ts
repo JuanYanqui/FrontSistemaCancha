@@ -5,7 +5,6 @@ import { RegistrarUsuariosRoutingModule } from './registrar-usuarios-routing.mod
 import { RegistroUsuariosComponent } from './pages/registro-usuarios/registro-usuarios.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { EditEstablecimientoModule } from '../../establecimiento/edit-establecimiento/edit-establecimiento.module';
 import { PanelModule } from 'primeng/panel';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

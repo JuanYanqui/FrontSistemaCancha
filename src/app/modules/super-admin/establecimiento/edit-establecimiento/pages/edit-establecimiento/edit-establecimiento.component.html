@@ -1,77 +1,311 @@
-<div class="container mt-3">
-<div class="row jumbotron box8" style="background-color: rgb(255, 255, 255);">
-    <div class="container">
-        <div class="row">
-         <section class="col-lg-12">
-           <div class="card">
-             <div class="card-header">
-               <i class="fa fa-align-justify"></i> Simple Table
-             </div>
-             <div class="card-body">
-               <table class="table table-responsive-card">
-                 <thead>
-                   <tr>
-                     <th scope="col">Username</th>
-                     <th scope="col">Date registered</th>
-                     <th scope="col">Role</th>
-                     <th scope="col">Status</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr> 
-                    <th scope="row">Samppa Nori</th>
-                     <td data-title="Registered at">2012/01/01</td>
-                     <td data-title="Role">Member</td>
-                     <td data-title="Status">
-                       <span class="badge badge-success">Active</span>
-                     </td>
-                   </tr>
-                   <tr>
-                      <th scope="row">Nori Samppa</th>
-                     <td data-title="Registered at">2012/02/01</td>
-                     <td data-title="Role">Staff</td>
-                     <td data-title="Status">
-                       <span class="badge badge-danger">Banned</span>
-                     </td>
-                   </tr>
-                   <tr>
-                      <th scope="row">Chetan Mohamed</th>
-                     <td data-title="Registered at">2012/02/01</td>
-                     <td data-title="Role">Admin</td>
-                     <td data-title="Status">
-                       <span class="badge badge-secondary">Inactive</span>
-                     </td>
-                   </tr>
-                   <tr>
-                      <th scope="row">Derick Maximinus</th>
-                     <td data-title="Registered at">2012/03/01</td>
-                     <td data-title="Role">Member</td>
-                     <td data-title="Status">
-                       <span class="badge badge-warning">Pending</span>
-                     </td>
-                   </tr>
-                 </tbody>
-               </table>
-               <ul class="pagination">
-                 <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                 <li class="page-item active">
-                   <a class="page-link" href="#">1</a>
-                 </li>
-                 <li class="page-item"><a class="page-link" href="#">2</a></li>
-                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-                 <li class="page-item"><a class="page-link" href="#">4</a></li>
-                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
-               </ul>
-             </div>
-           </div>
-         </section>
-         <!--/.col-->
-     
+<div class="content">
+    <body>
+        
     
-         <!--/.col-->
-       </div>
-     </div>
-      
+    <h5 class="card-title mb-3"></h5>
+    <div class="tab-pane active" id="registrar">
+            <div  class="form-check form-switch m-3">
+                <input #cambiarvista class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="showMe" />
+                <label class="form-check-label" for="flexSwitchCheckDefault">Cambiar de vista.</label>
+            </div>
+            <!-- cards productos -->
+            <div  id="tabla"   *ngIf="showMe; then thentrue; else elseBlock"></div>
+            <ng-template    #thentrue>
+                <p-table   #dt [value]="listaestablecimiento" dataKey="id" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines" [paginator]="true" [rowHover]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="[
+            'id',
+            'Ruc',
+            'Nombre',
+            'Calle Principal',
+            'Calle Secundaria',
+            'Representante',
+            'Apellido',
+          ]">
+           
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>
+
+                            </th>
+                            <th pResizableColumn>
+                                Id
+                            </th>
+                            <th pResizableColumn>
+                                RUC
+                            </th>
+                            <th pResizableColumn>
+                                Nombre
+                            </th>
+                            <th pResizableColumn>
+                                Calle Principal
+                            </th>
+                            <th pResizableColumn>
+                                Calle Secundaria
+                            </th>
+                            <th pResizableColumn>
+                                Representante
+                            </th>
+                            <th pResizableColumn>
+                                Apellido
+                            </th>
+                            <th pSortableColumn="">
+                                <div class="p-d-flex p-jc-between p-ai-center">Accion</div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="width: 3rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th pResizableColumn>
+                                <p-columnFilter type="text" field="id"></p-columnFilter>
+                            </th>
+                            <th pResizableColumn>
+                                <p-columnFilter type="text" field="ruc"></p-columnFilter>
+                            </th>
+                            <th pResizableColumn>
+                                <p-columnFilter type="text" field="nombre"></p-columnFilter>
+                            </th>
+                            <th pResizableColumn>
+                                <p-columnFilter type="text" field="Calle principal"></p-columnFilter>
+                            </th>
+                            <th pResizableColumn>
+                                <p-columnFilter type="text" field="Calle Secundaria"></p-columnFilter>
+                            </th>
+                            <th pResizableColumn>
+                                <p-columnFilter type="text" field="Representante"></p-columnFilter>
+                            </th>
+                            <th pResizableColumn>
+                                <p-columnFilter type="text" field="Apellido"></p-columnFilter>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-establecimiento>
+                        <tr class="p-selectable-row">
+                            <td>
+                                <p-tableCheckbox [value]="establecimiento"></p-tableCheckbox>
+                            </td>
+                            <td>
+                                {{ establecimiento.idEstablecimiento }}
+                            </td>
+                            <td>
+                                {{ establecimiento.ruc }}
+                            </td>
+                            <td>
+                                {{ establecimiento.nombre }}
+                            </td>
+                            <td>
+                                {{ establecimiento.ubicacion.calle_principal }}
+                            </td>
+                            <td>
+                                {{ establecimiento.ubicacion.calle_secundaria }}
+                            </td>
+                            <td>
+                                {{ establecimiento.persona.nombre }}
+                            </td>
+                            <td>
+                                {{ establecimiento.persona.apellido}}
+                            </td>
+
+                            <td style="text-align: center">
+                                <a  (click)="editarEstablecimiento(establecimiento)"  icon="pi pi-pencil" class="btn btn-warning"><i class="bi bi-pencil-square"  (click)="editarEstablecimiento(establecimiento)"  icon="pi pi-pencil"></i></a>
+                            </td>
+                        </tr>
+                    </ng-template>
+                
+                </p-table>
+            </ng-template>
+        
+
+                  <ng-template pTemplate="body" let-establecimiento #elseBlock>
+                <div class="row g-3" style="position: relative">
+            
+                    <div id="tarjetascontenedor" class="row row-cols-auto row-cols-md-3 g-3">
+                        <div class="" *ngFor="let establecimiento of listaestablecimiento">
+
+                                <div class="product-card">
+                                    <div class="logo-cart">
+                                        <img class="circular--square" src="../../../../../../../assets/img/Reservegame.jpg" width="30px" height="30px">
+                                      <i class='bx bx-shopping-bag'></i>
+                                    </div>
+                                    
+                                    <div class="shoe-details">
+                                        <img imageLoader [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento" class="rounded mx-auto d-bloc card-img-top" alt="..."/>
+                                        <ngx-spinner bdColor="rgba(0,0,0,0.1)" size="large" color="#696969" type="square-loader" [fullScreen]="false">
+                                            <p style="color: #0e78e1"></p>
+                                        </ngx-spinner>
+                                        <span class="shoe_name">{{ establecimiento.nombre }}</span>
+                                     
+                                        <p class="card-text" > 
+                                            {{ establecimiento.ubicacion?.calle_principal }}
+                                     
+                                    </div>
+                                    
+                                    <div id="btnsedittbl" class="button">
+                                      <div class="button-layer"></div>
+                                      <button  style="" (click)="editarEstablecimiento(establecimiento)"  icon="pi pi-pencil" label="" class="btn btn-success" >Editar</button>
+                                    </div>
+                                  </div>
+                                                        
+                        </div>
+
+                    </div>
+                </div>
+            
+            </ng-template>
+       
+
+    </div>
+</body>
+
+<p-dialog header="Editar Establecimiento" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+[baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="body">
+    <div class="p-grid p-fluid">
+      <h2 class="form-label-p text-center">Datos Establecimiento</h2>
+
+    <div class="perfil-usuario-avatar text-center">
+      <img  class="circular--square" style="max-width: 30%;" [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento">
+      </div>
+        <div class="row">
+            <div class="col">
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" class="form-control" [(ngModel)]="establecimiento.nombre" pInputText required>
+                        <label for="float-input"></label>
+                    </span>
+                </div>
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="time" class="form-control" [(ngModel)]="establecimiento.horaApertura" pInputText>
+                        <label for="float-input">Hora Apertura</label>
+                    </span>
+                </div>
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="time" class="form-control" [(ngModel)]="establecimiento.horaCierre"
+                          pInputText>
+                        <label for="float-input">Hoara Cierre</label>
+                    </span>
+                </div>
+                <agm-map [latitude]="lat" [longitude]="long" >
+                    <agm-marker [latitude]="valorlati" [longitude]="valorlongi">
+                        <agm-info-window>
+                            <h3>{{establecimiento.nombre}}</h3>
+                            <p>{{ubicacion.calle_principal}}</p>
+                            <img class="circular--square2"  [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento"/>
+                        </agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" class="form-control" [(ngModel)]="ubicacion.latitud"
+                            pInputText>
+                        <label for="float-input">Latitud</label>
+                    </span>
+                </div>
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" [(ngModel)]="ubicacion.longitud" pInputText>
+                        <label for="float-input">Longitud</label>
+                    </span>
+                </div>
+
+            </div>
+            <div class="col">
+                <div class="p-col-3 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" class="form-control" [(ngModel)]="ubicacion.calle_principal"
+                            pInputText>
+                        <label for="float-input">Calle princpial</label>
+                    </span>
+                </div>
+                <div class="col">
+                    <div class="p-col-3 p-md-4">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" class="form-control" [(ngModel)]="ubicacion.calle_secundaria"
+                                 pInputText>
+                            <label for="float-input">Calle Secundaria</label>
+                        </span>
+                    </div>
+                <div class="p-col-3 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" class="form-control" [(ngModel)]="ubicacion.referencia"
+                        pInputText>
+                        <label for="float-input">Referencia</label>
+                    </span>
+                </div>
+                <div class="p-col-3 p-md-4">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" class="form-control" [(ngModel)]="ubicacion.numero"
+                        pInputText>
+                        <label for="float-input">Numero de sector</label>
+                    </span>
+                </div>
+                <div style="border: 1px solid black; padding: 30px;"  class="text-left">
+                
+                    <div>
+                    <input type="checkbox" id="test1" class="form-check-input" [formControl]="hasBarControl"
+                    [(ngModel)]="establecimiento.bar" (click)="checkHasBar()"/>
+                    <label for="test1">El establecimiento tiene Bar</label>
+                    </div>
+                 
+                    <div>
+                      <input type="checkbox" id="test2" class="form-check-input" [formControl]="hasEstacionamientoControl"
+                      [(ngModel)]="establecimiento.estacionamiento" (click)="checkHasEsta()"/>
+                      <label for="test2">El establecimiento tiene Estacionamientor</label>
+                    </div>
+                 
+                    <div>
+                      <input type="checkbox" id="test3" class="form-check-input" [formControl]="hasbanioControl"
+                      [(ngModel)]="establecimiento.banios"(click)="checkHasBanio()"/>
+                      <label for="test3">El establecimiento tiene Baño</label>
+                    </div>
+                
+                 <div>
+                      <input type="checkbox" id="test4" class="form-check-input" [formControl]="hasVestidirControl"
+                      [(ngModel)]="establecimiento.vestidores"(click)="checkHasVesti()"/>
+                      <label for="test4">El establecimiento tiene Vestidores</label>
+                    </div>
+          </div>
+<div>
 
 </div>
+                <div class="mt-2">
+                    <span class="p-float-label">
+                        <input (change)="imageSelected($event)" formControlName="foto" accept="image/*"
+                          name="foto" type="file" class="inputbox" id="float-input" required />
+                        <label for="float-input"></label>
+                      </span>
+                      <div *ngIf="file" class="mt-3 text-center">
+                        <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
+                      </div>
+                </div>
+
+            </div>
+            <br>
+
+        </div>
+        <div class="p-col-12 p-md-4">
+            <div class="row">
+                <div class="col">
+                    <button pButton pRipple type="button" label="Actualizar" icon="pi pi-check" iconPos="right"
+                        class="p-button-rounded p-button-success" (click)="actualizarEsta()"></button>
+                </div>
+                <div class="col">
+                    <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                        class="p-button-rounded p-button-danger" (click)="limpiar()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+</ng-template>
+</p-dialog>
+
+   
+</div>
+
+
+
+
+

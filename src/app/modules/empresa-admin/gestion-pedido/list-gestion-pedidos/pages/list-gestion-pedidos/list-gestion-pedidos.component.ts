@@ -96,9 +96,9 @@ export class ListGestionPedidosComponent {
     this.venta = new VentaPedido;
 
     if (isonline) {
-      // this.cedula = pedido.cliente?.usuario?.persona?.cedula;
-      // this.nombre = pedido.cliente?.usuario?.persona?.nombres + " " + pedido.cliente?.usuario?.persona?.apellidos;
-      // this.fecha = pedido.fechaPedido;
+      this.cedula = pedido.cliente?.usuario?.persona?.cedula;
+      this.nombre = pedido.cliente?.usuario?.persona?.nombre + " " + pedido.cliente?.usuario?.persona?.apellido;
+      this.fecha = pedido.fechaPedido;
     } else {
       this.cedula = this.listaVentasDirectas[i].persona?.cedula;
       this.nombre = this.listaVentasDirectas[i].persona?.nombre + " " + this.listaVentasDirectas[i].persona?.apellido;
@@ -253,12 +253,10 @@ export class ListGestionPedidosComponent {
     return total;
   }
 
-  // calcularVuelto() {
-  //   this.venta.vuelto = this.venta.valorCaja! - this.venta.valorPagar!;
-  //   if (this.venta.vuelto === NaN) {
-  //     this.venta.vuelto = 0;
-  //   }
-  // }
+  calcularVuelto() {
+    this.venta.vuelto = this.venta.valorCaja! - this.venta.valorPagar!;
+  
+  }
 
   filtraLista() {
     switch (this.opcionSelected.key) {
@@ -318,17 +316,17 @@ export class ListGestionPedidosComponent {
     ]).widths(['*']).end)
     pdf.add(pdf.ln(0.5))
     pdf.add(new Table([
-      // ['Cedula: ', this.pedido.cliente?.usuario?.persona?.cedula]
+      ['Cedula: ', this.pedido.cliente?.usuario?.persona?.cedula]
     ]).widths([50, '*']).end)
     pdf.add(new Table([
-      // ["Nombres: ", this.pedido.cliente?.usuario?.persona?.nombres + " " + this.pedido.cliente?.usuario?.persona?.apellidos]
+      ["Nombres: ", this.pedido.cliente?.usuario?.persona?.nombre + " " + this.pedido.cliente?.usuario?.persona?.apellido]
     ]).widths([50, '*']).end)
     pdf.add(new Table([
-      // ["Contacto: ", this.pedido.cliente?.usuario?.persona?.celular, 'Correo: ', this.pedido.cliente?.usuario?.persona?.correo]
+      ["Contacto: ", this.pedido.cliente?.usuario?.persona?.celular, 'Correo: ', this.pedido.cliente?.usuario?.persona?.email]
     ]).widths([50, '', 50, '']).end)
     pdf.add(pdf.ln(0.1))
     pdf.add(new Table([
-      // ["Direccion: ", this.pedido.cliente?.usuario?.persona?.direccion]
+      ["Direccion: ", this.pedido.cliente?.usuario?.persona?.direccion]
     ]).widths([50, '*']).end)
     pdf.add(pdf.ln(1))
     pdf.add(new Txt("__________________________________").bold().italics().alignment('center').end);

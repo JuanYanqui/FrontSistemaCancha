@@ -1,4 +1,4 @@
-import { Empresa } from "./empresa";
+
 import { Persona } from "./persona";
 import { Rol } from "./roles";
 

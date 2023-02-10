@@ -69,13 +69,13 @@ export class RegisterClienteComponent implements OnInit {
   guardarDatos() {
     if (this.validarDatos() == 0 && this.persona.cedula?.length === 10) {
       this.fechaActual = new Date()
-      // this.clientes.fechaRegistro = this.fechaActual;
-      // this.clientes.estado = true;
+      this.clientes.fechaRegistro = this.fechaActual;
+      this.clientes.estado = true;
 
       // this.usuario.empresa = this.empresa;
       this.usuario.estado = true;
       this.usuario.rol = this.rol;
-      // this.usuario.foto = this.FotoPorDefecto;
+      this.persona.foto = this.FotoPorDefecto;
 
       if (this.flagpersona) {
         //Cuando no se encuentra a la persona por la cedulase la registra
@@ -101,7 +101,7 @@ export class RegisterClienteComponent implements OnInit {
       result => {
         this.usuario.idUsuario = result.idUsuario;
 
-        // this.clientes.usuario = this.usuario;
+        this.clientes.usuario = this.usuario;
 
         this.clienteService.save(this.clientes).subscribe(data => {
           this.borrarFormulario();

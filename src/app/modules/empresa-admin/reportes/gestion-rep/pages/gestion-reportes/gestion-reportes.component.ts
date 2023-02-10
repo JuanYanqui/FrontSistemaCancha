@@ -79,6 +79,7 @@ export class GestionReportesComponent implements OnInit {
     let idUsuario = localStorage.getItem('idUsuario');
     this.usuarioService.getPorId(idUsuario).subscribe(
       data => {
+        // this.empresa = data.empresa!;
         this.fotologoempresa = this.empresa.logo
         console.log(this.empresa);
         this.obtenerPedidos(this.empresa);
@@ -108,9 +109,9 @@ export class GestionReportesComponent implements OnInit {
   verPedido(pedido: Pedido) {
     this.pedido = pedido;
 
-    // this.cedula = pedido.cliente?.usuario?.persona?.cedula;
-    // this.nombre = pedido.cliente?.usuario?.persona?.nombres + " " + pedido.cliente?.usuario?.persona?.apellidos;
-    // this.fecha = pedido.fechaPedido;
+    this.cedula = pedido.cliente?.usuario?.persona?.cedula;
+    this.nombre = pedido.cliente?.usuario?.persona?.nombre + " " + pedido.cliente?.usuario?.persona?.apellido;
+    this.fecha = pedido.fechaPedido;
 
     this.itemPedidoService.getByPedido(pedido.idPedido).subscribe(
       data => {
@@ -372,17 +373,17 @@ export class GestionReportesComponent implements OnInit {
     ]).widths(['*']).end)
     pdf.add(pdf.ln(0.5))
     pdf.add(new Table([
-    //   ['Cedula: ', this.pedido.cliente?.usuario?.persona?.cedula]
-    // ]).widths([50, '*']).end)
-    // pdf.add(new Table([
-    //   ["Nombres: ", this.pedido.cliente?.usuario?.persona?.nombres + " " + this.pedido.cliente?.usuario?.persona?.apellidos]
-    // ]).widths([50, '*']).end)
-    // pdf.add(new Table([
-    //   ["Contacto: ", this.pedido.cliente?.usuario?.persona?.celular, 'Correo: ', this.pedido.cliente?.usuario?.persona?.correo]
+      ['Cedula: ', this.pedido.cliente?.usuario?.persona?.cedula]
+    ]).widths([50, '*']).end)
+    pdf.add(new Table([
+      ["Nombres: ", this.pedido.cliente?.usuario?.persona?.nombre + " " + this.pedido.cliente?.usuario?.persona?.apellido]
+    ]).widths([50, '*']).end)
+    pdf.add(new Table([
+      ["Contacto: ", this.pedido.cliente?.usuario?.persona?.celular, 'Correo: ', this.pedido.cliente?.usuario?.persona?.email]
     ]).widths([50, '*', 50, '*']).end)
     pdf.add(pdf.ln(0.1))
     pdf.add(new Table([
-      // ["Direccion: ", this.pedido.cliente?.usuario?.persona?.direccion]
+      ["Direccion: ", this.pedido.cliente?.usuario?.persona?.direccion]
     ]).widths([50, '*']).end)
     pdf.add(pdf.ln(1))
     pdf.add(new Txt("__________________________________________________________________________________________________").bold().italics().alignment('center').end);

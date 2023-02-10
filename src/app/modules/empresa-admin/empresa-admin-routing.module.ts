@@ -14,10 +14,25 @@ const routes: Routes = [
     path: 'personal',
     loadChildren: () => import("./personal/personal.module").then(m => m.PersonalModule)
   },
-
+  {
+    path: 'producto',
+    loadChildren: () => import("./producto/producto.module").then(m => m.ProductoModule)
+  },
+  {
+    path: 'bodega',
+    loadChildren: () => import("./bodega/bodega.module").then(m => m.BodegaModule)
+  },
   {
     path: 'cliente',
     loadChildren: () => import("./cliente/cliente.module").then(m => m.ClienteModule)
+  },
+  {
+    path: 'compra',
+    loadChildren: () => import("./compra/compra.module").then(m => m.CompraModule)
+  },
+  {
+    path: 'inventario',
+    loadChildren: () => import("./inventario/inventario.module").then(m => m.InventarioModule)
   },
   
   {

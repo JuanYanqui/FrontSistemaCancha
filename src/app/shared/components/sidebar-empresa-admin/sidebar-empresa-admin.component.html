@@ -11,14 +11,12 @@
 </head>
 
 <body>
-
-  
   <div class="over overflow-auto sidebar">
     <div class="logo-details">
       <div class="logo_name" [hidden]="!isLogin" style="margin-right: 20px;">
 
 
-        <img class="circular--square" [src]="'http://localhost:5000/image/images/' + nombreLogo"
+        <img class="circular--square" [src]="'http://localhost:5000/image/images/'"
           style="margin: 0 auto;  width: 30px; height: 30px;">
 
         ReserverGame
@@ -31,13 +29,13 @@
         <input type="text" placeholder="Search..." />
         <span class="tooltip">Busqueda</span>
       </li>
-      <li>
+      <!-- <li>
         <a href="#" routerLink="/empresa-adm/bienvenida">
           <i class="bx bx-building-house"></i>
           <span class="links_name">Bienvenida</span>
         </a>
         <span class="tooltip">Bienvenida</span>
-      </li>
+      </li> -->
 
       <!-- ADMIN EMPRESA -->
 
@@ -163,6 +161,13 @@
       <!-- ADMIN SUPER -->
 
       <li>
+        <a href="#" routerLink="/sup-admin/bienvenida" routerLinkActive="active" *ngIf='isSuperAdmin'>
+          <i class="casa"></i>
+          <span class="links_name">Bienvenida</span>
+        </a>
+        <span class="tooltip">Bienvenida</span>
+      </li>
+      <!-- <li>
         <a href="#" routerLink="/sup-admin/menu-spradmin-emp" routerLinkActive="active" *ngIf='isSuperAdmin'>
           <i class="bx bx-pie-chart-alt-2"></i>
           <span class="links_name">Empresas</span>
@@ -176,6 +181,21 @@
           <span class="links_name">Usuario</span>
         </a>
         <span class="tooltip">Usuarios</span>
+      </li> -->
+
+      <li>
+        <a href="#" routerLink="/sup-admin/usuarioadmin/register-usuarioadmin" routerLinkActive="active" *ngIf='isSuperAdmin'>
+          <i class="usuario"></i>
+          <span class="links_name">Usuarios</span>
+        </a>
+        <span class="tooltip">Usuarios</span>
+      </li>
+      <li>
+        <a href="#" routerLink="/sup-admin/establecimiento/register-establecimiento" routerLinkActive="active" *ngIf='isSuperAdmin'>
+          <i class="establecimiento"></i>
+          <span class="links_name">Establecimiento</span>
+        </a>
+        <span class="tooltip">Establecimiento</span>
       </li>
 
       <!-- ADMIN SUPER -->

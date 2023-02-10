@@ -14,7 +14,6 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
 })
 export class EditUsuariosComponent {
   listaUsuarios: any []=[];
-  loading: boolean = true;
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
   displayEU: boolean = false;
@@ -24,6 +23,11 @@ export class EditUsuariosComponent {
   usuario: Usuario = new Usuario;
   pageActual:number=1;
   
+  totalRecords?: number;
+
+  loading?: boolean
+
+  selectAll: boolean = false;
 
   constructor(private toastr: ToastrService, private fotoService: FotoService, private personaService: PersonaService, private usuarioService: UsuarioService, private router: Router) {
     this.obtenerUsuariosPrivilegios();
@@ -41,11 +45,13 @@ export class EditUsuariosComponent {
     }
   }
   actualizarUsuario() {
-    this.personaService.updatePersona(this.persona, this.persona.idPersona).subscribe(
+    this.persona.foto = this.nombre_orignal;
+    this.personaService.updatePersona(this.persona, this.persona.cedula).subscribe(
       data => {
-        this.persona.idPersona = data.idPersona;
+        this.persona.cedula = data.cedula;
         this.usuario.persona = this.persona;
-
+        
+        this.cargarImagen();
         this.usuarioService.updateUsuario(this.usuario, this.usuario.idUsuario).subscribe(
           result => {
             console.log(result);

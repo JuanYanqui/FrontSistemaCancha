@@ -1,0 +1,12 @@
+
+img {
+    width: 400px;
+    height: auto;
+  }
+  .container{
+    background-color: white;
+    width: 95%;
+    border-radius: 15px;
+    margin-top: 50px;
+    color: black;
+  }

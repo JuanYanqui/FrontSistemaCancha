@@ -57,7 +57,7 @@ import { RouterModule } from '@angular/router';
     MatTabsModule,
     MatTableModule,
     MatNativeDateModule,
-    DividerModule,
+    DividerModule
   ],
   exports:[
     LoginComponent

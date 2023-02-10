@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { NgxToastService } from 'ngx-toast-notifier'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlertsService {
-  constructor(public toatrServices: ToastrService) { }
+  constructor(private toatrServices: ToastrService) { }
 
 
   showSuccess(text: string, tittle: string) {

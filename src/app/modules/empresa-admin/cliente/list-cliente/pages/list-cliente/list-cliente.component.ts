@@ -80,16 +80,16 @@ export class ListClienteComponent implements OnInit {
     let usuario: Usuario;
     this.serviceClientes.porId(mensaje).subscribe(data => {
       this.clientes = data
-      // usuario = this.clientes.usuario!;
-      // if (this.clientes.estado == true) {
-      //   this.clientes.estado = false;
-      //   usuario.estado = false;
-      //   accion = 'Cliente Deshabilitado';
-      // } else if (this.clientes.estado == false) {
-      //   this.clientes.estado = true;
-      //   usuario.estado = true;
-      //   accion = 'Cliente Habilitado';
-      // }
+      usuario = this.clientes.usuario!;
+      if (this.clientes.estado == true) {
+        this.clientes.estado = false;
+        usuario.estado = false;
+        accion = 'Cliente Deshabilitado';
+      } else if (this.clientes.estado == false) {
+        this.clientes.estado = true;
+        usuario.estado = true;
+        accion = 'Cliente Habilitado';
+      }
       console.log(this.clientes)
 
       this.usuarioService.updateUsuario(usuario, usuario.idUsuario).subscribe(

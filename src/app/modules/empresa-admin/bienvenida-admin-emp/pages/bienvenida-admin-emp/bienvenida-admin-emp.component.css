@@ -8,14 +8,28 @@
 
 .cover-container {
   max-width: 42em;
-  
  
+}
+
+
+.home-section{
+  position: relative;
+  background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../../../assets/img/uefa-champions.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 87vh;
+  width: calc(100% - 200px);
+  left: 90px;
+  transition: all 0.5s ease;
+  border-radius: 15px;
+
+ 
+  
 }
 
 .contenedor{
     
     padding-top: 100px;
-    background-color: blanchedalmond;
     
 }
 #btns{
@@ -35,6 +49,11 @@
     background-color:  rgb(9, 9, 9);
     
 }
+
+
+
+
+
 
 
 

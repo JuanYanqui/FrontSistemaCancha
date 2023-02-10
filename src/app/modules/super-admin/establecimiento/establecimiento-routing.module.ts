@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import("./registrar-establecimiento/registrar-establecimiento.module").then(m => m.RegistrarEstablecimientoModule)
   },
   {
+    path: 'register-establecimiento',
+    loadChildren: () => import("./ventana-edit/ventana-edit.module").then(m => m.VentanaEditModule)
+  },
+  {
     path: 'edit-establecimiento',
     loadChildren: () => import("./edit-establecimiento/edit-establecimiento.module").then(m => m.EditEstablecimientoModule)
   },
