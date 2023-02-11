@@ -18,9 +18,11 @@
 
 
 
-.home-content{
+.home-section{
   position: relative;
-  background-color: black;
+  background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../assets/img/botascambiantes.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 87vh;
   width: calc(100% - 150px);
   left: 130px;
@@ -38,6 +40,7 @@
 .home-section .home-content{
   position:static;
   padding-top: 15px;
+  color: rgba(255, 255, 255, 0.5)
 }
 
 
@@ -137,7 +140,7 @@
 }
 
 #contenedorbn{
-    background:linear-gradient(top, #808080,30%, #0a0a0a);
+    background:linear-gradient(top, #808080,30%, #3FADA8);
 
     margin-right: 60px;
 
@@ -210,3 +213,12 @@
         
     }
     
+
+
+
+
+
+
+
+
+

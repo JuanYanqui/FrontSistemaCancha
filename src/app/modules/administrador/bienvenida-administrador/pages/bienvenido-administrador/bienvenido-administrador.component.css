@@ -1,3 +1,4 @@
+
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
@@ -8,22 +9,6 @@
 .cover-container {
   max-width: 42em;
  
-}
-
-
-.home-section{
-  position: relative;
-  background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../../../assets/img/botascambiantes.gif);
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 87vh;
-  width: calc(100% - 10px);
-  left: 5px;
-  transition: all 0.5s ease;
-  border-radius: 15px;
-
- 
-  
 }
 
 .contenedor{
@@ -48,10 +33,6 @@
     background-color:  rgb(9, 9, 9);
     
 }
-
-
-
-
 
 
 

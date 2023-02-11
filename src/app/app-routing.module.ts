@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { WelcomeAdmistradorEstablecimientoComponent } from './modules/administrador/welcome-admistrador-establecimiento/welcome-admistrador-establecimiento.component';
 import { WelcomeClienteComponent } from './modules/cliente/welcome-cliente/welcome-cliente.component';
 import { WelcomeHomeComponent } from './modules/home/welcome-home/welcome-home.component';
 
@@ -30,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'adminsitrador',
-    component: WelcomeClienteComponent,
+    component: WelcomeAdmistradorEstablecimientoComponent,
     loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule) // se importa un modulo que tiene routing es decir ruta 
   }
 ];
