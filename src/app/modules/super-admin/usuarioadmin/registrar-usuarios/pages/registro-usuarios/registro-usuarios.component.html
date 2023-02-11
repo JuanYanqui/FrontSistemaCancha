@@ -189,14 +189,14 @@
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="persona.nombre"
+                                        <input [disabled]="!isinactivo" id="float-input" type="text" [(ngModel)]="persona.nombre"
                                             [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                         <label for="float-input">Nombres</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="persona.apellido"
+                                        <input [disabled]="!isinactivo" id="float-input" type="text" [(ngModel)]="persona.apellido"
                                             [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                         <label for="float-input">Apellidos</label>
                                     </span>

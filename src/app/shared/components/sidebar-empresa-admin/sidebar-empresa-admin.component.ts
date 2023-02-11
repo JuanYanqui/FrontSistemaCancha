@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { PersonalCargoService } from 'src/app/modules/empresa-admin/services/personal-cargo.service';
 import { CargarscriptsService } from '../../services/cargarscripts.service';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -33,7 +32,6 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
 
   constructor(
     private _CargarScripts: CargarscriptsService,
-    private personalCargoService: PersonalCargoService,
     private usuarioService: UsuarioService,
     private router: Router,
 
@@ -83,7 +81,6 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
               this.isClientAdmin = true;
               this.isClient = false;
               this.isPublic = false;
-              this.verificarCargosClientAdmin(data.idUsuario);
               break;
             case 'SUPER ADMINISTRADOR':
               this.isSuperAdmin = true;
@@ -104,27 +101,6 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  verificarCargosClientAdmin(idUsuario: any) {
-    console.log('Comprobando los cargos del usuario ...')
-    this.personalCargoService.getByUsuario(idUsuario).subscribe(
-      data => {
-        if (data != null && data.length > 0) {
-          this.isGerente = false;
-          data.forEach(personal => {
-            if (personal.cargo?.nombre === 'Bodega') {
-              this.isBodega = true;
-            } else if (personal.cargo?.nombre === 'Venta') {
-              this.isVenta = true;
-            }
-          });
-        } else {
-          this.isGerente = true;
-          this.isBodega = true;
-          this.isVenta = true;
-        }
-      }
-    )
-  }
 
   iniciarSesion() {
     //   location.replace('/log-in');

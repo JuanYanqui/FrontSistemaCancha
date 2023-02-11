@@ -186,7 +186,7 @@
                         <label for="float-input">Hoara Cierre</label>
                     </span>
                 </div>
-                <agm-map [latitude]="lat" [longitude]="long" >
+                <agm-map [latitude]="lat" [longitude]="long" (mapClick)="getCoordinates($event)">
                     <agm-marker [latitude]="valorlati" [longitude]="valorlongi">
                         <agm-info-window>
                             <h3>{{establecimiento.nombre}}</h3>
@@ -198,14 +198,14 @@
 
                 <div class="p-col-12 p-md-4">
                     <span class="p-float-label">
-                        <input id="float-input" type="text" class="form-control" [(ngModel)]="ubicacion.latitud"
+                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text" class="form-control" [(ngModel)]="ubicacion.latitud"
                             pInputText>
                         <label for="float-input">Latitud</label>
                     </span>
                 </div>
                 <div class="p-col-12 p-md-4">
                     <span class="p-float-label">
-                        <input id="float-input" type="text" [(ngModel)]="ubicacion.longitud" pInputText>
+                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text" [(ngModel)]="ubicacion.longitud" pInputText>
                         <label for="float-input">Longitud</label>
                     </span>
                 </div>

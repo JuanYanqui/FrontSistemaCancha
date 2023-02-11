@@ -23,6 +23,7 @@ export class RegistroUsuariosComponent {
   usuario: Usuario = new Usuario;
 
   verfNombres: any;
+  isinactivo: boolean = false;
   verfApellidos: any;
   verfCorreo: any;
   verfUsername: any;

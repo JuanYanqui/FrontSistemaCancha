@@ -14,12 +14,12 @@
 
 .home-section{
   position: relative;
-  background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../../../assets/img/uefa-champions.gif);
+  background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../../../assets/img/botascambiantes.gif);
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 87vh;
-  width: calc(100% - 200px);
-  left: 90px;
+  width: calc(100% - 10px);
+  left: 5px;
   transition: all 0.5s ease;
   border-radius: 15px;
 

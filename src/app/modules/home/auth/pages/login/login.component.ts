@@ -43,7 +43,7 @@ export class LoginComponent {
             localStorage.setItem('nameImagen', String(this.user));
             localStorage.setItem('nameLogo', String(this.empresa));
 
-            location.replace('/empresa-adm/bienvenida')
+            location.replace('/adminsitrador/bienvenida')
           } else {
             this.toastr.warning("Usuario inhabilitado, no puede ingresar!", "Advertencia!");
             this.usuario = new Usuario;

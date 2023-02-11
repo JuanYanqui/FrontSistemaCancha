@@ -49,8 +49,8 @@ hasVestidirControl = new FormControl(false);
 
 
 constructor(private cargarScripts: CargarScriptsService, private personaService: PersonaService,  private http: HttpClient, private toast: ToastrService, private establecimientoService: EstablecimientoService,  private ubicacionService: UbicacionService, private fotoService: FotoService){
-  this.lat=-2.8982210152204417;
-  this.long =-79.00277982020985;
+  this.lat=-1.831239;
+  this.long =-78.183406;
   this.zoom = 6;
   this.mapTypeId = 'hybrid';
   cargarScripts.Carga(["establecimiento-foto.component"])
@@ -135,15 +135,15 @@ checkHasVesti() {
   // }
 
   getCoordinates(event: MapMouseEvent) {
-    this.latu = event.coords.lat;
-    console.log(this.latu)
-    this.longu = event.coords.lng;
-    console.log(this.longu)
+    this.lat = event.coords.lat;
+    console.log(this.lat)
+    this.long = event.coords.lng;
+    console.log(this.long)
     // this.getLocationData(this.latu, this.longu);
     // this.geocodeAddress(this.latu, this.longu);
-    this.ubicacion.latitud = this.latu;
+    this.ubicacion.latitud = this.lat;
 console.log(this.ubicacion.latitud)
-this.ubicacion.longitud = this.longu;
+this.ubicacion.longitud = this.long;
 console.log(this.ubicacion.longitud)
   }
 

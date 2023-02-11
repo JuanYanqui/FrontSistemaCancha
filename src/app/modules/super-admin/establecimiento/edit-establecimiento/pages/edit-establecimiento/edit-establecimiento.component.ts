@@ -50,6 +50,7 @@ hasBarControl = new FormControl(false);
 hasEstacionamientoControl = new FormControl(false);
 hasbanioControl = new FormControl(false);
 hasVestidirControl = new FormControl(false);
+isButtonEnabled2: boolean = false;
   lat: number = 0;
   long: number= 0;
   zoom: number;
@@ -62,7 +63,7 @@ hasVestidirControl = new FormControl(false);
   constructor(private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private ubicacionService: UbicacionService, private establecimientoService: EstablecimientoService, private router: Router) {
     this.lat=-1.831239;
     this.long =-78.183406;
-    this.zoom = 6;
+    this.zoom = 25;
     this.mapTypeId = 'hybrid';
     this.iconUrl = 'https://media3.giphy.com/media/KFPrlCarpIKgj5suYj/giphy.gif?cid=790b76111fd939e5e5e898c968a52f0cc8c2c03f6ba27fe5&rid=giphy.gif&ct=s';
     this.obtenerEstablecimiento();
