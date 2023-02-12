@@ -38,18 +38,22 @@
                                     <div class="form-group">
                                         <h5>Descripción:</h5>
                                         <textarea type="text" class="inputbox"
-                                        name="descripcion" id="descripcion" placeholder="Información del daño"></textarea>
+                                        name="descripcion" id="descripcion" placeholder="Información del daño" [(ngModel)]="registro_damage.descripcion"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <h5>Valor:</h5>
                                         <input type="text" class="inputbox" 
-                                        name="valor" id="valor" placeholder="Ingrese el valor a pagar" required/>
+                                        name="valor" id="valor" placeholder="Ingrese el valor a pagar" required [(ngModel)]="registro_damage.valor"/>
+                                    </div>
+                                    <div>
+                                        <h5>Estado del pago:</h5>
+                                        
                                     </div>
                                 </span>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12">
-                            <button type="button" id="connecting" class="btn">Registrar</button>
+                            <button type="button" class="btn" (click)="registrarDamage()">Registrar</button>
                             <button [disabled]="!isButtonEnabled" type="button" id="next" class="btn next mt-3" >Siguiente</button>
                         </div>
                     </fieldset>

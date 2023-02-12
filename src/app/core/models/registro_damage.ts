@@ -5,6 +5,6 @@ export class Registro_Damage{
     idDamage:number=0;
     descripcion:string="";
     valor:number=0;
-    persona?:Persona;
+    cliente?:Persona;
     establecimiento?:Establecimiento;
 }
