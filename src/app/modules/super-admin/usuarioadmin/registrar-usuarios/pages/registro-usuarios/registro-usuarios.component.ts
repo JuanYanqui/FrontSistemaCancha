@@ -49,6 +49,7 @@ export class RegistroUsuariosComponent {
     console.log($event)
   }
 
+
   ngOnInit(): void {
 
     this.persona.nombre = '';
@@ -133,6 +134,7 @@ export class RegistroUsuariosComponent {
                       title: 'Usuario registrado correctamente',
                       text: 'Bienvenido!',
                     })
+                   this.limpiarU()
                   }
                 )
 
@@ -261,6 +263,8 @@ export class RegistroUsuariosComponent {
                   text: 'Persona registrada correctamente!',
                 })
                 this.isButtonEnabled = true;
+                this.limpiarP();
+                this.persona.foto = "";
               }
             );
           }
@@ -325,6 +329,31 @@ export class RegistroUsuariosComponent {
 
   cargarImagen() {
     this.fotoService.guararImagenes(this.selectedFile);
+  }
+
+  limpiarP(){
+    this.persona.nombre = "";
+    this.persona.apellido = "";
+    this.persona.email="";
+    this.persona.cedula="";
+    this.persona.celular="";
+    this.persona.telefono="";
+    this.persona.direccion="";
+    this.persona.foto="";
+    this.persona.genero="";
+    this.persona.fechaNacimmiento = new Date;
+      
+  }
+  limpiarU(){
+    this.persona.nombre = "";
+    this.persona.apellido = "";
+    this.persona.cedula="";
+    this.usuario.username="";
+    this.usuario.password = ""; 
+  }
+
+  recarga(){
+    window.location.reload();
   }
 
 

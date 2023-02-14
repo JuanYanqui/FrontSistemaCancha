@@ -46,8 +46,7 @@
                                         </div>
                                         <div class="p-col-12 p-md-4">
                                             <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="persona.email"
-                                                    [pKeyFilter]="valCorreo" maxlength="30" minlength="6" pInputText>
+                                                <input id="float-input" type="text" [(ngModel)]="persona.email" maxlength="30" minlength="6" pInputText>
                                                 <label for="float-input">Correo</label>
                                             </span>
                                         </div>
@@ -77,14 +76,6 @@
                                                     <option value="Masculino">Masculino</option>
                                                     <option value="Femenino">Femenino</option>
                                                 </select>
-                                            </span>
-                                        </div>
-                                        <div class="p-col-3 p-md-4">
-                                            <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="persona.direccion"
-                                                    [pKeyFilter]="blockSpecial" maxlength="40" minlength="10"
-                                                    pInputText>
-                                                <label for="float-input">Dirección</label>
                                             </span>
                                         </div>
                                         <div class="p-col-3 p-md-4">
@@ -119,7 +110,7 @@
                                         <div class="p-col-12 p-md-4">
                                             <button pButton pRipple type="button" label="Registrarse" icon="pi pi-check"
                                                 iconPos="right" class="p-button-rounded p-button-primary"
-                                                (click)="registrarPersona()" ></button>
+                                                (click)="registrarPersona()"></button>
                                         </div>
                                         <span>
     
@@ -234,7 +225,7 @@
         
                                             <div class="col-xs-12 col-sm-12 right">
         
-                                                <button type="button" id="korak2" class="btn next" (click)="recargar($event)">Next</button>
+                                                <button type="button" id="korak2" class="btn next" (click)="recargar($event)" (click)="recarga()" routerLink="/sup-admin/usuarioadmin/register-usuarioadmin">Next</button>
         
                                             </div>
 

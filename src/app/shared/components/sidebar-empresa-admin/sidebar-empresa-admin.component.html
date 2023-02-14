@@ -40,7 +40,7 @@
       <!-- ADMIN EMPRESA -->
 
 
-      <li>
+      <!-- <li>
         <a href="#" routerLink="/empresa-adm/menu-clientes-emp" routerLinkActive="active"
           *ngIf='isClientAdmin && isVenta'>
           <i class="bx bx-user"></i>
@@ -124,22 +124,45 @@
           <span class="links_name">Reportes</span>
         </a>
         <span class="tooltip">Reportes</span>
-      </li>
+      </li> -->
 
       <!-- ADMIN EMPRESA -->
 
-      <!-- CLIENTES -->
 
       <li>
+        <a href="#" routerLink="/adminsitrador/cancha/registro-canchas" routerLinkActive="active"
+          *ngIf='isAdminCancha'>
+          <i class="cancha"></i>
+          <span class="links_name">Reportes</span>
+        </a>
+        <span class="tooltip">Reportes</span>
+      </li> 
+
+
+
+
+
+      
+      <!-- CLIENTES -->
+
+      <!-- <li>
         <a href="#" routerLink="/empresa-adm/dashboard-emp-admin" routerLinkActive="active" *ngIf='isClientAdmin'>
           <i class="bx bx-grid-alt"></i>
           <span class="links_name">Dashboard</span>
         </a>
         <span class="tooltip">Dashboard</span>
-      </li>
+      </li> -->
+
+      <!-- <li>
+        <a href="#" routerLink="/empresa-adm/dashboard-emp-admin" routerLinkActive="active" *ngIf='isClientAdmin'>
+          <i class="bx bx-grid-alt"></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+      </li> -->
 
 
-      <li>
+      <!-- <li>
         <a href="#" class="nav-link px-2 text-white" routerLink="/cliente/cliente-producto/catalogo-productos"
           routerLinkActive="active" *ngIf='isClient'>
           <i class="bx bx-pie-chart-alt-2"></i>
@@ -154,12 +177,23 @@
           <span class="links_name">Pedidos(cliente)</span>
         </a>
         <span class="tooltip">Pedidos(cliente)</span>
-      </li>
+      </li> -->
 
       <!-- CLIENTES -->
+      <li>
+        <a href="#" routerLink="/cliente/reclamo/register-reclamo" routerLinkActive="active" *ngIf='isPublic'>
+          <i class="reclamo"></i>
+          <span class="links_name">Reclamos</span>
+        </a>
+        <span class="tooltip">Reclamos</span>
+      </li>
+
+
+
+
+
 
       <!-- ADMIN SUPER -->
-
       <li>
         <a href="#" routerLink="/sup-admin/bienvenida" routerLinkActive="active" *ngIf='isSuperAdmin'>
           <i class="casa"></i>
@@ -167,21 +201,6 @@
         </a>
         <span class="tooltip">Bienvenida</span>
       </li>
-      <!-- <li>
-        <a href="#" routerLink="/sup-admin/menu-spradmin-emp" routerLinkActive="active" *ngIf='isSuperAdmin'>
-          <i class="bx bx-pie-chart-alt-2"></i>
-          <span class="links_name">Empresas</span>
-        </a>
-        <span class="tooltip">Empresas</span>
-      </li>
-
-      <li>
-        <a href="#" routerLink="/sup-admin/menu-spradmin-usr" routerLinkActive="active" *ngIf='isSuperAdmin'>
-          <i class="bx bx-pie-chart-alt-2"></i>
-          <span class="links_name">Usuario</span>
-        </a>
-        <span class="tooltip">Usuarios</span>
-      </li> -->
 
       <li>
         <a href="#" routerLink="/sup-admin/usuarioadmin/register-usuarioadmin" routerLinkActive="active" *ngIf='isSuperAdmin'>
@@ -202,21 +221,7 @@
 
       <!-- INVITADO -->
 
-      <li>
-        <a href="#" routerLink="/invitado/catalogo/catalogo-emp" routerLinkActive="active" *ngIf='isPublic'>
-          <i class="bx bx-pie-chart-alt-2"></i>
-          <span class="links_name">Catalogo de Empresas</span>
-        </a>
-        <span class="tooltip">Catalogo de Empresas</span>
-      </li>
 
-      <li>
-        <a href="#">
-          <i class="bx bx-cog"></i>
-          <span class="links_name">Configuraciones</span>
-        </a>
-        <span class="tooltip">Configuraciones</span>
-      </li>
 
       <li class="profile">
         <div class="profile-details">

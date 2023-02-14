@@ -1,0 +1,103 @@
+<div class="container">
+    <mat-tab-group preserveContent>
+        <mat-tab label="Registro de Canchas">
+            <div class="content">
+
+                <p-panel id="paneregusuario" class="panel" header="Registro canchas">
+
+                    <div class="items panel over overflow-auto p-grid p-fluid">
+                        <div class="row">
+                            <div class="col">
+                                <div class="p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <input id="float-input" type="text" [(ngModel)]="cancha.nombre"
+                                            [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
+                                        <label for="float-input">Nombres</label>
+                                    </span>
+                                </div>
+                                <div class="p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <input id="float-input" type="text" [(ngModel)]="cancha.tarifa"
+                                            [pKeyFilter]="'int'" maxlength="10" minlength="10" pInputText required>
+                                        <label for="float-input">Tarifa</label>
+                                    </span>
+                                </div>
+                                <div class="p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <textarea id="float-input" type="text" [(ngModel)]="cancha.descripcion"
+                                            [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText required
+                                            rows="7"></textarea>
+                                        <label for="float-input">Descripcion</label>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="p-col-3 p-md-4">
+                                    <span class="p-float-label">
+                                        <div class="form-group">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <td colspan=”2”>
+                                                        <span class="p-float-label">
+                                                            <input id="float-input" type="text"
+                                                                [(ngModel)]="cancha.ancho" [pKeyFilter]="'int'"
+                                                                maxlength="40" minlength="10" pInputText>
+                                                            <label for="float-input">Ancho:</label>
+                                                        </span>
+                                                    </td>
+                                                    <td colspan=”2”>
+                                                        <span class="p-float-label">
+                                                            <input id="float-input" type="text"
+                                                                [(ngModel)]="cancha.altura" [pKeyFilter]="'int'"
+                                                                maxlength="40" minlength="10" pInputText>
+                                                            <label for="float-input">Alto:</label>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </span>
+                                </div>
+
+                                <div class="p-col-3 p-md-4">
+                                    <span class="p-float-label">
+                                        <input (change)="imageSelected($event)" formControlName="foto" accept="image/*"
+                                            name="foto" type="file" class="form-control" id="float-input" required />
+                                        <label for="float-input"></label>
+                                    </span>
+                                    <div *ngIf="file" class="mt-3 text-center">
+                                        <img [src]="file" class="rounded" alt="..." style="max-width: 30%;" />
+                                    </div>
+                                    <div>
+                                        <img alt="..."
+                                            style="max-width: 30%; visibility: hidden; width: 0px; height: 0px;"
+                                            [src]="'http://localhost:5000/image/images/' + cancha.foto" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="p-col-12 p-md-4">
+                                <button pButton pRipple type="button" label="Registrar Cancha" icon="pi pi-check"
+                                    iconPos="right" class="p-button-rounded p-button-primary"
+                                    (click)="registrarCancha()"></button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </p-panel>
+
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Listado Canchas" routerLink="../editar-canchas" routerLinkActive="active">
+            <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
+                            routerLinkActive="active">Registrar nueva empresa</a>
+                            -->
+            <app-editar-canchas></app-editar-canchas>
+        </mat-tab>
+
+    </mat-tab-group>
+</div>

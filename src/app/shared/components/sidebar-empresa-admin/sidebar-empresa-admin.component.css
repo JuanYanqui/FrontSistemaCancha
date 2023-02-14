@@ -29,6 +29,20 @@ background-repeat: no-repeat;
 background-size: cover;
 }
 
+.reclamo{
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+    url(../../../../assets/img/icons8-marcapáginas-94.png);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.cancha{
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+    url(../../../../assets/img/icons8-estadio-100.png);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
 .casa{
   background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
     url(../../../../assets/img/icons8-home-62.png);

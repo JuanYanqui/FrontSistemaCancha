@@ -1,0 +1,82 @@
+<div class="container">
+    <mat-tab-group preserveContent>
+        <mat-tab label="Registro de Reclamos">
+            <div class="content">
+
+                <p-panel id="paneregusuario" class="panel" header="Registro Reclamo">
+
+                    <div class="items panel over overflow-auto p-grid p-fluid">
+                        <section id="step1" data-step="1">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="p-col-12 p-md-4">
+                                        </div>
+                                        <div class="p-col-12 p-md-4">
+                                            <span class="p-float-label">
+                                                <input id="float-input" type="text" [(ngModel)]="reclamo.titulo"
+                                                maxlength="100" minlength="3" pInputText>
+                                                <label for="float-input">Titulo</label>
+                                            </span>
+                                        </div>
+                                        <div class="p-col-12 p-md-4">
+                                            <span class="p-float-label">
+                                                <input id="float-input" type="text" [(ngModel)]="reclamo.descripcion"
+                                                maxlength="10000" minlength="3" pInputText>
+                                                <label for="float-input">Descripcion</label>
+                                            </span>
+                                        </div>
+                                        <div class="p-col-12 p-md-4">
+                                            <span class="p-float-label">
+                                                <input id="float-input" type="date" style="text-align: right;" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
+                                                <label for="float-input">Fecha Actual</label>
+                                            </span>
+                                        </div>
+
+                                        <div class="p-col-3 p-md-4">
+                                            <span class="p-float-label">
+                                                <select pInputText placeholder="Cliente" type="text"
+                                                    [(ngModel)]="reclamo.cliente" id="cli" name="cliente" required>
+                                                    <option [ngValue]="undefined" class="p-float-label">Seleccione un Cliente</option>
+                                                    <option *ngFor="let cliente of cliente" [ngValue]="cliente">
+                                                        {{cliente.nombre}} {{cliente.apellido}}
+                                                    </option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                        <div class="p-col-3 p-md-4">
+                                            <span class="p-float-label" style="text-align: right;">
+                                                <select pInputText placeholder="Administrador" type="text" 
+                                                    [(ngModel)]="reclamo.administrador" id="admin" name="administrador" required>
+                                                    <option [ngValue]="undefined">Seleccione un Administrador</option>
+                                                    <option *ngFor="let administrador of administrador" [ngValue]="administrador">
+                                                        {{administrador.nombre}} {{administrador.apellido}}
+                                                    </option>
+                                                </select>
+                                            </span>
+                                        </div>                                        
+                                        <div class="p-col-12 p-md-4">
+                                            <button id="btnregistrar" pButton pRipple type="button" label="Guardar Reclamo"
+                                                icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
+                                                (click)="guardarReclamo()"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </section>
+                    </div>
+                </p-panel>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Listado Reclamos" (click)="recargar($event)" routerLink="../edit-reclamos" routerLinkActive="active">
+            <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
+                            routerLinkActive="active">Registrar nueva empresa</a>
+            -->
+            <app-edit-reclamos></app-edit-reclamos>
+        </mat-tab>
+
+    </mat-tab-group>
+
+
+</div>

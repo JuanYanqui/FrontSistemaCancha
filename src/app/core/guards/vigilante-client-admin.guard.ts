@@ -19,7 +19,7 @@ export class VigilanteClientAdminGuard implements CanActivate {
 
     this.usuarioService.getPorId(idUsuario).subscribe(
       data => {
-        if (data != null && data.estado != false && data.rol?.nombre.toUpperCase() === 'CLIENTE ADMINISTRADOR') {
+        if (data != null && data.estado != false && data.rol?.nombre.toUpperCase() === 'ADMINISTRADOR') {
           console.log("usuario encontrado")
           this.flag = true;
         } else {
@@ -34,5 +34,6 @@ export class VigilanteClientAdminGuard implements CanActivate {
     console.log('bandera ' + this.flag);
     return this.flag;
   }
+
 
 }

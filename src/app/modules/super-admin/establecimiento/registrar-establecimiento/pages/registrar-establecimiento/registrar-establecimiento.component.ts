@@ -59,6 +59,8 @@ constructor(private cargarScripts: CargarScriptsService, private personaService:
 
 ngOnInit() {}
 
+
+
 checkHasBar() {
   if (this.hasBarControl.value) {
     console.log('Does not have bar');
@@ -270,7 +272,7 @@ registrarEstablecimiento() {
                 result => {
                   console.log(result);
                   this.toast.success("creado establecimiento")
-
+                  this.limpiarE();
                 }
               )
 
@@ -324,6 +326,29 @@ registrarEstablecimiento() {
 
   cargarImagen() {
     this.fotoService.guararImagenes(this.selectedFile);
+  }
+
+
+  limpiarE(){
+
+   this.establecimiento.nombre = "";
+   this.establecimiento.horaApertura = new Date;
+   this.establecimiento.horaCierre = new Date;
+   this.ubicacion.calle_principal = "";
+   this.ubicacion.calle_secundaria = "";
+   
+   this.ubicacion.latitud = 0;
+   this.ubicacion.longitud = 0;
+   this.ubicacion.numero = 0;
+
+   this.ubicacion.referencia = 0;
+   this.establecimiento.banios = false;
+   this.establecimiento.bar = false;
+   this.establecimiento.estacionamiento = false;
+   this.establecimiento.vestidores = false;
+
+   this.establecimiento.fotoestablecimiento = "";
+   window.location.reload();
   }
 
 

@@ -115,28 +115,28 @@
                                         <label for="float-input">Hora de Cierre</label>
                                     </span>
                                 </div>
-                                <div style="border: 1px solid black; padding: 10px;"  class="form p">
-                                        
-                                          <input type="checkbox" id="test1" class="form-check-input" [formControl]="hasBarControl"
-                                          (click)="checkHasBar()"/>
-                                          <label for="test1">El establecimiento tiene Bar</label>
-                                   
-                                       
-                                            <input type="checkbox" id="test2" class="form-check-input" [formControl]="hasEstacionamientoControl"
-                                            (click)="checkHasEsta()"/>
-                                            <label for="test2">El establecimiento tiene Estacionamientor</label>
+                                <div style="border: 1px solid black; padding: 30px;"  class="text-left">
+                
+                                    <div>
+                                    <input type="checkbox" id="test1" class="form-check-input" [formControl]="hasBarControl" (click)="checkHasBar()"/>
+                                    <label for="test1">El establecimiento tiene Bar</label>
+                                    </div>
                                  
-                                       
-                                            <input type="checkbox" id="test3" class="form-check-input" [formControl]="hasbanioControl"
-                                            (click)="checkHasBanio()"/>
-                                            <label for="test3">El establecimiento tiene Baño</label>
-                                      
-                                       
-                                            <input type="checkbox" id="test4" class="form-check-input" [formControl]="hasVestidirControl"
-                                            (click)="checkHasVesti()"/>
-                                            <label for="test4">El establecimiento tiene Vestidores</label>
-                                        
-                                </div>
+                                    <div>
+                                      <input type="checkbox" id="test2" class="form-check-input" [formControl]="hasEstacionamientoControl"(click)="checkHasEsta()"/>
+                                      <label for="test2">El establecimiento tiene Estacionamientor</label>
+                                    </div>
+                                 
+                                    <div>
+                                      <input type="checkbox" id="test3" class="form-check-input" [formControl]="hasbanioControl"(click)="checkHasBanio()"/>
+                                      <label for="test3">El establecimiento tiene Baño</label>
+                                    </div>
+                                
+                                 <div>
+                                      <input type="checkbox" id="test4" class="form-check-input" [formControl]="hasVestidirControl"(click)="checkHasVesti()"/>
+                                      <label for="test4">El establecimiento tiene Vestidores</label>
+                                    </div>
+                          </div>
 
                                 <div class="p-col-3 p-md-4">
                                     <span class="p-float-label">
@@ -163,7 +163,7 @@
                         <div class="p-col-12 p-md-4">
                             <button id="btnreg" pButton pRipple type="button" label="Registrar Establecimiento"
                                 icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
-                                (click)="registrarEstablecimiento()"></button>
+                                (click)="registrarEstablecimiento()" ></button>
                         </div>
                     </div>
                 </p-panel>

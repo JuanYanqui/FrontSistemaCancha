@@ -1,0 +1,338 @@
+/*   tercer css */
+
+.container {
+  width: 80%;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.panel {
+  height: 575px;
+}
+#btnregistrar {
+  background-color: black;
+}
+
+#btnregistrar {
+  background-color: rgb(12, 12, 12);
+  border-bottom-color: rgb(2, 2, 2);
+  border-color: black;
+  
+  color: white;
+  letter-spacing: 0.1rem;
+}
+
+#btnregistrar:hover,
+#btnregistrar:focus {
+  color: black;
+  border-bottom-color: rgb(8, 8, 8);
+
+  border-color: black;
+  background-color: rgb(13, 243, 166);
+}
+#panelregempresa {
+  margin: 20px;
+}
+/*SCROLL VIEW*/
+
+.over::-webkit-scrollbar {
+  width: 0px;
+  background-color: #fff;
+}
+
+#paneregusuario {
+  margin: 20px;
+}
+
+#float-input{
+width: 100%;
+}
+
+#cli{
+  width: 100%;
+  }
+
+#admin{
+  width: 100%;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{background-image: url("../../../../../../../assets/img/portada2.jpg");
+background-size:cover;
+height:100%;
+padding-top:100px;
+font-family: 'Roboto', sans-serif;  
+}
+body.freeze {
+  pointer-events: none;
+}
+
+h2{
+  font-family: 'Roboto', sans-serif;
+  color:#216466;
+}
+
+#claim{
+  width: auto;
+  margin-left:auto;
+  margin-right:auto;
+	text-align: center;
+  position: relative;
+  
+}
+
+fieldset{}
+
+     
+
+section{
+margin-top:100px;
+ height:auto;
+ background-color: rgba(255, 255, 255, 0.5);
+ text-align:center;
+  margin-bottom:200px;
+  padding-bottom:10px;
+  
+-webkit-box-shadow: -14px 11px 17px 3px rgba(135,131,135,0.81);
+-moz-box-shadow: -14px 11px 17px 3px rgba(135,131,135,0.81);
+box-shadow: -14px 11px 17px 3px rgba(135,131,135,0.81);
+
+border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 0px none #000000;
+}
+
+
+
+.hidden{
+display:none;}
+
+
+/*-------------progress------------------------------------------*/
+
+.form-progress {
+  position: relative;
+  display: block;
+  margin: 3rem auto;
+  width: 100%;
+  max-width: 800px;
+}
+
+progress {
+  display: block;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #076a39;
+  width: 100%;
+  height: 5px;
+  background: none;
+  transition: 1s;
+  will-change: contents;
+}
+progress::-webkit-progress-bar {
+  background-color:rgb(19, 184, 38);
+}
+progress::-webkit-progress-value {
+  background-color: #0bcc6c;
+  transition: all 0.5s ease-in-out;
+}
+
+.form-progress-indicator {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: rgb(53, 179, 34);
+  border: 3px solid #20ba1b;
+  border-radius: 50%;
+  transition: all .2s ease-in-out;
+  transition-delay: .5s;
+  will-change: transform;
+}
+.form-progress-indicator.one {
+  left: 0;
+}
+.form-progress-indicator.two {
+  left: 33%;
+}
+.form-progress-indicator.three {
+  left: 66%;
+}
+.form-progress-indicator.four {
+  left: 100%;
+}
+.form-progress-indicator.active {
+  animation: bounce .5s forwards;
+  animation-delay: .5s;
+  border-color:#33cc66;
+}
+
+
+
+.plane{
+    position: absolute;
+  top: -33px;
+  left: -20px;
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  z-index:10;
+  transition: all .2s ease-in-out;
+  transition-delay: .3s;
+  will-change: transform;
+}
+
+
+/*-----------------------------input------------------------------------------*/
+
+
+
+/* Label */
+
+
+/* active */
+
+/* Underline */
+
+.bar {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.bar:before, .bar:after {
+	content: '';
+	height: 2px; 
+	width: 0;
+	bottom: 1px; 
+	position: absolute;
+	background: #4a89dc; 
+	transition: all 0.2s ease;
+}
+
+.bar:before { left: 50%; }
+
+.bar:after { right: 50%; }
+
+
+/* active */
+
+
+
+/* active */
+
+
+/* Animations */
+
+@keyframes inputHighlighter {
+	from { background: #4a89dc; }
+	to 	{ width: 0; background: transparent; }
+}
+
+/*----------------------------end-input---------------------------------------*/
+
+
+@media (min-width: 764px){
+  .stops{margin-left:30%;
+         margin-right:30%;}
+  
+}
+
+.right{text-align:right;}
+.next{margin-right:10px;
+      }
+
+
+
+
+
+      p {
+        display: block;
+        text-align: left;
+      }
+      
+      .estado {
+        background-color: hsla(949, 43%, 51%, 0.3);
+        width: 100%;
+        padding: 1rem;
+        border: 1.5px solid #ccc;
+        margin-bottom: 2rem;
+        border-radius: 0.3rem;
+        font-family: montserrat, arial, verdana;
+        color: #615a5a;
+        font-size: 1rem;
+        font-weight: 100;
+        outline: none;
+      }
+      
+      /************************ diseño para los forms and fieldshet ***********************/
+      
+      .form {
+        /* width: clamp(320px, 100%, 55%); */
+        margin: 0 auto;
+        border: none;
+        border-radius: 10px !important;
+        overflow: hidden;
+        padding: 1.5rem;
+        background-color: #fff;
+        padding: 20px 30px;
+      }
+  
+      @keyframes animate {
+        from {
+          transform: scale(1, 0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1, 1);
+          opacity: 1;
+        }
+      }
+      
+      #msform {
+        width: 800px;
+        margin: 50px auto;
+        text-align: center;
+        position: relative;
+      }
+      .msform2 {
+        width: 110%;
+         margin: 10px; 
+        text-align: center;
+        position: relative;
+        /* margin-left: -0.100%; */
+      }
+
+      .circular--square {
+        width: 100px;
+        height: 100px;
+        border-top-left-radius: 100% 100%;
+        border-top-right-radius: 100% 100%;
+        border-bottom-right-radius: 100% 100%;
+        border-bottom-left-radius: 100% 100%;
+      }
+
+      .input-margin {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }

@@ -1,0 +1,169 @@
+<div class="content">
+
+    <body>
+        <p-panel id="panellistreclamo">
+            <div class="panel over overflow-auto p-grid p-fluid">
+                <p-table #dt3 [value]="listaReclamos" dataKey="id" [rowHover]="true" [rows]="10"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" 
+                    [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [filterDelay]="0" [globalFilterFields]="['titulo','descripcion','fecha','cliente','admistrador']">
+                    <ng-template pTemplate="caption">
+                        <div class="table-header">
+                            <span class="p-input-icon-right">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text"
+                                    (input)="dt3.filterGlobal($any($event.target).value, 'contains')"
+                                    placeholder="Buscar" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="cedula">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    Titulo
+                                    <p-sortIcon field="titulo"></p-sortIcon>
+                                    <p-columnFilter type="text" field="titulo" display="menu" class="p-ml-auto">
+                                    </p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="descripcion">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    Descripcion
+                                    <p-sortIcon field="descripcion"></p-sortIcon>
+                                    <p-columnFilter type="text" field="descripcion" display="menu"
+                                        class="p-ml-auto"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="fecha_reclamo">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    Fecha
+                                    <p-sortIcon field="fecha_reclamo"></p-sortIcon>
+                                    <p-columnFilter type="text" field="fecha_reclamo" display="menu" class="p-ml-auto">
+                                    </p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="cliente">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    Cliente
+                                    <p-sortIcon field="cliente"></p-sortIcon>
+                                    <p-columnFilter type="text" field="cliente" display="menu" class="p-ml-auto">
+                                    </p-columnFilter>
+                                </div>
+                            </th> 
+                            <th pSortableColumn="admistrador">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    Administrador
+                                    <p-sortIcon field="admistrador"></p-sortIcon>
+                                    <p-columnFilter type="text" field="admistrador" display="menu" class="p-ml-auto">
+                                    </p-columnFilter>
+                                </div>
+                            </th>                            
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-reclamo>
+                        <tr class="p-selectable-row">
+                            <td>
+                                {{reclamo.titulo}}
+                            </td>
+                            <td>
+                                {{reclamo.descripcion}}
+                            </td>
+                            <td>
+                                {{reclamo.fecha_reclamo}}
+                            </td>
+                            <td>
+                                {{reclamo.cliente?.nombre}} {{reclamo.cliente?.apellido}}
+                            </td>
+                            <td>
+                                {{reclamo.administrador?.nombre}} {{reclamo.administrador?.apellido}}
+                            </td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" icon="pi pi-pencil" label=""
+                                    class="p-button-warning" (click)="editarReclamo(reclamo)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No se encontraron reclamos</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-panel>
+    </body>
+  
+    <p-dialog header="Editar reclamo" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+        [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="body">
+            <div class="p-grid p-fluid">
+              <h2 class="form-label-p text-center">Modificar Reclamos</h2>
+  
+            
+                <div class="row">
+                    <div class="col">
+                        <div class="p-col-12 p-md-4">
+                            <span class="p-float-label">
+                                <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.titulo"
+                                    maxlength="100" minlength="2" pInputText required>
+                                <label for="float-input">Titulo</label>
+                            </span>
+                        </div>
+                        <div class="p-col-12 p-md-4">
+                            <span class="p-float-label">
+                                <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.descripcion"
+                                    maxlength="1000" minlength="2" pInputText>
+                                <label for="float-input">Descripcion</label>
+                            </span>
+                        </div>                        
+                        <div class="p-col-12 p-md-4">
+                            <span class="p-float-label">
+                                <input id="float-input" type="date" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
+                                <label for="float-input">Fecha Actual</label>
+                            </span>
+                        </div>
+                        <div class="p-col-3 p-md-4">
+                          <span class="p-float-label">
+                            <select pInputText placeholder="Sexo" type="text"
+                                [(ngModel)]="reclamo.cliente" id="genero" name="genero" required>
+                                <option [ngValue]="undefined" class="p-float-label">Seleccione un Cliente</option>
+                                <option *ngFor="let client of client" [ngValue]="cliente">
+                                    {{client.nombre}} {{client.apellido}}
+                                </option>
+                            </select>
+                        </span>
+                        </div>
+                        <div class="p-col-3 p-md-4">
+                            <span class="p-float-label">
+                              <select pInputText placeholder="Sexo" type="text"
+                                  [(ngModel)]="reclamo.administrador" id="admin" name="administrador" required>
+                                  <option [ngValue]="undefined" class="p-float-label">Seleccione un Administrador</option>
+                                  <option *ngFor="let administrator of administrator" [ngValue]="administrador">
+                                      {{administrator.nombre}} {{administrator.apellido}}
+                                  </option>
+                              </select>
+                          </span>
+                          </div>
+                    </div>
+                    <br>
+  
+                </div>
+                <div class="p-col-12 p-md-4">
+                    <div class="row">
+                        <div class="col">
+                            <button pButton pRipple type="button" label="Actualizar" icon="pi pi-check" iconPos="right"
+                                class="p-button-rounded p-button-success" (click)="actualizarReclamo()"></button>
+                        </div>
+                        <div class="col">
+                            <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                                class="p-button-rounded p-button-danger" (click)="limpiar()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+  
+  </div>
+

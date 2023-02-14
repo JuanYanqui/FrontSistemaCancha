@@ -19,7 +19,7 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
   nombreLogo: any;
 
   isSuperAdmin: boolean = false;
-  isClientAdmin: boolean = false;
+  isAdminCancha: boolean = false;
   isClient: boolean = false;
   isPublic: boolean = false;
 
@@ -66,25 +66,25 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
           switch (data.rol?.nombre) {
             case 'INVITADO':
               this.isSuperAdmin = false;
-              this.isClientAdmin = false;
+              this.isAdminCancha = false;
               this.isClient = false;
               this.isPublic = true;
               break;
             case 'CLIENTE':
               this.isSuperAdmin = false;
-              this.isClientAdmin = false;
+              this.isAdminCancha = false;
               this.isClient = true;
               this.isPublic = true;
               break;
-            case 'CLIENTE ADMINISTRADOR':
+            case 'ADMINISTRADOR':
               this.isSuperAdmin = false;
-              this.isClientAdmin = true;
+              this.isAdminCancha = true;
               this.isClient = false;
               this.isPublic = false;
               break;
             case 'SUPER ADMINISTRADOR':
               this.isSuperAdmin = true;
-              this.isClientAdmin = false;
+              this.isAdminCancha = false;
               this.isClient = false;
               this.isPublic = false;
               break;

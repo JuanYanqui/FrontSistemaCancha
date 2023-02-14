@@ -1,0 +1,156 @@
+.home-section {
+    position: relative;
+    background: linear-gradient(to right, rgb(69, 235, 182), 30%, #022543);
+    min-height: 87vh;
+    width: calc(100% - 150px);
+    left: 130px;
+    transition: all 0.5s ease;
+    border-radius: 15px;
+    text-align: center;
+  }
+  
+      /*text-align: center;*/
+  .home-section .home-content {
+    position: static;
+    padding-top: 75px;
+  }
+  
+  /* Responsive Media Query */
+  @media (max-width: 1240px) {
+    .sidebar {
+      width: 60px;
+    }
+    .sidebar.active {
+      width: 220px;
+    }
+    .home-section {
+      width: calc(100% - 60px);
+      left: 60px;
+    }
+    .sidebar.active ~ .home-section {
+      left: 220px;
+      width: calc(100% - 220px);
+      overflow: hidden;
+    }
+    .home-section nav {
+      width: calc(100% - 60px);
+      left: 60px;
+    }
+    .sidebar.active ~ .home-section nav {
+      width: calc(100% - 220px);
+      left: 220px;
+    }
+  }
+  @media (max-width: 1150px) {
+    .home-content .sales-boxes {
+      flex-direction: column;
+    }
+    .home-content .sales-boxes .box {
+      width: 100%;
+      overflow-x: scroll;
+      margin-bottom: 20px;
+    }
+    .home-content .sales-boxes .top-sales {
+      margin: 0;
+    }
+  }
+  @media (max-width: 1000px) {
+    .overview-boxes .box {
+      width: calc(100% / 2 - 5px);
+      margin-bottom: 15px;
+    }
+  }
+  @media (max-width: 700px) {
+    nav .sidebar-button .dashboard,
+    nav .profile-details .admin_name,
+    nav .profile-details i {
+      display: none;
+    }
+    .home-section nav .profile-details {
+      height: 50px;
+      min-width: 40px;
+    }
+    .home-content .sales-boxes .sales-details {
+      width: 560px;
+    }
+  }
+  @media (max-width: 550px) {
+    .overview-boxes .box {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .sidebar.active ~ .home-section nav .profile-details {
+      display: none;
+    }
+  }
+  @media (max-width: 400px) {
+    .sidebar {
+      width: 0;
+    }
+    .sidebar.active {
+      width: 60px;
+    }
+    .home-section {
+      width: 100%;
+      left: 0;
+    }
+    .sidebar.active ~ .home-section {
+      left: 60px;
+      width: calc(100% - 60px);
+    }
+    .home-section nav {
+      width: 100%;
+      left: 0;
+    }
+    .sidebar.active ~ .home-section nav {
+      left: 60px;
+      width: calc(100% - 60px);
+    }
+  }
+  
+  #contenedorbn {
+    background: linear-gradient(top, #808080, 30%, #3fada8);
+  
+    margin-right: 60px;
+  }
+  
+  /*   tercer css */
+  
+  .container {
+    width: 100%;
+    background-color: #fff;
+  }
+  
+  .panel {
+    height: 575px;
+  }
+  
+  /*SCROLL VIEW*/
+  
+  .over::-webkit-scrollbar {
+    width: 0px;
+    background-color: #fff;
+  }
+  
+  #panellistreclamo{
+    margin: 20px;
+  }
+  
+  .circular--square {
+    width: 50px;
+    height: 50px;
+    border-top-left-radius: 100% 100%;
+    border-top-right-radius: 100% 100%;
+    border-bottom-right-radius: 100% 100%;
+    border-bottom-left-radius: 100% 100%;
+  }
+  
+  
+  .circular--square2 {
+    width: 200px;
+    height: 200px;
+    border-top-left-radius: 100% 100%;
+    border-top-right-radius: 100% 100%;
+    border-bottom-right-radius: 100% 100%;
+    border-bottom-left-radius: 100% 100%;
+  }
