@@ -38,6 +38,8 @@ export class LoginComponent {
             // this.user = data.foto;
             // this.empresa = data.empresa?.logo;
 
+            localStorage.setItem("localIdPersona", String(data.persona?.idPersona));
+
             this.toastr.success("Bienvenido " + data.username, "Login");
             localStorage.setItem('idUsuario', String(this.usuario.idUsuario));
             localStorage.setItem('nameImagen', String(this.user));

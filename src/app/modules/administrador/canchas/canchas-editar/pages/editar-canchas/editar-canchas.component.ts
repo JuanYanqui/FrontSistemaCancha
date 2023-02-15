@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Canchas } from 'src/app/core/models/canchas';
+import { Cancha } from 'src/app/core/models/cancha';
 import { CanchasService } from 'src/app/shared/services/cancha.servicio';
 import { FotoService } from 'src/app/shared/services/foto.service';
 import Swal from 'sweetalert2';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class EditarCanchasComponent {
 
   listaCancha: any[] = [];
-  cancha: Canchas = new Canchas;
+  cancha: Cancha = new Cancha;
   blockSpecial: RegExp = /^[^<>*!]+$/
   pageActual: number = 1;
   displayEU: boolean = false;
@@ -35,7 +35,7 @@ export class EditarCanchasComponent {
     );
   }
 
-  editarCancha(cancha: Canchas) {
+  editarCancha(cancha: Cancha) {
 
     this.displayEU = true;
 
@@ -48,7 +48,7 @@ export class EditarCanchasComponent {
     this.cancha.foto = cancha.foto;
   }
 
-  ActDesCancha(cancha: Canchas) {
+  ActDesCancha(cancha: Cancha) {
     console.log(cancha)
 
     this.cancha.idCancha = cancha.idCancha;
@@ -106,12 +106,12 @@ export class EditarCanchasComponent {
 
   limpiar() {
     this.displayEU = false;
-    this.cancha = new Canchas;
+    this.cancha = new Cancha;
     this.listaCancha = [];
     this.obtenerCanchas();
   }
 
-  actualizarCancha(cancha: Canchas) {
+  actualizarCancha(cancha: Cancha) {
     this.canchasService.putCanchas(cancha, cancha.idCancha).subscribe(
       data => {
         console.log(cancha)
@@ -120,7 +120,7 @@ export class EditarCanchasComponent {
         this.cancha = cancha;
       }
     )
-    this.cancha = new Canchas;
+    this.cancha = new Cancha;
     this.limpiar()
   }
 
@@ -131,7 +131,7 @@ export class EditarCanchasComponent {
         this.cancha = this.cancha;
       }
     )
-    this.cancha = new Canchas;
+    this.cancha = new Cancha;
     this.limpiar()
   }
 

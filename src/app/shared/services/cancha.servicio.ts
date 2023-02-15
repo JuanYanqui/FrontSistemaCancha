@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Canchas } from 'src/app/core/models/canchas';
+import { Console } from 'console';
+import { Cancha } from 'src/app/core/models/cancha';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +13,24 @@ export class CanchasService {
   constructor(private http: HttpClient) { }
 
   getCanchas() {
-    return this.http.get<Canchas[]>(this.URL + 'li');
+    return this.http.get<Cancha[]>(this.URL + 'li');
   }
 
-  postCanchas(canchas: Canchas) {
-    return this.http.post<Canchas>(this.URL + 'cre', canchas);
+  existCanchas(idCancha: number) {
+    return this.http.get<boolean>(this.URL + `exis/${idCancha}`);
   }
 
-  putCanchas(canchas: Canchas, idCancha: any) {
-    return this.http.put<Canchas>(this.URL + `upd/${idCancha}`, canchas);
+  postCanchas(cancha: Cancha) {
+    console.log(cancha);
+    console.log("ssssssssssssssss");
+    return this.http.post<Cancha>(this.URL + 'cre', cancha);
   }
 
-  deleteCanchas(idCanchas: number) {
-    return this.http.delete<boolean>(this.URL + `eli/${idCanchas}`);
+  putCanchas(cancha: Cancha, idCancha: any) {
+    return this.http.put<Cancha>(this.URL + `upd/${idCancha}`, cancha);
+  }
+
+  deleteCanchas(idCancha: number) {
+    return this.http.delete(this.URL + `eli/${idCancha}`);
   }
 }

@@ -1,6 +1,6 @@
 import { Establecimiento } from "./establecimiento";
 
-export class Canchas {
+export class Cancha {
     idCancha: number = 0;
     nombre: string = "";
     descripcion: string = "";
