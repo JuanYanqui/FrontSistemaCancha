@@ -58,7 +58,7 @@ export class EditarCanchasComponent {
     this.cancha.ancho = cancha.ancho;
     this.cancha.altura = cancha.altura;
     this.cancha.foto = cancha.foto;
-
+    ///solo para subir al repository
     if (cancha.vacante == true) {
       this.cancha.vacante = false;
 
