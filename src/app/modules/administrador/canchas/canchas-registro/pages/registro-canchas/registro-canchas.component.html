@@ -1,31 +1,31 @@
 <div class="container">
     <mat-tab-group preserveContent>
-        <mat-tab label="Registro de Canchas">
+        <mat-tab label="Registro de canchass">
             <div class="content">
 
-                <p-panel id="paneregusuario" class="panel" header="Registro canchas">
+                <p-panel id="paneregusuario" class="panel" header="Registro canchass">
 
                     <div class="items panel over overflow-auto p-grid p-fluid">
                         <div class="row">
                             <div class="col">
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="cancha.nombre"
+                                        <input id="float-input" type="text" [(ngModel)]="canchas.nombre"
                                             [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                         <label for="float-input">Nombres</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="cancha.tarifa"
-                                            [pKeyFilter]="'int'" maxlength="10" minlength="10" pInputText required>
+                                        <input id="float-input" type="text" [(ngModel)]="canchas.tarifa"
+                                            [pKeyFilter]="'int'" maxlength="5" minlength="1" pInputText>
                                         <label for="float-input">Tarifa</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <textarea id="float-input" type="text" [(ngModel)]="cancha.descripcion"
-                                            [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText required
+                                        <textarea id="float-input" type="text" [(ngModel)]="canchas.descripcion"
+                                            [pKeyFilter]="blockSpecial" maxlength="50" minlength="5" pInputText
                                             rows="7"></textarea>
                                         <label for="float-input">Descripcion</label>
                                     </span>
@@ -41,16 +41,16 @@
                                                     <td colspan=”2”>
                                                         <span class="p-float-label">
                                                             <input id="float-input" type="text"
-                                                                [(ngModel)]="cancha.ancho" [pKeyFilter]="'int'"
-                                                                maxlength="40" minlength="10" pInputText>
+                                                                [(ngModel)]="canchas.ancho" [pKeyFilter]="'int'"
+                                                                maxlength="3" minlength="1" pInputText>
                                                             <label for="float-input">Ancho:</label>
                                                         </span>
                                                     </td>
                                                     <td colspan=”2”>
                                                         <span class="p-float-label">
                                                             <input id="float-input" type="text"
-                                                                [(ngModel)]="cancha.altura" [pKeyFilter]="'int'"
-                                                                maxlength="40" minlength="10" pInputText>
+                                                                [(ngModel)]="canchas.altura" [pKeyFilter]="'int'"
+                                                                maxlength="3" minlength="1" pInputText>
                                                             <label for="float-input">Alto:</label>
                                                         </span>
                                                     </td>
@@ -72,16 +72,16 @@
                                     <div>
                                         <img alt="..."
                                             style="max-width: 30%; visibility: hidden; width: 0px; height: 0px;"
-                                            [src]="'http://localhost:5000/image/images/' + cancha.foto" />
+                                            [src]="'http://localhost:5000/image/images/' + canchas.foto" />
                                     </div>
                                 </div>
 
                             </div>
 
                             <div class="p-col-12 p-md-4">
-                                <button pButton pRipple type="button" label="Registrar Cancha" icon="pi pi-check"
+                                <button pButton pRipple type="button" label="Registrar canchas" icon="pi pi-check"
                                     iconPos="right" class="p-button-rounded p-button-primary"
-                                    (click)="registrarCancha()"></button>
+                                    (click)="registrarcanchas()"></button>
                             </div>
 
                         </div>
@@ -92,7 +92,7 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="Listado Canchas" routerLink="../editar-canchas" routerLinkActive="active">
+        <mat-tab label="Listado canchass" routerLink="../editar-canchass" routerLinkActive="active">
             <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
                             routerLinkActive="active">Registrar nueva empresa</a>
                             -->

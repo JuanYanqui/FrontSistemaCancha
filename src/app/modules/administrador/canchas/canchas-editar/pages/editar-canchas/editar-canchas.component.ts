@@ -20,6 +20,7 @@ export class EditarCanchasComponent {
   displayEU: boolean = false;
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
+  subcadena: string = '';
 
 
   constructor(private toastr: ToastrService, private fotoService: FotoService, private canchasService: CanchasService, private router: Router) {
@@ -75,7 +76,8 @@ export class EditarCanchasComponent {
             'Cancha Activar!',
             ':)'
           )
-          this.actualizarCanchas()
+          this.actDesCanchas(cancha)
+          this.limpiar()
           console.log(this.cancha.vacante)
         }
       })
@@ -96,7 +98,8 @@ export class EditarCanchasComponent {
             'Cancha Inactivar!',
             ':('
           )
-          this.actualizarCanchas()
+          this.actDesCanchas(cancha)
+          this.limpiar()
           console.log(this.cancha.vacante)
         }
       })
@@ -111,17 +114,23 @@ export class EditarCanchasComponent {
     this.obtenerCanchas();
   }
 
+<<<<<<< Updated upstream
   actualizarCancha(cancha: Cancha) {
+=======
+  actDesCanchas(cancha: Canchas) {
+>>>>>>> Stashed changes
     this.canchasService.putCanchas(cancha, cancha.idCancha).subscribe(
       data => {
-        console.log(cancha)
-        console.log(cancha.idCancha)
-        this.cancha.idCancha = data.idCancha;
-        this.cancha = cancha;
+        cancha.idCancha = data.idCancha;
+        cancha = this.cancha;
       }
     )
+<<<<<<< Updated upstream
     this.cancha = new Cancha;
     this.limpiar()
+=======
+    
+>>>>>>> Stashed changes
   }
 
   actualizarCanchas() {
@@ -129,10 +138,22 @@ export class EditarCanchasComponent {
       data => {
         this.cancha.idCancha = data.idCancha;
         this.cancha = this.cancha;
+        this.limpiar();
       }
     )
+<<<<<<< Updated upstream
     this.cancha = new Cancha;
     this.limpiar()
+=======
+    this.cancha = new Canchas;
+    
+  }
+
+
+  descripcionSubcadena(cadena: string){
+    this.subcadena = '';
+    this.subcadena = cadena.substring(0, 10) + "...";
+>>>>>>> Stashed changes
   }
 
   // IMAGEN
