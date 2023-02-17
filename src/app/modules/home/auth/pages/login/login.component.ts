@@ -14,7 +14,7 @@ export class LoginComponent {
   usuario: Usuario = new Usuario;
   tipoUser: any;
   user: any;
-  empresa: any;
+  establecimiento: any;
 
   usuarios: any[] = [
     { usu: 'Visita' }, { usu: 'Cliente' }, { usu: 'Empleado de empresa' }, { usu: 'Administrador de empresa' }, { usu: 'Administrador' }, { usu: 'Super administrador' },
@@ -35,13 +35,14 @@ export class LoginComponent {
 
           if (data.estado) {
             this.usuario.idUsuario = data.idUsuario;
-            // this.user = data.foto;
             // this.empresa = data.empresa?.logo;
-
+            localStorage.setItem("localIdPersona", String(data.persona?.idPersona));
+            
+            this.user = data.persona?.foto
             this.toastr.success("Bienvenido " + data.username, "Login");
             localStorage.setItem('idUsuario', String(this.usuario.idUsuario));
             localStorage.setItem('nameImagen', String(this.user));
-            localStorage.setItem('nameLogo', String(this.empresa));
+            localStorage.setItem('nameLogo', String(this.establecimiento));
 
             location.replace('/adminsitrador/bienvenida')
           } else {

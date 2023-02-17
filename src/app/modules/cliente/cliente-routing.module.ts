@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'reclamo',
     loadChildren: () => import("./reclamos/reclamos-routing.module").then(m => m.ReclamosRoutingModule)
   },
+   {
+    path: 'catalogo',
+    loadChildren: () => import("./catalogo/catalogo.module").then(m => m.CatalogoModule)
+  },
 ];
 
 @NgModule({

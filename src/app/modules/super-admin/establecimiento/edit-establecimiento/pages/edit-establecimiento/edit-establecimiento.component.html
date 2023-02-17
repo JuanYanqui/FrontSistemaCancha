@@ -13,13 +13,27 @@
             <ng-template    #thentrue>
                 <p-table   #dt [value]="listaestablecimiento" dataKey="id" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines" [paginator]="true" [rowHover]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="[
             'id',
-            'Ruc',
-            'Nombre',
-            'Calle Principal',
-            'Calle Secundaria',
-            'Representante',
-            'Apellido',
-          ]">
+            'ruc',
+            'nombre',
+            'calle_principal',
+            'calle_secundaria',
+            'representante',
+            'apellido',
+          ]"[(selection)]="arraySelected" dataKey="code" responsiveLayout="scroll">
+                    <ng-template pTemplate="caption">
+                        <div class="p-d-flex">
+                            <span class="p-input-icon-left p-ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                            </span>
+                        </div>
+                        <div class="p-d-flex" style="align-content: right;">
+                            <span class="p-buttonset">
+                                <br>
+                                <button pButton type="button" (click)="generaraPDF()" style="background-color: red;border-radius:2cm;" label="PDF" icon="pi pi-file-pdf"></button>
+                            </span>
+                        </div>
+                    </ng-template>
            
                     <ng-template pTemplate="header">
                         <tr>

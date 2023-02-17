@@ -24,6 +24,8 @@ export class UsuarioService {
   }
 
   updateUsuario(usuario: Usuario, idUsuario: any) {
+    console.log("servicio");
+    console.log(usuario);
     return this.http.put<Usuario>(this.URL + `upd/${idUsuario}`, usuario);
   }
 

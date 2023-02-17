@@ -12,6 +12,7 @@ import { PersonaService } from 'src/app/shared/services/persona.service';
 import { UbicacionService } from 'src/app/shared/services/ubicacion.sevice';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
 import { MouseEvent as MapMouseEvent } from '@agm/core';
+import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-edit-establecimiento',
@@ -27,6 +28,8 @@ loaded = false;
   loading: boolean = true;
   showMe!: boolean;
   selectedId = 0;
+  arrayExcel:any;
+  arraySelected:any;
 
   displayEU: boolean = false;
 
@@ -331,6 +334,69 @@ console.log(this.ubicacion.longitud)
   }
 
 
+  extractData(datosTabla: any) {
+    console.log(datosTabla)
+    return datosTabla.map((row: any) => [row.id || " ", row.ruc || " ", row.nombre || " ", row.calle_principal || " ", row.calle_secundaria || " ", row.representante || " ", row.apellido || " " ]);
+  }
+  async generaraPDF() {
+    if (this.arraySelected <= 0) {
+      alert("Seleccione todos los productos para poder generara el pdf")
+    } else {
+      console.log(this.arraySelected)
+      const pdf = new PdfMakeWrapper();
+      pdf.pageOrientation('landscape')
+      pdf.pageSize('A3')
+      pdf.add(pdf.ln(2))
+      pdf.add(new Txt("Reporte Establecimiento").bold().italics().alignment('center').end);
+      pdf.add(pdf.ln(2))
+      pdf.add(new Table([
+        ['ID', 'RUC', 'Nombre', 'Calle Principal', 'Calle Secundaria', 'Representante', 'Apellido'],
+      ]).widths(['*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*']).layout(
+        {
+          fillColor: (rowIndex?: number, node?: any, columnIndex?: number) => {
+            return rowIndex === 0 ? '#CCCCCC' : '';
+          }
+        }
+      ).end)
+      pdf.add(new Table([
+        ...this.extractData(this.arraySelected)
+      ]).widths('*').end)
+
+      pdf.create().open();
+    }
+  }
+  exportSelectedX() {
+    if (this.arraySelected.length < 1) {
+      alert('Por favor seleccione al menos un producto')
+    } else {
+      for (let i = 0; i < this.arraySelected.length; i++) {
+        let nuevoUserE = this.arraySelected[i] || +" ";
+        if (nuevoUserE == null || nuevoUserE == undefined)
+          nuevoUserE = ""
+        const usuarioImprimirSelected = {
+          id: nuevoUserE.idEstablecimiento,
+          ruc: nuevoUserE.ruc,
+          nombre: nuevoUserE.nombre,
+          calle_principal: nuevoUserE.ubicacion.calle_principal,
+          calle_secundaria: nuevoUserE.calle_secundaria,
+          representante: nuevoUserE.representante,
+          apellido: nuevoUserE.apellido
+        }
+        this.arrayExcel.push(usuarioImprimirSelected || "");
+        console.log(this.arrayExcel)
+      }
+      /*
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.arrayExcel);
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "Usuarios");
+      });
+    }
+    */
+  
+    }
+  }
 
 }
 

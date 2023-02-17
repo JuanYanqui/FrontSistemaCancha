@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'cancha',
     loadChildren: () => import("./canchas/canchas.module").then(m => m.CanchasModule)
   },
+  {
+    path: 'registrodamage',
+    loadChildren: () => import("./damage/damage.module").then(m => m.DamageModule)
+  },
 ];
 
 @NgModule({

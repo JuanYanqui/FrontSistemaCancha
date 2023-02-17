@@ -20,7 +20,7 @@ export class EditarCanchasComponent {
   displayEU: boolean = false;
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
-
+  subcadena: string = '';
 
   constructor(private toastr: ToastrService, private fotoService: FotoService, private canchasService: CanchasService, private router: Router) {
     this.obtenerCanchas();
@@ -75,7 +75,8 @@ export class EditarCanchasComponent {
             'Cancha Activar!',
             ':)'
           )
-          this.actualizarCanchas()
+          this.actDesCanchas(cancha)
+          this.limpiar()
           console.log(this.cancha.vacante)
         }
       })
@@ -96,12 +97,18 @@ export class EditarCanchasComponent {
             'Cancha Inactivar!',
             ':('
           )
-          this.actualizarCanchas()
+          this.actDesCanchas(cancha)
+          this.limpiar()
           console.log(this.cancha.vacante)
         }
       })
 
     }
+  }
+
+  descripcionSubcadena(cadena: string){
+    this.subcadena = '';
+    this.subcadena = cadena.substring(0, 10) + "...";
   }
 
   limpiar() {
@@ -111,7 +118,7 @@ export class EditarCanchasComponent {
     this.obtenerCanchas();
   }
 
-  actualizarCancha(cancha: Canchas) {
+  actDesCanchas(cancha: Canchas) {
     this.canchasService.putCanchas(cancha, cancha.idCancha).subscribe(
       data => {
         console.log(cancha)
@@ -129,10 +136,9 @@ export class EditarCanchasComponent {
       data => {
         this.cancha.idCancha = data.idCancha;
         this.cancha = this.cancha;
+        this.limpiar();
       }
     )
-    this.cancha = new Canchas;
-    this.limpiar()
   }
 
   // IMAGEN

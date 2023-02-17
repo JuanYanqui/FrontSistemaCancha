@@ -16,7 +16,7 @@
       <div class="logo_name" [hidden]="!isLogin" style="margin-right: 20px;">
 
 
-        <img class="circular--square" [src]="'http://localhost:5000/image/images/'"
+        <img class="circular--square" [src]="'http://localhost:5000/image/images/'+ nombreFoto"
           style="margin: 0 auto;  width: 30px; height: 30px;">
 
         ReserverGame
@@ -133,6 +133,15 @@
         <a href="#" routerLink="/adminsitrador/cancha/registro-canchas" routerLinkActive="active"
           *ngIf='isAdminCancha'>
           <i class="cancha"></i>
+          <span class="links_name">Reportes</span>
+        </a>
+        <span class="tooltip">Reportes</span>
+      </li> 
+
+      <li>
+        <a href="#" routerLink="/adminsitrador/registrodamage/register-damage" routerLinkActive="active"
+          *ngIf='isAdminCancha'>
+          <i class="damage"></i>
           <span class="links_name">Reportes</span>
         </a>
         <span class="tooltip">Reportes</span>

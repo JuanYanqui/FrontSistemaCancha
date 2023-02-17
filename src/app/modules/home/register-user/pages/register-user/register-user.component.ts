@@ -81,8 +81,8 @@ export class RegisterUserComponent {
       this.toastr.error("Campo password vacio!", "Error!");
     }
 
-    if (this.persona.nombre === '' || this.persona.apellido === '' || this.persona.email === '' || this.usuario.username === '' || this.usuario.password === ''
-      || this.persona.nombre === null || this.persona.apellido === null || this.persona.email === null || this.usuario.username === null || this.usuario.password === null || !this.valCorreo) {
+    if (this.persona.nombre === '' || this.persona.apellido === '' || this.usuario.username === '' || this.usuario.password === ''
+      || this.persona.nombre === null || this.persona.apellido === null  || this.usuario.username === null || this.usuario.password === null) {
 
       this.toastr.warning("Verifique que esten correctos los campos")
     } else {

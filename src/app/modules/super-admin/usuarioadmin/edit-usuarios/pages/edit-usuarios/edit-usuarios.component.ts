@@ -28,6 +28,7 @@ export class EditUsuariosComponent {
   loading?: boolean
 
   selectAll: boolean = false;
+  estadoif:boolean = false;
 
   constructor(private toastr: ToastrService, private fotoService: FotoService, private personaService: PersonaService, private usuarioService: UsuarioService, private router: Router) {
     this.obtenerUsuariosPrivilegios();
@@ -37,12 +38,25 @@ export class EditUsuariosComponent {
     let title = '';
 
     if (!usuario.estado) {
-      usuario.estado = false;
+      this.estadoif = false;
       title = 'Deshabilitado!';
+      console.log(title);
     } else {
-      usuario.estado = true;
+      this.estadoif = true;
       title = 'Habilitado!';
+      console.log(title);
     }
+
+    this.usuario.estado = this.estadoif;
+    console.log(this.usuario.estado);
+    this.usuarioService.updateUsuario(usuario, usuario.idUsuario).subscribe(
+      data => {
+
+        console.log(data);
+        this.toastr.warning('Usuario ' + title, 'Advertencia!');
+        this.limpiar();
+      }
+    )
   }
   actualizarUsuario() {
     this.persona.foto = this.nombre_orignal;
@@ -64,7 +78,7 @@ export class EditUsuariosComponent {
     )
   }
 
-  limpiar() {
+ limpiar() {
     this.displayEU = false;
     this.persona = new Persona;
     this.usuario = new Usuario;
@@ -73,6 +87,7 @@ export class EditUsuariosComponent {
     this.listaUsuarios = [];
     this.obtenerUsuariosPrivilegios();
   }
+
 
 
   obtenerUsuariosPrivilegios() {

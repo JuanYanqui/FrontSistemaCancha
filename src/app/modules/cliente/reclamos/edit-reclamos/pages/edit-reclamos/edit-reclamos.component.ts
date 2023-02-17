@@ -52,8 +52,8 @@ export class EditReclamosComponent {
     this.reclamo.titulo = reclamo.titulo;
     this.reclamo.descripcion = reclamo.descripcion;
     this.reclamo.fecha_reclamo = reclamo.fecha_reclamo;
-    this.cliente.nombre+' '+this.cliente.apellido == reclamo.cliente;
-    this.administrador.nombre+' '+this.administrador.apellido == reclamo.administrador;
+    // this.cliente.nombre+' '+this.cliente.apellido == reclamo.cliente;
+    // this.administrador.nombre+' '+this.administrador.apellido == reclamo.administrador;
   }
 
   obtenerReclamos() {

@@ -86,7 +86,16 @@
                                 {{cancha.tarifa}}
                             </td>
                             <td>
-                                {{cancha.descripcion}}
+                                <details>
+                                    <summary>
+                                        {{descripcionSubcadena(cancha.descripcion)}}
+                                        {{subcadena}}
+                                    </summary>
+                                    <p style="width: 200px; font-weight: bold;">
+                                        {{cancha.descripcion}}
+                                    </p>
+                                </details>
+
                             </td>
 
                             <td>
@@ -137,23 +146,23 @@
                     <div class="col">
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="cancha.nombre"
+                                <input id="float-input" type="text" [(ngModel)]="cancha.nombre"
                                     [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
                                 <label for="float-input">Nombres</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="cancha.tarifa"
-                                    [pKeyFilter]="'int'" maxlength="10" minlength="10" pInputText required>
+                                <input id="float-input" type="text" [(ngModel)]="cancha.tarifa" [pKeyFilter]="'int'"
+                                    maxlength="5" minlength="1" pInputText>
                                 <label for="float-input">Tarifa</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <textarea id="float-input" type="text" class="form-control"
-                                    [(ngModel)]="cancha.descripcion" [pKeyFilter]="blockSpecial" maxlength="30"
-                                    minlength="3" pInputText required rows="7"></textarea>
+                                <textarea id="float-input" type="text" [(ngModel)]="cancha.descripcion"
+                                    [pKeyFilter]="blockSpecial" maxlength="50" minlength="5" pInputText
+                                    rows="7"></textarea>
                                 <label for="float-input">Descripcion</label>
                             </span>
                         </div>
@@ -167,17 +176,15 @@
                                         <tr>
                                             <td colspan=”2”>
                                                 <span class="p-float-label">
-                                                    <input id="float-input" type="text" class="form-control"
-                                                        [(ngModel)]="cancha.ancho" [pKeyFilter]="'int'" maxlength="40"
-                                                        minlength="10" pInputText>
+                                                    <input id="float-input" type="text" [(ngModel)]="cancha.ancho"
+                                                        [pKeyFilter]="'int'" maxlength="3" minlength="1" pInputText>
                                                     <label for="float-input">Ancho:</label>
                                                 </span>
                                             </td>
                                             <td colspan=”2”>
                                                 <span class="p-float-label">
-                                                    <input id="float-input" type="text" class="form-control"
-                                                        [(ngModel)]="cancha.altura" [pKeyFilter]="'int'" maxlength="40"
-                                                        minlength="10" pInputText>
+                                                    <input id="float-input" type="text" [(ngModel)]="cancha.altura"
+                                                        [pKeyFilter]="'int'" maxlength="3" minlength="1" pInputText>
                                                     <label for="float-input">Alto:</label>
                                                 </span>
                                             </td>

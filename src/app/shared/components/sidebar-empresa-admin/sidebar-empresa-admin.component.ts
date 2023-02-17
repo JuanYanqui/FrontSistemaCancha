@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { subscribeOn } from 'rxjs';
 import { CargarscriptsService } from '../../services/cargarscripts.service';
+import { EstablecimientoService } from '../../services/establecimiento.service';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -10,13 +12,15 @@ import { UsuarioService } from '../../services/usuario.service';
   styleUrls: ['./sidebar-empresa-admin.component.css']
 })
 export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
-  
+
   items: MenuItem[] | any;
   idUsuario: any;
+  idEstablecimiento: any
   nombreUsuario: any;
   nombreRol: any;
   nombreFoto: any;
   nombreLogo: any;
+  nombreestablecimiento : any;
 
   isSuperAdmin: boolean = false;
   isAdminCancha: boolean = false;
@@ -33,7 +37,7 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
   constructor(
     private _CargarScripts: CargarscriptsService,
     private usuarioService: UsuarioService,
-    private router: Router,
+    private router: Router, private establecimientoService: EstablecimientoService
 
 
   ) {
@@ -57,6 +61,22 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
       this.usuarioService.getPorId(this.idUsuario).subscribe((data) => {
         console.log(data);
         if (data != null) {
+
+          // this.idEstablecimiento = localStorage.getItem('idEstablecimiento');
+          // if (this.idEstablecimiento != '' && this.idEstablecimiento != undefined) {
+          //   this.establecimientoService.getPorId(this.idEstablecimiento).subscribe((data) => {
+          //     console.log(data);
+          //     if (data != null) {
+          //       this.nombreestablecimiento = data.nombre;
+          //       console.log(this.nombreestablecimiento);
+
+          //     } else {
+          //       console.log("datos no encontrados")
+          //     }
+
+          //   });
+          // }
+
           this.isLogin = true;
 
           this.nombreUsuario = data.persona?.nombre + ' ' + data.persona?.apellido;
@@ -92,6 +112,8 @@ export class SidebarEmpresaAdminComponent implements OnInit, OnDestroy {
               alert('Rol desconocido');
               break;
           };
+
+
 
         } else {
           this.isLogin = false;

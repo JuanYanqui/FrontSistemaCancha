@@ -26,4 +26,8 @@ export class CanchasService {
   deleteCanchas(idCanchas: number) {
     return this.http.delete<boolean>(this.URL + `eli/${idCanchas}`);
   }
+
+  getPorId(idCanchas: any) {
+    return this.http.get<Canchas>(this.URL + idCanchas);
+  }
 }

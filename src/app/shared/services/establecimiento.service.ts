@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Establecimiento } from 'src/app/core/models/establecimiento';
-import { Usuario } from 'src/app/core/models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +21,14 @@ export class EstablecimientoService {
 
   updateEstablecimiento(establecimiento: Establecimiento, idEstablecimiento: any) {
     return this.http.put<Establecimiento>(this.URL + `upd/${idEstablecimiento}`, establecimiento);
+  }
+
+  getPorRuc(ruc: any) {
+    return this.http.get<Establecimiento>(this.URL + `byRuc/${ruc}`);
+  }
+
+  getPorId(idEstablecimiento: any) {
+    return this.http.get<Establecimiento>(this.URL + idEstablecimiento);
   }
 
 }

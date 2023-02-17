@@ -10,4 +10,5 @@ export class Canchas {
     vacante: boolean = false;
     foto: string = "";
     establecimiento?: Establecimiento;
+    
 }

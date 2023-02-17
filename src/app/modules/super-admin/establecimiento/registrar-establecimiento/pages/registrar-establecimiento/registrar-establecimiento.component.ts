@@ -271,9 +271,11 @@ registrarEstablecimiento() {
               this.establecimientoService.postEstablecimiento(this.establecimiento).subscribe(
                 result => {
                   console.log(result);
-                  this.toast.success("creado establecimiento")
+                  this.toast.success("creado establecimiento");
                   this.limpiarE();
+                  
                 }
+                
               )
 
             
