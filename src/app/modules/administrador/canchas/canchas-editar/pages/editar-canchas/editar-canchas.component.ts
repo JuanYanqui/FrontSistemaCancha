@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Canchas } from 'src/app/core/models/canchas';
+import { Establecimiento } from 'src/app/core/models/establecimiento';
 import { CanchasService } from 'src/app/shared/services/cancha.servicio';
+import { EstablecimientoService } from 'src/app/shared/services/establecimiento.service';
 import { FotoService } from 'src/app/shared/services/foto.service';
 import Swal from 'sweetalert2';
 
@@ -21,19 +23,83 @@ export class EditarCanchasComponent {
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
   subcadena: string = '';
-
-  constructor(private toastr: ToastrService, private fotoService: FotoService, private canchasService: CanchasService, private router: Router) {
+  entrada:any;
+  establecimiento: Establecimiento = new Establecimiento;
+  constructor(private toastr: ToastrService, private establecimientoService: EstablecimientoService, private fotoService: FotoService, private canchasService: CanchasService, private router: Router) {
     this.obtenerCanchas();
   }
 
+
+
   obtenerCanchas() {
-    this.canchasService.getCanchas().subscribe(
+    this.establecimientoService.getEstablecimiento().subscribe(
       data => {
-        this.listaCancha = data;
-        console.log(data)
+
+        for (let a = 0; a < data.length; a++) {
+          if (data[a].persona?.idPersona == Number(localStorage.getItem("localIdPersona"))) {
+            this.establecimiento.idEstablecimiento = data[a].idEstablecimiento;
+            this.establecimiento.ruc = data[a].ruc;
+            this.establecimiento.nombre = data[a].nombre;
+            this.establecimiento.puntuacion = data[a].puntuacion;
+            this.establecimiento.horaApertura = data[a].horaApertura;
+            this.establecimiento.horaCierre = data[a].horaCierre;
+            this.establecimiento.bar = data[a].bar;
+            this.establecimiento.estacionamiento = data[a].estacionamiento;
+            this.establecimiento.vestidores = data[a].vestidores;
+            this.establecimiento.banios = data[a].banios;
+            this.establecimiento.estado = data[a].estado;
+            this.establecimiento.provincia = data[a].provincia;
+            this.establecimiento.ciudad = data[a].ciudad;
+            this.establecimiento.direccion = data[a].direccion;
+            this.establecimiento.codigoPostal = data[a].codigoPostal;
+            this.establecimiento.fotoestablecimiento = data[a].fotoestablecimiento;
+            this.establecimiento.persona = data[a].persona;
+            this.establecimiento.ubicacion = data[a].ubicacion;
+          }
+        }
+
+        this.entrada = this.establecimiento.idEstablecimiento;
+        this.canchasService.getByEstablecimiento( this.entrada).subscribe(
+          data => {
+            this.listaCancha = data;
+            console.log(data)
+          }
+        );
+
+
       }
-    );
+
+    )
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //   let idCancha = localStorage.getItem("localCancha");
+  //   this.canchasService.getPorId(idCancha).subscribe( 
+  //     data => {
+  //     this.establecimiento = data.establecimiento!;
+
+  //     console.log("id establecimiento: "+this.establecimiento);
+  //     this.canchasService.getByEstablecimiento(this.establecimiento).subscribe(
+  //       data => {
+  //         this.listaCancha = data;
+  //         console.log(data)
+  //       }
+  //     );
+  //   }
+  // )
+
+
 
   editarCancha(cancha: Canchas) {
 
@@ -106,7 +172,7 @@ export class EditarCanchasComponent {
     }
   }
 
-  descripcionSubcadena(cadena: string){
+  descripcionSubcadena(cadena: string) {
     this.subcadena = '';
     this.subcadena = cadena.substring(0, 10) + "...";
   }

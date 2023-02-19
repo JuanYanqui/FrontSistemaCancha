@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Canchas } from 'src/app/core/models/canchas';
 
 @Injectable({
@@ -29,5 +30,9 @@ export class CanchasService {
 
   getPorId(idCanchas: any) {
     return this.http.get<Canchas>(this.URL + idCanchas);
+  }
+
+  getByEstablecimiento(idEstablecimiento: any):Observable<any>{
+    return this.http.get<Canchas[]>(`${this.URL}listbyestablecimiento/${idEstablecimiento}`)
   }
 }

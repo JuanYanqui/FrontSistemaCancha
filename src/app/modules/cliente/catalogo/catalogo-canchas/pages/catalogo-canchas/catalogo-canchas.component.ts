@@ -60,11 +60,13 @@ export class CatalogoCanchasComponent {
     lat: number = 0;
     long: number= 0;
     zoom: number;
+    entrada: any
     iconUrl?: String;
    mapTypeId: string;
     generos: string[] = [
       'Masculino', 'Femenino', 'Otro'
     ];
+
   
     constructor(private fotoService: FotoService, private canchaService: CanchasService, private toastr: ToastrService, private personaService: PersonaService, private ubicacionService: UbicacionService, private establecimientoService: EstablecimientoService, private router: Router) {
       this.lat=-1.831239;
@@ -83,6 +85,7 @@ export class CatalogoCanchasComponent {
       this.establecimientoService.getEstablecimiento().subscribe(
         data => {
           this.listaestablecimiento = data;
+          
           console.log(data);
           this.loaded = true;
             this.loading = false;

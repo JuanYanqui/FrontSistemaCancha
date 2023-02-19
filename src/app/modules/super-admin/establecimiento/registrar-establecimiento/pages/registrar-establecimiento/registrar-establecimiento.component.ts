@@ -11,6 +11,8 @@ import { Persona } from 'src/app/core/models/persona';
 import { PersonaService } from 'src/app/shared/services/persona.service';
 import { CargarScriptsService } from 'src/app/cargar-scripts.service';
 import { FormControl } from '@angular/forms';
+import { UsuarioService } from 'src/app/shared/services/usuario.service';
+import { Usuario } from 'src/app/core/models/usuario';
 
 @Component({
   selector: 'app-registrar-establecimiento',
@@ -30,6 +32,7 @@ country: string= "";
 mainStreet: string="";
 secondaryStreet: string="";
 persona: Persona = new Persona;
+usuario: Usuario = new Usuario;
 flapersona: boolean = true;
 establecimiento: Establecimiento = new Establecimiento;
 ubicacion: Ubicacion= new Ubicacion; 
@@ -48,7 +51,7 @@ hasVestidirControl = new FormControl(false);
 // markers?: any[];
 
 
-constructor(private cargarScripts: CargarScriptsService, private personaService: PersonaService,  private http: HttpClient, private toast: ToastrService, private establecimientoService: EstablecimientoService,  private ubicacionService: UbicacionService, private fotoService: FotoService){
+constructor(private cargarScripts: CargarScriptsService, private personaService: PersonaService,  private http: HttpClient, private toast: ToastrService, private establecimientoService: EstablecimientoService,  private ubicacionService: UbicacionService, private usuarioService: UsuarioService, private fotoService: FotoService){
   this.lat=-1.831239;
   this.long =-78.183406;
   this.zoom = 6;
@@ -268,6 +271,7 @@ registrarEstablecimiento() {
               this.establecimiento.ubicacion = this.ubicacion;
               // this.establecimiento.fotoestablecimiento = [this.fotoestablecimiento]; 
               this.establecimiento.persona = this.persona
+
               this.establecimientoService.postEstablecimiento(this.establecimiento).subscribe(
                 result => {
                   console.log(result);

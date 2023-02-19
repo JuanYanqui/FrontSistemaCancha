@@ -13,10 +13,13 @@ export class ReservaService {
 
   constructor(private http: HttpClient) { }
 
-  getReservas() {
+  // getReservas() {
+  //   return this.http.get<Reserva[]>(this.URL + 'li');
+  // }
+
+  getReservas(): Observable<Reserva[]> { // Aquí se define que se espera un array de objetos de tipo Evento
     return this.http.get<Reserva[]>(this.URL + 'li');
   }
-
   postReservas(reserva: Reserva) {
     return this.http.post<Reserva>(this.URL + 'cre', reserva);
   }

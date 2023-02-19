@@ -106,15 +106,18 @@ export class RegistroCanchasComponent {
           }
 
           this.canchas.establecimiento = this.establecimiento;
+
 this.canchas.foto = this.nombre_orignal;
           this.canchasService.postCanchas(this.canchas).subscribe(
             data => {
+              this.canchas.idCancha = data.idCancha;
               this.canchas.nombre = data.nombre;
               this.canchas.descripcion = data.descripcion;
               this.canchas.tarifa = data.tarifa;
               this.canchas.altura = data.altura;
               this.canchas.ancho = data.ancho;
               this.canchas.vacante = true;
+              localStorage.setItem('idCancha', String(this.canchas.idCancha));
 
               /*if(this.nombre_orignal == null || this.nombre_orignal == ''){
                 this.nombre_orignal = 
