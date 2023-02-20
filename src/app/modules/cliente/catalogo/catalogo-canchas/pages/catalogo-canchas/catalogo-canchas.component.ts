@@ -24,6 +24,7 @@ import { Canchas } from 'src/app/core/models/canchas';
 export class CatalogoCanchasComponent {
   listaUsuarios: Usuario[] = [];
   listaestablecimiento: any []=[];
+  listacanchaporesta:any []=[];
   canchas: Canchas = new Canchas;
   listacancha: any []=[];
   listaubicaciones: any []=[];
@@ -57,6 +58,8 @@ export class CatalogoCanchasComponent {
   hasbanioControl = new FormControl(false);
   hasVestidirControl = new FormControl(false);
   isButtonEnabled2: boolean = false;
+  idesta:any;
+  idsalida:any;
     lat: number = 0;
     long: number= 0;
     zoom: number;
@@ -75,7 +78,6 @@ export class CatalogoCanchasComponent {
       this.mapTypeId = 'hybrid';
       this.iconUrl = 'https://media3.giphy.com/media/KFPrlCarpIKgj5suYj/giphy.gif?cid=790b76111fd939e5e5e898c968a52f0cc8c2c03f6ba27fe5&rid=giphy.gif&ct=s';
       this.obtenerEstablecimiento();
-     this. obtenerUbicacion();
      }
   
     ngOnInit(): void {
@@ -85,19 +87,55 @@ export class CatalogoCanchasComponent {
       this.establecimientoService.getEstablecimiento().subscribe(
         data => {
           this.listaestablecimiento = data;
-          
           console.log(data);
-          this.loaded = true;
-            this.loading = false;
-            this.canchaService.getCanchas().subscribe(
-              data=> {
-                this.listacancha = data;
-                console.log(data);
-              }
-            );
         }
       );
     }
+    idEstablecimientoSeleccionado!: number;
+    obtenerCanchaporEsta(idEstablecimiento: number){
+      console.log(idEstablecimiento);
+      this.idEstablecimientoSeleccionado = idEstablecimiento;
+      this.establecimientoService.getPorId(idEstablecimiento).subscribe(
+        data => {
+          this.idsalida = data.idEstablecimiento;
+          console.log("dato encontrado"+this.idsalida)
+
+          this.canchaService.getByEstablecimiento(this.idsalida).subscribe(
+            data => {
+              this.listacanchaporesta = data;
+              console.log(this.listacanchaporesta);
+            }
+          )
+        }
+      )
+      
+    }
+
+    mostrarCanchas = false;
+
+toggleCanchas(idEstablecimiento: number) {
+  this.mostrarCanchas = !this.mostrarCanchas;
+  if (this.mostrarCanchas) {
+    this.obtenerEstablecimiento();
+    this.obtenerCanchaporEsta(idEstablecimiento);
+  }
+}
+
+    // this.establecimientoService.getEstablecimiento().subscribe(
+    //   data => {
+    //     this.listaestablecimiento = data;
+        
+    //     console.log(data);
+    //     this.loaded = true;
+    //       this.loading = false;
+    //       this.canchaService.getCanchas().subscribe(
+    //         data=> {
+    //           this.listacancha = data;
+    //           console.log(data);
+    //         }
+    //       );
+    //   }
+    // );
 
 
     obtenerCancha(){

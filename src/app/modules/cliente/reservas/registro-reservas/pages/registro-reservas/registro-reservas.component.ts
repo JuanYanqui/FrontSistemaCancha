@@ -21,8 +21,11 @@ export class RegistroReservasComponent {
   constructor(private reservaService: ReservaService) {
 
   }
+  
   ngOnInit(): void {
-    this.datoF();
+
+    
+    // this.datoF();
     // this.reservaService.getReservas().subscribe(eventosBD => {
     //   const eventosCalendario = eventosBD.map(evento => {
     //     return {
@@ -426,36 +429,41 @@ export class RegistroReservasComponent {
 //     };
 //   });
 }
-datoF() {
-  this.reservaService.getReservas().subscribe(eventosBD => {
-    const eventosCalendario = eventosBD.map(result => {
-      return {
-        title: "Reserva",
-        start: result.fecha_entrada,
-        end: result.fecha_salida
-      };
-    });
+// datoF() {
+//   this.reservaService.getReservas().subscribe(eventosBD => {
+//     const eventosCalendario = eventosBD.map(result => {
+//       return {
+//         title: "Reserva",
+//         start: result.fecha_entrada,
+//         end: result.fecha_salida
+//       };
+//     });
 
-    this.calendarOptions = {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-      initialDate: '2023-02-13',
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      editable: true,
-      selectable: true,
-      selectMirror: true,
-      dayMaxEvents: true,
-      events: eventosCalendario,
-      dateClick: (info: any) => {
-        console.log('Fecha seleccionada:', info.dateStr);
-      }
-    };
-  });
-}
+//     this.calendarOptions = {
+//       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+//       initialDate: '2023-02-13',
+//       headerToolbar: {
+//         left: 'prev,next today',
+//         center: 'title',
+//         right: 'dayGridMonth,timeGridWeek,timeGridDay'
+//       },
+//       editable: true,
+//       selectable: true,
+//       selectMirror: true,
+//       dayMaxEvents: true,
+//       events: eventosCalendario,
+//       dateClick: (info: any) => {
+//         console.log('Fecha seleccionada:', info.dateStr);
+//       }
+//     };
+//   });
+
+
 
 
   
 }
+
+
+
+

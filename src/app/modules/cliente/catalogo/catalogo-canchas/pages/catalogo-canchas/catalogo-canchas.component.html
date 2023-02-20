@@ -124,7 +124,7 @@
                                     <div class="row g-3" style="position: relative">
                                 
                                         <div id="tarjetascontenedor" class="row row-cols-auto row-cols-md-3 g-3">
-                                            <div class="" *ngFor="let establecimiento of listaestablecimiento">
+                                            <div class="" *ngFor="let establecimiento of listaestablecimiento" >
                     
                                                     <div class="product-card">
                                                         <div class="logo-cart">
@@ -144,19 +144,28 @@
                                                          
                                                         </div>
                                                         
-    
-                                                          <div class="button-layer"></div>
-                                                          <div class="btn-mas">
-                                                            <label for="btn-mas" class="fa fa-plus"></label>
-                                                        </div>
+<!--     
+                                                          <div class="button-layer" *ngFor="let cancha of listacanchaporesta"></div>
+                                                          <div class="btn-mas" >
+                                                            <label for="btn-mas" class="fa fa-plus"></label> -->
+                                                        <!-- </div> -->
                                                        
-                                                            <input type="checkbox" id="btn-mas">
-                                                            <div class="redes"  *ngFor="let cancha of listacancha">
+                                                            <!-- <input type="checkbox" id="btn-mas" *ngFor="let establecimiento of listaestablecimiento" (click)="obtenerCanchaporEsta(establecimiento.idEstablecimiento)">
+                                                            <div class="redes"  *ngFor="let cancha of listacanchaporesta">
                                                                 <a (click)="abrirDilog(cancha.idCancha)">{{cancha.nombre}}</a>
                                                                 
-                                                            </div>
+                                                            </div> -->
 
-                        
+                                
+                                                            <button pButton pRipple type="button" label="Ver canchas" class="p-button-rounded p-button-success" (click)="toggleCanchas(establecimiento.idEstablecimiento)"></button>
+
+                                                            <div *ngIf="mostrarCanchas && listacanchaporesta && idEstablecimientoSeleccionado === establecimiento.idEstablecimiento">
+                                                                <ul>
+                                                                    <li class="btn-like-li" (click)="abrirDilog(cancha.idCancha)" *ngFor="let cancha of listacanchaporesta">{{ cancha.nombre }}</li>
+                                                                </ul>
+                                                            </div>
+                                         
+                                                        
                                                       </div>
                                                                             
                                             </div>
