@@ -58,6 +58,7 @@ export class CatalogoCanchasComponent {
   hasbanioControl = new FormControl(false);
   hasVestidirControl = new FormControl(false);
   isButtonEnabled2: boolean = false;
+  
   idesta:any;
   idsalida:any;
     lat: number = 0;

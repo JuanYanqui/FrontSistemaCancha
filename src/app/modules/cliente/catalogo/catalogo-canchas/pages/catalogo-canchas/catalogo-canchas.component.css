@@ -507,12 +507,12 @@ agm-map{
   
   
     .circular--square2 {
-      width: 100px;
-      height: 100px;
-      border-top-left-radius: 100% 100%;
-      border-top-right-radius: 100% 100%;
-      border-bottom-right-radius: 100% 100%;
-      border-bottom-left-radius: 100% 100%;
+      width: 200px;
+      height: 200px;
+      border-top-left-radius: 25% 25%;
+      border-top-right-radius: 25% 25%;
+      border-bottom-right-radius: 25% 25%;
+      border-bottom-left-radius: 25% 25%;
     }
   
   

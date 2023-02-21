@@ -8,7 +8,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Reserva } from 'src/app/core/models/reserva';
 import { ReservaService } from 'src/app/shared/services/reserva.service';
-
+declare var require: any
+const moment = require('moment');
 @Component({
   selector: 'app-registro-reservas',
   templateUrl: './registro-reservas.component.html',
@@ -21,10 +22,8 @@ export class RegistroReservasComponent {
   constructor(private reservaService: ReservaService) {
 
   }
-  
-  ngOnInit(): void {
-
-    
+  // ngOnInit(): void {
+  //   this.datos();
     // this.datoF();
     // this.reservaService.getReservas().subscribe(eventosBD => {
     //   const eventosCalendario = eventosBD.map(evento => {
@@ -428,7 +427,7 @@ export class RegistroReservasComponent {
 //       }
 //     };
 //   });
-}
+// }
 // datoF() {
 //   this.reservaService.getReservas().subscribe(eventosBD => {
 //     const eventosCalendario = eventosBD.map(result => {
@@ -458,10 +457,52 @@ export class RegistroReservasComponent {
 //     };
 //   });
 
+datos(){
+
+      this.calendarOptions = {
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      initialDate: '2023-02-13',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      editable: true,
+      selectable: true,
+      selectMirror: true,
+      dayMaxEvents: true,
+      events: [],
+      dateClick: (info:any) => {
+        console.log('Fecha seleccionada:', info.dateStr);
+      }
+    }
+  }
 
 
 
-  
+
+
+events: Reserva[] = [];
+
+
+
+
+ngOnInit(): void {
+  this.datos()
+  this.getEvents();
+}
+
+getEvents(): void {
+  this.reservaService.getReservas().subscribe(events => {
+    this.events = events;
+    this.calendarOptions.events = events.map(event => ({
+      title: "reserva",
+      start: moment(event.fecha_entrada).format(),
+      end: moment(event.fecha_salida).add(1, 'hours').format(),
+      allDay: false
+    }));
+  });
+}
 }
 
 
