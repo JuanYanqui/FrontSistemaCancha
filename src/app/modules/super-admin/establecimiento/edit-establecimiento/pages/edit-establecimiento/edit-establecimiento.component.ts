@@ -112,11 +112,14 @@ isButtonEnabled2: boolean = false;
   }
 
   actualizarEsta() {
+
     this.establecimiento.fotoestablecimiento = this.nombre_orignal;
+    console.log( this.establecimiento.fotoestablecimiento);
     this.ubicacionService.updateUbicacion(this.ubicacion, this.ubicacion.idUbicacion).subscribe(
       data => {
         this.ubicacion.idUbicacion = data.idUbicacion;
         this.establecimiento.ubicacion = this.ubicacion;
+        
         
         this.cargarImagen();
         this.establecimientoService.updateEstablecimiento(this.establecimiento, this.establecimiento.idEstablecimiento).subscribe(

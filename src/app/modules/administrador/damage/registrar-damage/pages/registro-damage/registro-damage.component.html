@@ -3,80 +3,16 @@
         <mat-tab label="Registro de Daños">
             <div class="content">
                 <p-panel id="paneregusuario" class="panel" header="Registro de Daños">
-                    <div class="items panel over overflow-auto p-grid p-fluid">
-                        <section id="step1" data-step="1">
-                            <fieldset >
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
-                                        <h2>Registro de daños</h2>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12">
-                                        <div class="p-col-12 p-md-4">
-                                            <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="persona.cedula"
-                                                    [pKeyFilter]="'int'" maxlength="10" minlength="10"
-                                                    (ngModelChange)='buscarPorCedula()' pInputText required>
-                                                <label for="float-input">Cédula</label>
-                                            </span>
-                                        </div>
-
-                                        <div class="p-col-12 p-md-4">
-                                            <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="persona.nombre"
-                                                    [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" disabled pInputText required>
-                                                <label for="float-input">Nombre</label>
-                                            </span>
-                                        </div>
-
-                                        <div class="p-col-12 p-md-4">
-                                            <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="persona.apellido"
-                                                    [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" disabled pInputText required>
-                                                <label for="float-input">Apellido</label>
-                                            </span>
-                                        </div>
-
-                                        <div class="p-col-12 p-md-4">
-                                            <span class="p-float-label">
-                                                <textarea type="text" class="inputbox"
-                                                name="descripcion" id="float-input" 
-                                                [(ngModel)]="registro_damage.descripcion"
-                                                [pKeyFilter]="blockSpecial"
-                                                maxlength="200" minlength="3" pInputText required></textarea>
-                                                <label for="float-input">Descripción</label>
-                                            </span>
-                                        </div>
-
-                                        <div class="p-col-12 p-md-4">
-                                            <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="registro_damage.valor" pInputText required>
-                                            <label for="float-input">Valor</label>
-                                            </span>
-                                        </div>
-                                        <div class="p-col-3 p-md-4">
-                                            <span class="p-float-label">
-                                                <input (change)="imageSelected($event)" formControlName="foto"
-                                                    accept="image/*" name="foto" type="file" class="form-control"
-                                                    id="float-input" required />
-                                                <label for="float-input"></label>
-                                            </span>
-                                            <div *ngIf="file" class="mt-3 text-center">
-                                                <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
-                                            </div>
-                                            <div>
-                                                <img alt="..." style="max-width: 50%;" [src]="'http://localhost:5000/image/images/' + registro_damage.foto"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-col-12 p-md-4">
-                                    <button id="btnreg" pButton pRipple type="button" label="Registrar"
-                                        icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
-                                        (click)="registrarDamage()"></button>
-                                </div>
-                            </fieldset>
-                        </section>
+                    <div class="card-container">
+                        <div class="card" style="width: 18rem;" *ngFor="let establecimiento of listaEstablecimineto">
+                            <img  [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">{{establecimiento.nombre}}</h5>
+                              <button class="btn-like-li" (click)="capParaEdicion(establecimiento.idEstablecimiento)" >Registrar Daño</button>
+                            </div>
+                        </div>
                     </div>
+
                 </p-panel>
             </div>
         </mat-tab>
@@ -85,3 +21,83 @@
         </mat-tab>
     </mat-tab-group>
 </div>
+
+<p-dialog header="Registrar Daño" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+[baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="body">
+        <div class="items panel over overflow-auto p-grid p-fluid">
+            <section id="step1" data-step="1">
+                <fieldset >
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <h2>Registro de daños</h2>
+                        </div>
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="p-col-12 p-md-4">
+                                <span class="p-float-label">
+                                    <input id="float-input" type="text"    [(ngModel)]="persona.cedula"
+                                         maxlength="10" minlength="10"
+                                        (ngModelChange)='buscarPorCedula()'  pInputText required >
+                                    <label for="float-input">Cédula</label>
+                                </span>
+                            </div>
+
+                            <div class="p-col-12 p-md-4">
+                                <span class="p-float-label">
+                                    <input id="float-input" type="text" [(ngModel)]="persona.nombre"
+                                        [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" disabled pInputText required>
+                                    <label for="float-input">Nombre</label>
+                                </span>
+                            </div>
+
+                            <div class="p-col-12 p-md-4">
+                                <span class="p-float-label">
+                                    <input id="float-input" type="text" [(ngModel)]="persona.apellido"
+                                        [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" disabled pInputText required>
+                                    <label for="float-input">Apellido</label>
+                                </span>
+                            </div>
+
+                            <div class="p-col-12 p-md-4">
+                                <span class="p-float-label">
+                                    <textarea type="text" class="inputbox"
+                                    name="descripcion" id="float-input" 
+                                    [(ngModel)]="registro_damage.descripcion"
+                                    [pKeyFilter]="blockSpecial"
+                                    maxlength="200" minlength="3" pInputText required></textarea>
+                                    <label for="float-input">Descripción</label>
+                                </span>
+                            </div>
+
+                            <div class="p-col-12 p-md-4">
+                                <span class="p-float-label">
+                                    <input id="float-input" type="text" [(ngModel)]="registro_damage.valor" pInputText required>
+                                <label for="float-input">Valor</label>
+                                </span>
+                            </div>
+                            <div class="p-col-3 p-md-4">
+                                <span class="p-float-label">
+                                    <input (change)="imageSelected($event)" formControlName="foto"
+                                        accept="image/*" name="foto" type="file" class="form-control"
+                                        id="float-input" required />
+                                    <label for="float-input"></label>
+                                </span>
+                                <div *ngIf="file" class="mt-3 text-center">
+                                    <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
+                                </div>
+                                <div>
+                                    <img alt="..." style="max-width: 50%;" [src]="'http://localhost:5000/image/images/' + registro_damage.foto"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-md-4">
+                        <button id="btnreg" pButton pRipple type="button" label="Registrar"
+                            icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
+                            (click)="registarDamage()"></button>
+                    </div>
+                </fieldset>
+            </section>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -34,6 +34,11 @@ export class EstablecimientoService {
 
   getByPersona(idPersona: any):Observable<any>{
     return this.http.get<Establecimiento[]>(`${this.URL}listbypersona/${idPersona}`)
+
   }
+
+  getListarEst(idPersona : number){
+    return this.http.get<Establecimiento[]>(this.URL+ 'lip/'+idPersona)
+}
 
 }

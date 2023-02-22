@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 
 import { ListaDamageRoutingModule } from './lista-damage-routing.module';
 import { ListaDamageComponent } from './pages/lista-damage/lista-damage.component';

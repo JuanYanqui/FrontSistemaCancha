@@ -8,6 +8,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Reserva } from 'src/app/core/models/reserva';
 import { ReservaService } from 'src/app/shared/services/reserva.service';
+import { Disponibilidad } from 'src/app/core/models/disponibilidad';
 declare var require: any
 const moment = require('moment');
 @Component({
@@ -18,6 +19,11 @@ const moment = require('moment');
 export class RegistroReservasComponent {
 
   calendarOptions: any;
+  displayEU: boolean = false;
+  reserva: Reserva = new Reserva;
+
+  disponibilidad: Disponibilidad = new Disponibilidad;
+  
 
   constructor(private reservaService: ReservaService) {
 
@@ -473,7 +479,10 @@ datos(){
       dayMaxEvents: true,
       events: [],
       dateClick: (info:any) => {
+        this.displayEU=true;
         console.log('Fecha seleccionada:', info.dateStr);
+        
+
       }
     }
   }

@@ -32,5 +32,54 @@
 
   </mat-tab-group>
 
+  <p-dialog header="Realizar reserva" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="body">
+      <div class="p-grid p-fluid">
+          
+
+  
+          <div class="row">
+              <div class="col">
+                  <div class="p-col-12 p-md-4">
+                      <span class="p-float-label">
+                          <input  id="float-input" type="datetime-local" name="fecha-hora" [(ngModel)]="disponibilidad.horainicio"pInputText>
+                          <label for="float-input">Hora de inicio</label>
+                      </span>
+                  </div>
+                  <div class="p-col-12 p-md-4">
+                      <span class="p-float-label">
+                          <input  id="float-input" type="datetime-local" name="fecha-hora" [(ngModel)]="disponibilidad.horafin"  pInputText>
+                          <label for="float-input">Hora fin</label>
+                      </span>
+                  </div>
+                  
+  
+              </div>
+              <br>
+  
+          </div>
+          <div class="p-col-12 p-md-4">
+              <div class="row">
+                  <div class="col">
+                      <button pButton pRipple type="button" label="Realizar Reserva" icon="pi pi-check" iconPos="right"
+                          class="p-button-rounded p-button-success"routerLink="/cliente/reserva/register-reserva" ></button>
+                  </div>
+                  <div class="col">
+                      <button pButton pRipple type="button" label="Realizar Reclamo" icon="pi pi-check" iconPos="right"
+                          class="p-button-rounded p-button-success" ></button>
+                  </div>
+                  <div class="col">
+                      <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                          class="p-button-rounded p-button-danger" ></button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+  </p-dialog>
+
+</div>
+
 
 

@@ -9,6 +9,9 @@ import { FotoService } from 'src/app/shared/services/foto.service';
 import { Establecimiento } from 'src/app/core/models/establecimiento';
 import { Registro_Damage } from 'src/app/core/models/registro_damage';
 import { Registro_DamageService } from 'src/app/shared/services/registro_damage.service';
+import { EstablecimientoService } from 'src/app/shared/services/establecimiento.service';
+import { Pago_DamageService } from 'src/app/shared/services/pago_damage.service';
+import { Pago_Damage } from 'src/app/core/models/pago_damage';
 
 @Component({
   selector: 'app-registro-damage',
@@ -19,34 +22,101 @@ export class RegistroDamageComponent {
   registro_damage: Registro_Damage=new Registro_Damage;
   persona:Persona=new Persona;
   establecimiento:Establecimiento=new Establecimiento;
+  pago_damage:Pago_Damage=new Pago_Damage;
+
+
   
   isButtonEnabled: boolean = false;
   flapersona: boolean = true;
   blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-
   verfCedula:any;
   verfDescripcion:any;
   verfValor:any;
+  id_personaIsLoggin:any;
+  displayEU: boolean = false;
   
-  constructor(private cargarScripts: CargarScriptsService, private toast: ToastrService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private router: Router,private registroDamageService:Registro_DamageService) {
+  constructor(private cargarScripts: CargarScriptsService, private toast: ToastrService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private router: Router,private registroDamageService:Registro_DamageService, private establecimientoService:EstablecimientoService, private pagoService:Pago_DamageService) {
     cargarScripts.Carga(["register-user.component"])
-
+    
   }
 
   ngOnInit():void{
     this.registro_damage.descripcion='';
     this.registro_damage.idDamage=0;
     this.registro_damage.valor=0;
-
     this.persona.idPersona=0;
     this.persona.cedula='';
     this.persona.nombre='';
     this.persona.apellido='';
-
-    this.establecimiento.idEstablecimiento=1;
+    this.pago_damage.foto='';
+    this.pago_damage.estado='NO PAGADO';
+    
+    
+    this.id_personaIsLoggin = localStorage.getItem('localIdPersona');
+    this.obtenerEst();
   }
-  buscarPorCedula() {
 
+  listaEstablecimineto: Establecimiento[] = [];
+
+
+  
+
+  obtenerEst() {
+    this.establecimientoService.getListarEst(this.id_personaIsLoggin).subscribe(
+      data => {
+        this.listaEstablecimineto = data.map(
+          result => {
+            let e = new Establecimiento;
+            e.idEstablecimiento=result.idEstablecimiento;
+            e.fotoestablecimiento=result.fotoestablecimiento;
+            e.nombre=result.nombre;
+            return e;
+          }
+        );
+      }
+    )
+  }
+
+dataEst: any;
+
+  capParaEdicion(idEstablecimiento: any) {
+    this.displayEU=true
+    this.dataEst = idEstablecimiento;
+    console.log("idEstablecimiento " + idEstablecimiento)
+  }
+
+registarDamage(){
+  this.establecimientoService.getPorId(this.dataEst).subscribe(
+    data=>{
+      this.establecimiento=data;
+      this.registro_damage.cliente=this.persona;
+      this.registro_damage.establecimiento=this.establecimiento;
+      this.registro_damage.foto = this.nombre_orignal;
+      this.registroDamageService.postRegistroDamage(this.registro_damage).subscribe(
+        result=>{
+          this.registro_damage.idDamage=result.idDamage;
+          console.log(this.registro_damage.idDamage)
+          this.pago_damage.registroDamage=this.registro_damage;
+          this.pagoService.postPago(this.pago_damage).subscribe(
+            x=>{
+              console.log('funciono')
+              Swal.fire(
+                'PROCESO',
+                'CON EXITO',
+                'success'
+              );
+              this.cargarImagen();
+              window.location.reload();
+            }
+          )
+        }
+      )
+
+    }
+  )
+}
+
+  buscarPorCedula() {
     if (this.persona.cedula != null && this.persona.cedula != '') {
       this.personaService.getPorCedula(this.persona.cedula).subscribe(
         data => {
@@ -82,39 +152,6 @@ export class RegistroDamageComponent {
       Swal.fire('Cedula incorrecta', 'Advertencia!')
     }
 
-  }
-
-  registrarDamage(){
-    if(this.persona.cedula===''||this.persona.cedula===null){
-      this.verfCedula='ng-invalid ng-dirty';
-      Swal.fire("Cedula del cliente no ingresada","Error!");
-    }
-    if(this.registro_damage.descripcion===''||this.registro_damage.descripcion===null){
-      this.verfDescripcion='ng-invalid ng-dirty';
-      Swal.fire("Descripción del daño no ingresada","Error!");
-    }
-    if(this.registro_damage.valor===0||this.registro_damage.valor===null){
-      this.verfValor='ng-invalid ng-dirty';
-      Swal.fire("valor a pagar por parte del cliente no ingresado","Error!");
-    }
-
-    if(this.persona.cedula===''||this.registro_damage.descripcion===''||this.registro_damage.valor===0
-    ||this.persona.cedula===null||this.registro_damage.descripcion===null||this.registro_damage.valor===null){
-      this.toast.warning("Verifique que esten correctos los campos")
-    }else{
-      this.registro_damage.cliente=this.persona;
-      this.registro_damage.establecimiento=this.establecimiento;
-      this.registro_damage.foto = this.nombre_orignal;
-      this.registroDamageService.postRegistroDamage(this.registro_damage).subscribe(
-        
-      )
-      Swal.fire(
-        'PROCESO',
-        'CON EXITO',
-        'success'
-      )
-      this.cargarImagen()
-    }
   }
 
     // IMAGEN
@@ -153,6 +190,7 @@ export class RegistroDamageComponent {
     cargarImagen() {
       this.fotoService.guararImagenes(this.selectedFile);
     }
+
   
 }
 

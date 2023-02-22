@@ -455,6 +455,7 @@ toggleCanchas(idEstablecimiento: number) {
     }
 
     abrirDilog(id: number){
+      id= Number(localStorage.getItem("localIdCancha"));
       this.canchaService.getPorId(id).subscribe( data => {
         this.displayEU = true;
         this.canchas.nombre = data.nombre;
