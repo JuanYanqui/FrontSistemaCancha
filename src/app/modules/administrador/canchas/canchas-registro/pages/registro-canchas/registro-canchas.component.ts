@@ -32,6 +32,9 @@ export class RegistroCanchasComponent {
 
   creareliminar: boolean = false;
 
+  id_personaIsLoggin:any;
+  id_establ:any;
+
   constructor(private cargarScripts: CargarScriptsService, private toastr: ToastrService, private fotoService: FotoService, private establecimientoService: EstablecimientoService, private canchasService: CanchasService, private router: Router) {
     cargarScripts.Carga(["registro-canchas.component"])
   }
@@ -44,6 +47,60 @@ export class RegistroCanchasComponent {
     this.canchas.ancho = 0;
     this.canchas.altura = 0;
 
+    this.id_personaIsLoggin = localStorage.getItem('localIdPersona');
+    this.id_establ = localStorage.getItem('EstablecimientoID');
+ 
+
+  }
+
+  
+  registrar(){
+    if (this.canchas.nombre == null || this.canchas.nombre.length == 0) {
+      this.verfNombres = 'ng-invalid ng-dirty';
+      this.toastr.error("Campo nombres vacio!", "Error!");
+    }
+
+    if (this.canchas.descripcion == null || this.canchas.descripcion.length == 0) {
+      this.verfDescripcion = 'ng-invalid ng-dirty';
+      this.toastr.error("Campo descripcion vacio!", "Error!");
+    }
+
+    if (this.canchas.tarifa == null || this.canchas.tarifa.length == 0) {
+      this.verftarifa = 'ng-invalid ng-dirty';
+      this.toastr.error("Campo tarifa vacio!", "Error!");
+    }
+
+
+    if (this.canchas.ancho === 0 || this.canchas.ancho === null) {
+      this.verfancho = 'ng-invalid ng-dirty';
+      this.toastr.error("Campo ancho de cancha debe ser mayor a cero!", "Error!");
+    }
+
+    if (this.canchas.altura === 0 || this.canchas.altura === null) {
+      this.verfalto = 'ng-invalid ng-dirty';
+      this.toastr.error("Campo alto de cancha debe ser mayor a cero!", "Error!");
+    }
+    if (this.canchas.nombre === '' || this.canchas.descripcion === '' || this.canchas.tarifa === '' || this.canchas.ancho === 0 || this.canchas.altura === 0
+    || this.canchas.nombre === null || this.canchas.descripcion === null || this.canchas.tarifa === null || this.canchas.ancho === null || this.canchas.altura === null) {
+
+      this.toastr.warning("Verifique que esten correctos los campos")
+    } else{
+      this.establecimientoService.getPorId(this.id_establ).subscribe(
+        data=>{
+          this.canchas.establecimiento = data;
+
+          this.canchas.foto = this.nombre_orignal;
+          this.canchasService.postCanchas(this.canchas).subscribe(
+            x=>{
+              Swal.fire("La canchas se creo exitosamente")
+
+              this.ngOnInit();
+              this.cargarImagen();
+            }
+          )
+        }
+      )
+    }
   }
 
   registrarCancha() {
@@ -104,32 +161,29 @@ export class RegistroCanchasComponent {
               this.establecimiento.ubicacion = data[a].ubicacion;
             }
           }
-
           this.canchas.establecimiento = this.establecimiento;
 
-this.canchas.foto = this.nombre_orignal;
+          this.canchas.foto = this.nombre_orignal;
           this.canchasService.postCanchas(this.canchas).subscribe(
-            data => {
-              this.canchas.idCancha = data.idCancha;
-              this.canchas.nombre = data.nombre;
-              this.canchas.descripcion = data.descripcion;
-              this.canchas.tarifa = data.tarifa;
-              this.canchas.altura = data.altura;
-              this.canchas.ancho = data.ancho;
-              this.canchas.vacante = true;
-              localStorage.setItem('idCancha', String(this.canchas.idCancha));
+          data => {
+            this.canchas.idCancha = data.idCancha;
+            this.canchas.nombre = data.nombre;
+            this.canchas.descripcion = data.descripcion;
+            this.canchas.tarifa = data.tarifa;
+            this.canchas.altura = data.altura;
+            this.canchas.ancho = data.ancho;
+            this.canchas.vacante = true;
+            localStorage.setItem('idCancha', String(this.canchas.idCancha));
 
-              /*if(this.nombre_orignal == null || this.nombre_orignal == ''){
-                this.nombre_orignal = 
-              }*/
+            /*if(this.nombre_orignal == null || this.nombre_orignal == ''){
+              this.nombre_orignal = 
+            }*/
 
-              Swal.fire("La canchas se creo exitosamente")
+            Swal.fire("La canchas se creo exitosamente")
 
-              this.ngOnInit();
-              this.cargarImagen();
-            }
-          )
-
+            this.ngOnInit();
+            this.cargarImagen();
+          })
         }
       )
     }

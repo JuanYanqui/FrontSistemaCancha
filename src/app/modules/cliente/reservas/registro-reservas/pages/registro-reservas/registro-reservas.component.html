@@ -7,9 +7,26 @@
               <p-panel id="paneregusuario" class="panel" header="Registro usuario">
                   <div class="panel over overflow-auto p-grid p-fluid">
                     <!-- <button (click)="toggleWeekends()">toggle weekends</button> -->
-                    <full-calendar #Calendario [options]="calendarOptions">
-       
-                    </full-calendar>
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Hora/Fecha</th>
+                            <th *ngFor="let fecha of fechas">{{ fecha | date:'mediumDate' }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let hora of horas">
+                            <td>{{ hora }}:00</td>
+                            <td *ngFor="let fecha of fechas">
+                              <button class="mi-boton" [ngClass]="{'disponible': !esReservado(hora, fecha), 'reservado': esReservado(hora, fecha)}"
+                                (click)="reservar(hora, fecha)"> 
+                                <span *ngIf="!esReservado(hora, fecha)">Disponible</span>
+                                <span *ngIf="esReservado(hora, fecha)">No disponible</span>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
 
                   </div>
               </p-panel>
@@ -43,13 +60,13 @@
               <div class="col">
                   <div class="p-col-12 p-md-4">
                       <span class="p-float-label">
-                          <input  id="float-input" type="datetime-local" name="fecha-hora" [(ngModel)]="disponibilidad.horainicio"pInputText>
+                         <input id='float-input' type="date" name="fecha-hora" [(ngModel)]="disponibilidad.horainicio"  pInputText>
                           <label for="float-input">Hora de inicio</label>
                       </span>
                   </div>
                   <div class="p-col-12 p-md-4">
                       <span class="p-float-label">
-                          <input  id="float-input" type="datetime-local" name="fecha-hora" [(ngModel)]="disponibilidad.horafin"  pInputText>
+                          <input  id="float-input" type="date" name="fecha-hora" [(ngModel)]="disponibilidad.horafin"  pInputText>
                           <label for="float-input">Hora fin</label>
                       </span>
                   </div>

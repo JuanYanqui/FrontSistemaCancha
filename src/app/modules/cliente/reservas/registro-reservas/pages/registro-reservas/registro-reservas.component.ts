@@ -26,7 +26,8 @@ export class RegistroReservasComponent {
   
 
   constructor(private reservaService: ReservaService) {
-
+    this.fechas = this.generarFechas();
+    this.horas = this.generarHoras();
   }
   // ngOnInit(): void {
   //   this.datos();
@@ -462,56 +463,130 @@ export class RegistroReservasComponent {
 //       }
 //     };
 //   });
+// fecha : Date = new Date;
+// datos(){
 
-datos(){
+//       this.calendarOptions = {
+//       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+//       initialDate: '2023-02-13',
+//       headerToolbar: {
+//         left: 'prev,next today',
+//         center: 'title',
+//         right: 'dayGridMonth,timeGridWeek,timeGridDay'
+//       },
+//       editable: true,
+//       selectable: true,
+//       selectMirror: true,
+//       dayMaxEvents: true,
+//       events: [],
+//       dateClick: (info:any) => {
+//         this.displayEU=true;
+//         this.fecha = info.dateStr;
 
-      this.calendarOptions = {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-      initialDate: '2023-02-13',
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
-      editable: true,
-      selectable: true,
-      selectMirror: true,
-      dayMaxEvents: true,
-      events: [],
-      dateClick: (info:any) => {
-        this.displayEU=true;
-        console.log('Fecha seleccionada:', info.dateStr);
-        
+//         console.log("fecha guardada",this.fecha);
+//         this.disponibilidad.horainicio = this.fecha;
+//         this.disponibilidad.horafin = this.fecha;
+//       }
+//     }
+//   }
 
-      }
+
+
+
+
+// events: Reserva[] = [];
+
+
+
+
+// ngOnInit(): void {
+//   this.datos()
+//   this.getEvents();
+// }
+
+// getEvents(): void {
+//   this.reservaService.getReservas().subscribe(events => {
+//     this.events = events;
+//     this.calendarOptions.events = events.map(event => ({
+//       title: "reserva",
+//       start: moment(event.fecha_entrada).format(),
+//       end: moment(event.fecha_salida).add(1, 'hours').format(),
+//       allDay: false
+//     }));
+//   });
+// }
+
+fechas: Date[];
+horas: number[];
+
+horaInicial = 9; // Hora inicial a las 9:00 AM
+horaFinal = 18; // Hora final a las 6:00 PM
+
+
+
+private generarFechas(): Date[] {
+  const fechas = [];
+  const fechaInicial = new Date();
+  const numDias = 7; // Generar una tabla para la próxima semana
+  for (let i = 0; i < numDias; i++) {
+    const fecha = new Date(fechaInicial);
+    fecha.setDate(fechaInicial.getDate() + i);
+    fechas.push(fecha);
+  }
+  return fechas;
+}
+
+private generarHoras(): number[] {
+  const horas = [];
+  for (let i = this.horaInicial; i <= this.horaFinal; i++) {
+    horas.push(i);
+  }
+  return horas;
+}
+
+fechaSeleccionada!: Date;
+horaSeleccionada!: number;
+
+guardarFechaYHora(hora: number, fecha: Date) {
+  this.fechaSeleccionada = fecha;
+  this.horaSeleccionada = hora;
+  console.log(`Se seleccionó la fecha ${this.fechaSeleccionada} a las ${this.horaSeleccionada}:00`);
+  // Aquí puedes hacer cualquier otra cosa que necesites con la fecha y la hora seleccionadas
+}
+
+reservas: {[key: string]: boolean} = {};
+
+esReservado(hora: number, fecha: Date): boolean {
+  const clave = this.generarClave(hora, fecha);
+  return this.reservas[clave] || false;
+}
+
+botonesReservados: {hora: number, fecha: Date}[] = [];
+
+
+
+reservar(hora: number, fecha: Date) {
+  
+  const clave = this.generarClave(hora, fecha);
+  this.reservas[clave] = !this.reservas[clave];
+  
+  if (this.esReservado(hora, fecha)) {
+    this.botonesReservados.push({hora, fecha});
+    console.log(this.botonesReservados);
+  } else {
+    const index = this.botonesReservados.findIndex(bot => bot.hora === hora && bot.fecha.getTime() === fecha.getTime());
+    if (index > -1) {
+      this.botonesReservados.splice(index, 1);
+      
     }
   }
-
-
-
-
-
-events: Reserva[] = [];
-
-
-
-
-ngOnInit(): void {
-  this.datos()
-  this.getEvents();
 }
 
-getEvents(): void {
-  this.reservaService.getReservas().subscribe(events => {
-    this.events = events;
-    this.calendarOptions.events = events.map(event => ({
-      title: "reserva",
-      start: moment(event.fecha_entrada).format(),
-      end: moment(event.fecha_salida).add(1, 'hours').format(),
-      allDay: false
-    }));
-  });
+generarClave(hora: number, fecha: Date): string {
+  return `${fecha.toISOString()}_${hora}`;
 }
+
+
 }
 
 

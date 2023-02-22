@@ -1,4 +1,11 @@
-<div class="container">
+
+
+
+
+
+
+
+ <div class="container">
     <mat-tab-group preserveContent>
         <mat-tab label="Registro de canchass">
             <div class="content">
@@ -81,7 +88,7 @@
                             <div class="p-col-12 p-md-4">
                                 <button pButton pRipple type="button" label="Registrar canchas" icon="pi pi-check"
                                     iconPos="right" class="p-button-rounded p-button-primary"
-                                    (click)="registrarCancha()"></button>
+                                    (click)="registrar()"></button>
                             </div>
 
                         </div>
@@ -92,12 +99,16 @@
             </div>
         </mat-tab>
 
+
+
+
+
         <mat-tab label="Listado canchass" routerLink="../editar-canchass" routerLinkActive="active">
             <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
                             routerLinkActive="active">Registrar nueva empresa</a>
                             -->
-            <app-editar-canchas></app-editar-canchas>
+ <app-editar-canchas></app-editar-canchas>
         </mat-tab>
 
     </mat-tab-group>
-</div>
+</div> 

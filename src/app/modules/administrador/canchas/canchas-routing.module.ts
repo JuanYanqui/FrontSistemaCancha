@@ -3,7 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'registro-canchas',
+    path: 'inicio-canchas',
+    loadChildren: () => import("./cancha-lista/cancha-lista.module").then(m => m.CanchaListaModule)
+  }, 
+  {
+    path: 'register-canchas',
     loadChildren: () => import("./canchas-registro/canchas-registro.module").then(m => m.CanchasRegistroModule)
   },
 ];

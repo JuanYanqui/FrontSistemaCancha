@@ -25,10 +25,21 @@ export class EditarCanchasComponent {
   subcadena: string = '';
   entrada:any;
   establecimiento: Establecimiento = new Establecimiento;
+  id_establ:any;
   constructor(private toastr: ToastrService, private establecimientoService: EstablecimientoService, private fotoService: FotoService, private canchasService: CanchasService, private router: Router) {
-    this.obtenerCanchas();
+    this.obtener();
   }
 
+
+  obtener(){
+    this.id_establ = localStorage.getItem('EstablecimientoID');
+    this.canchasService.getByEstablecimiento(this.id_establ).subscribe(
+      data=>{
+        this.listaCancha = data;
+        console.log(data)
+      }
+    )
+  }
 
 
   obtenerCanchas() {
