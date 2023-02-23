@@ -7,9 +7,9 @@ import { Persona } from 'src/app/core/models/persona';
 @Injectable({
   providedIn: 'root'
 })
-export class PersonaService {
+export class DisponibilidadService {
 
-  private URL = "http://localhost:5000/diponibilidad/";
+  private URL = "http://localhost:5000/disponibilidad/";
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +22,12 @@ export class PersonaService {
     return this.http.post<Disponibilidad>(this.URL + 'cre', disponibilidad);
   }
 
+  deleteCanchas(idDisponibilidad: number) {
+    return this.http.delete<boolean>(this.URL + `eli/${idDisponibilidad}`);
+  }
 
+  getPorId(idDisponibilidad: any) {
+    return this.http.get<Disponibilidad>(this.URL + idDisponibilidad);
+  }
 
 }

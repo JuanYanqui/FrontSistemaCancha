@@ -28,6 +28,7 @@ export class CatalogoCanchasComponent {
   canchas: Canchas = new Canchas;
   listacancha: any []=[];
   listaubicaciones: any []=[];
+  idparareservar!: number;
   loaded = false;
     loading: boolean = true;
     showMe!: boolean;
@@ -92,6 +93,13 @@ export class CatalogoCanchasComponent {
         }
       );
     }
+    dataEst: any;
+    capParaEdicion(idCancha: any) {
+      this.dataEst = idCancha;
+      localStorage.setItem("idCancha", String(this.dataEst));
+      console.log("idCancha " + idCancha)
+      }
+
     idEstablecimientoSeleccionado!: number;
     obtenerCanchaporEsta(idEstablecimiento: number){
       console.log(idEstablecimiento);
@@ -105,6 +113,8 @@ export class CatalogoCanchasComponent {
             data => {
               this.listacanchaporesta = data;
               console.log(this.listacanchaporesta);
+
+              
             }
           )
         }
@@ -390,72 +400,9 @@ toggleCanchas(idEstablecimiento: number) {
     }
   
   
-    extractData(datosTabla: any) {
-      console.log(datosTabla)
-      return datosTabla.map((row: any) => [row.id || " ", row.ruc || " ", row.nombre || " ", row.calle_principal || " ", row.calle_secundaria || " ", row.representante || " ", row.apellido || " " ]);
-    }
-    async generaraPDF() {
-      if (this.arraySelected <= 0) {
-        alert("Seleccione todos los productos para poder generara el pdf")
-      } else {
-        console.log(this.arraySelected)
-        const pdf = new PdfMakeWrapper();
-        pdf.pageOrientation('landscape')
-        pdf.pageSize('A3')
-        pdf.add(pdf.ln(2))
-        pdf.add(new Txt("Reporte Establecimiento").bold().italics().alignment('center').end);
-        pdf.add(pdf.ln(2))
-        pdf.add(new Table([
-          ['ID', 'RUC', 'Nombre', 'Calle Principal', 'Calle Secundaria', 'Representante', 'Apellido'],
-        ]).widths(['*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*']).layout(
-          {
-            fillColor: (rowIndex?: number, node?: any, columnIndex?: number) => {
-              return rowIndex === 0 ? '#CCCCCC' : '';
-            }
-          }
-        ).end)
-        pdf.add(new Table([
-          ...this.extractData(this.arraySelected)
-        ]).widths('*').end)
-  
-        pdf.create().open();
-      }
-    }
-    exportSelectedX() {
-      if (this.arraySelected.length < 1) {
-        alert('Por favor seleccione al menos un producto')
-      } else {
-        for (let i = 0; i < this.arraySelected.length; i++) {
-          let nuevoUserE = this.arraySelected[i] || +" ";
-          if (nuevoUserE == null || nuevoUserE == undefined)
-            nuevoUserE = ""
-          const usuarioImprimirSelected = {
-            id: nuevoUserE.idEstablecimiento,
-            ruc: nuevoUserE.ruc,
-            nombre: nuevoUserE.nombre,
-            calle_principal: nuevoUserE.ubicacion.calle_principal,
-            calle_secundaria: nuevoUserE.calle_secundaria,
-            representante: nuevoUserE.representante,
-            apellido: nuevoUserE.apellido
-          }
-          this.arrayExcel.push(usuarioImprimirSelected || "");
-          console.log(this.arrayExcel)
-        }
-        /*
-        import("xlsx").then(xlsx => {
-          const worksheet = xlsx.utils.json_to_sheet(this.arrayExcel);
-          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-          this.saveAsExcelFile(excelBuffer, "Usuarios");
-        });
-      }
-      */
-    
-      }
-    }
+
 
     abrirDilog(id: number){
-      id= Number(localStorage.getItem("localIdCancha"));
       this.canchaService.getPorId(id).subscribe( data => {
         this.displayEU = true;
         this.canchas.nombre = data.nombre;

@@ -9,6 +9,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { Reserva } from 'src/app/core/models/reserva';
 import { ReservaService } from 'src/app/shared/services/reserva.service';
 import { Disponibilidad } from 'src/app/core/models/disponibilidad';
+import { DisponibilidadService } from 'src/app/shared/services/disponibilidad.service';
+import { ToastrService } from 'ngx-toastr';
+import { CanchasService } from 'src/app/shared/services/cancha.servicio';
 declare var require: any
 const moment = require('moment');
 @Component({
@@ -18,511 +21,40 @@ const moment = require('moment');
 })
 export class RegistroReservasComponent {
 
+  
   calendarOptions: any;
   displayEU: boolean = false;
   reserva: Reserva = new Reserva;
-
+  idcanchas: any;
   disponibilidad: Disponibilidad = new Disponibilidad;
+  listadisponibilidad:any []=[];
+  datocancha:any;
   
 
-  constructor(private reservaService: ReservaService) {
+  constructor(private canchaService: CanchasService,private reservaService: ReservaService, private disponibilidadservice: DisponibilidadService, private toastr: ToastrService) {
     this.fechas = this.generarFechas();
     this.horas = this.generarHoras();
+    this.obtenercancha();
+    
+    // let idpersona = Number(localStorage.setItem("localIdPersona"));
   }
-  // ngOnInit(): void {
-  //   this.datos();
-    // this.datoF();
-    // this.reservaService.getReservas().subscribe(eventosBD => {
-    //   const eventosCalendario = eventosBD.map(evento => {
-    //     return {
-    //       title: 'Reserva',
-    //       start: new Date(evento.fecha_entrada).toISOString(),
-    //       end: new Date(evento.fecha_salida).toISOString()
-    //     };
-    //   });
-
-    // this.reservaService.getReservas().subscribe((eventos: any[]) => {
-    //   const eventosCalendario = eventos.map(evento => ({
-    //     title: evento.titulo,
-    //     start: new Date(evento.fecha_inicio).toISOString(),
-    //     end: new Date(evento.fecha_fin).toISOString(),
-    //   }));
-    // });
-
-    // const cumpleanos = ['2023-02-15', '2023-02-18', '2023-02-20']; // arreglo de fechas de cumpleaños
-
-    // const eventos = cumpleanos.map(fecha => {
-    //   return {
-    //     title: 'Cumpleaños',
-    //     start: fecha,
-    //     end: fecha
-    //   };
-    // });
-    //   this.calendarOptions = {
-    //   plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-    //   initialDate: '2023-02-13',
-    //   headerToolbar: {
-    //     left: 'prev,next today',
-    //     center: 'title',
-    //     right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    //   },
-    //   editable: true,
-    //   selectable: true,
-    //   selectMirror: true,
-    //   dayMaxEvents: true,
-    //   events: eventos,
-    //   dateClick: (info:any) => {
-    //     console.log('Fecha seleccionada:', info.dateStr);
-    //   }
-    // };
-  //   this.datoF();
-  // };
-
   
-
-
-
-  // constructor(private reservaService: ReservaService) {
-  //   this.calendarOptions = {
-  //     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-  //     initialDate: '2023-02-13',
-  //     headerToolbar: {
-  //       left: 'prev,next today',
-  //       center: 'title',
-  //       right: 'dayGridMonth,timeGridWeek,timeGridDay',
-  //     },
-  //     editable: true,
-  //     selectable: true,
-  //     selectMirror: true,
-  //     dayMaxEvents: true,
-  //     events: this.eventosCalendario,
-  //     dateClick: (info: any) => {
-  //       console.log('Fecha seleccionada:', info.dateStr);
-  //     },
-  //   };
-  //  }
-  // calendarOptions: CalendarOptions = {
-  //   initialView: 'dayGridMonth',
-  //   plugins: [dayGridPlugin],
-  //   dateClick: this.handleDateClick.bind(this)
-  // };
-
-  // toggleWeekends() {
-  //   this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
-  // }
-
-  // handleDateClick(arg: any) {
-  //   alert('date click! ' + arg.dateStr)
-  // }
-  // handleDateClick(info: DateClickArg) {
-  //   alert('Fecha seleccionada: ' + info.dateStr);
-
-  // }
-  // calendarOptions: CalendarOptions = {
-  //   initialView: 'dayGridMonth',
-  //   dateClick: this.handleDateClick.bind(this)
-  // };
-  // eventsPromise: Promise<EventSourceInput>;
-
-  // constructor() {
-  //   this.eventsPromise = fetch('/event-source-url')
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       return {
-  //         events: data
-  //       };
-  //     });
-  // }
-
-  // handleDateClick(arg: any) {
-  //   alert('date click! ' + arg.dateStr);
-  // }
-
-
-  // events: any[];
-
-  // options: any;
-
-  // header: any;
-
-  // constructor(private eventService: EventService) { }
-
-  // ngOnInit() {
-  //     this.eventService.getEvents().then(events => {
-  //         this.events = events;
-  //         this.options = {...this.options, ...{events: events}};
-  //     });
-
-  //     this.options = {
-  //             initialDate : '2019-01-01',
-  //             headerToolbar: {
-  //                 left: 'prev,next today',
-  //                 center: 'title',
-  //                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
-  //             },
-  //             editable: true,
-  //             selectable:true,
-  //             selectMirror: true,
-  //             dayMaxEvents: true
-  //     };
-  // }
-
-
-
-  // calendarOptions:any;
-  // datosreserva(reserva : Reserva){
-
-  //   this.reserva.fecha_entrada = reserva.fecha_entrada;
-  //   this.reserva.fecha_salida = reserva.fecha_salida;
-
-  // }
-
-  // datosF() {
-  // const cumpleanos = ['2023-02-15', '2023-02-18', '2023-02-20']; // arreglo de fechas de cumpleaños
-
-  // const eventos = cumpleanos.map(fecha => {
-  //   return {
-  //     title: 'Cumpleaños',
-  //     start: fecha,
-  //     end: fecha
-  //   };
-  // });
-
-  // const eventosBD = this.datosreserva(this.reserva);
-
-  // crear eventos para el calendario
-  // const eventosCalendario = eventosBD.map(evento => {
-  //   return {
-  //     title: evento.titulo,
-  //     start: new Date(evento.fecha_inicio).toISOString(),
-  //     end: new Date(evento.fecha_fin).toISOString()
-  //   };
-  // });
-
-  // this.reservaService.getReservas().subscribe(eventosBD => {
-  //   const eventosCalendario = eventosBD.map(evento => {
-  //     return {
-  //       title: "Reserva",
-  //       start: new Date(evento.fecha_entrada).toISOString(),
-  //       end: new Date(evento.fecha_salida).toISOString()
-  //     };
-  //   });
-  // });
-
-
-  // this.calendarOptions = {
-  //   plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-  //   initialDate: '2023-02-13',
-  //   headerToolbar: {
-  //     left: 'prev,next today',
-  //     center: 'title',
-  //     right: 'dayGridMonth,timeGridWeek,timeGridDay'
-  //   },
-  //   editable: true,
-  //   selectable: true,
-  //   selectMirror: true,
-  //   dayMaxEvents: true,
-  //   events: eventosCalendario,
-  //   dateClick: (info:any) => {
-  //     console.log('Fecha seleccionada:', info.dateStr);
-  //   }
-  // };
-  // }
-
-
-
-  // fechasentradas: any;
-  // fechasalida: any;
-  // ListaReserva: Reserva[] = [];
-  // fechaFormateadaEn: any;
-  // fechaFormateadaSa: any;
-  // eventosCalendario: any;
-
-
-//   datoF() {
-//     const cumpleanos = ['2023-02-15', '2023-02-18', '2023-02-20']; // arreglo de fechas de cumpleaños
-//     const eventosCalendario = cumpleanos.map(evento => {
-//       return {
-//         title: "Reserva",
-//         start: evento,
-//         end: evento
-//       };
-//     });
-
-// // Obtener la lista de reservas del servicio
-// // this.reservaService.getReservas().subscribe(eventosBD => {
-// //   // Crear la lista de eventos utilizando el método map()
-// //   const eventosCalendariof = eventosBD.map(result => {
-// //     return {
-// //       title: "Reserva",
-// //       start: result.fecha_entrada,
-// //       end: result.fecha_salida
-// //     };
-// //   });
-// //   // Asignar la lista de eventos a la variable eventosCalendario
-// //   // this.eventosCalendario = eventosCalendario;
-// //   const cumpleanos = ['2023-02-15', '2023-02-18', '2023-02-20']; // arreglo de fechas de cumpleaños
-// //   const eventosCalendario = cumpleanos.map(evento => {
-// //     return {
-// //       title: "Reserva",
-// //       start: evento,
-// //       end: evento
-// //     };
-// //   });
-//   // Configurar el calendario
-//   this.calendarOptions = {
-//     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-//     initialDate: '2023-02-13',
-//     headerToolbar: {
-//       left: 'prev,next today',
-//       center: 'title',
-//       right: 'dayGridMonth,timeGridWeek,timeGridDay'
-//     },
-//     editable: true,
-//     selectable: true,
-//     selectMirror: true,
-//     dayMaxEvents: true,
-//     events: eventosCalendario, // Asignar la lista de eventos al calendario
-//     dateClick: (info: any) => {
-//       console.log('Fecha seleccionada:', info.dateStr);
-//     }
-//   };
-// // });
-//   }
-
-  
-  // datoF() {
-  //   this.reservaService.getReservas().subscribe(eventosBD => {
-  //     const eventosCalendario = eventosBD.map(result => {
-        
-  //       return {
-  //         title: "Reserva",
-  //         start: result.fecha_entrada,
-  //         end: result.fecha_salida
-  //       };
-  //     });
-
-  //     console.log(eventosCalendario);
-      
-  //     // Configurar el calendario
-  //     this.calendarOptions = {
-  //       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-  //       initialDate: '2023-02-13',
-  //       headerToolbar: {
-  //         left: 'prev,next today',
-  //         center: 'title',
-  //         right: 'dayGridMonth,timeGridWeek,timeGridDay'
-  //       },
-  //       editable: true,
-  //       selectable: true,
-  //       selectMirror: true,
-  //       dayMaxEvents: true,
-  //       events: eventosCalendario, // Asignar la lista de eventos al calendario
-  //       dateClick: (info: any) => {
-  //         console.log('Fecha seleccionada:', info.dateStr);
-  //       }
-  //     };
-  //   });
-  // }
-//   @ViewChild('calendar') calendarComponent: any;
-
-//   ngAfterViewInit() {
-//     const calendarApi = this.calendarComponent.getApi();
-//     // Aquí puedes usar 'calendarApi' para manipular el calendario
-//   }
-//   datoF() {
-//     // Crear el calendario vacío
-// this.calendarOptions = {
-//   plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-//   initialDate: '2023-02-13',
-//   headerToolbar: {
-//     left: 'prev,next today',
-//     center: 'title',
-//     right: 'dayGridMonth,timeGridWeek,timeGridDay'
-//   },
-//   editable: true,
-//   selectable: true,
-//   selectMirror: true,
-//   dayMaxEvents: true,
-//   events: [],
-//   dateClick: (info: any) => {
-//     console.log('Fecha seleccionada:', info.dateStr);
-//   }
-// };
-
-// // Obtener los datos del servicio y actualizar los eventos del calendario
-// this.reservaService.getReservas().subscribe(eventosBD => {
-  
-//   const eventosCalendario = eventosBD.map(result => {
-  
-//     return {
-//       title: "Reserva",
-//       start: result.fecha_entrada,
-//       end: result.fecha_salida
-//     };
-//   });
-//   const calendarApi = this.calendarComponent.getApi();
-//   console.log(eventosCalendario);
-//   calendarApi.setOption('events', eventosCalendario);
-// });
-// Función para obtener eventos del calendario a través del servicio
-
-// getEventosCalendario() {
-//   return this.reservaService.getReservas().pipe(map(eventosBD => {
-//     const eventosCalendario = [];
-//     for (let i = 0; i < eventosBD.length; i++) {
-//       eventosCalendario.push({
-//         title: "Reserva",
-//         start: eventosBD[i].fecha_entrada,
-//         end: eventosBD[i].fecha_salida
-//       });
-//     }
-//     return eventosCalendario;
-//   }));
-// }
-
-// // Método datoF()
-// datoF() {
-//   this.getEventosCalendario().subscribe(eventosCalendario => {
-//     this.calendarOptions = {
-//       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-//       initialDate: '2023-02-13',
-//       headerToolbar: {
-//         left: 'prev,next today',
-//         center: 'title',
-//         right: 'dayGridMonth,timeGridWeek,timeGridDay'
-//       },
-//       editable: true,
-//       selectable: true,
-//       selectMirror: true,
-//       dayMaxEvents: true,
-//       events: eventosCalendario,
-//       dateClick: (info: any) => {
-//         console.log('Fecha seleccionada:', info.dateStr);
-//       }
-//     };
-//   });
-// }
-
-// datoF() {
-//   this.reservaService.getReservas().subscribe(eventosBD => {
-//     const eventosCalendario = [];
-//     for (let i = 0; i < eventosBD.length; i++) {
-//       eventosCalendario.push({
-//         title: "Reserva",
-//         start: eventosBD[i].fecha_entrada,
-//         end: eventosBD[i].fecha_salida
-//       });
-//     }
-//     console.log(eventosCalendario);
-
-//     this.calendarOptions = {
-//       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-//       initialDate: '2023-02-13',
-//       headerToolbar: {
-//         left: 'prev,next today',
-//         center: 'title',
-//         right: 'dayGridMonth,timeGridWeek,timeGridDay'
-//       },
-//       editable: true,
-//       selectable: true,
-//       selectMirror: true,
-//       dayMaxEvents: true,
-//       events: eventosCalendario,
-//       dateClick: (info: any) => {
-//         console.log('Fecha seleccionada:', info.dateStr);
-//       }
-//     };
-//   });
-// }
-// datoF() {
-//   this.reservaService.getReservas().subscribe(eventosBD => {
-//     const eventosCalendario = eventosBD.map(result => {
-//       return {
-//         title: "Reserva",
-//         start: result.fecha_entrada,
-//         end: result.fecha_salida
-//       };
-//     });
-
-//     this.calendarOptions = {
-//       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-//       initialDate: '2023-02-13',
-//       headerToolbar: {
-//         left: 'prev,next today',
-//         center: 'title',
-//         right: 'dayGridMonth,timeGridWeek,timeGridDay'
-//       },
-//       editable: true,
-//       selectable: true,
-//       selectMirror: true,
-//       dayMaxEvents: true,
-//       events: eventosCalendario,
-//       dateClick: (info: any) => {
-//         console.log('Fecha seleccionada:', info.dateStr);
-//       }
-//     };
-//   });
-// fecha : Date = new Date;
-// datos(){
-
-//       this.calendarOptions = {
-//       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-//       initialDate: '2023-02-13',
-//       headerToolbar: {
-//         left: 'prev,next today',
-//         center: 'title',
-//         right: 'dayGridMonth,timeGridWeek,timeGridDay'
-//       },
-//       editable: true,
-//       selectable: true,
-//       selectMirror: true,
-//       dayMaxEvents: true,
-//       events: [],
-//       dateClick: (info:any) => {
-//         this.displayEU=true;
-//         this.fecha = info.dateStr;
-
-//         console.log("fecha guardada",this.fecha);
-//         this.disponibilidad.horainicio = this.fecha;
-//         this.disponibilidad.horafin = this.fecha;
-//       }
-//     }
-//   }
-
-
-
-
-
-// events: Reserva[] = [];
-
-
-
-
-// ngOnInit(): void {
-//   this.datos()
-//   this.getEvents();
-// }
-
-// getEvents(): void {
-//   this.reservaService.getReservas().subscribe(events => {
-//     this.events = events;
-//     this.calendarOptions.events = events.map(event => ({
-//       title: "reserva",
-//       start: moment(event.fecha_entrada).format(),
-//       end: moment(event.fecha_salida).add(1, 'hours').format(),
-//       allDay: false
-//     }));
-//   });
-// }
-
 fechas: Date[];
 horas: number[];
+
 
 horaInicial = 9; // Hora inicial a las 9:00 AM
 horaFinal = 18; // Hora final a las 6:00 PM
 
+obtenercancha(){
+  this.idcanchas = localStorage.getItem("idCancha");
+  console.log(this.idcanchas);
+  this.canchaService.getPorId(this.idcanchas).subscribe(data=>{
+    this.datocancha = data;
+    console.log(this.datocancha);
 
+  })
+}
 
 private generarFechas(): Date[] {
   const fechas = [];
@@ -547,6 +79,7 @@ private generarHoras(): number[] {
 fechaSeleccionada!: Date;
 horaSeleccionada!: number;
 
+
 guardarFechaYHora(hora: number, fecha: Date) {
   this.fechaSeleccionada = fecha;
   this.horaSeleccionada = hora;
@@ -563,29 +96,75 @@ esReservado(hora: number, fecha: Date): boolean {
 
 botonesReservados: {hora: number, fecha: Date}[] = [];
 
-
+capturado:any;
 
 reservar(hora: number, fecha: Date) {
-  
   const clave = this.generarClave(hora, fecha);
   this.reservas[clave] = !this.reservas[clave];
   
   if (this.esReservado(hora, fecha)) {
-    this.botonesReservados.push({hora, fecha});
+    this.botonesReservados.push({hora, fecha: new Date(fecha.getTime())});
+    const index = this.botonesReservados.length - 1;
+    const fechaFormateada = this.formatoFecha(this.botonesReservados[index].fecha);
     console.log(this.botonesReservados);
+    console.log(`Reservado ${fechaFormateada} a las ${hora}:00`);
+
+    // Send POST request to create reservation
+    this.disponibilidad.hora = hora;
+    this.disponibilidad.fecha = fecha;
+    this.disponibilidad.cancha = this.datocancha;
+    this.disponibilidadservice.postDisponibilidad(this.disponibilidad).subscribe(data=>{
+      this.disponibilidad = data;
+this.capturado = this.disponibilidad.idDisponibilidad;
+
+
+
+    });
+    this.toastr.success("fecha aguardada");
+   
   } else {
     const index = this.botonesReservados.findIndex(bot => bot.hora === hora && bot.fecha.getTime() === fecha.getTime());
     if (index > -1) {
       this.botonesReservados.splice(index, 1);
-      
+      console.log(`Cancelado ${this.formatoFecha(fecha)} a las ${hora}:00`);
+
+      // Send DELETE request to remove reservation
+      this.disponibilidadservice.deleteCanchas(this.capturado).subscribe(data=>{
+        this.toastr.success("fecha eliminada");
+  
+      });
     }
   }
+}
+
+formatoFecha(fecha: Date): string {
+  const dia = fecha.getDate().toString().padStart(2, '0');
+  const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+  const anio = fecha.getFullYear().toString();
+  return `${dia}/${mes}/${anio}`;
 }
 
 generarClave(hora: number, fecha: Date): string {
   return `${fecha.toISOString()}_${hora}`;
 }
 
+
+obtenerDisponibilidad() {
+  this.disponibilidadservice.getDisponibilidad().subscribe(
+    data => {
+      this.listadisponibilidad = data;
+      console.log(data);
+    }
+  );
+}
+idobtendo!: number;
+buscarid(iddis: number){
+this.disponibilidadservice.getPorId(iddis).subscribe(data=>{
+  this.idobtendo = data.idDisponibilidad;
+  console.log();
+
+})
+}
 
 }
 

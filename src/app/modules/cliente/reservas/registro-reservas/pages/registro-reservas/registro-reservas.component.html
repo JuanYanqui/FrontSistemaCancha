@@ -19,7 +19,7 @@
                             <td>{{ hora }}:00</td>
                             <td *ngFor="let fecha of fechas">
                               <button class="mi-boton" [ngClass]="{'disponible': !esReservado(hora, fecha), 'reservado': esReservado(hora, fecha)}"
-                                (click)="reservar(hora, fecha)"> 
+                                (click)="reservar(hora, fecha)" (click)="buscarid(disponibilidad.idDisponibilidad)"> 
                                 <span *ngIf="!esReservado(hora, fecha)">Disponible</span>
                                 <span *ngIf="esReservado(hora, fecha)">No disponible</span>
                               </button>
@@ -60,13 +60,13 @@
               <div class="col">
                   <div class="p-col-12 p-md-4">
                       <span class="p-float-label">
-                         <input id='float-input' type="date" name="fecha-hora" [(ngModel)]="disponibilidad.horainicio"  pInputText>
+                         <input id='float-input' type="date" name="fecha-hora"  pInputText>
                           <label for="float-input">Hora de inicio</label>
                       </span>
                   </div>
                   <div class="p-col-12 p-md-4">
                       <span class="p-float-label">
-                          <input  id="float-input" type="date" name="fecha-hora" [(ngModel)]="disponibilidad.horafin"  pInputText>
+                          <input  id="float-input" type="date" name="fecha-hora"   pInputText>
                           <label for="float-input">Hora fin</label>
                       </span>
                   </div>

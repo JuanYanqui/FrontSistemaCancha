@@ -161,7 +161,7 @@
 
                                                             <div *ngIf="mostrarCanchas && listacanchaporesta && idEstablecimientoSeleccionado === establecimiento.idEstablecimiento">
                                                                 <ul>
-                                                                    <li class="btn-like-li" (click)="abrirDilog(cancha.idCancha)" *ngFor="let cancha of listacanchaporesta">{{ cancha.nombre }}</li>
+                                                                    <li class="btn-like-li" (click)="abrirDilog(cancha.idCancha)"  (click)="capParaEdicion(cancha.idCancha)"*ngFor="let cancha of listacanchaporesta">{{ cancha.nombre }}</li>
                                                                 </ul>
                                                             </div>
                                          
