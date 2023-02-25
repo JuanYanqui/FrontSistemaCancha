@@ -84,6 +84,10 @@ export class CatalogoCanchasComponent {
   
     ngOnInit(): void {
     }
+
+    enviarId(idCancha: number){
+      localStorage.setItem("canchaActual",String(idCancha))
+    }
   
     obtenerEstablecimiento() {
       this.establecimientoService.getEstablecimiento().subscribe(

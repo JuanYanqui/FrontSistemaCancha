@@ -161,7 +161,7 @@
 
                                                             <div *ngIf="mostrarCanchas && listacanchaporesta && idEstablecimientoSeleccionado === establecimiento.idEstablecimiento">
                                                                 <ul>
-                                                                    <li class="btn-like-li" (click)="abrirDilog(cancha.idCancha)"  (click)="capParaEdicion(cancha.idCancha)"*ngFor="let cancha of listacanchaporesta">{{ cancha.nombre }}</li>
+                                                                    <li class="btn-like-li" (click)="abrirDilog(cancha.idCancha)"  (click)="enviarId(cancha.idCancha)" (click)="capParaEdicion(cancha.idCancha)"*ngFor="let cancha of listacanchaporesta">{{ cancha.nombre }}</li>
                                                                 </ul>
                                                             </div>
                                          
@@ -271,8 +271,8 @@
                         class="p-button-rounded p-button-success" routerLink="/cliente/reserva/register-reserva" (click)="limpiar()"></button>
                 </div>
                 <div class="col">
-                    <button pButton pRipple type="button" label="Realizar Reclamo" icon="pi pi-check" iconPos="right"
-                        class="p-button-rounded p-button-success" ></button>
+                    <button pButton pRipple type="button" label="Realizar Reclamo" icon="pi pi-check" iconPos="right" routerLink="/cliente/reclamo/register-reclamo"
+                        class="p-button-rounded p-button-success"  ></button>
                 </div>
                 <div class="col">
                     <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"

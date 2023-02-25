@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Canchas } from 'src/app/core/models/canchas';
 import { Persona } from 'src/app/core/models/persona';
 import { Reclamos } from 'src/app/core/models/reclamos';
+import { Usuario } from 'src/app/core/models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +44,9 @@ export class ReclamoService {
 
   deleteReclamo(idPersona: number) {
     return this.http.delete<boolean>(this.URL + `eliminar/${idPersona}`);
+  }
+
+  getRecPorIdCliente(idPersona: any) {
+    return this.http.get<Reclamos>(this.URL + `reclamo/${idPersona}`);
   }
 }

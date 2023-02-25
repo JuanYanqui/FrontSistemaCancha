@@ -79,7 +79,7 @@
                                 {{reclamo.administrador?.nombre}} {{reclamo.administrador?.apellido}}
                             </td>
                             <td style="text-align: center">
-                                <button pButton pRipple type="button" icon="pi pi-pencil" label=""
+                                <button pButton pRipple type="button" icon="pi pi-pencil" label="" 
                                     class="p-button-warning" (click)="editarReclamo(reclamo)"></button>
                             </td>
                         </tr>
@@ -119,32 +119,10 @@
                         </div>                        
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="date" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
+                                <input type="date" id="float-input" disabled="true" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
                                 <label for="float-input">Fecha Actual</label>
                             </span>
-                        </div>
-                        <div class="p-col-3 p-md-4">
-                          <span class="p-float-label">
-                            <select pInputText placeholder="Sexo" type="text"
-                                [(ngModel)]="reclamo.cliente" id="genero" name="genero" required>
-                                <option [ngValue]="undefined" class="p-float-label">Seleccione un Cliente</option>
-                                <option *ngFor="let client of client" [ngValue]="cliente">
-                                    {{client.nombre}} {{client.apellido}}
-                                </option>
-                            </select>
-                        </span>
-                        </div>
-                        <div class="p-col-3 p-md-4">
-                            <span class="p-float-label">
-                              <select pInputText placeholder="Sexo" type="text"
-                                  [(ngModel)]="reclamo.administrador" id="admin" name="administrador" required>
-                                  <option [ngValue]="undefined" class="p-float-label">Seleccione un Administrador</option>
-                                  <option *ngFor="let administrator of administrator" [ngValue]="administrador">
-                                      {{administrator.nombre}} {{administrator.apellido}}
-                                  </option>
-                              </select>
-                          </span>
-                          </div>
+                        </div>                        
                     </div>
                     <br>
   
@@ -166,4 +144,3 @@
     </p-dialog>
   
   </div>
-

@@ -1,11 +1,14 @@
 <div class="container">
   <mat-tab-group preserveContent>
-      <mat-tab label="Registro de Establecimiento">
+      <mat-tab label="Realizar Reserva">
           <div class="content">
+            <div>
+                .
+            </div>
+            <button class="btn-like-li" (click)="GuardarBotones()">Realizar reserva</button>
             
-
-              <p-panel id="paneregusuario" class="panel" header="Registro usuario">
                   <div class="panel over overflow-auto p-grid p-fluid">
+                    
                     <!-- <button (click)="toggleWeekends()">toggle weekends</button> -->
                     <table>
                         <thead>
@@ -19,7 +22,7 @@
                             <td>{{ hora }}:00</td>
                             <td *ngFor="let fecha of fechas">
                               <button class="mi-boton" [ngClass]="{'disponible': !esReservado(hora, fecha), 'reservado': esReservado(hora, fecha)}"
-                                (click)="reservar(hora, fecha)" (click)="buscarid(disponibilidad.idDisponibilidad)"> 
+                                (click)="reservar(hora, fecha)"> 
                                 <span *ngIf="!esReservado(hora, fecha)">Disponible</span>
                                 <span *ngIf="esReservado(hora, fecha)">No disponible</span>
                               </button>
@@ -29,7 +32,7 @@
                       </table>
 
                   </div>
-              </p-panel>
+
 
 
 
@@ -40,16 +43,11 @@
 
       </mat-tab>
 
-      <mat-tab label="Listado Usuarios" routerLink="../edit-establecimiento" routerLinkActive="active">
-          <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
-                          routerLinkActive="active">Registrar nueva empresa</a>
-                          -->
-          <!-- <app-edit-establecimiento></app-edit-establecimiento> -->
-      </mat-tab>
+
 
   </mat-tab-group>
 
-  <p-dialog header="Realizar reserva" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+  <!-- <p-dialog header="Realizar reserva" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false">
   <ng-template pTemplate="body">
       <div class="p-grid p-fluid">
@@ -94,7 +92,7 @@
           </div>
       </div>
   </ng-template>
-  </p-dialog>
+  </p-dialog> -->
 
 </div>
 

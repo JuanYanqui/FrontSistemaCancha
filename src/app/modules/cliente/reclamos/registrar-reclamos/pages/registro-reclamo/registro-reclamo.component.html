@@ -28,33 +28,18 @@
                                         </div>
                                         <div class="p-col-12 p-md-4">
                                             <span class="p-float-label">
-                                                <input id="float-input" type="date" style="text-align: right;" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
-                                                <label for="float-input">Fecha Actual</label>
+                                                <input id="float-input" type="text" class="form-control" disabled="true" [value]="this.nombre +' '+this.apellido"
+                                                    maxlength="1000" minlength="2" pInputText>
+                                                <label for="float-input">Cliente</label>
                                             </span>
                                         </div>
-
-                                        <div class="p-col-3 p-md-4">
+                                        <div class="p-col-12 p-md-4">
                                             <span class="p-float-label">
-                                                <select pInputText placeholder="Cliente" type="text"
-                                                    [(ngModel)]="reclamo.cliente" id="cli" name="cliente" required>
-                                                    <option [ngValue]="undefined" class="p-float-label">Seleccione un Cliente</option>
-                                                    <option *ngFor="let cliente of cliente" [ngValue]="cliente">
-                                                        {{cliente.nombre}} {{cliente.apellido}}
-                                                    </option>
-                                                </select>
+                                                <input id="float-input" type="text" class="form-control" disabled="true" [value]="this.nombreAdmin +' '+ this.apellidoAdmin"
+                                                    maxlength="1000" minlength="2" pInputText>
+                                                <label for="float-input">Administrador</label>
                                             </span>
-                                        </div>
-                                        <div class="p-col-3 p-md-4">
-                                            <span class="p-float-label" style="text-align: right;">
-                                                <select pInputText placeholder="Administrador" type="text" 
-                                                    [(ngModel)]="reclamo.administrador" id="admin" name="administrador" required>
-                                                    <option [ngValue]="undefined">Seleccione un Administrador</option>
-                                                    <option *ngFor="let administrador of administrador" [ngValue]="administrador">
-                                                        {{administrador.nombre}} {{administrador.apellido}}
-                                                    </option>
-                                                </select>
-                                            </span>
-                                        </div>                                        
+                                        </div>                                         
                                         <div class="p-col-12 p-md-4">
                                             <button id="btnregistrar" pButton pRipple type="button" label="Guardar Reclamo"
                                                 icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
@@ -69,7 +54,7 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="Listado Reclamos" (click)="recargar($event)" routerLink="../edit-reclamos" routerLinkActive="active">
+        <mat-tab label="Listado Reclamos" (click)="obtenerReclamos()" routerLink="../edit-reclamos" routerLinkActive="active">
             <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
                             routerLinkActive="active">Registrar nueva empresa</a>
             -->
