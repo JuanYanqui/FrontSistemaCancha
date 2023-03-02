@@ -1,245 +1,241 @@
 <div class="content">
 
   <body>
-      <p-panel id="panellistusuario">
-          <div class="panel over overflow-auto p-grid p-fluid">
-              <p-table #dt3 [value]="listaUsuarios" dataKey="id" [rowHover]="true" [rows]="10"
-                  [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" 
-                  [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                  [filterDelay]="0" [globalFilterFields]="['cedula','nombre','username','rol','empresa']">
-                  <ng-template pTemplate="caption">
-                      <div class="table-header">
-                          <span class="p-input-icon-right">
-                              <i class="pi pi-search"></i>
-                              <input pInputText type="text"
-                                  (input)="dt3.filterGlobal($any($event.target).value, 'contains')"
-                                  placeholder="Ingrese Nombre de Usuario a Buscar" />
-                          </span>
-                      </div>
-                  </ng-template>
-                  <ng-template pTemplate="header">
-                      <tr>
-                        <th pSortableColumn="cedula">
-                          <div class="p-d-flex p-jc-between p-ai-center">
-                              Foto
-                              <p-sortIcon field="cedula"></p-sortIcon>
-                              
-                          </div>
-                      </th>
-                          <th pSortableColumn="cedula">
-                              <div class="p-d-flex p-jc-between p-ai-center">
-                                  Cédula
-                                  <p-sortIcon field="cedula"></p-sortIcon>
-                                  <p-columnFilter type="text" field="cedula" display="menu" class="p-ml-auto">
-                                  </p-columnFilter>
-                              </div>
-                          </th>
-                          <th pSortableColumn="nombre">
-                              <div class="p-d-flex p-jc-between p-ai-center">
-                                  Nombre
-                                  <p-sortIcon field="nombre"></p-sortIcon>
-                                  <p-columnFilter type="text" field="nombre" display="menu"
-                                      class="p-ml-auto"></p-columnFilter>
-                              </div>
-                          </th>
-                          <th pSortableColumn="username">
-                              <div class="p-d-flex p-jc-between p-ai-center">
-                                  Username
-                                  <p-sortIcon field="username"></p-sortIcon>
-                                  <p-columnFilter type="text" field="username" display="menu" class="p-ml-auto">
-                                  </p-columnFilter>
-                              </div>
-                          </th>
-                          <th pSortableColumn="estado">
-                              <div class="p-d-flex p-jc-between p-ai-center">
-                                  Estado
-                                  <p-sortIcon field="estado"></p-sortIcon>
-                                  <p-columnFilter type="text" field="estado" display="menu" class="p-ml-auto">
-                                  </p-columnFilter>
-                              </div>
-                          </th>
-                          <th pSortableColumn="rol">
-                              <div class="p-d-flex p-jc-between p-ai-center">
-                                  Rol
-                                  <p-sortIcon field="rol"></p-sortIcon>
-                                  <p-columnFilter type="text" field="rol" display="menu" class="p-ml-auto">
-                                  </p-columnFilter>
-                              </div>
-                          </th>
-                          <th pSortableColumn="empresa">
-                              <div class="p-d-flex p-jc-between p-ai-center">
-                                  Empresa
-                                  <p-sortIcon field="empresa"></p-sortIcon>
-                                  <p-columnFilter type="text" field="empresa" display="menu" class="p-ml-auto">
-                                  </p-columnFilter>
-                              </div>
-                          </th>
-                          <th></th>
-                      </tr>
-                  </ng-template>
-                  <ng-template pTemplate="body" let-usuario>
-                      <tr class="p-selectable-row">
-                        <td>
-                          <img class="circular--square"
-                        [src]="'http://localhost:5000/image/images/' + this.usuario.persona.foto"
-                        style="margin: 0 auto;  width: 70px; height: 70px;">
-                      </td>
-                          <td>
-                              {{usuario.persona?.cedula}}
-                          </td>
-                          <td>
-                              {{usuario.persona?.nombre}} {{usuario.persona?.apellido}}
-                          </td>
-                          <td>
-                              {{usuario.username}}
-                          </td>
-                          <td>
-                              <p-toggleButton [(ngModel)]="usuario.estado" onIcon={{icnActivo}}
-                                  offIcon={{icnInactivo}} 
-                                  (click)="darBajaUsuario(usuario)"></p-toggleButton>
-                          </td>
-                          <td>
-                              {{usuario.rol?.nombre}}
-                          </td>
-                          <td>
-                              {{usuario.empresa?.nombre}}
-                          </td>
-                          <td style="text-align: center">
-                              <button pButton pRipple type="button" icon="pi pi-pencil" label=""
-                                  class="p-button-warning" (click)="editarUsuario(usuario)"></button>
-                          </td>
-                      </tr>
-                  </ng-template>
-                  <ng-template pTemplate="emptymessage">
-                      <tr>
-                          <td colspan="8">No se encontraron usuarios</td>
-                      </tr>
-                  </ng-template>
-              </p-table>
-          </div>
-      </p-panel>
+    <p-panel id="panellistusuario">
+      <div class="panel over overflow-auto p-grid p-fluid">
+        <p-table #dt3 [value]="listaUsuarios" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+          [globalFilterFields]="['cedula','nombre','username','rol','empresa']">
+          <ng-template pTemplate="caption">
+            <div class="table-header">
+              <span class="p-input-icon-right">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt3.filterGlobal($any($event.target).value, 'contains')"
+                  placeholder="Ingrese Nombre de Usuario a Buscar" />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="cedula">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                  Foto
+                  <p-sortIcon field="cedula"></p-sortIcon>
+
+                </div>
+              </th>
+              <th pSortableColumn="cedula">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                  Cédula
+                  <p-sortIcon field="cedula"></p-sortIcon>
+                  <p-columnFilter type="text" field="cedula" display="menu" class="p-ml-auto">
+                  </p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="nombre">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                  Nombre
+                  <p-sortIcon field="nombre"></p-sortIcon>
+                  <p-columnFilter type="text" field="nombre" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="username">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                  Username
+                  <p-sortIcon field="username"></p-sortIcon>
+                  <p-columnFilter type="text" field="username" display="menu" class="p-ml-auto">
+                  </p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="rol">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                  Rol
+                  <p-sortIcon field="rol"></p-sortIcon>
+                  <p-columnFilter type="text" field="rol" display="menu" class="p-ml-auto">
+                  </p-columnFilter>
+                </div>
+              </th>
+              <th pSortableColumn="estado">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                  Estado
+                </div>
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-usuario>
+            <tr class="p-selectable-row">
+              <td>
+                <img class="circular--square" [src]="'http://localhost:5000/image/images/' + this.usuario.persona.foto"
+                  style="margin: 0 auto;  width: 70px; height: 70px;">
+              </td>
+              <td>
+                {{usuario.persona?.cedula}}
+              </td>
+              <td>
+                {{usuario.persona?.nombre}} {{usuario.persona?.apellido}}
+              </td>
+              <td>
+                {{usuario.username}}
+              </td>
+              <td>
+                {{usuario.rol?.nombre}}
+              </td>
+              <td>
+                <p-toggleButton [(ngModel)]="usuario.estado" onIcon={{icnActivo}} offIcon={{icnInactivo}}
+                  (click)="darBajaUsuario(usuario)"></p-toggleButton>
+              </td>
+              <td style="text-align: center">
+                <button pButton pRipple type="button" icon="pi pi-pencil" label="" class="p-button-warning"
+                  (click)="editarUsuario(usuario)"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="8">No se encontraron usuarios</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-panel>
   </body>
 
   <p-dialog header="Editar usuario" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
-      [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-      <ng-template pTemplate="body">
-          <div class="p-grid p-fluid">
-            <h2 class="form-label-p text-center">Datos Usuario</h2>
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="body">
+      <div class="p-grid p-fluid">
+        <h2 class="form-label-p text-center">Datos Usuario</h2>
 
-          <div class="perfil-usuario-avatar text-center">
-            <img  class="circular--square2" style="max-width: 30%;" [src]="'http://localhost:5000/image/images/' + persona.foto">
+        <div class="perfil-usuario-avatar text-center">
+          <img class="circular--square2" style="max-width: 30%;"
+            [src]="'http://localhost:5000/image/images/' + persona.foto">
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.cedula"
+                  [pKeyFilter]="'int'" maxlength="13" minlength="10" pInputText required [disabled]="!isinactivo">
+                <label for="float-input">Cédula</label>
+              </span>
             </div>
-              <div class="row">
-                  <div class="col">
-                      <div class="p-col-12 p-md-4">
-                          <span class="p-float-label">
-                              <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.cedula"
-                                  [pKeyFilter]="'int'" maxlength="13" minlength="10" pInputText required>
-                              <label for="float-input">Cédula</label>
-                          </span>
-                      </div>
-                      <div class="p-col-12 p-md-4">
-                          <span class="p-float-label">
-                              <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.nombre"
-                                  [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
-                              <label for="float-input">Nombres</label>
-                          </span>
-                      </div>
-                      <div class="p-col-12 p-md-4">
-                          <span class="p-float-label">
-                              <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.apellido"
-                                  [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
-                              <label for="float-input">Apellidos</label>
-                          </span>
-                      </div>
-                      <div class="p-col-12 p-md-4">
-                          <span class="p-float-label">
-                              <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.email"
-                                  [pKeyFilter]="valCorreo" maxlength="30" minlength="6" pInputText>
-                              <label for="float-input">Correo</label>
-                          </span>
-                      </div>
-                      <div class="p-col-12 p-md-4">
-                          <span class="p-float-label">
-                              <input id="float-input" type="date" [(ngModel)]="persona.fechaNacimmiento" pInputText>
-                              <label for="float-input">Fecha de nacimiento</label>
-                          </span>
-                      </div>
-                      <div class="p-col-3 p-md-4">
-                        <span class="p-float-label">
-                          <select pInputText placeholder="Sexo" type="text"
-                              [(ngModel)]="persona.genero" id="genero" name="genero" required>
-                              <option value="">Seleccione su género</option>
-                              <option value="Masculino">Masculino</option>
-                              <option value="Femenino">Femenino</option>
-                          </select>
-                      </span>
-                      </div>
-                  </div>
-                  <div class="col">
-                      <div class="p-col-3 p-md-4">
-                          <span class="p-float-label">
-                              <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.direccion"
-                                  [pKeyFilter]="blockSpecial" maxlength="40" minlength="10" pInputText>
-                              <label for="float-input">Dirección</label>
-                          </span>
-                      </div>
-                      <div class="p-col-3 p-md-4">
-                          <span class="p-float-label">
-                              <p-inputMask id="float-input" mask="09-9999999" [(ngModel)]="persona.telefono"
-                                  placeholder=""></p-inputMask>
-                              <label for="float-input">Teléfono</label>
-                          </span>
-                      </div>
-                      <div class="p-col-3 p-md-4">
-                          <span class="p-float-label">
-                              <p-inputMask mask=" 0999999999" [(ngModel)]="persona.celular"
-                                  placeholder=""></p-inputMask>
-                              <label for="float-input">Celular</label>
-                          </span>
-                      </div>
-                      <div class="p-col-3 p-md-4">
-                          <span class="p-float-label">
-                              <input id="float-input" type="text" class="form-control" [(ngModel)]="usuario.username"
-                                  [pKeyFilter]="'alphanum'" maxlength="30" minlength="3" pInputText>
-                              <label for="float-input">Username</label>
-                          </span>
-                      </div>
-                      <div class="p-col-12 p-md-4">
-                          <span class="p-float-label">
-                              <p-password [toggleMask]="true" [(ngModel)]="usuario.password" [pKeyFilter]="'alphanum'"
-                                  maxlength="15" minlength="6"></p-password>
-                              <label for="float-input">Password</label>
-                          </span>
-                      </div>
-                      <div>
-                        <span class="p-float-label">
-                            <input (change)="imageSelected($event)" formControlName="foto" accept="image/*"
-                              name="foto" type="file" class="inputbox" id="float-input" required />
-                            <label for="float-input"></label>
-                          </span>
-                          <div *ngIf="file" class="mt-3 text-center">
-                            <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
-                          </div>
-                    </div>
-                  </div>
-                  <br>
-
-              </div>
-              <div class="p-col-12 p-md-4">
-                  <div class="row">
-                      <div class="col">
-                          <button pButton pRipple type="button" label="Actualizar" icon="pi pi-check" iconPos="right"
-                              class="p-button-rounded p-button-success" (click)="actualizarUsuario()"></button>
-                      </div>
-                      <div class="col">
-                          <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
-                              class="p-button-rounded p-button-danger" (click)="limpiar()"></button>
-                      </div>
-                  </div>
-              </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.nombre" maxlength="15"
+                  minlength="3" pInputText (keypress)="onKeyPressLetras($event)">
+                <label for="float-input">Nombres</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.apellido" maxlength="15"
+                  minlength="3" pInputText (keypress)="onKeyPressLetras($event)">
+                <label for="float-input">Apellidos</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.email" pInputText>
+                <label for="float-input">Email</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="date" [(ngModel)]="persona.fechaNacimmiento" pInputText
+                  [disabled]="!isinactivo">
+                <label for="float-input">Fecha de nacimiento</label>
+              </span>
+            </div>
+            <div class="p-col-3 p-md-4">
+              <span class="p-float-label">
+                <select pInputText placeholder="Sexo" type="text" [(ngModel)]="persona.genero" id="genero" name="genero"
+                  required>
+                  <option value="">Seleccione su género</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                </select>
+              </span>
+            </div>
           </div>
-      </ng-template>
+          <div class="col">
+            <div class="p-col-3 p-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.direccion" maxlength="30"
+                  minlength="5" pInputText>
+                <label for="float-input">Dirección</label>
+              </span>
+            </div>
+            <div class="p-col-3 p-md-4">
+              <span class="p-float-label">
+                <p-inputMask id="float-input" mask="09-999-9999" [(ngModel)]="persona.telefono"
+                  placeholder=""></p-inputMask>
+                <label for="float-input">Teléfono</label>
+              </span>
+            </div>
+            <div class="p-col-3 p-md-4">
+              <span class="p-float-label">
+                <p-inputMask mask="09-99999999" [(ngModel)]="persona.celular" placeholder=""></p-inputMask>
+                <label for="float-input">Celular</label>
+              </span>
+            </div>
+            <div class="p-col-3 p-md-4">
+              <span class="p-float-label">
+                <input id="float-input" type="text" class="form-control" [(ngModel)]="usuario.username"
+                  [pKeyFilter]="'alphanum'" maxlength="10" minlength="3" pInputText>
+                <label for="float-input">Username</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <p-password [toggleMask]="true" name="password" [(ngModel)]="usuario.password" maxlength="15"
+                  minlength="6">
+                  <ng-template pTemplate="header">
+                    <h6>Pick a password</h6>
+                  </ng-template>
+                  <ng-template pTemplate="footer">
+                    <p-divider></p-divider>
+                    <p class="mt-2">Suggestions</p>
+                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                      <li>Al menos una minúscula</li>
+                      <li>Al menos una mayúscula</li>
+                      <li>Al menos un número</li>
+                      <li>Minimo 6 caracteres</li>
+                    </ul>
+                  </ng-template>
+                </p-password>
+                <label for="float-input">Password</label>
+              </span>
+            </div>
+            <div>
+              <span class="p-float-label">
+                <input (change)="imageSelected($event)" formControlName="foto" accept="image/*" name="foto" type="file"
+                  class="inputbox" id="float-input" required />
+                <label for="float-input"></label>
+              </span>
+              <div *ngIf="file" class="mt-3 text-center">
+                <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
+              </div>
+            </div>
+          </div>
+          <br>
+
+        </div>
+        <div class="p-col-12 p-md-4">
+          <div class="row">
+            <div class="col">
+              <button pButton pRipple type="button" label="Actualizar" icon="pi pi-check" iconPos="right"
+                class="p-button-rounded p-button-success" (click)="actualizarUsuario()"></button>
+            </div>
+            <div class="col">
+              <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                class="p-button-rounded p-button-danger" (click)="limpiar()"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </p-dialog>
 
 </div>

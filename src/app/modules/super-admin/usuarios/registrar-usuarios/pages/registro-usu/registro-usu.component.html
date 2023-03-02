@@ -5,24 +5,18 @@
 
                 <p-panel id="paneregusuario" class="panel" header="Registro usuario">
                 
-<<<<<<< Updated upstream
                         <div class="form-progress">
-=======
-                         <div class="form-progress">
->>>>>>> Stashed changes
                             <div><img src="../../../../../../assets/img/pelota.gif" class="plane" alt="" /></div>
-                            <progress class="form-progress-bar" min="0" max="100" value="0" step="50"
+                            <progress class="form-progress-bar" min="0" max="100" value="0" step="33"
                                 aria-labelledby="form-progress-completion"></progress>
                             <div class="form-progress-indicator one active"></div>
                             <div class="form-progress-indicator two"></div>
+                            <div class="form-progress-indicator three"></div>
+                            <div class="form-progress-indicator four"></div>
     
                             <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">
                                 0% complete</p>
-<<<<<<< Updated upstream
                         </div>
-=======
-                        </div> 
->>>>>>> Stashed changes
                     <div class="items panel over overflow-auto p-grid p-fluid">
                         <section id="step1" data-step="1">
                             <fieldset>
@@ -181,7 +175,7 @@
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="persona.cedula" [disabled]="!isinactivo"
+                                        <input id="float-input" type="text" [disabled]="!isinactivo" [(ngModel)]="persona.cedula"
                                             [pKeyFilter]="'int'" maxlength="10" minlength="10"
                                             (ngModelChange)='buscarPorCedula()' pInputText required>
                                         <label for="float-input">Cédula</label>
@@ -197,7 +191,7 @@
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
                                         <input [disabled]="!isinactivo" id="float-input" type="text" [(ngModel)]="persona.apellido"
-                                            maxlength="30" minlength="3" pInputText>
+                                             maxlength="30" minlength="3" pInputText>
                                         <label for="float-input">Apellidos</label>
                                     </span>
                                 </div>
@@ -252,7 +246,7 @@
             <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
                             routerLinkActive="active">Registrar nueva empresa</a>
                             -->
-            <app-edit-usuarios></app-edit-usuarios>
+            <!-- <app-edit-usuarios></app-edit-usuarios> -->
         </mat-tab>
 
     </mat-tab-group>

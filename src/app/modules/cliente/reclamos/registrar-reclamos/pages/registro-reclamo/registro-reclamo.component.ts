@@ -82,6 +82,15 @@ export class RegistroReclamoComponent {
 
   }
 
+  onKeyPressLetras(event: KeyboardEvent) {
+    const input = event.key;
+    const pattern = /^[a-zA-Z\s]*$/; 
+
+    if (!pattern.test(input)) {
+      event.preventDefault();
+     }
+  }
+
   obtenerReclamos() {
     this.reclamoService.getReclamos().subscribe(
       data => {
@@ -91,14 +100,9 @@ export class RegistroReclamoComponent {
   }
 
   guardarReclamo() {
-    if (this.reclamo.titulo?.length === 0) {
-      this.toastr.error("Campo titulo vacio!", "Error!");
-      if (this.reclamo.descripcion?.length === 0) {
-        this.toastr.error("Campo desccripcion vacio!", "Error!");
-        
-      }
-    }
-    if (this.reclamo.titulo != '' && this.reclamo.descripcion != '') {
+    if (this.reclamo.titulo?.length === 0) { this.toastr.error("Campo titulo vacio!", "Error!"); }
+    else if (this.reclamo.descripcion?.length === 0) { this.toastr.error("Campo desccripcion vacio!", "Error!"); }
+    else {
 
       this.reclamoService.postReclamos(this.reclamo)
         .subscribe(response => console.log("EXITO!!"))

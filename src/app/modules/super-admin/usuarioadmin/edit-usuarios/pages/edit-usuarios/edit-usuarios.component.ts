@@ -13,26 +13,38 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
   styleUrls: ['./edit-usuarios.component.css']
 })
 export class EditUsuariosComponent {
-  listaUsuarios: any []=[];
+  isinactivo: boolean = false;
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
   displayEU: boolean = false;
-  blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-  valCorreo: RegExp = /^[^<>*!$%^=\s+?`\|{}[~"']+$/
+
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario;
-  pageActual:number=1;
-  
-  totalRecords?: number;
+  pageActual: number = 1;
 
   loading?: boolean
+  estadoif: boolean = false;
+  estVerificarEmail: boolean = false;
 
-  selectAll: boolean = false;
-  estadoif:boolean = false;
+  listaUsuarios: any[] = [];
 
   constructor(private toastr: ToastrService, private fotoService: FotoService, private personaService: PersonaService, private usuarioService: UsuarioService, private router: Router) {
     this.obtenerUsuariosPrivilegios();
-   }
+  }
+
+  onKeyPressLetras(event: KeyboardEvent) {
+    const input = event.key;
+    const pattern = /^[a-zA-Z\s]*$/;
+
+    if (!pattern.test(input)) {
+      event.preventDefault();
+    }
+  }
+
+  validarCorreoElectronico(correo: string) {
+    const emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    this.estVerificarEmail = emailPattern.test(correo);
+  }
 
   darBajaUsuario(usuario: Usuario) {
     let title = '';
@@ -58,27 +70,42 @@ export class EditUsuariosComponent {
       }
     )
   }
-  actualizarUsuario() {
-    this.persona.foto = this.nombre_orignal;
-    this.personaService.updatePersona(this.persona, this.persona.cedula).subscribe(
-      data => {
-        this.persona.cedula = data.cedula;
-        this.usuario.persona = this.persona;
-        
-        this.cargarImagen();
-        this.usuarioService.updateUsuario(this.usuario, this.usuario.idUsuario).subscribe(
-          result => {
-            console.log(result);
-            this.limpiar();
-            this.toastr.success('Usuario actualizado correctamente', 'Exitoso!');
 
-          }
-        )
-      }
-    )
+  actualizarUsuario() {
+
+    this.validarCorreoElectronico(String(this.persona.email));
+    this.cargarImagen()
+
+    if (this.persona.nombre?.length === 0) { this.toastr.error("Campo nombre erroneo", "Error!"); }
+    else if (this.persona.apellido?.length === 0) { this.toastr.error("Campo apellido erroneo", "Error!"); }
+    else if (this.estVerificarEmail == false || this.persona.email?.length === 0){ this.toastr.error("Campo email erroneo", "Error!"); }
+    else if (this.persona.genero?.length === 0) { this.toastr.error("Campo genero erroneo", "Error!"); }
+    else if (this.persona.direccion?.length === 0) { this.toastr.error("Campo direccion erroneo", "Error!"); }
+    else if (this.persona.telefono?.length != 11) { this.toastr.error("Campo telefono erroneo", "Error!"); }
+    else if (this.persona.celular?.length != 11) { this.toastr.error("Campo celular erroneo", "Error!"); }
+    else if(this.usuario.username.length === 0 || this.usuario.username.length < 4){ this.toastr.error("Campo username erroneo", "Error!"); }
+    else if(this.usuario.password.length === 0 || this.usuario.password.length < 5){ this.toastr.error("Campo contrase;a erroneo", "Error!"); }
+    else {
+      if (this.nombre_orignal.length != 0) { this.persona.foto = this.nombre_orignal; }
+      this.personaService.updatePersona(this.persona, this.persona.cedula).subscribe(
+        data => {
+          this.persona.cedula = data.cedula;
+          this.usuario.persona = this.persona;
+
+          this.usuarioService.updateUsuario(this.usuario, this.usuario.idUsuario).subscribe(
+            result => {
+              console.log(result);
+              this.limpiar();
+              this.toastr.success('Usuario actualizado correctamente', 'Exitoso!');
+
+            }
+          )
+        }
+      )
+    }
   }
 
- limpiar() {
+  limpiar() {
     this.displayEU = false;
     this.persona = new Persona;
     this.usuario = new Usuario;
@@ -97,8 +124,9 @@ export class EditUsuariosComponent {
       }
     );
   }
+
   editarUsuario(usuario: Usuario) {
-    
+
     this.displayEU = true;
 
 
@@ -123,11 +151,6 @@ export class EditUsuariosComponent {
   }
 
 
-  solicitar(){
-
-  }
-
-  
   // IMAGEN
   image!: any;
   file: any = '';

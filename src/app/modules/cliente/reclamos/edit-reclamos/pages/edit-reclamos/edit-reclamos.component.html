@@ -6,20 +6,20 @@
                 <p-table #dt3 [value]="listaReclamos" dataKey="id" [rowHover]="true" [rows]="10"
                     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" 
                     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [filterDelay]="0" [globalFilterFields]="['titulo','descripcion','fecha','cliente','admistrador']">
+                    [filterDelay]="0" [globalFilterFields]="['titulo','descripcion', 'fecha_reclamo', 'Cliente', 'Administrador']">
                     <ng-template pTemplate="caption">
                         <div class="table-header">
                             <span class="p-input-icon-right">
                                 <i class="pi pi-search"></i>
                                 <input pInputText type="text"
                                     (input)="dt3.filterGlobal($any($event.target).value, 'contains')"
-                                    placeholder="Buscar" />
+                                    placeholder="Buscar Titulo o Descripcion" />
                             </span>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
-                            <th pSortableColumn="cedula">
+                            <th pSortableColumn="Titulo">
                                 <div class="p-d-flex p-jc-between p-ai-center">
                                     Titulo
                                     <p-sortIcon field="titulo"></p-sortIcon>
@@ -43,19 +43,19 @@
                                     </p-columnFilter>
                                 </div>
                             </th>
-                            <th pSortableColumn="cliente">
+                            <th pSortableColumn="Cliente">
                                 <div class="p-d-flex p-jc-between p-ai-center">
                                     Cliente
-                                    <p-sortIcon field="cliente"></p-sortIcon>
-                                    <p-columnFilter type="text" field="cliente" display="menu" class="p-ml-auto">
+                                    <p-sortIcon field="Cliente"></p-sortIcon>
+                                    <p-columnFilter type="text" field="Cliente" display="menu" class="p-ml-auto">
                                     </p-columnFilter>
                                 </div>
                             </th> 
-                            <th pSortableColumn="admistrador">
+                            <th pSortableColumn="Administrador">
                                 <div class="p-d-flex p-jc-between p-ai-center">
                                     Administrador
-                                    <p-sortIcon field="admistrador"></p-sortIcon>
-                                    <p-columnFilter type="text" field="admistrador" display="menu" class="p-ml-auto">
+                                    <p-sortIcon field="Administrador"></p-sortIcon>
+                                    <p-columnFilter type="text" field="Administrador" display="menu" class="p-ml-auto">
                                     </p-columnFilter>
                                 </div>
                             </th>                            
@@ -101,29 +101,29 @@
               <h2 class="form-label-p text-center">Modificar Reclamos</h2>
   
             
-                <div class="row">
-                    <div class="col">
-                        <div class="p-col-12 p-md-4">
-                            <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.titulo"
-                                    maxlength="100" minlength="2" pInputText required>
-                                <label for="float-input">Titulo</label>
-                            </span>
-                        </div>
-                        <div class="p-col-12 p-md-4">
-                            <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.descripcion"
-                                    maxlength="1000" minlength="2" pInputText>
-                                <label for="float-input">Descripcion</label>
-                            </span>
-                        </div>                        
-                        <div class="p-col-12 p-md-4">
-                            <span class="p-float-label">
-                                <input type="date" id="float-input" disabled="true" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
-                                <label for="float-input">Fecha Actual</label>
-                            </span>
-                        </div>                        
+              <div class="row">
+                <div class="col">
+                    <div class="p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.titulo"
+                                maxlength="100" minlength="2" pInputText required (keypress)="onKeyPressLetras($event)">
+                            <label for="float-input">Titulo</label>
+                        </span>
                     </div>
+                    <div class="p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.descripcion"
+                                maxlength="1000" minlength="2" pInputText>
+                            <label for="float-input">Descripcion</label>
+                        </span>
+                    </div>                        
+                    <div class="p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input type="date" id="float-input" disabled="true" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
+                            <label for="float-input">Fecha Actual</label>
+                        </span>
+                    </div>                        
+                </div>
                     <br>
   
                 </div>

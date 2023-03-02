@@ -10,13 +10,14 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
 import { CargarScriptsService } from 'src/app/cargar-scripts.service';
 import Swal from 'sweetalert2';
 import { FotoService } from 'src/app/shared/services/foto.service';
+import { Establecimiento } from 'src/app/core/models/establecimiento';
 
 @Component({
-  selector: 'app-register-user',
-  templateUrl: './register-user.component.html',
-  styleUrls: ['./register-user.component.css']
+  selector: 'app-registro-usu',
+  templateUrl: './registro-usu.component.html',
+  styleUrls: ['./registro-usu.component.css']
 })
-export class RegisterUserComponent {
+export class RegistroUsuComponent {
 
   isinactivo: boolean = false;
   isButtonEnabled: boolean = false;
@@ -27,6 +28,9 @@ export class RegisterUserComponent {
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario;
 
+  listaRoles: any[] = [];
+  listaEmpresas: Establecimiento[] = [];
+
   estVerificarCedula: boolean = false;
   estVerificarEmail: boolean = false;
   estFechaNacimiento: boolean = false;
@@ -36,17 +40,20 @@ export class RegisterUserComponent {
   ao2: string = '';
 
   constructor(private cargarScripts: CargarScriptsService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private router: Router) {
-    cargarScripts.Carga(["register-user.component"]);
+    cargarScripts.Carga(["register-user.component"])
+    
+    this.obtenerRoles();
   }
 
-  goToR($event: any): void {
 
-    this.router.navigate(['/login-usr'])
+  recargar($event: any): void {
+
+    this.router.navigate(['/sup-admin/usuarioadmin/register-usuarioadmin'])
     console.log($event)
-
   }
 
   ngOnInit(): void {
+
     this.persona.nombre = '';
     this.persona.apellido = '';
     this.persona.email = '';
@@ -54,7 +61,35 @@ export class RegisterUserComponent {
     this.usuario.password = '';
     localStorage.removeItem('idUsuario');
     sessionStorage.removeItem('productosPedido');
+
   }
+
+  obtenerRoles() {
+    this.rolService.getAll().subscribe(
+      data => {
+        this.listaRoles = data;
+      }
+    )
+  }
+
+  goTo($event: any): void {
+
+    this.router.navigate(['/login-usr'])
+    console.log($event)
+  }
+
+  filtersImplements(e: any) {
+    let filters = e.target.value;
+    if (filters === '' || filters === undefined || filters === null) {
+      console.log('Rol no seleccionado');
+    } else {
+      this.usuario.rol = filters;
+      console.log(this.usuario.rol);
+    }
+  }
+
+
+
 
   onKeyPressLetras(event: KeyboardEvent) {
     const input = event.key;
@@ -99,14 +134,14 @@ export class RegisterUserComponent {
     }
   }
 
-  buscarPorCedula() {
 
+  buscarPorCedula() {
     if (this.persona.cedula != null && this.persona.cedula != '') {
       this.personaService.getPorCedula(this.persona.cedula).subscribe(
         data => {
           console.log(data);
           if (data != null) {
-
+            this.toastr.success('Dato encontrado en a base');
             this.flapersona = false;
 
             this.persona.apellido = data.apellido;
@@ -117,9 +152,10 @@ export class RegisterUserComponent {
             this.persona.direccion = data.direccion;
             this.persona.celular = data.celular;
             this.persona.email = data.email;
-            this.persona.telefono = data.telefono
             this.persona.foto = data.foto;
             this.persona.fechaNacimmiento = data.fechaNacimmiento;
+            this.persona.telefono = data.telefono
+
 
           } else if (this.persona.cedula?.length == 10) {
             this.flapersona = true;
@@ -136,10 +172,8 @@ export class RegisterUserComponent {
       this.toastr.warning('Cedula incorrecta', 'Advertencia!')
       Swal.fire('Cedula incorrecta', 'Advertencia!')
     }
-
   }
 
-  
 
   registrarPersona() {
 
@@ -251,6 +285,7 @@ export class RegisterUserComponent {
     }
   }
 
+
   // IMAGEN
   image!: any;
   file: any = '';
@@ -288,5 +323,9 @@ export class RegisterUserComponent {
     this.fotoService.guararImagenes(this.selectedFile);
   }
 
-
+  recarga(){
+    window.location.reload();
+  }
 }
+
+

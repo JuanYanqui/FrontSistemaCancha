@@ -58,6 +58,15 @@ export class EditReclamosComponent {
     //this.verAdministrador(this.canchas.idCancha);
   }
 
+  onKeyPressLetras(event: KeyboardEvent) {
+    const input = event.key;
+    const pattern = /^[a-zA-Z\s]*$/; 
+
+    if (!pattern.test(input)) {
+      event.preventDefault();
+     }
+  }
+
   editarReclamo(reclamo: Reclamos) {
     
     this.displayEU = true;
@@ -84,6 +93,9 @@ export class EditReclamosComponent {
 
   actualizarReclamo() {
     console.log(this.reclamo.idReclamo);    
+    if (this.reclamo.titulo?.length === 0) { this.toastr.error("Campo titulo vacio!", "Error!"); }
+    else if (this.reclamo.descripcion?.length === 0) { this.toastr.error("Campo desccripcion vacio!", "Error!"); }
+    else {
 
     this.reclamoService.updateReclamos(this.reclamo, this.reclamo.idReclamo).subscribe(
       data => {
@@ -97,7 +109,7 @@ export class EditReclamosComponent {
         )
         this.limpiar();
       }
-
+    }
       limpiar() {
         this.displayEU = false;
         this.reclamo = new Reclamos;

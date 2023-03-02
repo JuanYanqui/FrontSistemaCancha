@@ -17,25 +17,26 @@ import { Establecimiento } from 'src/app/core/models/establecimiento';
   styleUrls: ['./registro-usuarios.component.css']
 })
 export class RegistroUsuariosComponent {
-  rol: Rol = new Rol;
 
+  isinactivo: boolean = false;
+  isButtonEnabled: boolean = false;
+  isButtonEnabled2: boolean = false;
+  flapersona: boolean = true;
+
+  rol: Rol = new Rol;
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario;
 
-  verfNombres: any;
-  isinactivo: boolean = false;
-  verfApellidos: any;
-  verfCorreo: any;
-  verfUsername: any;
-  verfPassword: any;
-  isButtonEnabled: boolean = false;
-  isButtonEnabled2: boolean = false;
-  expCorreo: RegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-  valCorreo: boolean = true;
-  flapersona: boolean = true;
-  blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
   listaRoles: any[] = [];
   listaEmpresas: Establecimiento[] = [];
+
+  estVerificarCedula: boolean = false;
+  estVerificarEmail: boolean = false;
+  estFechaNacimiento: boolean = false;
+  estvalUsu: boolean = false;
+
+  ao1: string = '';
+  ao2: string = '';
 
   constructor(private cargarScripts: CargarScriptsService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private router: Router) {
     cargarScripts.Carga(["register-user.component"])
@@ -48,7 +49,6 @@ export class RegistroUsuariosComponent {
     this.router.navigate(['/sup-admin/usuarioadmin/register-usuarioadmin'])
     console.log($event)
   }
-
 
   ngOnInit(): void {
 
@@ -76,17 +76,21 @@ export class RegistroUsuariosComponent {
     console.log($event)
   }
 
-  validarCorreo() {
-    this.valCorreo = this.expCorreo.test(this.persona.email!);
-    if (this.valCorreo) {
-      this.verfCorreo = '';
+  filtersImplements(e: any) {
+    let filters = e.target.value;
+    if (filters === '' || filters === undefined || filters === null) {
+      console.log('Rol no seleccionado');
     } else {
-      this.verfCorreo = 'ng-invalid ng-dirty';
+      this.usuario.rol = filters;
+      console.log(this.usuario.rol);
     }
   }
 
-  registrarUsuario() {
+  onKeyPressLetras(event: KeyboardEvent) {
+    const input = event.key;
+    const pattern = /^[a-zA-Z\s]*$/; 
 
+<<<<<<< Updated upstream
     if (this.persona.nombre === '' || this.persona.nombre === null) {
       this.verfNombres = 'ng-invalid ng-dirty';
       Swal.fire("Campo nombres vacio!", "Error!");
@@ -143,10 +147,50 @@ export class RegistroUsuariosComponent {
           } else {
             Swal.fire("El username que eligio ya está en uso!", "warning");
           }
+=======
+    if (!pattern.test(input)) {
+      event.preventDefault();
+     }
+  }
+  
+  validarCedula(ced: string) {
+    this.personaService.valCedula(ced).subscribe(
+      data => {
+        if (data == false && ced.length == 10) {
+          this.estVerificarCedula = false;
+        } else {
+          this.estVerificarCedula = true;
+>>>>>>> Stashed changes
         }
-      )
+      }
+    )
+  }
+<<<<<<< Updated upstream
+=======
+
+  validarCorreoElectronico(correo: string) {
+    const emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    this.estVerificarEmail = emailPattern.test(correo);
+  }
+
+  validarFecha(){
+    this.ao1 = String(new Date());
+    this.ao1 = this.ao1[11] + this.ao1[12] + this.ao1[13] + this.ao1[14];
+    this.ao2 = String(new Date(String(this.persona.fechaNacimmiento)));
+    this.ao2 = this.ao2[11] + this.ao2[12] + this.ao2[13] + this.ao2[14];
+
+    let f1: number = Number(this.ao1);
+    let f2: number = Number(this.ao2);
+
+    let res: number = f1 - f2;
+    if (res >= 18){
+      this.estFechaNacimiento = true;
+    } else {
+      this.estFechaNacimiento = false;
     }
   }
+
+>>>>>>> Stashed changes
   buscarPorCedula() {
 
     if (this.persona.cedula != null && this.persona.cedula != '') {
@@ -189,43 +233,28 @@ export class RegistroUsuariosComponent {
   }
 
   registrarPersona() {
-    if (this.persona.cedula?.length === 0) {
-      this.toastr.error("Campo cedula vacio!", "Error!");
-      if (this.persona.nombre?.length === 0) {
-        this.toastr.error("Campo nombres vacio!", "Error!");
-        if (this.persona.celular === '' && this.persona.celular === null) {
-          this.toastr.error("Campo celular vacio!", "Error!");
-          if (this.persona.telefono === '' || this.persona.telefono === null) {
-            this.toastr.error("Campo telefono vacio!", "Error!");
-            if (this.persona.genero === '' || this.persona.genero === null) {
-              this.toastr.error("Campo genero vacio!", "Error!");
-              if (this.persona.apellido === '' || this.persona.apellido === null) {
-                this.toastr.error("Campo apellidos vacio!", "Error!");
-                if (this.persona.email === '' || this.persona.email === null) {
-                  this.toastr.error("Campo email vacio!", "Error!");
-                  if (this.persona.direccion === '' || this.persona.direccion === null) {
-                    this.toastr.error("Campo direccion vacio!", "Error!");
-                  }
-                }
-              }
-            }
-          }
-        }
 
-      }
-    }
+    this.validarCedula(String(this.persona.cedula));
+    this.validarCorreoElectronico(String(this.persona.email));
+    this.persona.foto = this.nombre_orignal;
+    this.validarFecha();
+    this.cargarImagen();
+    console.log(this.persona.telefono);
 
+    if(this.estVerificarCedula == false || this.persona.cedula?.length != 10){ this.toastr.error("Campo cedula erroneo", "Error!"); }
+    else if(this.persona.nombre?.length === 0){ this.toastr.error("Campo nombre erroneo", "Error!"); }
+    else if(this.persona.apellido?.length === 0){ this.toastr.error("Campo apellido erroneo", "Error!"); }
+    else if(this.estVerificarEmail == false || this.persona.email?.length === 0){ this.toastr.error("Campo email erroneo", "Error!"); }
+    else if(this.persona.direccion?.length === 0){ this.toastr.error("Campo direccion erroneo", "Error!"); }
+    else if(this.estFechaNacimiento == false || String(this.persona.fechaNacimmiento).length === 0){ this.toastr.error("Campo fecha erroneo", "Error!"); }
+    else if(this.persona.genero?.length === 0){ this.toastr.error("Campo genero erroneo", "Error!"); }
+    else if(this.persona.telefono?.length != 11){ this.toastr.error("Campo telefono erroneo", "Error!"); }
+    else if(this.persona.celular?.length != 11){ this.toastr.error("Campo celular erroneo", "Error!"); }
+    else if(this.persona.foto?.length === 0){ this.toastr.error("Campo foto erroneo", "Error!"); }
+    else {
 
-
-
-
-
-
-    if (this.persona.apellido != '' && this.persona.cedula != '' && this.persona.celular != '' && this.persona.email != '' &&
-      this.persona.direccion != '' && this.persona.genero != '' && this.persona.nombre != '' && this.persona.telefono != '') {
       this.personaService.getPorCedula(this.persona.cedula).subscribe(
         data => {
-          console.log(data);
           if (data != null) {
 
             Swal.fire({
@@ -238,7 +267,6 @@ export class RegistroUsuariosComponent {
               confirmButtonText: 'Si, Continuar!'
             }).then((result) => {
               if (result.isConfirmed) {
-                this.obtenerRoles();
                 this.isButtonEnabled = true;
                 Swal.fire(
                   'PROCESO',
@@ -247,15 +275,9 @@ export class RegistroUsuariosComponent {
                 )
               }
             })
-
-
           } else {
-            this.persona.foto = this.nombre_orignal;
             this.personaService.postPersona(this.persona).subscribe(
               data => {
-                console.log(data);
-                this.cargarImagen();
-
                 Swal.fire('Persona registrada correctamente!', 'success');
                 Swal.fire({
                   icon: 'success',
@@ -271,28 +293,47 @@ export class RegistroUsuariosComponent {
         }
 
       )
-
-
-    } else {
-      this.toastr.error('Datos incompletos')
     }
   }
 
-  filtersImplements(e: any) {
-    let filters = e.target.value;
-    if (filters === '' || filters === undefined || filters === null) {
-      console.log('Rol no seleccionado');
-    } else {
-      this.usuario.rol = filters;
-      console.log(this.usuario.rol);
+  registrarUsuario() {
+
+    if(this.usuario.username.length === 0 || this.usuario.username.length < 4){ this.toastr.error("Campo username erroneo", "Error!"); }
+    else if(this.usuario.password.length === 0 || this.usuario.password.length < 5){ this.toastr.error("Campo contrase;a erroneo", "Error!"); }
+    else {
+      this.usuarioService.verfUsername(this.usuario.username).subscribe(
+        data => {
+          if (!data) {
+            this.personaService.postPersona(this.persona).subscribe(
+              data => {
+                console.log(data);
+                this.persona.idPersona = data.idPersona;
+                this.usuario.persona = this.persona;
+                this.usuario.estado = true;
+                this.usuario.rol = this.rol;
+                this.usuarioService.postUsuario(this.usuario).subscribe(
+                  result => {
+                    console.log(result);
+                    this.usuario = result;
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Usuario registrado correctamente',
+                      text: 'Bienvenido!',
+                    })
+                    this.limpiarU()
+                  }
+                  
+                )
+
+              }
+            )
+          } else {
+            Swal.fire("El username que eligio ya está en uso!", "warning");
+          }
+        }
+      )
     }
   }
-
-  // limpiar(){
-  //   console.log("limpiar")
-  //   this.form.reset();
-
-  // }
 
   // IMAGEN
   image!: any;

@@ -255,40 +255,60 @@ console.log(this.ubicacion.longitud)
 
   }
 
-registrarEstablecimiento() {
-
-    this.ubicacionService.postUbicacion(this.ubicacion).subscribe(
-      data => {
-        this.ubicacion.idUbicacion = data.idUbicacion;
-        this.toast.success("creado ubicacion")
-        console.log(data);
-        if (!data) {
-        
-        } else {
-              this.establecimiento.fotoestablecimiento = this.nombre_orignal;
-              this.cargarImagen();
-              console.log(data);
-              this.establecimiento.ubicacion = this.ubicacion;
-              // this.establecimiento.fotoestablecimiento = [this.fotoestablecimiento]; 
-              this.establecimiento.persona = this.persona
-
-              this.establecimientoService.postEstablecimiento(this.establecimiento).subscribe(
-                result => {
-                  console.log(result);
-                  this.toast.success("creado establecimiento");
-                  this.limpiarE();
-                  
-                }
-                
-              )
-
-            
-          
-        }
-      }
-    )
+  validarRuc(event: KeyboardEvent) {
+    const key = event.key;
   
-}
+    if (key === 'Backspace' || key === 'Tab' || key === 'Enter' || key === 'Escape' || key === '.') {
+      return;
+    }
+  
+    if (isNaN(Number(key))) {
+      event.preventDefault();
+    }
+  }
+  
+  registrarEstablecimiento() {
+    if (this.establecimiento.ubicacion?.latitud == 0 || this.establecimiento.ubicacion?.longitud == 0 
+    || this.establecimiento.ubicacion?.calle_principal == '' || this.establecimiento.ubicacion?.calle_secundaria == '' 
+    || this.establecimiento.ubicacion?.referencia == 0 || this.establecimiento.codigoPostal == null
+    || this.persona.cedula == null || this.establecimiento.nombre == null 
+    || this.establecimiento.horaApertura == null || this.establecimiento.horaCierre == null || this.establecimiento.ruc.length != 13){
+      this.toast.warning('Ruc erroneo', 'Advertencia!')
+      this.toast.warning('Campos incompletos Verificar', 'Advertencia!')
+    }  else {
+     this.ubicacionService.postUbicacion(this.ubicacion).subscribe(
+       data => {
+         this.ubicacion.idUbicacion = data.idUbicacion;
+         this.toast.success("creado ubicacion")
+         console.log(data);
+         if (!data) {
+         
+         } else {
+               this.establecimiento.fotoestablecimiento = this.nombre_orignal;
+               this.cargarImagen();
+               console.log(data);
+               this.establecimiento.ubicacion = this.ubicacion;
+               // this.establecimiento.fotoestablecimiento = [this.fotoestablecimiento]; 
+               this.establecimiento.persona = this.persona
+ 
+               this.establecimientoService.postEstablecimiento(this.establecimiento).subscribe(
+                 result => {
+                   console.log(result);
+                   this.toast.success("creado establecimiento");
+                   this.limpiarE();
+                   
+                 }
+                 
+               )
+ 
+             
+           
+         }
+       }
+     )
+     }
+   
+ }
 
   // IMAGEN
   image!: any;

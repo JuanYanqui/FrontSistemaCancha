@@ -24,6 +24,7 @@ export class EditarCanchasComponent {
   icnInactivo: String = "pi pi-times";
   subcadena: string = '';
   entrada:any;
+  estVerificarTarifa: boolean = false;
   establecimiento: Establecimiento = new Establecimiento;
   id_establ:any;
   constructor(private toastr: ToastrService, private establecimientoService: EstablecimientoService, private fotoService: FotoService, private canchasService: CanchasService, private router: Router) {
@@ -208,14 +209,31 @@ export class EditarCanchasComponent {
     this.limpiar()
   }
 
+  validarTarifa(tari: string) {
+    const tarifaPattern: RegExp = /^[0-9]+(\.[0-9]+)?$/;
+    this.estVerificarTarifa = tarifaPattern.test(tari);
+  }
+
   actualizarCanchas() {
-    this.canchasService.putCanchas(this.cancha, this.cancha.idCancha).subscribe(
-      data => {
-        this.cancha.idCancha = data.idCancha;
-        this.cancha = this.cancha;
-        this.limpiar();
-      }
-    )
+    this.validarTarifa(this.cancha.tarifa);
+    this.cargarImagen();
+
+    if (this.cancha.nombre.length === 0) { this.toastr.error("Campo nombres vacio!", "Error!"); }
+    else if (this.estVerificarTarifa == false) { this.toastr.error("Campo tarifa erroneo ejem: 12.2!", "Error!"); }
+    else if (this.cancha.descripcion.length === 0) { this.toastr.error("Campo descripcion vacio!", "Error!"); }
+    else if (String(this.cancha.ancho).length === 0) { this.toastr.error("Campo ancho de cancha debe ser mayor a cero!", "Error!"); }
+    else if (String(this.cancha.altura).length === 0) { this.toastr.error("Campo alto de cancha debe ser mayor a cero!", "Error!"); }
+    else{
+      if (this.nombre_orignal.length != 0) { this.cancha.foto = this.nombre_orignal; }
+      
+      this.canchasService.putCanchas(this.cancha, this.cancha.idCancha).subscribe(
+        data => {
+          this.cancha.idCancha = data.idCancha;
+          this.cancha = this.cancha;
+          this.limpiar();
+        }
+      )
+    }
   }
 
   // IMAGEN

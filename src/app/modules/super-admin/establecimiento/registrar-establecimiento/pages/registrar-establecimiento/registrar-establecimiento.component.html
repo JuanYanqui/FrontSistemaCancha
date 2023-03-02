@@ -59,7 +59,7 @@
 
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.numero" pInputText>
+                                        <input id="float-input" type="number" [(ngModel)]="ubicacion.numero" pInputText>
                                         <label for="float-input">Numero propiedad</label>
                                     </span>
                                 </div>
@@ -88,8 +88,8 @@
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="establecimiento.ruc"
-                                            pInputText>
+                                        <input id="float-input" type="text" (keydown)="validarRuc($event)" [(ngModel)]="establecimiento.ruc"
+                                             maxlength="13" minlength="13" pInputText>
                                         <label for="float-input">Ruc</label>
                                     </span>
                                 </div>
@@ -138,20 +138,20 @@
                                     </div>
                           </div>
 
-                                <div class="p-col-3 p-md-4">
-                                    <span class="p-float-label">
-                                        <input (change)="imageSelected($event)" formControlName="foto" accept="image/*"
-                                            name="foto" type="file" class="inputbox" id="float-input" required />
-                                        <label for="float-input"></label>
-                                    </span>
-                                    <div *ngIf="file" class="mt-3 text-center">
-                                        <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
-                                    </div>
-                                    <div>
-                                        <img alt="..." style="max-width: 50%;"
-                                            [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento" />
-                                    </div>
-                                </div>
+                          <div class="p-col-3 p-md-4">
+                            <span class="p-float-label">
+                                <input (change)="imageSelected($event)" formControlName="foto" accept="image/*"
+                                    name="foto" type="file" class="inputbox" id="float-input" required />
+                                <label for="float-input"></label>
+                            </span>
+                            <div *ngIf="file" class="mt-3 text-center">
+                                <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
+                            </div>
+                            <div>
+                                <img alt="..." style="max-width: 50%;"
+                                    [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento" />
+                            </div>
+                        </div>
                                 <br>
 
 

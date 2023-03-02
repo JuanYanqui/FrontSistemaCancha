@@ -24,8 +24,8 @@
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="canchas.tarifa"
-                                            [pKeyFilter]="'int'" maxlength="5" minlength="1" pInputText>
+                                        <input id="float-input" type="text" [(ngModel)]="canchas.tarifa" onkeypress="return /[a-zA-Z\s]/i.test(event.key)"
+                                            maxlength="5" minlength="1" pInputText>
                                         <label for="float-input">Tarifa</label>
                                     </span>
                                 </div>

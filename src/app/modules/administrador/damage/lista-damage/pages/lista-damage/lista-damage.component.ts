@@ -18,7 +18,7 @@ import { Pago_DamageService } from 'src/app/shared/services/pago_damage.service'
   styleUrls: ['./lista-damage.component.css']
 })
 export class ListaDamageComponent {
-  lista: any []=[];
+  lista: any[] = [];
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
   displayEU: boolean = false;
@@ -26,88 +26,106 @@ export class ListaDamageComponent {
   blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
   valCorreo: RegExp = /^[^<>*!$%^=\s+?`\|{}[~"']+$/
   persona: Persona = new Persona;
-  pageActual:number=1;
-  registro_damage:Registro_Damage=new Registro_Damage;
-  pago_damage:Pago_Damage=new Pago_Damage;
+  estVerificarValor: boolean = false;
+  pageActual: number = 1;
+  registro_damage: Registro_Damage = new Registro_Damage;
+  pago_damage: Pago_Damage = new Pago_Damage;
   currentDate: Date = new Date();
-  id_personaIsLoggin:any;
-  
+  id_personaIsLoggin: any;
 
-  constructor(private toastr: ToastrService, private fotoService: FotoService, private personaService: PersonaService, private damageService:Registro_DamageService, private router: Router,private location: Location,private pagoService:Pago_DamageService) 
-  {
+
+  constructor(private toastr: ToastrService, private fotoService: FotoService, private personaService: PersonaService, private damageService: Registro_DamageService, private router: Router, private location: Location, private pagoService: Pago_DamageService) {
     this.getPagoRegister();
     //this.getDamageRegister();
   }
-  
 
-  getPagoRegister(){
+
+  getPagoRegister() {
     this.id_personaIsLoggin = localStorage.getItem('localIdPersona');
     this.pagoService.getPago(this.id_personaIsLoggin).subscribe(
-      data=>{
-        this.lista=data;
+      data => {
+        this.lista = data;
       }
     )
   }
 
-  getDamageRegister(){
+  getDamageRegister() {
     this.damageService.getRegistroDamage().subscribe(
-      data=>{
-        this.lista=data;
+      data => {
+        this.lista = data;
       }
     )
   }
 
-  updateDamageRegister(){
-    this.registro_damage.foto=this.nombre_orignal;
-    this.damageService.putRegistroDamage(this.registro_damage,this.registro_damage.idDamage).subscribe(
-      result=>{
-        this.cargarImagen()
-        this.toastr.success('Daño actualizado correctamente', 'Exitoso!');
-        this.displayEU=false
-        window.location.reload()
-      }
-      
-    )
-    
+  validarValor(tari: string) {
+    const tarifaPattern: RegExp = /^[0-9]+(\.[0-9]+)?$/;
+    this.estVerificarValor = tarifaPattern.test(tari);
+  }
+
+
+  updateDamageRegister() {
+    this.validarValor(String(this.registro_damage.valor));
+    this.registro_damage.foto = this.nombre_orignal;
+    this.cargarImagen();
+
+    if (this.registro_damage.descripcion.length === 0) { this.toastr.error("Campo descripcion vacio!", "Error!"); }
+    else if (this.estVerificarValor == false || this.registro_damage.valor === 0) { this.toastr.error("Campo Valor erroneo ejem: 12.2!", "Error!"); }
+    else {
+      if (this.nombre_orignal.length != 0) { this.registro_damage.foto = this.nombre_orignal; }
+      this.damageService.putRegistroDamage(this.registro_damage, this.registro_damage.idDamage).subscribe(
+        result => {
+          this.cargarImagen()
+          this.toastr.success('Daño actualizado correctamente', 'Exitoso!');
+          this.displayEU = false
+          window.location.reload()
+        }
+
+      )
+    }
+
   }
 
   refreshPage() {
     this.location.go(this.location.path())
   }
 
-  pagarDamage(pago_damage:Pago_Damage){
-    this.displayPG=true
+  pagarDamage(pago_damage: Pago_Damage) {
+    this.displayPG = true
 
-    this.pago_damage.idPago=pago_damage.idPago;
-    this.pago_damage.foto=pago_damage.foto;
-    this.pago_damage.fecha_pago=this.currentDate;
-    this.pago_damage.estado="PAGADO"
+    this.pago_damage.idPago = pago_damage.idPago;
+    this.pago_damage.foto = pago_damage.foto;
+    this.pago_damage.fecha_pago = this.currentDate;
+    this.pago_damage.estado = "PAGADO"
   }
 
-  updatePago(){
-    this.pago_damage.foto=this.nombre_orignal;
+  updatePago() {
+    this.pago_damage.foto = this.nombre_orignal;
+    this.cargarImagen()
 
-    this.pagoService.putPago(this.pago_damage,this.pago_damage.idPago).subscribe(
-      result=>{
-        this.cargarImagen()
-        this.toastr.success('Pago registrado correctamente', 'Exitoso!')
-        this.displayPG=false
-        window.location.reload()
-      }
-    )
+    if (this.pago_damage.foto.length === 0) { this.toastr.error("Campo foto vacio!", "Error!"); }
+    else {
+
+      this.pagoService.putPago(this.pago_damage, this.pago_damage.idPago).subscribe(
+        result => {
+          this.toastr.success('Pago registrado correctamente', 'Exitoso!')
+          this.displayPG = false
+          window.location.reload()
+        }
+      )
+    }
   }
 
-  editarLista(registro_damage:Registro_Damage){
-    this.displayEU=true
+  editarLista(registro_damage: Registro_Damage) {
+    this.displayEU = true
 
-    this.registro_damage.descripcion=registro_damage.descripcion;
-    this.registro_damage.valor=registro_damage.valor;
-    this.registro_damage.foto=registro_damage.foto;
-    this.registro_damage.idDamage=registro_damage.idDamage;
-    this.nombre_orignal=registro_damage.foto;
+    this.registro_damage.descripcion = registro_damage.descripcion;
+    this.registro_damage.valor = registro_damage.valor;
+    this.registro_damage.foto = registro_damage.foto;
+    this.registro_damage.idDamage = registro_damage.idDamage;
+    this.nombre_orignal = registro_damage.foto;
   }
 
-  
+
   // IMAGEN
   image!: any;
   file: any = '';

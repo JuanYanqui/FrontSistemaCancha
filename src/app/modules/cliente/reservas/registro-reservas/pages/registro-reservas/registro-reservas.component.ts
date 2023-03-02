@@ -1,7 +1,7 @@
 import { CargarScriptsService } from 'src/app/cargar-scripts.service';
 
-import { Component, ViewChild } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventSourceInput } from '@fullcalendar/core';
+import { Component } from '@angular/core';
+/*import { CalendarOptions, DateSelectArg, EventSourceInput } from '@fullcalendar/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -16,7 +16,7 @@ import { forkJoin } from 'rxjs';
 import { Observable } from 'rxjs';
 import { PersonaService } from 'src/app/shared/services/persona.service';
 declare var require: any
-const moment = require('moment');
+const moment = require('moment');*/
 @Component({
   selector: 'app-registro-reservas',
   templateUrl: './registro-reservas.component.html',
@@ -25,7 +25,7 @@ const moment = require('moment');
 export class RegistroReservasComponent {
 
   
-  calendarOptions: any;
+  /*calendarOptions: any;
   displayEU: boolean = false;
   reserva: Reserva = new Reserva;
   idcanchas: any;
@@ -470,7 +470,7 @@ GuardarBotones() {
 //       this.idDisponibilidades.splice(index, 1); // Eliminar ID del array
 //     }
 //   });
-// }
+// }*/
 
 
 }
