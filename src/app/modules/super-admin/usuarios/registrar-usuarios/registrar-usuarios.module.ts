@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RegistrarUsuariosRoutingModule } from './registrar-usuarios-routing.module';
-import { RegistroUsuariosComponent } from './pages/registro-usuarios/registro-usuarios.component';
+import { RegistroUsuComponent } from './pages/registro-usu/registro-usu.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PanelModule } from 'primeng/panel';
@@ -22,12 +22,11 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
-import { EditUsuariosModule } from '../edit-usuarios/edit-usuarios.module';
 
 
 @NgModule({
   declarations: [
-    RegistroUsuariosComponent
+    RegistroUsuComponent
   ],
   imports: [
     CommonModule,
@@ -38,8 +37,6 @@ import { EditUsuariosModule } from '../edit-usuarios/edit-usuarios.module';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTableModule,
-    MatTabsModule,
     KeyFilterModule,
     ToastrModule.forRoot(),
     PasswordModule,
@@ -48,16 +45,12 @@ import { EditUsuariosModule } from '../edit-usuarios/edit-usuarios.module';
     DividerModule,
     FileUploadModule,
     DropdownModule,
-    PanelModule,
     MenubarModule,
     InputTextModule,
     ButtonModule,
     CardModule,
     TableModule,
     DialogModule,
-    EditUsuariosModule
-
-
   ]
 })
 export class RegistrarUsuariosModule { }

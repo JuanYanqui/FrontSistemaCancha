@@ -24,11 +24,7 @@
       <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
-      <li>
-        <i class="bx bx-search"></i>
-        <input type="text" placeholder="Search..." />
-        <span class="tooltip">Busqueda</span>
-      </li>
+
  
       <!-- ADMIN EMPRESA -->
 
@@ -137,6 +133,14 @@
         <span class="tooltip">Establecimiento</span>
       </li>
 
+      <!-- <li>
+        <a href="#" routerLink="/sup-admin/usuarios-ing/registrar-usuarios" routerLinkActive="active" *ngIf='isSuperAdmin'>
+          <i class="usuario"></i>
+          <span class="links_name">Usuarios</span>
+        </a>
+        <span class="tooltip">Usuarios</span>
+      </li> -->
+
       <!-- ADMIN SUPER -->
 
       <!-- INVITADO -->
@@ -144,21 +148,6 @@
 
 
       <li class="profile">
-        <div class="profile-details">
-          <!--<img src="profile.jpg" alt="profileImg">-->
-
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="true">
-            <div class="text-left">
-              <img class="circular--square" [src]="'http://localhost:5000/image/images/' + nombreFoto">
-              {{ nombreUsuario }}
-            </div>
-
-          </button>
-
-        </div>
         <button class="bx bx-log-out" id="log_out" (click)="cerrarSesion()"></button>
       </li>
     </ul>

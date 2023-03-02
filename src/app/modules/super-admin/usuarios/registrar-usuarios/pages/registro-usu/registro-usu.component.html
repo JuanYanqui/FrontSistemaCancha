@@ -5,7 +5,7 @@
 
                 <p-panel id="paneregusuario" class="panel" header="Registro usuario">
                 
-                        <!-- <div class="form-progress">
+                        <div class="form-progress">
                             <div><img src="../../../../../../assets/img/pelota.gif" class="plane" alt="" /></div>
                             <progress class="form-progress-bar" min="0" max="100" value="0" step="33"
                                 aria-labelledby="form-progress-completion"></progress>
@@ -16,7 +16,7 @@
     
                             <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">
                                 0% complete</p>
-                        </div> -->
+                        </div>
                     <div class="items panel over overflow-auto p-grid p-fluid">
                         <section id="step1" data-step="1">
                             <fieldset>
@@ -197,12 +197,19 @@
                                         icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
                                         (click)="registrarUsuario()"></button>
                                 </div>
+                                <span>
+
+                                </span>
+                                <div class="p-col-12 p-md-4">
+                                    <button [disabled]="!isButtonEnabled2" pButton pRipple type="button" label="Next" icon="pi pi-check"
+                                        iconPos="right" id="korak2" class="btn next" ></button>
+                                </div>
 
                             </fieldset>
                         </section>
 
                 
-                            <!-- <section id="step3" class="form-step hidden" data-step="3">
+                            <section id="step3" class="form-step hidden" data-step="3">
                                 <fieldset>
                                     <div class="row">
                                         <div class="col">
@@ -225,7 +232,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                            </section> -->
+                            </section>
                         </div>
                 </p-panel>
 
@@ -236,7 +243,7 @@
             <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
                             routerLinkActive="active">Registrar nueva empresa</a>
                             -->
-            <app-edit-usuarios></app-edit-usuarios>
+            <!-- <app-edit-usuarios></app-edit-usuarios> -->
         </mat-tab>
 
     </mat-tab-group>

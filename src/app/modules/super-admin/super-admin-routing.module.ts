@@ -18,18 +18,22 @@ const routes: Routes = [
     path: 'establecimiento',
     loadChildren: () => import("./establecimiento/establecimiento.module").then(m => m.EstablecimientoModule)
   },
-   {
-    path: 'bienvenida',
-    loadChildren: () => import("./bienvenida/bienvenida.module").then(m => m.BienvenidaModule)
-  },  
   {
     path: 'bienvenida',
     loadChildren: () => import("./bienvenida/bienvenida.module").then(m => m.BienvenidaModule)
   },
-  
+  {
+    path: 'bienvenida',
+    loadChildren: () => import("./bienvenida/bienvenida.module").then(m => m.BienvenidaModule)
+  },
+
   {
     path: '',
     loadChildren: () => import("./bienvenida/bienvenida.module").then(m => m.BienvenidaModule)
+  },
+  {
+    path: 'usuarios-ing',
+    loadChildren: () => import("./usuarios/usuarios.module").then(m => m.UsuariosModule)
   }
 ];
 

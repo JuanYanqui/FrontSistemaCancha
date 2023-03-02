@@ -57,8 +57,6 @@ export class RegistroUsuariosComponent {
     this.persona.email = '';
     this.usuario.username = '';
     this.usuario.password = '';
-    localStorage.removeItem('idUsuario');
-    sessionStorage.removeItem('productosPedido');
 
   }
 
@@ -127,15 +125,14 @@ export class RegistroUsuariosComponent {
                   result => {
                     console.log(result);
                     this.usuario = result;
-                    this.isButtonEnabled2 = true;
-                    localStorage.setItem('idUsuario', String(this.usuario.idUsuario));
                     Swal.fire({
                       icon: 'success',
                       title: 'Usuario registrado correctamente',
                       text: 'Bienvenido!',
                     })
-                   this.limpiarU()
+                    this.limpiarU()
                   }
+                  
                 )
 
               }
@@ -147,6 +144,9 @@ export class RegistroUsuariosComponent {
       )
     }
   }
+
+
+
   buscarPorCedula() {
 
     if (this.persona.cedula != null && this.persona.cedula != '') {
@@ -168,7 +168,7 @@ export class RegistroUsuariosComponent {
             this.persona.foto = data.foto;
             this.persona.fechaNacimmiento = data.fechaNacimmiento;
             this.persona.telefono = data.telefono
-          
+
 
           } else if (this.persona.cedula?.length == 10) {
             this.flapersona = true;
@@ -331,28 +331,29 @@ export class RegistroUsuariosComponent {
     this.fotoService.guararImagenes(this.selectedFile);
   }
 
-  limpiarP(){
+  limpiarP() {
     this.persona.nombre = "";
     this.persona.apellido = "";
-    this.persona.email="";
-    this.persona.cedula="";
-    this.persona.celular="";
-    this.persona.telefono="";
-    this.persona.direccion="";
-    this.persona.foto="";
-    this.persona.genero="";
+    this.persona.email = "";
+    this.persona.cedula = "";
+    this.persona.celular = "";
+    this.persona.telefono = "";
+    this.persona.direccion = "";
+    this.persona.foto = "";
+    this.persona.genero = "";
     this.persona.fechaNacimmiento = new Date;
-      
+
   }
-  limpiarU(){
+  limpiarU() {
     this.persona.nombre = "";
     this.persona.apellido = "";
-    this.persona.cedula="";
-    this.usuario.username="";
-    this.usuario.password = ""; 
+    this.persona.cedula = "";
+    this.usuario.username = "";
+    this.usuario.password = "";
+    window.location.reload();
   }
 
-  recarga(){
+  recarga() {
     window.location.reload();
   }
 
