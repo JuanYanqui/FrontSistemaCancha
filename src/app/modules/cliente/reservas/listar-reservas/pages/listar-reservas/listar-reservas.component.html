@@ -1,0 +1,44 @@
+<div class="container">
+    <mat-tab-group preserveContent>
+        <mat-tab label="Listado">
+            <div class="content">
+                <div>
+                </div>
+                <div class="table-users">
+                  <div class="header">Reserva</div>
+                  
+                  <table cellspacing="0">
+                     <tr>
+                        <th></th>
+                        <th>Establecimiento</th>
+                        <th width="100">Cancha</th>
+                        <th>Cliente</th>
+                        <th>Fecha Reserva</th>
+                        <th>Valor de Pago</th>
+                        <th width="150">Estado</th>
+                        <th></th>
+                     </tr>
+               
+                     <tr *ngFor="let pagos of listapagos">
+                      <td> <img class="circular--square"
+                        [src]="'http://localhost:5000/image/images/' + pagos.reserva.disponibilidades[0]?.cancha?.foto"
+                        style="margin: 0 auto;  width: 70px; height: 70px;"></td>
+                      <td>{{pagos.reserva.disponibilidades?.[0]?.cancha?.establecimiento?.nombre}}</td>
+                      <td>{{ pagos.reserva.disponibilidades[0]?.cancha?.nombre }}</td>
+                      <td>{{ pagos.reserva.cliente.nombre }} {{ pagos.reserva.cliente.apellido }}</td>
+                      <td>{{pagos.reserva.disponibilidades[0]?.fecha | date:'dd/MM/yyyy'}} {{pagos.reserva.disponibilidades[0]?.hora}}:00</td>
+                      <td>${{pagos.valor}}</td>
+                      <td [ngClass]="{'estado-amarillo': pagos.estadopago === 'EN ESPERA', 'estado-rojo': pagos.estadopago === 'NO PAGADO'}">{{pagos.estadopago}}</td>
+                        <td><button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                        class="p-button-rounded p-button-danger " (click)="cancelarPago(pagos.idPagoReserva)"></button></td>
+                     </tr>
+               
+                  </table>
+               </div>
+
+
+
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

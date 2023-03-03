@@ -1,0 +1,108 @@
+<div class="container">
+    <mat-tab-group preserveContent>
+        <mat-tab label="Listado">
+            <div class="content">
+                <div>
+                </div>
+                <div class="table-users">
+                  <div class="header">Reserva</div>
+                  
+                  <table cellspacing="0">
+                     <tr>
+                        <th></th>
+                        <th>Establecimiento</th>
+                        <th width="100">Cancha</th>
+                        <th>Cliente</th>
+                        <th>Fecha Reserva</th>
+                        <th>Valor de Pago</th>
+                        <th width="150">Estado</th>
+                        <th></th>
+                        <th width="150"></th>
+                        
+                
+                     </tr>
+               
+                     <tr *ngFor="let pagos of listapagos">
+                      <td> <img class="circular--square"
+                        [src]="'http://localhost:5000/image/images/' + pagos.reserva.disponibilidades[0]?.cancha?.foto"
+                        style="margin: 0 auto;  width: 70px; height: 70px;"></td>
+                      <td>{{pagos.reserva.disponibilidades?.[0]?.cancha?.establecimiento?.nombre}}</td>
+                      <td>{{ pagos.reserva.disponibilidades[0]?.cancha?.nombre }}</td>
+                      <td>{{ pagos.reserva.cliente.nombre }} {{ pagos.reserva.cliente.apellido }}</td>
+                      <td>{{pagos.reserva.disponibilidades[0]?.fecha | date:'dd/MM/yyyy'}} {{pagos.reserva.disponibilidades[0]?.hora}}:00</td>
+                      <td>${{pagos.valor}}</td>
+                      <td [ngClass]="{'estado-amarillo': pagos.estadopago === 'EN ESPERA', 'estado-rojo': pagos.estadopago === 'NO PAGADO'}">{{pagos.estadopago}}</td>
+                        <td><button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                            class="p-button-rounded p-button-danger" (click)="cancelarPago(pagos.idPagoReserva)"></button></td>
+                        <td><button pButton pRipple type="button" label="Info" icon="pi pi-times" iconPos="right"
+                            class="p-button-rounded p-button-info" (click)="abrirdatos(pagos)"></button></td>
+                     </tr>
+               
+                  </table>
+               </div>
+
+
+
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+    <p-dialog header="Aceptar Reserva" [(visible)]="displayEU" [modal]="true" [style]="{width: '40vw'}"
+[baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<body>
+	<div class="container">
+        <div id="perfil" class="tituloperfil" *ngIf="pagoSeleccionado">
+
+            <!-- Capa do Perfil -->
+            <div  class="headers">
+
+            </div>
+        
+            <!-- Avatar do Utilizador -->
+            <div >
+                <img [src]="'http://localhost:5000/image/images/' + pagoSeleccionado.reserva?.cliente?.foto" class="avatar">
+            </div>
+        
+            <!-- Opções de Conta -->
+            <div class="opperfil">
+         
+            </div>
+           
+
+        
+            <!-- Título do Perfil -->
+            <div class="tituloperfil">
+                <!-- Nome do Utilizador -->
+                <h1>{{pagoSeleccionado.reserva?.cliente?.nombre}} {{pagoSeleccionado.reserva?.cliente?.apellido}}</h1>
+                <div>
+                    <h3>Comprovante de pago</h3>
+                    <p><img [src]="'http://localhost:5000/image/images/' + pagoSeleccionado.foto" style="border-radius: 10px; width: 500px; height: 300px;"></p>
+                    <p>Estado de Pago: {{ pagoSeleccionado.estadopago }}</p>
+                    <p>Fecha de Pago: {{ pagoSeleccionado.fecha_pago | date: 'dd/MM/yyyy' }}</p>
+                    <p>Valor: ${{ pagoSeleccionado.valor }}</p>
+                    <p>Reserva: {{ pagoSeleccionado.reserva?.idReserva }}</p>
+                  </div>
+
+                  <div class="col">
+                    <button pButton pRipple type="button" label="Aceptar  Solicitud" icon="pi pi-check" iconPos="right"
+                        class="p-button-rounded p-button-success" (click)="abrir(pagoSeleccionado)"></button>
+                </div>
+                <div class="col">
+                    <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                        class="p-button-rounded p-button-danger" (click)="cancelar()"></button>
+                </div>
+
+            </div>
+        
+            <br/><br/>
+        
+        </div>
+	</div>
+</body>
+
+    <!-- <div class="perfil-usuario-avatar text-center">
+      <img  class="circular--square" style="max-width: 30%;" [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento">
+      </div> -->
+  
+</p-dialog>
+</div>

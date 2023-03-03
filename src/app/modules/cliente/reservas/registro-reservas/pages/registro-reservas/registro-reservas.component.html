@@ -1,100 +1,276 @@
 <div class="container">
   <mat-tab-group preserveContent>
-      <mat-tab label="Realizar Reserva">
-          <div class="content">
-            <div>
-                .
-            </div>
-            <button class="btn-like-li" (click)="GuardarBotones()">Realizar reserva</button>
-            
-                  <div class="panel over overflow-auto p-grid p-fluid">
-                    
-                    <!-- <button (click)="toggleWeekends()">toggle weekends</button> -->
-                    <table>
-                        <thead>
-                          <tr>
-                            <th>Hora/Fecha</th>
-                            <th *ngFor="let fecha of fechas">{{ fecha | date:'mediumDate' }}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let hora of horas">
-                            <td>{{ hora }}:00</td>
-                            <td *ngFor="let fecha of fechas">
-                              <button class="mi-boton" [ngClass]="{'disponible': !esReservado(hora, fecha), 'reservado': esReservado(hora, fecha)}"
-                                (click)="reservar(hora, fecha)"> 
-                                <span *ngIf="!esReservado(hora, fecha)">Disponible</span>
-                                <span *ngIf="esReservado(hora, fecha)">No disponible</span>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+    <mat-tab label="Realizar Reserva">
+      <div class="content">
+        <div>
 
+          <p-panel id="paneregusuario" class="panel" header="Registro Reserva">
+
+            <div class="items panel over overflow-auto p-grid p-fluid">
+              <section id="step1" data-step="1">
+                <fieldset>
+                  <div class="row">
+                    <div class="col">
+                      <div class="p-col-12 p-md-4">
+                      </div>
+                      <div class="p-col-12 p-md-4">
+                        <span class="p-float-label">
+
+
+                          <input type="date" [(ngModel)]="fechaescojida" pInputText>
+
+                        </span>
+                      </div>
+                      <div class="p-col-12 p-md-4">
+                        <label for="float-input">Hora de reserva</label>
+                        <p-dropdown [options]="horas" [(ngModel)]="horaSeleccionada" [showTransitionOptions]="'0ms'"
+                          [hideTransitionOptions]="'0ms'">
+                          <option *ngFor="let hora of horas" [value]="hora">{{ extraerHora(hora) }}</option>
+                        </p-dropdown>
+
+                      </div>
+                      <div>
+
+                        <p-table #dt [value]="disponibilidades" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+                          [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines" [paginator]="true"
+                          [rowHover]="true"
+                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                          [globalFilterFields]="[
+                        'Fecha',
+                        'Hora',
+                      ]">
+
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>
+
+                              </th>
+                              <th pResizableColumn>
+                                Fecha
+                              </th>
+                              <th pResizableColumn>
+                                Hora
+                              </th>
+                              <th pSortableColumn="">
+                                <div class="p-d-flex p-jc-between p-ai-center">Accion</div>
+                              </th>
+                            </tr>
+                            <tr>
+                              <th style="width: 3rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                              </th>
+                              <th pResizableColumn>
+                                <p-columnFilter type="text" field="Fecha"></p-columnFilter>
+                              </th>
+                              <th pResizableColumn>
+                                <p-columnFilter type="text" field="Hora"></p-columnFilter>
+                              </th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-disponibilidades>
+                            <tr class="p-selectable-row">
+                              <td>
+                                <p-tableCheckbox [value]="disponibilidades"></p-tableCheckbox>
+                              </td>
+                              <td>
+                                {{ disponibilidades.fecha }}
+                              </td>
+                              <td>
+                                {{ disponibilidades.hora }}
+                              </td>
+
+                              <td style="text-align: center">
+                                <a (click)="eliminarDisponibilidad(disponibilidad)" icon="pi pi-pencil"
+                                  class="btn btn-warning"><i class="bi bi-pencil-square" icon="pi pi-pencil"></i></a>
+                              </td>
+                            </tr>
+                          </ng-template>
+
+                        </p-table>
+                      </div>
+                      <div>
+                       </div>
+                       
+
+                      
+                      <div class="p-col-12 p-md-4">
+                        <button id="btnregistrar" pButton pRipple type="button" label="Agregar Horas" icon="pi pi-plus"
+                          iconPos="right" class="p-button-rounded p-button-secondary"
+                          (click)="guardarreserva()"></button>
+
+
+
+                      </div>
+                      <div class="p-col-12 p-md-4">
+                        <button id="btnagregar" pButton pRipple type="button" label="Registrar reserva"
+                          icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
+                          *ngIf="disponibilidades.length > 0" (click)="crearReserva()"></button>
+                      </div>
+                    </div>
                   </div>
+                </fieldset>
+              </section>
+            </div>
+          </p-panel>
+
+
+        </div>
 
 
 
 
-          </div>
+
+
+
+      </div>
 
 
 
 
-      </mat-tab>
+    </mat-tab>
 
 
 
   </mat-tab-group>
 
-  <!-- <p-dialog header="Realizar reserva" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
-  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-  <ng-template pTemplate="body">
+  <p-dialog header="Elija Metodo de Pago" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="body">
       <div class="p-grid p-fluid">
-          
 
-  
+
+
+        <div class="row">
+          <div class="col">
+            <div class="perfil-usuario-avatar text-center">
+              <h2>{{nombreestablecimiento}}</h2>
+              <img  class="circular--square2" style="max-width: 30%;" [src]="'http://localhost:5000/image/images/' + datocancha.foto">
+              </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input [disabled]="!isButtonEnabled2" id='float-input' type="text" name="cedula"
+                  [(ngModel)]="datocliente.cedula" pInputText>
+                <label for="float-input">Cedula</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input [disabled]="!isButtonEnabled2" id='float-input' type="text" name="nombre"
+                  [(ngModel)]="datocliente.nombre" pInputText>
+                <label for="float-input">Nombres</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input [disabled]="!isButtonEnabled2" id='float-input' type="text" name="apellido"
+                  [(ngModel)]="datocliente.apellido" pInputText>
+                <label for="float-input">Apellido</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <span class="p-float-label">
+                <input [disabled]="!isButtonEnabled2" id='float-input' type="text" name="valor a pagar"
+                  [(ngModel)]="valor" pInputText>
+                <label for="float-input">Valor a pagar</label>
+              </span>
+            </div>
+            <div class="p-col-12 p-md-4">
+              <label for="float-input" style="left: 0%;">Fecha de reserva</label>
+              <span class="p-float-label">
+                <input type="date" name="fecha-hora" [(ngModel)]="fechaformateada" pInputText>
+              </span>
+            </div>
+
+              <!-- <button id="mostrarOcultar">Mostrar información</button>
+              <div id="informacion">
+                <input [disabled]="!isButtonEnabled2" id='float-input' type="text" name="cedula"
+                  [(ngModel)]="datocliente.cedula" pInputText>
+                <label for="float-input">Cedula</label><!-- Aquí va la información que deseas mostrar u ocultar -->
+
+            
+
+          </div>
+
+       
+
+
+
+          <br>
+
+        </div>
+        <div class="p-col-12 p-md-4">
           <div class="row">
-              <div class="col">
-                  <div class="p-col-12 p-md-4">
-                      <span class="p-float-label">
-                         <input id='float-input' type="date" name="fecha-hora"  pInputText>
-                          <label for="float-input">Hora de inicio</label>
-                      </span>
-                  </div>
-                  <div class="p-col-12 p-md-4">
-                      <span class="p-float-label">
-                          <input  id="float-input" type="date" name="fecha-hora"   pInputText>
-                          <label for="float-input">Hora fin</label>
-                      </span>
-                  </div>
-                  
-  
-              </div>
-              <br>
-  
+            <div class="col">
+              <button pButton pRipple type="button" label="Pago presencial " icon="pi pi-check" iconPos="right"
+                class="p-button-rounded p-button-success" routerLink="/cliente/reserva/register-reserva" (click)="CrearNoPago()"></button>
+            </div>
+            <div class="col">
+              <button pButton pRipple type="button" label="Pago con desposito" icon="pi pi-check" iconPos="right"
+                class="p-button-rounded p-button-success" (click)="Accederadialogofoto()"></button>
+            </div>
+            <div class="col">
+              <button pButton pRipple type="button" label="Cancelar" (click)="cerrardialog1()" icon="pi pi-times" iconPos="right"
+                class="p-button-rounded p-button-danger" ></button>
+            </div>
           </div>
-          <div class="p-col-12 p-md-4">
-              <div class="row">
-                  <div class="col">
-                      <button pButton pRipple type="button" label="Realizar Reserva" icon="pi pi-check" iconPos="right"
-                          class="p-button-rounded p-button-success"routerLink="/cliente/reserva/register-reserva" ></button>
-                  </div>
-                  <div class="col">
-                      <button pButton pRipple type="button" label="Realizar Reclamo" icon="pi pi-check" iconPos="right"
-                          class="p-button-rounded p-button-success" ></button>
-                  </div>
-                  <div class="col">
-                      <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
-                          class="p-button-rounded p-button-danger" ></button>
-                  </div>
-              </div>
-          </div>
+        </div>
       </div>
-  </ng-template>
-  </p-dialog> -->
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Elija Metodo de Pago" [(visible)]="displayEU2" [modal]="true" [style]="{width: '75vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="body">
+      <div class="p-grid p-fluid">
+
+
+
+        <div class="row">
+          <div class="col">
+            <div class="perfil-usuario-avatar text-center">
+              <img  class="circular--square2" style="max-width: 30%;" [src]="'http://localhost:5000/image/images/' + datocancha.foto">
+              <h2>Foto Deposito</h2>
+              </div>
+              <div class="p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input (change)="imageSelected($event)" formControlName="foto"
+                        accept="image/*" name="foto" type="file" class="inputbox"
+                        id="float-input" required />
+                    <label for="float-input">Foto</label>
+                </span>
+                <div *ngIf="file" class="mt-3 text-center">
+                    <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
+                </div>
+                <div>
+                    <img alt="..." style="max-width: 50%;" [src]="'http://localhost:5000/image/images/' + pago_reserva.foto"/>
+                </div>
+                
+            </div>
+           
+
+          </div>
+
+       
+
+
+
+          <br>
+
+        </div>
+        <div class="p-col-12 p-md-4">
+          <div class="row">
+            <div class="col">
+              <button pButton pRipple type="button" label="Enviar Deposito " icon="pi pi-check" iconPos="right"
+                class="p-button-rounded p-button-success" routerLink="/cliente/reserva/register-reserva" (click)="CrearPago()"></button>
+            </div>
+            <div class="col">
+              <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                class="p-button-rounded p-button-danger" (click)="cerrardialog2()"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
 
 </div>
-
-
-

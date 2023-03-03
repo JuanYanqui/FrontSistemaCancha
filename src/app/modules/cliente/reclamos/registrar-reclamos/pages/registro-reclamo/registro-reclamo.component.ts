@@ -32,6 +32,7 @@ export class RegistroReclamoComponent {
   
   canchas: Canchas = new Canchas;
     id: number = 0;
+    idclient: number = 0;
   idCancha: number = 0;
   idPersona?: number = 0;
   idsalida!: number;
@@ -83,12 +84,14 @@ export class RegistroReclamoComponent {
   }
 
   obtenerReclamos() {
-    this.reclamoService.getReclamos().subscribe(
+    this.idclient = Number(localStorage.getItem("localIdPersona"))
+    this.reclamoService.getByClient(this.idclient).subscribe(
       data => {
         this.listaReclamos = data;
       }
     );
   }
+  
 
   guardarReclamo() {
     if (this.reclamo.titulo?.length === 0) {
@@ -126,8 +129,9 @@ export class RegistroReclamoComponent {
 
     this.loading = true;
     this.listaReclamos = [];
-    //window.location.reload()
-    this.obtenerReclamos();
+    window.location.reload()
+    this.verpersona();
+    this.verAdministrador(this.canchas.idCancha);
   }
 
   verpersona() {

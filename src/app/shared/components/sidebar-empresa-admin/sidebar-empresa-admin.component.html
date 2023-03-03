@@ -51,6 +51,15 @@
         <span class="tooltip">Reportes</span>
       </li> 
 
+      <li>
+        <a href="#" routerLink="/adminsitrador/aceptacion-reserva/lista-establecimiento" routerLinkActive="active"
+          *ngIf='isAdminCancha'>
+          <i class="damage"></i>
+          <span class="links_name">Reservas</span>
+        </a>
+        <span class="tooltip">Reservas</span>
+      </li> 
+
 
 
 
@@ -107,6 +116,23 @@
         </a>
         <span class="tooltip">Catalgo canchas</span>
       </li>
+
+      <li>
+        <a href="#" routerLink="/cliente/reserva/listar-reserva" routerLinkActive="active" *ngIf='isPublic'>
+          <i class="cancha"></i>
+          <span class="links_name">Listado reservas</span>
+        </a>
+        <span class="tooltip">Listado reservas</span>
+      </li>
+
+      <li>
+        <a href="#"  routerLink="/cliente/reclamo/edit-reclamos" routerLinkActive="active" *ngIf='isPublic'>
+          <i class=""></i>
+          <span class="links_name">Reclamos</span>
+        </a>
+        <span class="tooltip">Reclamos</span>
+      </li>
+
 
 
 

@@ -82,6 +82,10 @@
                                 <button pButton pRipple type="button" icon="pi pi-pencil" label="" 
                                     class="p-button-warning" (click)="editarReclamo(reclamo)"></button>
                             </td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" icon="fatrash" label="" 
+                                    class="p-button-danger" (click)="eliminarReclamo(reclamo.idReclamo)"></button>
+                            </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="emptymessage">
@@ -112,8 +116,8 @@
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.descripcion"
-                                    maxlength="1000" minlength="2" pInputText>
+                                <textarea id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.descripcion"
+                                    maxlength="1000" minlength="2" pInputText></textarea>
                                 <label for="float-input">Descripcion</label>
                             </span>
                         </div>                        

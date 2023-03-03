@@ -2080,6 +2080,11 @@ button.reservado {
 }
 
 
+#informacion {
+  display: none;
+}
+
+
 .btn-like-li {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -2103,3 +2108,34 @@ button.reservado {
 .btn-like-li:active {
   background-color: #0a4f90;
 }
+
+.disponible {
+  background-color: green;
+  color: white;
+  }
+  
+  .reservado {
+  background-color: red;
+  color: white;
+  }
+
+
+  .oculto {
+    display: none;
+  }
+
+  .circular--square2 {
+    width: 200px;
+    height: 200px;
+    border-top-left-radius: 100% 100%;
+    border-top-right-radius: 100% 100%;
+    border-bottom-right-radius: 100% 100%;
+    border-bottom-left-radius: 100% 100%;
+  }
+
+
+
+
+
+
+  

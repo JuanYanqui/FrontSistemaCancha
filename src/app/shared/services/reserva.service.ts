@@ -24,5 +24,8 @@ export class ReservaService {
     return this.http.post<Reserva>(this.URL + 'cre', reserva);
   }
 
+  Reservasporcliente(idPersona: any) {
+    return this.http.get<any>(this.URL+`cliente/${idPersona}`);
+  }
 
 }

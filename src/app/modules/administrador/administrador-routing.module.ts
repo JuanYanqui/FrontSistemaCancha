@@ -14,6 +14,14 @@ const routes: Routes = [
     path: 'registrodamage',
     loadChildren: () => import("./damage/damage.module").then(m => m.DamageModule)
   },
+  {
+    path: 'aceptacion-reserva',
+    loadChildren: () => import("./aceptacion-reserva/aceptacion-reserva.module").then(m => m.AceptacionReservaModule)
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import("./notificaaciones/list-notificaciones/list-notificaciones.module").then(m => m.ListNotificacionesModule)
+  },
 ];
 
 @NgModule({

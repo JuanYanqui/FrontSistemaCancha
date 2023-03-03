@@ -18,11 +18,15 @@ export class DisponibilidadService {
   }
 
 
+  // existsDisponibilidad(disponibilidad: Disponibilidad) {
+  //   return this.http.post<Disponibilidad>(this.URL + 'cre', disponibilidad);
+  // }
   postDisponibilidad(disponibilidad: Disponibilidad) {
     return this.http.post<Disponibilidad>(this.URL + 'cre', disponibilidad);
   }
+  
 
-  deleteCanchas(idDisponibilidad: number) {
+  deleteDiponibilidad(idDisponibilidad: number) {
     return this.http.delete<boolean>(this.URL + `eli/${idDisponibilidad}`);
   }
 
@@ -30,6 +34,9 @@ export class DisponibilidadService {
     return this.http.get<Disponibilidad>(this.URL + idDisponibilidad);
   }
 
+  getFechasHoras(idCancha: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.URL}fechas-horas/${idCancha}`);
+  }
   // getDisponibilidadesPorFechaYHora(fecha: Date, hora: number): Observable<Disponibilidad[]> {
   //   const url = `${this.URL}disponibilidades?fecha=${fecha.toISOString().substring(0,10)}&hora=${hora}`;
   //   return this.http.get<Disponibilidad[]>(url);
@@ -51,8 +58,14 @@ export class DisponibilidadService {
   //   return this.http.get<Disponibilidad[]>(this.URL+ 'disponibilidades', { params });
   // }
 
-  getDisponibilidadesPorFechaYHora(fecha: Date, hora: number, idCancha: number): Observable<Disponibilidad[]> {
-    const url = `${this.URL+'disponibilidades/'}?fecha=${fecha}&hora=${hora}&canchaId=${idCancha}`;
-    return this.http.get<Disponibilidad[]>(url);
+  // getDisponibilidadesPorFechaYHora(fecha: Date, hora: number, idCancha: number): Observable<Disponibilidad[]> {
+  //   const url = `${this.URL}?fecha=${fecha}&hora=${hora}&canchaId=${idCancha}`;
+  //   return this.http.get<Disponibilidad[]>(url);
+  // }
+
+  verficarRegistro(fecha: any, hora:any, idCancha:any){
+    console.log("entro al service de verficar Registro")
+    console.log("ruta => " + this.URL+'validarRegistros/' + fecha + '/' + hora +'/'+ idCancha)
+    return this.http.get<Disponibilidad[]>(this.URL+'validarRegistros/' + fecha + '/' + hora +'/'+ idCancha);
   }
 }

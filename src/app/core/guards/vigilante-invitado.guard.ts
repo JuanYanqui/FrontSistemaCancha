@@ -19,7 +19,7 @@ export class VigilanteInvitadoGuard implements CanActivate {
 
     this.usuarioService.getPorId(idUsuario).subscribe(
       data => {
-        if (data != null && data.estado != false && data.rol?.nombre.toUpperCase() === 'INVITADO') {
+        if (data != null && data.estado != false && data.rol?.nombre.toUpperCase() === 'CLIENTE') {
           console.log("usuario encontrado")
           this.flag = true;
         } else {

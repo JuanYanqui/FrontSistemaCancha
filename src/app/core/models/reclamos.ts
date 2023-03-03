@@ -8,5 +8,6 @@ export class Reclamos {
     descripcion: string ="";
     fecha_reclamo?: Date;
     administrador?: Persona
+    estado!:Boolean;
     cliente?: Persona
 }

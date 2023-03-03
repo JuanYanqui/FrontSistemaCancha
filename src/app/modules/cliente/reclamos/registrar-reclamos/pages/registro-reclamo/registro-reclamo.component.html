@@ -21,8 +21,8 @@
                                         </div>
                                         <div class="p-col-12 p-md-4">
                                             <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="reclamo.descripcion"
-                                                maxlength="10000" minlength="3" pInputText>
+                                                <textarea id="float-input" type="text" [(ngModel)]="reclamo.descripcion"
+                                                maxlength="10000" minlength="3" pInputText></textarea>
                                                 <label for="float-input">Descripcion</label>
                                             </span>
                                         </div>
@@ -54,12 +54,6 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="Listado Reclamos" (click)="obtenerReclamos()" routerLink="../edit-reclamos" routerLinkActive="active">
-            <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
-                            routerLinkActive="active">Registrar nueva empresa</a>
-            -->
-            <app-edit-reclamos></app-edit-reclamos>
-        </mat-tab>
 
     </mat-tab-group>
 

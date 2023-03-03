@@ -104,6 +104,12 @@ export class CatalogoCanchasComponent {
       console.log("idCancha " + idCancha)
       }
 
+    dataestable:any
+    capidEstablecimiento(idEstablecimiento:any){
+    this.dataestable = idEstablecimiento;
+    localStorage.setItem("idEstablecimiento", String(this.dataestable));
+    }
+
     idEstablecimientoSeleccionado!: number;
     obtenerCanchaporEsta(idEstablecimiento: number){
       console.log(idEstablecimiento);

@@ -18,9 +18,9 @@ export class ReclamoService {
 
   constructor(private http: HttpClient) { }
 
-  getReclamos() {
-    return this.http.get<Reclamos[]>(this.URL + 'reclamo/li');
-  }
+  // getReclamos() {
+  //   return this.http.get<Reclamos[]>(this.URL + 'reclamo/li');
+  // }
 
   getAdministrador() {
     return this.http.get<Persona[]>(this.URL + 'persona/li');
@@ -42,11 +42,30 @@ export class ReclamoService {
     return this.http.put<Reclamos>(this.URL + `reclamo/upd/${idReclamo}`, reclamo);
   }
 
-  deleteReclamo(idPersona: number) {
-    return this.http.delete<boolean>(this.URL + `eliminar/${idPersona}`);
+  getRec(idPersona: any) {
+    return this.http.get<Reclamos>(this.URL + `reclamo/${idPersona}`);
   }
 
-  getRecPorIdCliente(idPersona: any) {
-    return this.http.get<Reclamos>(this.URL + `reclamo/${idPersona}`);
+  getByAdmin(idPersona: any):Observable<any>{
+    return this.http.get<Reclamos[]>(`${this.URL}reclamo/listbyadmin/${idPersona}`)
+
+  }
+
+  getByClient(idPersona: any):Observable<any>{
+    return this.http.get<Reclamos[]>(`${this.URL}reclamo/listbyclient/${idPersona}`)
+
+  }
+
+  getReclamosNoAtendidos(): Observable<Reclamos[]> {
+    return this.http.get<Reclamos[]>(`${this.URL}reclamo/estadoF`);
+  }
+
+  getReclamosNotificacion(idPersona: number): Observable<Reclamos[]> {
+    const url = `${this.URL}reclamo/administrador/${idPersona}/estadoF`;
+    return this.http.get<Reclamos[]>(url);
+  }
+
+  deleteReclamoById(idReclamo: number): Observable<any> {
+    return this.http.delete(`${this.URL}reclamo/delete/${idReclamo}`);
   }
 }
