@@ -44,4 +44,7 @@ export class PersonaService {
     return this.http.get<Persona>(this.URL + `byCedula/${cedula}`);
   }
 
+  valCedula(ced: String) {
+    return this.http.get<boolean>(this.URL + `valced/${ced}`);
+  }
 }

@@ -1,3 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 /* angular-cli file: src/styles.css */
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+body {
+    background-image: url(../src/assets/img/Fifa-World-Cup-Logo-Design-2022.jpg);
+    background-color: #fff;
+    background-position: center top;
+    background-size: cover;
+  }

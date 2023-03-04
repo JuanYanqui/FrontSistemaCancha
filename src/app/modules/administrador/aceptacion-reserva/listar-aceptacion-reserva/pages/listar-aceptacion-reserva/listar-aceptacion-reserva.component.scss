@@ -4,7 +4,7 @@ $imageBig: 100px;
 $imageSmall: 60px;
 $padding: 10px;
 
-body {
+.contendors{
    background-color: lighten($baseColor, 30%);
    * { box-sizing: border-box; }
 }

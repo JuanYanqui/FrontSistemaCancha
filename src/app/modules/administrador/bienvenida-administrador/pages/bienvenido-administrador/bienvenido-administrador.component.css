@@ -20,96 +20,6 @@
   background-color: rgb(13, 243, 166);
 }
 
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-}
-
-.cover-container {
-  max-width: 42em;
- 
-}
-
-.contenedor{
-    
-    padding-top: 100px;
-    
-}
-#btns{
-    background-color: rgb(218, 211, 211);
-    border-bottom-color: rgb(2, 2, 2);
-    border-color: black;
-    margin: 50px;
-    padding: 15px;
-}
-
-#btns:hover,
-#btns:focus {
-    color:rgb(241, 241, 241) ;
-    border-bottom-color: rgb(8, 8, 8);
-  
-    border-color: black;
-    background-color:  rgb(9, 9, 9);
-    
-}
-.desplegable {
-  display: none;
-}
-
-.desplegable-activo {
-  display: block;
-}
-
-#btnnotif:hover,
-#btnnotif:focus {
-  color: black;
-  border-bottom-color: rgb(8, 8, 8);
-
-  border-color: black;
-  background-color: rgb(13, 243, 166);
-	
-}
-
-#btnregistrar {
-  background-color: rgb(12, 12, 12);
-  border-bottom-color: rgb(2, 2, 2);
-  border-color: black;
-  
-  color: white;
-  letter-spacing: 0.1rem;
-}
-
-#btnregistrar {
-  background-color: black;
-}
-
-.container {
-  position: relative;
-  /* otras propiedades de estilo */
-}
-
-#btnregistrar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  /* otras propiedades de estilo */
-}
-
-
-.title {
-  text-align: left;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.date {
-  text-align: right;
-  font-size: 14px;
-  color: blue;
-}
-
 .row-container {
   display: flex;
   flex-direction: column;
@@ -188,7 +98,20 @@
   border: 1px solid black;
 }
 
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: lighter;
+  color: gray;
+  margin-bottom: 10px;
+}
 
+#btn-circle {
+  position: fixed;
+  bottom: 20px; /* ajuste esta propiedad para posicionar el botón en la posición deseada */
+  right: 20px; /* ajuste esta propiedad para posicionar el botón en la posición deseada */
+  z-index: 9999; /* asegura que el botón esté en la parte superior de otros elementos */
+}
 
 
 
@@ -235,6 +158,8 @@ body {
   align-items: center;
   height: 10vh;
   font-family: sans-serif;
+  text-align: left;
+
 }
 
 section {
@@ -358,7 +283,7 @@ main .content .box .circle {
   border-radius: 50%;
   border: 2px solid #5f98cd;
   z-index: 2;
-  background-color: rgb(13, 243, 166);;
+  background-color: rgb(40, 245, 105);;
   position: absolute;
   left: 17px;
   box-shadow: 0 0 0 3px #fff;
@@ -367,6 +292,7 @@ main .content .box .info time {
   display: block;
   font-size: 11px;
   margin-bottom: 3px;
+  text-align: right;
 }
 
 .menu-list {
@@ -406,26 +332,13 @@ main .content .box .info time {
   background: #385269;
 }
 
+#fondo{
+  background-color: rgb(219, 237, 243);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#btn-circle {
+  position: initial;
+  bottom: 20px; /* ajuste esta propiedad para posicionar el botón en la posición deseada */
+  right: 20px; /* ajuste esta propiedad para posicionar el botón en la posición deseada */
+  z-index: 9999; /* asegura que el botón esté en la parte superior de otros elementos */
+}

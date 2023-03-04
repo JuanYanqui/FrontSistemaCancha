@@ -11,6 +11,11 @@
   text-shadow: none; /* Prevent inheritance from `body` */
 }
 
+agm-map{
+  width: 400px;
+  height: 400px;
+}
+
 
 /*
  * Base structure

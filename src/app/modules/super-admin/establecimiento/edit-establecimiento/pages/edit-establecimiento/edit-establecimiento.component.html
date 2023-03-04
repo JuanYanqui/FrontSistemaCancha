@@ -201,14 +201,15 @@
                     </span>
                 </div>
                 <agm-map [latitude]="lat" [longitude]="long" (mapClick)="getCoordinates($event)">
-                    <agm-marker [latitude]="valorlati" [longitude]="valorlongi">
-                        <agm-info-window>
-                            <h3>{{establecimiento.nombre}}</h3>
-                            <p>{{ubicacion.calle_principal}}</p>
-                            <img class="circular--square2"  [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento"/>
-                        </agm-info-window>
+                    <agm-marker [latitude]="valorlati" [longitude]="valorlongi" [iconUrl]="'../../../../../../../assets/img/pelotamapa.png'" class="marker">
+                      <agm-info-window>
+                        <h3>{{establecimiento.nombre}}</h3>
+                        <p>{{ubicacion.calle_principal}}</p>
+                        <img class="circular--square2" [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento"/>
+                      </agm-info-window>
                     </agm-marker>
                   </agm-map>
+                  
 
                 <div class="p-col-12 p-md-4">
                     <span class="p-float-label">

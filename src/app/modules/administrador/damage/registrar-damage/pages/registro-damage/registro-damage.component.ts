@@ -19,47 +19,50 @@ import { Pago_Damage } from 'src/app/core/models/pago_damage';
   styleUrls: ['./registro-damage.component.css']
 })
 export class RegistroDamageComponent {
-  registro_damage: Registro_Damage=new Registro_Damage;
-  persona:Persona=new Persona;
-  establecimiento:Establecimiento=new Establecimiento;
-  pago_damage:Pago_Damage=new Pago_Damage;
+  registro_damage: Registro_Damage = new Registro_Damage;
+  persona: Persona = new Persona;
+  establecimiento: Establecimiento = new Establecimiento;
+  pago_damage: Pago_Damage = new Pago_Damage;
 
 
-  
+  estVerificarValor: boolean = false;
   isButtonEnabled: boolean = false;
   flapersona: boolean = true;
   blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-  verfCedula:any;
-  verfDescripcion:any;
-  verfValor:any;
-  id_personaIsLoggin:any;
+  verfCedula: any;
+  verfDescripcion: any;
+  verfValor: any;
+  id_personaIsLoggin: any;
   displayEU: boolean = false;
-  
-  constructor(private cargarScripts: CargarScriptsService, private toast: ToastrService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private router: Router,private registroDamageService:Registro_DamageService, private establecimientoService:EstablecimientoService, private pagoService:Pago_DamageService) {
+
+  constructor(private cargarScripts: CargarScriptsService, private toast: ToastrService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private router: Router, private registroDamageService: Registro_DamageService, private establecimientoService: EstablecimientoService, private pagoService: Pago_DamageService) {
     cargarScripts.Carga(["register-user.component"])
-    
+
   }
 
-  ngOnInit():void{
-    this.registro_damage.descripcion='';
-    this.registro_damage.idDamage=0;
-    this.registro_damage.valor=0;
-    this.persona.idPersona=0;
-    this.persona.cedula='';
-    this.persona.nombre='';
-    this.persona.apellido='';
-    this.pago_damage.foto='';
-    this.pago_damage.estado='NO PAGADO';
-    
-    
+  ngOnInit(): void {
+    this.registro_damage.descripcion = '';
+    this.registro_damage.idDamage = 0;
+    this.registro_damage.valor = 0;
+    this.persona.idPersona = 0;
+    this.persona.cedula = '';
+    this.persona.nombre = '';
+    this.persona.apellido = '';
+    this.pago_damage.foto = '';
+    this.pago_damage.estado = 'NO PAGADO';
+
+
     this.id_personaIsLoggin = localStorage.getItem('localIdPersona');
     this.obtenerEst();
   }
 
   listaEstablecimineto: Establecimiento[] = [];
 
+  validarValor(tari: string) {
+    const tarifaPattern: RegExp = /^[0-9]+(\.[0-9]+)?$/;
+    this.estVerificarValor = tarifaPattern.test(tari);
+  }
 
-  
 
   obtenerEst() {
     this.establecimientoService.getListarEst(this.id_personaIsLoggin).subscribe(
@@ -67,54 +70,64 @@ export class RegistroDamageComponent {
         this.listaEstablecimineto = data.map(
           result => {
             let e = new Establecimiento;
-            e.idEstablecimiento=result.idEstablecimiento;
-            e.fotoestablecimiento=result.fotoestablecimiento;
-            e.nombre=result.nombre;
+            e.idEstablecimiento = result.idEstablecimiento;
+            e.fotoestablecimiento = result.fotoestablecimiento;
+            e.nombre = result.nombre;
             return e;
           }
         );
-      }
-    )
-  }
+      }
+    )
+  }
 
-dataEst: any;
+  dataEst: any;
 
   capParaEdicion(idEstablecimiento: any) {
-    this.displayEU=true
+    this.displayEU = true
     this.dataEst = idEstablecimiento;
     console.log("idEstablecimiento " + idEstablecimiento)
-  }
+  }
 
-registarDamage(){
-  this.establecimientoService.getPorId(this.dataEst).subscribe(
-    data=>{
-      this.establecimiento=data;
-      this.registro_damage.cliente=this.persona;
-      this.registro_damage.establecimiento=this.establecimiento;
-      this.registro_damage.foto = this.nombre_orignal;
-      this.registroDamageService.postRegistroDamage(this.registro_damage).subscribe(
-        result=>{
-          this.registro_damage.idDamage=result.idDamage;
-          console.log(this.registro_damage.idDamage)
-          this.pago_damage.registroDamage=this.registro_damage;
-          this.pagoService.postPago(this.pago_damage).subscribe(
-            x=>{
-              console.log('funciono')
-              Swal.fire(
-                'PROCESO',
-                'CON EXITO',
-                'success'
-              );
-              this.cargarImagen();
-              window.location.reload();
+  registarDamage() {
+    this.validarValor(String(this.registro_damage.valor));
+    this.registro_damage.foto = this.nombre_orignal;
+    this.cargarImagen();
+
+    if (String(this.persona.cedula).length === 0) { this.toastr.error("Campo cedula vacio!", "Error!"); }
+    else if (this.registro_damage.descripcion.length === 0) { this.toastr.error("Campo descripcion vacio!", "Error!"); }
+    else if (this.estVerificarValor == false || this.registro_damage.valor === 0) { this.toastr.error("Campo Valor erroneo ejem: 12.2!", "Error!"); }
+    else if (this.registro_damage.foto.length === 0) { this.toastr.error("Campo foto vacio!", "Error!"); }
+    else {
+      this.establecimientoService.getPorId(this.dataEst).subscribe(
+        data => {
+          this.establecimiento = data;
+          this.registro_damage.cliente = this.persona;
+          this.registro_damage.establecimiento = this.establecimiento;
+          this.registro_damage.foto = this.nombre_orignal;
+          this.registroDamageService.postRegistroDamage(this.registro_damage).subscribe(
+            result => {
+              this.registro_damage.idDamage = result.idDamage;
+              console.log(this.registro_damage.idDamage)
+              this.pago_damage.registroDamage = this.registro_damage;
+              this.pagoService.postPago(this.pago_damage).subscribe(
+                x => {
+                  console.log('funciono')
+                  Swal.fire(
+                    'PROCESO',
+                    'CON EXITO',
+                    'success'
+                  );
+                  this.cargarImagen();
+                  window.location.reload();
+                }
+              )
             }
           )
+
         }
       )
-
     }
-  )
-}
+  }
 
   buscarPorCedula() {
     if (this.persona.cedula != null && this.persona.cedula != '') {
@@ -154,43 +167,43 @@ registarDamage(){
 
   }
 
-    // IMAGEN
-    image!: any;
-    file: any = '';
-  
-    // CAPTURO EL ARCHIVO
-    nombre_orignal: string = "";
-  
-    cap_nombre_archivo: any;
-    selectedFile!: File;
-  
-    public imageSelected(event: any) {
-  
-      this.selectedFile = event.target.files[0];
-  
-      // mostrar imagen seleccionada
-      this.image = this.selectedFile;
-      const reader = new FileReader();
-      reader.readAsDataURL(this.selectedFile);
-      reader.onload = () => {
-        this.file = reader.result;
-      };
-  
-  
-      // CAPTURAR EL NAME DE LA IMAGEN
-      console.log("Seleciono una imagen: " + event.target.value);
-      this.cap_nombre_archivo = event.target.value;
-      console.log("Numero de datos del nombre del archivo => " + this.cap_nombre_archivo.length)
-      this.nombre_orignal = this.cap_nombre_archivo.slice(12);
-      console.log("Nombre imagen original => " + this.nombre_orignal);
-      console.log(this.nombre_orignal);
-  
-    }
-  
-    cargarImagen() {
-      this.fotoService.guararImagenes(this.selectedFile);
-    }
+  // IMAGEN
+  image!: any;
+  file: any = '';
 
-  
+  // CAPTURO EL ARCHIVO
+  nombre_orignal: string = "";
+
+  cap_nombre_archivo: any;
+  selectedFile!: File;
+
+  public imageSelected(event: any) {
+
+    this.selectedFile = event.target.files[0];
+
+    // mostrar imagen seleccionada
+    this.image = this.selectedFile;
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = () => {
+      this.file = reader.result;
+    };
+
+
+    // CAPTURAR EL NAME DE LA IMAGEN
+    console.log("Seleciono una imagen: " + event.target.value);
+    this.cap_nombre_archivo = event.target.value;
+    console.log("Numero de datos del nombre del archivo => " + this.cap_nombre_archivo.length)
+    this.nombre_orignal = this.cap_nombre_archivo.slice(12);
+    console.log("Nombre imagen original => " + this.nombre_orignal);
+    console.log(this.nombre_orignal);
+
+  }
+
+  cargarImagen() {
+    this.fotoService.guararImagenes(this.selectedFile);
+  }
+
+
 }
 

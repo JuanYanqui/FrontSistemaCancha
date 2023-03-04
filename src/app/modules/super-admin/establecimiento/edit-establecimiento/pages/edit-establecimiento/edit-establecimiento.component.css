@@ -515,7 +515,14 @@ body {
     border-bottom-left-radius: 100% 100%;
   }
 
-
+  .marker img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  
+  
+  
 
 
 

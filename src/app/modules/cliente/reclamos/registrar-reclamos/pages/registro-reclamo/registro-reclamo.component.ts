@@ -29,10 +29,10 @@ export class RegistroReclamoComponent {
   personaCli: Persona = new Persona;
 
   personaAdmi: Persona = new Persona;
-  
+
   canchas: Canchas = new Canchas;
-    id: number = 0;
-    idclient: number = 0;
+  id: number = 0;
+  idclient: number = 0;
   idCancha: number = 0;
   idPersona?: number = 0;
   idsalida!: number;
@@ -68,7 +68,7 @@ export class RegistroReclamoComponent {
 
   ngOnInit(): void {
 
-    
+
 
     //this.reclamoService.listarPorId(idUsuario)
     //.subscribe(response => this.cliente = response)
@@ -78,9 +78,18 @@ export class RegistroReclamoComponent {
     //const id = 3; 
     //this.reclamoService.listarPorId(id).subscribe(persona => this.personaEncontrada = persona);
     //console.log(persona);
-  
 
 
+
+  }
+
+  onKeyPressLetras(event: KeyboardEvent) {
+    const input = event.key;
+    const pattern = /^[a-zA-Z\s]*$/;
+
+    if (!pattern.test(input)) {
+      event.preventDefault();
+    }
   }
 
   obtenerReclamos() {
@@ -91,21 +100,15 @@ export class RegistroReclamoComponent {
       }
     );
   }
-  
+
 
   guardarReclamo() {
-    if (this.reclamo.titulo?.length === 0) {
-      this.toastr.error("Campo titulo vacio!", "Error!");
-      if (this.reclamo.descripcion?.length === 0) {
-        this.toastr.error("Campo desccripcion vacio!", "Error!");
-        
-      }
-    }
-    if (this.reclamo.titulo != '' && this.reclamo.descripcion != '') {
-
+    if (this.reclamo.titulo?.length === 0) { this.toastr.error("Campo titulo vacio!", "Error!"); }
+    else if (this.reclamo.descripcion?.length === 0) { this.toastr.error("Campo desccripcion vacio!", "Error!"); }
+    else {
       this.reclamoService.postReclamos(this.reclamo)
         .subscribe(response => console.log("EXITO!!"))
-        
+
       Swal.fire('Reclamo guardado correctamente!', 'success');
       Swal.fire({
         icon: 'success',
@@ -113,7 +116,7 @@ export class RegistroReclamoComponent {
         text: 'Reclamo registrado correctamente!',
       })
       this.limpiar();
-      
+
     }
   }
 
@@ -148,7 +151,7 @@ export class RegistroReclamoComponent {
       this.personaCli.celular = data.celular;
       this.personaCli.foto = data.foto;
       this.personaCli.fechaRegistro = data.fechaRegistro;
- 
+
       this.reclamo.cliente = this.personaCli
 
       this.nombre = data.nombre;
@@ -159,9 +162,9 @@ export class RegistroReclamoComponent {
     )
   }
 
-  verAdministrador(id: number){
-    id= Number(localStorage.getItem("canchaActual"));
-    this.canchaService.getPorId(id).subscribe( data  => {
+  verAdministrador(id: number) {
+    id = Number(localStorage.getItem("canchaActual"));
+    this.canchaService.getPorId(id).subscribe(data => {
       this.displayEU = true;
       this.canchas.nombre = data.nombre;
       this.canchas.descripcion = data.descripcion;
@@ -171,7 +174,7 @@ export class RegistroReclamoComponent {
       this.canchas.vacante = true;
       this.canchas.foto = data.foto;
 
-      this.personaAdmi.idPersona = Number (data.establecimiento?.persona?.idPersona);
+      this.personaAdmi.idPersona = Number(data.establecimiento?.persona?.idPersona);
       this.personaAdmi.nombre = String(data.establecimiento?.persona?.nombre);
       this.personaAdmi.apellido = String(data.establecimiento?.persona?.apellido);
       this.personaAdmi.fechaNacimmiento = (data.establecimiento?.persona?.fechaNacimmiento);
@@ -182,7 +185,7 @@ export class RegistroReclamoComponent {
       this.personaAdmi.celular = String(data.establecimiento?.persona?.celular);
       this.personaAdmi.foto = String(data.establecimiento?.persona?.foto);
       this.personaAdmi.fechaRegistro = (data.establecimiento?.persona?.fechaRegistro);
- 
+
       this.reclamo.administrador = this.personaAdmi
 
 
@@ -191,8 +194,8 @@ export class RegistroReclamoComponent {
       this.idPersona = data.establecimiento?.persona?.idPersona;
       this.apellidoAdmin = data.establecimiento?.persona?.apellido;
       this.nombreAdmin = data.establecimiento?.persona?.nombre;
-      
-      
+
+
     });
   }
 

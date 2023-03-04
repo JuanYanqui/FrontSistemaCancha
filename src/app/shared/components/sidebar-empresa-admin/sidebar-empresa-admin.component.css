@@ -43,6 +43,13 @@ background-repeat: no-repeat;
 background-size: cover;
 }
 
+.listare{
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+    url(../../../../assets/img/icons8-lo-que-hago-48.png);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
 .cancha{
   background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
     url(../../../../assets/img/icons8-estadio-100.png);
@@ -53,6 +60,13 @@ background-size: cover;
 .casa{
   background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
     url(../../../../assets/img/icons8-home-62.png);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.reservas{
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent),
+    url(../../../../assets/img/icons8-reserva-64.png);
 background-repeat: no-repeat;
 background-size: cover;
 }

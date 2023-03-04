@@ -68,7 +68,6 @@ isButtonEnabled2: boolean = false;
     this.long =-78.183406;
     this.zoom = 25;
     this.mapTypeId = 'hybrid';
-    this.iconUrl = 'https://media3.giphy.com/media/KFPrlCarpIKgj5suYj/giphy.gif?cid=790b76111fd939e5e5e898c968a52f0cc8c2c03f6ba27fe5&rid=giphy.gif&ct=s';
     this.obtenerEstablecimiento();
    this. obtenerUbicacion();
    }

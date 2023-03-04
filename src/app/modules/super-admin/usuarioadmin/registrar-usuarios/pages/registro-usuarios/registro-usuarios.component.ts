@@ -37,6 +37,14 @@ export class RegistroUsuariosComponent {
   listaRoles: any[] = [];
   listaEmpresas: Establecimiento[] = [];
 
+  estVerificarCedula: boolean = false;
+  estVerificarEmail: boolean = false;
+  estFechaNacimiento: boolean = false;
+  estvalUsu: boolean = false;
+
+  ao1: string = '';
+  ao2: string = '';
+
   constructor(private cargarScripts: CargarScriptsService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private usuarioService: UsuarioService, private rolService: RolesService, private router: Router) {
     cargarScripts.Carga(["register-user.component"])
     this.obtenerRoles();
@@ -57,8 +65,6 @@ export class RegistroUsuariosComponent {
     this.persona.email = '';
     this.usuario.username = '';
     this.usuario.password = '';
-    localStorage.removeItem('idUsuario');
-    sessionStorage.removeItem('productosPedido');
 
   }
 
@@ -85,68 +91,54 @@ export class RegistroUsuariosComponent {
     }
   }
 
-  registrarUsuario() {
+  onKeyPressLetras(event: KeyboardEvent) {
+    const input = event.key;
+    const pattern = /^[a-zA-Z\s]*$/; 
 
-    if (this.persona.nombre === '' || this.persona.nombre === null) {
-      this.verfNombres = 'ng-invalid ng-dirty';
-      Swal.fire("Campo nombres vacio!", "Error!");
-    }
-
-    if (this.persona.apellido === '' || this.persona.apellido === null) {
-      this.verfApellidos = 'ng-invalid ng-dirty';
-      this.toastr.error("Campo apellidos vacio!", "Error!");
-    }
-
-
-    if (this.usuario.username === '' || this.usuario.username === null) {
-      this.verfUsername = 'ng-invalid ng-dirty';
-      this.toastr.error("Campo username vacio!", "Error!");
-    }
-
-    if (this.usuario.password === '' || this.usuario.password === null) {
-      this.verfPassword = 'ng-invalid ng-dirty';
-      this.toastr.error("Campo password vacio!", "Error!");
-    }
-
-    if (this.persona.nombre === '' || this.persona.apellido === '' || this.persona.email === '' || this.usuario.username === '' || this.usuario.password === ''
-      || this.persona.nombre === null || this.persona.apellido === null || this.persona.email === null || this.usuario.username === null || this.usuario.password === null || !this.valCorreo) {
-
-      this.toastr.warning("Verifique que esten correctos los campos")
-    } else {
-      this.usuarioService.verfUsername(this.usuario.username).subscribe(
-        data => {
-          if (!data) {
-            this.personaService.postPersona(this.persona).subscribe(
-              data => {
-                console.log(data);
-                this.persona.idPersona = data.idPersona;
-                this.usuario.persona = this.persona;
-                this.usuario.estado = true;
-                this.usuario.rol = this.rol;
-                this.usuarioService.postUsuario(this.usuario).subscribe(
-                  result => {
-                    console.log(result);
-                    this.usuario = result;
-                    this.isButtonEnabled2 = true;
-                    localStorage.setItem('idUsuario', String(this.usuario.idUsuario));
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Usuario registrado correctamente',
-                      text: 'Bienvenido!',
-                    })
-                   this.limpiarU()
-                  }
-                )
-
-              }
-            )
-          } else {
-            Swal.fire("El username que eligio ya está en uso!", "warning");
-          }
+    if (!pattern.test(input)) {
+      event.preventDefault();
+     }
+  }
+  
+  validarCedula(ced: string) {
+    this.personaService.valCedula(ced).subscribe(
+      data => {
+        if (data == false && ced.length == 10) {
+          this.estVerificarCedula = false;
+        } else {
+          this.estVerificarCedula = true;
         }
-      )
+      }
+    )
+  }
+
+  goToR(){
+    // this.router.navigate(['/register-usuarioadmin'])
+    window.location.reload();
+  }
+
+  validarCorreoElectronico(correo: string) {
+    const emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    this.estVerificarEmail = emailPattern.test(correo);
+  }
+
+  validarFecha(){
+    this.ao1 = String(new Date());
+    this.ao1 = this.ao1[11] + this.ao1[12] + this.ao1[13] + this.ao1[14];
+    this.ao2 = String(new Date(String(this.persona.fechaNacimmiento)));
+    this.ao2 = this.ao2[11] + this.ao2[12] + this.ao2[13] + this.ao2[14];
+
+    let f1: number = Number(this.ao1);
+    let f2: number = Number(this.ao2);
+
+    let res: number = f1 - f2;
+    if (res >= 18){
+      this.estFechaNacimiento = true;
+    } else {
+      this.estFechaNacimiento = false;
     }
   }
+
   buscarPorCedula() {
 
     if (this.persona.cedula != null && this.persona.cedula != '') {
@@ -168,69 +160,54 @@ export class RegistroUsuariosComponent {
             this.persona.foto = data.foto;
             this.persona.fechaNacimmiento = data.fechaNacimmiento;
             this.persona.telefono = data.telefono
-          
+
 
           } else if (this.persona.cedula?.length == 10) {
             this.flapersona = true;
 
-            this.toastr.info('La cedula ingresada no esta registrada en el sistema', 'Cedula no encontrada')
+            this.toastr.info('La cédula ingresada no esta registrada en el sistema', 'Cédula no encontrada')
           } else if (this.persona.cedula?.length == 0) {
-            this.toastr.info('La cedula ingresada no cumple con el numero de extensión')
+            this.toastr.info('La cédula ingresada no cumple con el numero de extensión')
           } else if (this.persona.cedula?.length == 11) {
-            this.toastr.info('La cedula ingresada no cumple con el numero de extensión')
+            this.toastr.info('La cédula ingresada no cumple con el numero de extensión')
           }
         }
       )
     } else {
-      this.toastr.warning('Cedula incorrecta', 'Advertencia!')
-      Swal.fire('Cedula incorrecta', 'Advertencia!')
+      this.toastr.warning('Cédula incorrecta', 'Advertencia!')
+      Swal.fire('Cédula incorrecta', 'Advertencia!')
     }
 
   }
 
   registrarPersona() {
-    if (this.persona.cedula?.length === 0) {
-      this.toastr.error("Campo cedula vacio!", "Error!");
-      if (this.persona.nombre?.length === 0) {
-        this.toastr.error("Campo nombres vacio!", "Error!");
-        if (this.persona.celular === '' && this.persona.celular === null) {
-          this.toastr.error("Campo celular vacio!", "Error!");
-          if (this.persona.telefono === '' || this.persona.telefono === null) {
-            this.toastr.error("Campo telefono vacio!", "Error!");
-            if (this.persona.genero === '' || this.persona.genero === null) {
-              this.toastr.error("Campo genero vacio!", "Error!");
-              if (this.persona.apellido === '' || this.persona.apellido === null) {
-                this.toastr.error("Campo apellidos vacio!", "Error!");
-                if (this.persona.email === '' || this.persona.email === null) {
-                  this.toastr.error("Campo email vacio!", "Error!");
-                  if (this.persona.direccion === '' || this.persona.direccion === null) {
-                    this.toastr.error("Campo direccion vacio!", "Error!");
-                  }
-                }
-              }
-            }
-          }
-        }
 
-      }
-    }
+    this.validarCedula(String(this.persona.cedula));
+    this.validarCorreoElectronico(String(this.persona.email));
+    this.persona.foto = this.nombre_orignal;
+    this.validarFecha();
+    this.cargarImagen();
+    console.log(this.persona.telefono);
 
+    if(this.estVerificarCedula == false || this.persona.cedula?.length != 10){ this.toastr.error("Campo cédula erróneo", "Error!"); }
+    else if(this.persona.nombre?.length === 0){ this.toastr.error("Campo nombre erróneo", "Error!"); }
+    else if(this.persona.apellido?.length === 0){ this.toastr.error("Campo apellido erróneo", "Error!"); }
+    else if(this.estVerificarEmail == false || this.persona.email?.length === 0){ this.toastr.error("Campo email erróneo", "Error!"); }
+    else if(this.persona.direccion?.length === 0){ this.toastr.error("Campo dirección erróneo", "Error!"); }
+    else if(this.estFechaNacimiento == false || String(this.persona.fechaNacimmiento).length === 0){ this.toastr.error("Campo fecha erróneo", "Error!"); }
+    else if(this.persona.genero?.length === 0){ this.toastr.error("Campo genero erróneo", "Error!"); }
+    else if(this.persona.telefono?.length != 11){ this.toastr.error("Campo teléfono erróneo", "Error!"); }
+    else if(this.persona.celular?.length != 11){ this.toastr.error("Campo celular erróneo", "Error!"); }
+    else if(this.persona.foto?.length === 0){ this.toastr.error("Campo foto erróneo", "Error!"); }
+    else {
 
-
-
-
-
-
-    if (this.persona.apellido != '' && this.persona.cedula != '' && this.persona.celular != '' && this.persona.email != '' &&
-      this.persona.direccion != '' && this.persona.genero != '' && this.persona.nombre != '' && this.persona.telefono != '') {
       this.personaService.getPorCedula(this.persona.cedula).subscribe(
         data => {
-          console.log(data);
           if (data != null) {
 
             Swal.fire({
-              title: 'La cedula ingresada ya a sido ingresada',
-              text: "Desea continuar con este registro",
+              title: 'La cédula ingresada ya a sido ingresada',
+              text: "¿Desea continuar con este registro?",
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -238,32 +215,26 @@ export class RegistroUsuariosComponent {
               confirmButtonText: 'Si, Continuar!'
             }).then((result) => {
               if (result.isConfirmed) {
-                this.obtenerRoles();
                 this.isButtonEnabled = true;
                 Swal.fire(
                   'PROCESO',
-                  'CON EXITO',
+                  'CON ÉXITO',
                   'success'
                 )
+                this.disablebtn()
               }
             })
-
-
           } else {
-            this.persona.foto = this.nombre_orignal;
             this.personaService.postPersona(this.persona).subscribe(
               data => {
-                console.log(data);
-                this.cargarImagen();
-
                 Swal.fire('Persona registrada correctamente!', 'success');
                 Swal.fire({
                   icon: 'success',
                   title: 'En buena hora',
                   text: 'Persona registrada correctamente!',
                 })
+                this.disablebtn()
                 this.isButtonEnabled = true;
-                this.limpiarP();
                 this.persona.foto = "";
               }
             );
@@ -271,11 +242,52 @@ export class RegistroUsuariosComponent {
         }
 
       )
-
-
-    } else {
-      this.toastr.error('Datos incompletos')
     }
+  }
+
+  registrarUsuario() {
+
+    if(this.usuario.username.length === 0 || this.usuario.username.length < 4){ this.toastr.error("Campo username erróneo", "Error!"); }
+    else if(this.usuario.password.length === 0 || this.usuario.password.length < 5){ this.toastr.error("Campo contraseña erróneo", "Error!"); }
+    else {
+      this.usuarioService.verfUsername(this.usuario.username).subscribe(
+        data => {
+          if (!data) {
+            this.personaService.postPersona(this.persona).subscribe(
+              data => {
+                console.log(data);
+                this.persona.idPersona = data.idPersona;
+                this.usuario.persona = this.persona;
+                this.usuario.estado = true;
+                this.usuario.rol = this.rol;
+                this.usuarioService.postUsuario(this.usuario).subscribe(
+                  result => {
+                    console.log(result);
+                    this.usuario = result;
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Usuario registrado correctamente',
+                      text: 'Bienvenido!',
+                    })
+                    this.goToR();
+                    this.limpiarU();
+                  }
+                  
+                )
+
+              }
+            )
+          } else {
+            Swal.fire("El username que eligio ya está en uso!", "warning");
+          }
+        }
+      )
+    }
+  }
+
+  disablebtn() {
+    const button = document.getElementById("btnregistrarpersona") as HTMLButtonElement;
+    button.disabled = true;
   }
 
   filtersImplements(e: any) {

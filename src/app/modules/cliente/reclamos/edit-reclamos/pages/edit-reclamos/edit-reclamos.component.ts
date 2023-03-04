@@ -14,23 +14,23 @@ import { ReclamoService } from 'src/app/shared/services/reclamo.service';
   styleUrls: ['./edit-reclamos.component.css']
 })
 export class EditReclamosComponent {
-/*
-  personaCli: Persona = new Persona;
-
-  personaAdmi: Persona = new Persona;
+  /*
+    personaCli: Persona = new Persona;
   
-  canchas: Canchas = new Canchas;
-    id: number = 0;
-  idCancha: number = 0;
-  idPersona?: number = 0;
-  idP?: number = 0;
-  idsalida!: number;
-  nombre!: string;
-  apellido?: string;
-  nombreAdmin?: String;
-  apellidoAdmin?: string;
-*/
-  listaReclamos: any []=[];
+    personaAdmi: Persona = new Persona;
+    
+    canchas: Canchas = new Canchas;
+      id: number = 0;
+    idCancha: number = 0;
+    idPersona?: number = 0;
+    idP?: number = 0;
+    idsalida!: number;
+    nombre!: string;
+    apellido?: string;
+    nombreAdmin?: String;
+    apellidoAdmin?: string;
+  */
+  listaReclamos: any[] = [];
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
   displayEU: boolean = false;
@@ -38,10 +38,10 @@ export class EditReclamosComponent {
   valCorreo: RegExp = /^[^<>*!$%^=\s+?`\|{}[~"']+$/
   reclamo: Reclamos = new Reclamos;
   persona: Persona = new Persona;
-  pageActual:number=1;
+  pageActual: number = 1;
 
-  client: Persona[]=[];
-  administrator: Persona[]=[];
+  client: Persona[] = [];
+  administrator: Persona[] = [];
   totalRecords?: number;
 
   loading?: boolean
@@ -50,18 +50,28 @@ export class EditReclamosComponent {
 
   idclient: number = 0;
 
-  constructor(private canchaService: CanchasService, private toastr: ToastrService, private personaService: PersonaService,  private router: Router, private reclamoService: ReclamoService) {
+  constructor(private canchaService: CanchasService, private toastr: ToastrService, private personaService: PersonaService, private router: Router, private reclamoService: ReclamoService) {
     this.obtenerReclamos();
-    
-   }
 
-   ngOnInit() : void {
+  }
+
+  ngOnInit(): void {
     //this.verpersona();
     //this.verAdministrador(this.canchas.idCancha);
   }
 
+  onKeyPressLetras(event: KeyboardEvent) {
+    const input = event.key;
+    const pattern = /^[a-zA-Z\s]*$/;
+
+    if (!pattern.test(input)) {
+      event.preventDefault();
+    }
+  }
+
+
   editarReclamo(reclamo: Reclamos) {
-    
+
     this.displayEU = true;
 
     this.reclamo.idReclamo = reclamo.idReclamo;
@@ -71,7 +81,7 @@ export class EditReclamosComponent {
     this.reclamo.cliente = reclamo.cliente;
     this.reclamo.administrador = reclamo.administrador;
 
-    console.log(this.reclamo.idReclamo);    
+    console.log(this.reclamo.idReclamo);
   }
 
   obtenerReclamos() {
@@ -81,46 +91,50 @@ export class EditReclamosComponent {
         this.listaReclamos = data;
       }
     );
-  } 
-  
+  }
+
 
 
 
   actualizarReclamo() {
-    console.log(this.reclamo.idReclamo);    
+    console.log(this.reclamo.idReclamo);
+    if (this.reclamo.titulo?.length === 0) { this.toastr.error("Campo titulo vacio!", "Error!"); }
+    else if (this.reclamo.descripcion?.length === 0) { this.toastr.error("Campo desccripcion vacio!", "Error!"); }
+    else {
+      this.reclamoService.updateReclamos(this.reclamo, this.reclamo.idReclamo).subscribe(
+        data => {
+          this.reclamo.idReclamo = data.idReclamo;
 
-    this.reclamoService.updateReclamos(this.reclamo, this.reclamo.idReclamo).subscribe(
-      data => {
-        this.reclamo.idReclamo = data.idReclamo;
-        
-            console.log(data);
-            
-            this.toastr.success('El reclamo se actualizo correctamente', 'Exitoso!');
-            this.obtenerReclamos();
-          }
-        )
-        this.limpiar();
-      }
+          console.log(data);
 
-      limpiar() {
-        this.displayEU = false;
-        this.reclamo = new Reclamos;
-    
-        this.loading = true;
-        this.listaReclamos = [];
-        this.obtenerReclamos();
-      }
+          this.toastr.success('El reclamo se actualizo correctamente', 'Exitoso!');
+          this.obtenerReclamos();
+        }
+      )
+      this.limpiar();
+    }
+  }
 
-      eliminarReclamo(idReclamo: number) {
-        this.reclamoService.deleteReclamoById(idReclamo).subscribe(
-          () => {
-            this.toastr.success('Reclamo eliminado correctamente', 'Eliminación exitosa');
-            // Aquí puedes actualizar la lista de reclamos si es necesario
-          },
-          error => {
-            console.log(error);
-            this.toastr.error('No se pudo eliminar el reclamo', 'Error');
-          }
-        );
+  limpiar() {
+    this.displayEU = false;
+    this.reclamo = new Reclamos;
+
+    this.loading = true;
+    this.listaReclamos = [];
+    this.obtenerReclamos();
+  }
+
+  eliminarReclamo(idReclamo: number) {
+    this.reclamoService.deleteReclamoById(idReclamo).subscribe(
+      () => {
+        this.toastr.success('Reclamo eliminado correctamente', 'Eliminación exitosa');
+        // Aquí puedes actualizar la lista de reclamos si es necesario
+      },
+      error => {
+        console.log(error);
+        this.toastr.error('No se pudo eliminar el reclamo', 'Error');
       }
+    );
+  }
+
 }

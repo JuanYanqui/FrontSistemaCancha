@@ -24,14 +24,20 @@
       <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
-      <li>
+      <!-- <li>
         <i class="bx bx-search"></i>
         <input type="text" placeholder="Search..." />
         <span class="tooltip">Busqueda</span>
-      </li>
+      </li> -->
  
       <!-- ADMIN EMPRESA -->
-
+      <li>
+        <a href="#" routerLink="/adminsitrador/bienvenida" routerLinkActive="active" *ngIf='isAdminCancha'>
+          <i class="casa"></i>
+          <span class="links_name">Bienvenida</span>
+        </a>
+        <span class="tooltip">Bienvenida</span>
+      </li>
 
       <li>
         <a href="#" routerLink="/adminsitrador/cancha/inicio-canchas" routerLinkActive="active"
@@ -54,7 +60,7 @@
       <li>
         <a href="#" routerLink="/adminsitrador/aceptacion-reserva/lista-establecimiento" routerLinkActive="active"
           *ngIf='isAdminCancha'>
-          <i class="damage"></i>
+          <i class="reservas"></i>
           <span class="links_name">Reservas</span>
         </a>
         <span class="tooltip">Reservas</span>
@@ -119,7 +125,7 @@
 
       <li>
         <a href="#" routerLink="/cliente/reserva/listar-reserva" routerLinkActive="active" *ngIf='isPublic'>
-          <i class="cancha"></i>
+          <i class="reservas"></i>
           <span class="links_name">Listado reservas</span>
         </a>
         <span class="tooltip">Listado reservas</span>
@@ -127,10 +133,10 @@
 
       <li>
         <a href="#"  routerLink="/cliente/reclamo/edit-reclamos" routerLinkActive="active" *ngIf='isPublic'>
-          <i class=""></i>
-          <span class="links_name">Reclamos</span>
+          <i class="listare"></i>
+          <span class="links_name">Lista Reclamos</span>
         </a>
-        <span class="tooltip">Reclamos</span>
+        <span class="tooltip">Lista Reclamos</span>
       </li>
 
 

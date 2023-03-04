@@ -20,111 +20,125 @@ import { Usuario } from 'src/app/core/models/usuario';
   styleUrls: ['./registrar-establecimiento.component.css']
 })
 export class RegistrarEstablecimientoComponent {
-lat: number;
-long: number;
-// ciudad?:string;
-// pais?:string;
-zoom: number;
-isButtonEnabled2: boolean = false;
-mapTypeId: string;
-city: string = "";
-country: string= "";
-mainStreet: string="";
-secondaryStreet: string="";
-persona: Persona = new Persona;
-usuario: Usuario = new Usuario;
-flapersona: boolean = true;
-establecimiento: Establecimiento = new Establecimiento;
-ubicacion: Ubicacion= new Ubicacion; 
-latu: number = 0;
-longu: number= 0;
-listafoto: any []=[];
-listafile: File []=[];
-hasBarControl = new FormControl(false);
-hasEstacionamientoControl = new FormControl(false);
-hasbanioControl = new FormControl(false);
-hasVestidirControl = new FormControl(false);
-// address?: string;
-// locationData: any;
-// map: any;
-// geocoder: any;
-// markers?: any[];
+  lat: number;
+  long: number;
+  // ciudad?:string;
+  // pais?:string;
+  zoom: number;
+  isButtonEnabled2: boolean = false;
+  mapTypeId: string;
+  city: string = "";
+  country: string = "";
+  mainStreet: string = "";
+  secondaryStreet: string = "";
+  persona: Persona = new Persona;
+  usuario: Usuario = new Usuario;
+  flapersona: boolean = true;
+  establecimiento: Establecimiento = new Establecimiento;
+  ubicacion: Ubicacion = new Ubicacion;
+  latu: number = 0;
+  longu: number = 0;
+  listafoto: any[] = [];
+  listafile: File[] = [];
+  hasBarControl = new FormControl(false);
+  hasEstacionamientoControl = new FormControl(false);
+  hasbanioControl = new FormControl(false);
+  hasVestidirControl = new FormControl(false);
+  // address?: string;
+  // locationData: any;
+  // map: any;
+  // geocoder: any;
+  // markers?: any[];
 
+  ao1: String = '';
+  ao2: String = '';
+  estHora: Boolean = false;
+  VALMensajeUsuario: boolean = false;
 
-constructor(private cargarScripts: CargarScriptsService, private personaService: PersonaService,  private http: HttpClient, private toast: ToastrService, private establecimientoService: EstablecimientoService,  private ubicacionService: UbicacionService, private usuarioService: UsuarioService, private fotoService: FotoService){
-  this.lat=-1.831239;
-  this.long =-78.183406;
-  this.zoom = 6;
-  this.mapTypeId = 'hybrid';
-  cargarScripts.Carga(["establecimiento-foto.component"])
-  
-}
+  vallatitud: string = '';
+  valcalle1: string = '';
+  valcalle2: string = '';
+  valreferencia: string = '';
+  valnumero: string = '';
+  valcedula: boolean = false;
+  valnombre: string = '';
+  valhora1: string = '';
+  valhora2: string = '';
 
-ngOnInit() {}
+  constructor(private cargarScripts: CargarScriptsService, private personaService: PersonaService, private http: HttpClient, private toast: ToastrService, private establecimientoService: EstablecimientoService, private ubicacionService: UbicacionService, private usuarioService: UsuarioService, private fotoService: FotoService) {
+    this.lat = -1.831239;
+    this.long = -78.183406;
+    this.zoom = 6;
+    this.mapTypeId = 'hybrid';
+    cargarScripts.Carga(["establecimiento-foto.component"])
 
-
-
-checkHasBar() {
-  if (this.hasBarControl.value) {
-    console.log('Does not have bar');
-    this.establecimiento.bar = false;
-    console.log(this.establecimiento.bar);
-  } else {
-    console.log('Has bar');
-    this.establecimiento.bar = true;
-    console.log(this.establecimiento.bar);
-  
   }
-}
 
-checkHasEsta() {
-  if (this.hasEstacionamientoControl.value) {
-    console.log('Does not have esta');
-    this.establecimiento.estacionamiento = false;
-    console.log(this.establecimiento.estacionamiento);
-  } else {
-    console.log('Has esta');
-    this.establecimiento.estacionamiento = true;
-    console.log(this.establecimiento.estacionamiento);
-  
+  ngOnInit() { }
+
+
+
+  checkHasBar() {
+    if (this.hasBarControl.value) {
+      console.log('Does not have bar');
+      this.establecimiento.bar = false;
+      console.log(this.establecimiento.bar);
+    } else {
+      console.log('Has bar');
+      this.establecimiento.bar = true;
+      console.log(this.establecimiento.bar);
+
+    }
   }
-}
-checkHasBanio() {
-  if (this.hasbanioControl.value) {
-    console.log('Does not have banio');
-    this.establecimiento.banios = false;
-    console.log(this.establecimiento.banios);
-  } else {
-    console.log('Has banio');
-    this.establecimiento.banios = true;
-    console.log(this.establecimiento.banios);
-  
+
+  checkHasEsta() {
+    if (this.hasEstacionamientoControl.value) {
+      console.log('Does not have esta');
+      this.establecimiento.estacionamiento = false;
+      console.log(this.establecimiento.estacionamiento);
+    } else {
+      console.log('Has esta');
+      this.establecimiento.estacionamiento = true;
+      console.log(this.establecimiento.estacionamiento);
+
+    }
   }
-}
-checkHasVesti() {
-  if (this.hasVestidirControl.value) {
-    console.log('Does not have vesti');
-    this.establecimiento.vestidores = false;
-    console.log(this.establecimiento.vestidores);
-  } else {
-    console.log('Has vesti');
-    this.establecimiento.vestidores = true;
-    console.log(this.establecimiento.vestidores);
-  
+  checkHasBanio() {
+    if (this.hasbanioControl.value) {
+      console.log('Does not have banio');
+      this.establecimiento.banios = false;
+      console.log(this.establecimiento.banios);
+    } else {
+      console.log('Has banio');
+      this.establecimiento.banios = true;
+      console.log(this.establecimiento.banios);
+
+    }
   }
-}
+  checkHasVesti() {
+    if (this.hasVestidirControl.value) {
+      console.log('Does not have vesti');
+      this.establecimiento.vestidores = false;
+      console.log(this.establecimiento.vestidores);
+    } else {
+      console.log('Has vesti');
+      this.establecimiento.vestidores = true;
+      console.log(this.establecimiento.vestidores);
+
+    }
+  }
 
 
 
 
-// getCurrentPosition(){
-//   navigator.geolocation.getCurrentPosition(position=>{
-//     this.lat = position.coords.latitude;
-//     this.long = position.coords.longitude;
-//     this.zoom = 20;
+  // getCurrentPosition(){
+  //   navigator.geolocation.getCurrentPosition(position=>{
+  //     this.lat = position.coords.latitude;
+  //     this.long = position.coords.longitude;
+  //     this.zoom = 20;
 
-//   })
-// }
+  //   })
+  // }
 
 
 
@@ -147,9 +161,9 @@ checkHasVesti() {
     // this.getLocationData(this.latu, this.longu);
     // this.geocodeAddress(this.latu, this.longu);
     this.ubicacion.latitud = this.lat;
-console.log(this.ubicacion.latitud)
-this.ubicacion.longitud = this.long;
-console.log(this.ubicacion.longitud)
+    console.log(this.ubicacion.latitud)
+    this.ubicacion.longitud = this.long;
+    console.log(this.ubicacion.longitud)
   }
 
   // getLocationData(lat: number, lng: number) {
@@ -185,7 +199,7 @@ console.log(this.ubicacion.longitud)
   // markerClicked(event: google.maps.LatLng) {
   //   const geocoder = new google.maps.Geocoder;
   //   const latlng = {lat: event.lat, lng: event.lng};
-  
+
   //   geocoder.geocode({ address: '1600 Amphitheatre Parkway, Mountain View, CA' }, (results:google.maps.GeocoderResult[], status:google.maps.GeocoderStatus) => {
   //     if (status === 'OK') {
   //       if (results && results[0]) {
@@ -208,87 +222,150 @@ console.log(this.ubicacion.longitud)
   //   });
   // }
 
-//   estadobar(event: any){
-//     if(this.showMe==true){
-//       this.establecimiento.bar = true;
-//     }else{
-//       this.establecimiento.bar = false;
-//     }
-// }
-  
+  //   estadobar(event: any){
+  //     if(this.showMe==true){
+  //       this.establecimiento.bar = true;
+  //     }else{
+  //       this.establecimiento.bar = false;
+  //     }
+  // }
+
   buscarPorCedula() {
-
     if (this.persona.cedula != null && this.persona.cedula != '') {
-      this.personaService.getPorCedula(this.persona.cedula).subscribe(
-        data => {
-          console.log(data);
-          if (data != null) {
-            this.toast.success('Dato encontrado en a base');
-            this.flapersona = false;
-
-            this.persona.apellido = data.apellido;
-            this.persona.cedula = data.cedula;
-            this.persona.idPersona = data.idPersona;
-            this.persona.nombre = data.nombre;
-            this.persona.genero = data.genero;
-            this.persona.direccion = data.direccion;
-            this.persona.celular = data.celular;
-            this.persona.email = data.email;
-            this.persona.foto = data.foto;
-            this.persona.fechaNacimmiento = data.fechaNacimmiento;
-            this.persona.telefono = data.telefono
-
-          } else if (this.persona.cedula?.length == 10) {
-            this.flapersona = true;
-
-            this.toast.info('La cedula ingresada no esta registrada en el sistema', 'Cedula no encontrada')
-          } else if (this.persona.cedula?.length == 0) {
-            this.toast.info('La cedula ingresada no cumple con el numero de extensión')
-          } else if (this.persona.cedula?.length == 11) {
-            this.toast.info('La cedula ingresada no cumple con el numero de extensión')
+      
+      this.usuarioService.getUsuarios().subscribe(
+        datausuario => {
+          for (let a = 0 ; a < datausuario.length ; a++){
+              if(datausuario[a].persona.cedula == this.persona.cedula && datausuario[a].rol?.nombre == 'ADMINISTRADOR'){
+                this.valcedula = true;
+                  this.personaService.getPorCedula(this.persona.cedula).subscribe(
+                    data => {
+                      console.log(data);
+                      if (data != null) {
+                        this.VALMensajeUsuario = true;
+                        this.toast.success('Dato encontrado en a base');
+                        this.flapersona = false;
+  
+                        this.persona.apellido = data.apellido;
+                        this.persona.cedula = data.cedula;
+                        this.persona.idPersona = data.idPersona;
+                        this.persona.nombre = data.nombre;
+                        this.persona.genero = data.genero;
+                        this.persona.direccion = data.direccion;
+                        this.persona.celular = data.celular;
+                        this.persona.email = data.email;
+                        this.persona.foto = data.foto;
+                        this.persona.fechaNacimmiento = data.fechaNacimmiento;
+                        this.persona.telefono = data.telefono
+  
+                      } else if (this.persona.cedula?.length == 10) {
+                        this.flapersona = true;
+  
+                        this.toast.info('La cedula ingresada no esta registrada en el sistema', 'Cedula no encontrada')
+                      } else if (this.persona.cedula?.length == 0) {
+                        this.toast.info('La cedula ingresada no cumple con el numero de extensión')
+                      } else if (this.persona.cedula?.length == 11) {
+                        this.toast.info('La cedula ingresada no cumple con el numero de extensión')
+                      }
+                    }
+                )
+              } else {
+                this.valcedula = false;
+                this.VALMensajeUsuario = false;
+              }
           }
         }
       )
+      
+      if (this.VALMensajeUsuario == false){
+        this.toast.warning('La cedula debe ser de un administrador', 'Advertencia!')
+      }
     } else {
       this.toast.warning('Cedula incorrecta', 'Advertencia!')
     }
-
-  }
-
-registrarEstablecimiento() {
-
-    this.ubicacionService.postUbicacion(this.ubicacion).subscribe(
-      data => {
-        this.ubicacion.idUbicacion = data.idUbicacion;
-        this.toast.success("creado ubicacion")
-        console.log(data);
-        if (!data) {
-        
-        } else {
-              this.establecimiento.fotoestablecimiento = this.nombre_orignal;
-              this.cargarImagen();
-              console.log(data);
-              this.establecimiento.ubicacion = this.ubicacion;
-              // this.establecimiento.fotoestablecimiento = [this.fotoestablecimiento]; 
-              this.establecimiento.persona = this.persona
-
-              this.establecimientoService.postEstablecimiento(this.establecimiento).subscribe(
-                result => {
-                  console.log(result);
-                  this.toast.success("creado establecimiento");
-                  this.limpiarE();
-                  
-                }
-                
-              )
-
-            
-          
-        }
-      }
-    )
   
-}
+  }
+  
+    validarRuc(event: KeyboardEvent) {
+      const key = event.key;
+    
+      if (key === 'Backspace' || key === 'Tab' || key === 'Enter' || key === 'Escape' || key === '.') {
+        return;
+      }
+    
+      if (isNaN(Number(key))) {
+        event.preventDefault();
+      }
+    }
+  
+    validarFecha(){
+      this.ao1 = String(this.establecimiento.horaApertura);
+      this.ao1 = this.ao1[0] + this.ao1[1]
+      this.ao2 = String(this.establecimiento.horaCierre);
+      this.ao2 = this.ao2[0] + this.ao2[1]
+  
+      if (Number(this.ao1) != Number(this.ao2)){
+        this.estHora = true;
+      } else {
+        this.estHora = false;
+      }
+    }
+    
+    registrarEstablecimiento() {
+  
+      this.validarFecha();
+      this.establecimiento.fotoestablecimiento = this.nombre_orignal;
+      this.cargarImagen();
+      
+  
+  
+      
+      if(this.valcalle1 == ''){ this.toast.error("Campo calle principal erroneo", "Error!"); }
+      else if(this.valcalle2 == ''){ this.toast.error("Campo calle secundaria erroneo", "Error!"); }
+      else if(this.valreferencia == ''){ this.toast.error("Campo referencia erroneo", "Error!"); }
+      else if(this.valnumero == ''){ this.toast.error("Campo numero de propiedad erroneo", "Error!"); }
+      //else if(this.valcedula == false){ this.toast.error("Campo cedula erroneo debe ser de un administrador", "Error!"); }
+      else if(this.establecimiento.ruc.length != 13){ this.toast.error("Campo ruc erroneo", "Error!"); }
+      else if(this.valnombre == ''){ this.toast.error("Campo nombre de establecimiento erroneo", "Error!"); }
+      else if(this.estHora == false){ this.toast.error("campos hora erroneo", "Error!"); }
+      else if(this.establecimiento.fotoestablecimiento?.length === 0){ this.toast.error("Campo foto erroneo", "Error!"); }
+      else {
+       this.ubicacionService.postUbicacion(this.ubicacion).subscribe(
+         data => {
+           this.ubicacion.idUbicacion = data.idUbicacion;
+           this.toast.success("creado ubicacion")
+           console.log(data);
+           if (!data) {
+           
+           } else {
+                 console.log(data);
+                 this.establecimiento.ubicacion = this.ubicacion;
+                 // this.establecimiento.fotoestablecimiento = [this.fotoestablecimiento]; 
+                 this.establecimiento.persona = this.persona
+   
+                 this.establecimientoService.postEstablecimiento(this.establecimiento).subscribe(
+                   result => {
+                     console.log(result);
+                     this.toast.success("creado establecimiento");
+                     this.limpiarE();
+                     this.goToR()
+                   }
+                   
+                 )
+   
+               
+             
+           }
+         }
+       )
+       }
+     
+   }
+  
+   goToR(){
+    window.location.reload();
+  }
+  
 
   // IMAGEN
   image!: any;
@@ -311,10 +388,10 @@ registrarEstablecimiento() {
     reader.onload = () => {
       this.file = reader.result;
     };
-  //   this.listafile.push(this.selectedFile);
-  //   this.listafile.forEach(datos=> {
-  //     // console.log("MI lista Files-> " + datos);
-  // });
+    //   this.listafile.push(this.selectedFile);
+    //   this.listafile.forEach(datos=> {
+    //     // console.log("MI lista Files-> " + datos);
+    // });
 
 
     // CAPTURAR EL NAME DE LA IMAGEN
@@ -326,7 +403,7 @@ registrarEstablecimiento() {
     console.log(this.nombre_orignal);
     // this.listafoto.push(this.nombre_orignal);
     // this.listafoto.forEach(datos=> {
-  // });
+    // });
 
   }
 
@@ -335,26 +412,26 @@ registrarEstablecimiento() {
   }
 
 
-  limpiarE(){
+  limpiarE() {
 
-   this.establecimiento.nombre = "";
-   this.establecimiento.horaApertura = new Date;
-   this.establecimiento.horaCierre = new Date;
-   this.ubicacion.calle_principal = "";
-   this.ubicacion.calle_secundaria = "";
-   
-   this.ubicacion.latitud = 0;
-   this.ubicacion.longitud = 0;
-   this.ubicacion.numero = 0;
+    this.establecimiento.nombre = "";
+    this.establecimiento.horaApertura = new Date;
+    this.establecimiento.horaCierre = new Date;
+    this.ubicacion.calle_principal = "";
+    this.ubicacion.calle_secundaria = "";
 
-   this.ubicacion.referencia = 0;
-   this.establecimiento.banios = false;
-   this.establecimiento.bar = false;
-   this.establecimiento.estacionamiento = false;
-   this.establecimiento.vestidores = false;
+    this.ubicacion.latitud = 0;
+    this.ubicacion.longitud = 0;
+    this.ubicacion.numero = 0;
 
-   this.establecimiento.fotoestablecimiento = "";
-   window.location.reload();
+    this.ubicacion.referencia = 0;
+    this.establecimiento.banios = false;
+    this.establecimiento.bar = false;
+    this.establecimiento.estacionamiento = false;
+    this.establecimiento.vestidores = false;
+
+    this.establecimiento.fotoestablecimiento = "";
+    window.location.reload();
   }
 
 

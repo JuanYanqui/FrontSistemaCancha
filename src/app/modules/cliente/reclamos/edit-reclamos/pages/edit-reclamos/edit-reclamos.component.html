@@ -110,7 +110,7 @@
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
                                 <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.titulo"
-                                    maxlength="100" minlength="2" pInputText required>
+                                    maxlength="100" minlength="2" pInputText required (keypress)="onKeyPressLetras($event)">
                                 <label for="float-input">Titulo</label>
                             </span>
                         </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HomepageRoutingModule } from './homepage-routing.module';
 import { HomepageComponent } from './pages/homepage/homepage.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -11,7 +12,10 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
   ],
   imports: [
     CommonModule,
-    HomepageRoutingModule
+    HomepageRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA7-wlmPnDc7_ErhX28w62wWBko0bABJpY'
+    }),
   ],
   exports:[
     HomepageComponent

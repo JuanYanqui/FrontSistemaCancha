@@ -9,7 +9,8 @@
                         <div class="row">
                             <div class="col">
                                 <div class="perfil-usuario-avatar text-center">
-                                    <agm-map [latitude]="lat"  [longitude]="long" [zoom]="zoom" [mapTypeId]="mapTypeId" (mapClick)="getCoordinates($event)">
+                                    <agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom" [mapTypeId]="mapTypeId"
+                                        (mapClick)="getCoordinates($event)">
                                         <agm-marker eve [latitude]="lat" [longitude]="long"></agm-marker>
                                     </agm-map>
                                 </div>
@@ -17,7 +18,7 @@
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
                                         <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
-                                            [(ngModel)]="ubicacion.latitud" pInputText required>
+                                            [(ngModel)]="ubicacion.latitud" [(ngModel)]="vallatitud" pInputText required>
                                         <label for="float-input">Latitud</label>
                                     </span>
                                 </div>
@@ -32,21 +33,21 @@
 
 
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.calle_principal"
+                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.calle_principal" [(ngModel)]="valcalle1"
                                             pInputText>
                                         <label for="float-input">Calle principal</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.calle_secundaria"
+                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.calle_secundaria" [(ngModel)]="valcalle2"
                                             pInputText>
                                         <label for="float-input">Calle secundaria</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.referencia"
+                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.referencia" [(ngModel)]="valreferencia"
                                             pInputText>
                                         <label for="float-input">Referencia</label>
                                     </span>
@@ -59,7 +60,7 @@
 
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.numero" pInputText>
+                                        <input id="float-input" type="number" [(ngModel)]="ubicacion.numero" [(ngModel)]="valnumero" pInputText>
                                         <label for="float-input">Numero propiedad</label>
                                     </span>
                                 </div>
@@ -88,21 +89,21 @@
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="establecimiento.ruc"
-                                            pInputText>
+                                        <input id="float-input" type="text" (keydown)="validarRuc($event)"
+                                            [(ngModel)]="establecimiento.ruc" maxlength="13" minlength="13" pInputText>
                                         <label for="float-input">Ruc</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="establecimiento.nombre"
+                                        <input id="float-input" type="text" [(ngModel)]="establecimiento.nombre" [(ngModel)]="valnombre"
                                             pInputText>
                                         <label for="float-input">Nombre Establecimiento</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaApertura"
+                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaApertura" [(ngModel)]="valhora1"
                                             pInputText>
                                         <label for="float-input">Hora de Apertura</label>
                                     </span>
@@ -110,45 +111,51 @@
 
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaCierre"
+                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaCierre" [(ngModel)]="valhora2"
                                             pInputText>
                                         <label for="float-input">Hora de Cierre</label>
                                     </span>
                                 </div>
-                                <div style="border: 1px solid black; padding: 30px;"  class="text-left">
-                
+                                <div style="border: 1px solid black; padding: 30px;" class="text-left">
+
                                     <div>
-                                    <input type="checkbox" id="test1" class="form-check-input" [formControl]="hasBarControl" (click)="checkHasBar()"/>
-                                    <label for="test1">El establecimiento tiene Bar</label>
+                                        <input type="checkbox" id="test1" class="form-check-input"
+                                            [formControl]="hasBarControl" (click)="checkHasBar()" />
+                                        <label for="test1">El establecimiento tiene Bar</label>
                                     </div>
-                                 
+
                                     <div>
-                                      <input type="checkbox" id="test2" class="form-check-input" [formControl]="hasEstacionamientoControl"(click)="checkHasEsta()"/>
-                                      <label for="test2">El establecimiento tiene Estacionamientor</label>
+                                        <input type="checkbox" id="test2" class="form-check-input"
+                                            [formControl]="hasEstacionamientoControl" (click)="checkHasEsta()" />
+                                        <label for="test2">El establecimiento tiene Estacionamientor</label>
                                     </div>
-                                 
+
                                     <div>
-                                      <input type="checkbox" id="test3" class="form-check-input" [formControl]="hasbanioControl"(click)="checkHasBanio()"/>
-                                      <label for="test3">El establecimiento tiene Baño</label>
+                                        <input type="checkbox" id="test3" class="form-check-input"
+                                            [formControl]="hasbanioControl" (click)="checkHasBanio()" />
+                                        <label for="test3">El establecimiento tiene Baño</label>
                                     </div>
-                                
-                                 <div>
-                                      <input type="checkbox" id="test4" class="form-check-input" [formControl]="hasVestidirControl"(click)="checkHasVesti()"/>
-                                      <label for="test4">El establecimiento tiene Vestidores</label>
+
+                                    <div>
+                                        <input type="checkbox" id="test4" class="form-check-input"
+                                            [formControl]="hasVestidirControl" (click)="checkHasVesti()" />
+                                        <label for="test4">El establecimiento tiene Vestidores</label>
                                     </div>
-                          </div>
+                                </div>
 
                                 <div class="p-col-3 p-md-4">
                                     <span class="p-float-label">
-                                        <input (change)="imageSelected($event)" formControlName="foto" accept="image/*"
-                                            name="foto" type="file" class="inputbox" id="float-input" required />
+                                        <input (change)="imageSelected($event)" formControlName="foto"
+                                            accept="image/*" name="foto" type="file" class="form-control"
+                                            id="float-input" required />
                                         <label for="float-input"></label>
                                     </span>
                                     <div *ngIf="file" class="mt-3 text-center">
-                                        <img [src]="file" class="rounded" alt="..." style="max-width: 50%;" />
+                                        <img [src]="file" class="rounded" alt="..." style="max-width: 30%;" />
                                     </div>
                                     <div>
-                                        <img alt="..." style="max-width: 50%;"
+                                        <img alt="..."
+                                            style="max-width: 30%; visibility: hidden; width: 0px; height: 0px;"
                                             [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento" />
                                     </div>
                                 </div>
@@ -163,7 +170,7 @@
                         <div class="p-col-12 p-md-4">
                             <button id="btnreg" pButton pRipple type="button" label="Registrar Establecimiento"
                                 icon="pi pi-check" iconPos="right" class="p-button-rounded p-button-primary"
-                                (click)="registrarEstablecimiento()" ></button>
+                                (click)="registrarEstablecimiento()"></button>
                         </div>
                     </div>
                 </p-panel>

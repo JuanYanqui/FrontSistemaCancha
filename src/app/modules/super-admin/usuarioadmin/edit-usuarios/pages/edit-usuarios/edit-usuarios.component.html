@@ -134,21 +134,21 @@
                       <div class="p-col-12 p-md-4">
                           <span class="p-float-label">
                               <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.cedula"
-                                  [pKeyFilter]="'int'" maxlength="13" minlength="10" pInputText required>
+                                  [pKeyFilter]="'int'" maxlength="13" minlength="10" pInputText required [disabled]="!isinactivo">
                               <label for="float-input">Cédula</label>
                           </span>
                       </div>
                       <div class="p-col-12 p-md-4">
                           <span class="p-float-label">
                               <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.nombre"
-                                  [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
+                                  [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText (keypress)="onKeyPressLetras($event)">
                               <label for="float-input">Nombres</label>
                           </span>
                       </div>
                       <div class="p-col-12 p-md-4">
                           <span class="p-float-label">
                               <input id="float-input" type="text" class="form-control" [(ngModel)]="persona.apellido"
-                                  [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
+                                  [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText (keypress)="onKeyPressLetras($event)">
                               <label for="float-input">Apellidos</label>
                           </span>
                       </div>
@@ -161,7 +161,7 @@
                       </div>
                       <div class="p-col-12 p-md-4">
                           <span class="p-float-label">
-                              <input id="float-input" type="date" [(ngModel)]="persona.fechaNacimmiento" pInputText>
+                              <input id="float-input" type="date" [(ngModel)]="persona.fechaNacimmiento" pInputText [disabled]="!isinactivo">
                               <label for="float-input">Fecha de nacimiento</label>
                           </span>
                       </div>
@@ -186,14 +186,14 @@
                       </div>
                       <div class="p-col-3 p-md-4">
                           <span class="p-float-label">
-                              <p-inputMask id="float-input" mask="09-9999999" [(ngModel)]="persona.telefono"
+                              <p-inputMask id="float-input" mask="09-999-9999" [(ngModel)]="persona.telefono"
                                   placeholder=""></p-inputMask>
                               <label for="float-input">Teléfono</label>
                           </span>
                       </div>
                       <div class="p-col-3 p-md-4">
                           <span class="p-float-label">
-                              <p-inputMask mask=" 0999999999" [(ngModel)]="persona.celular"
+                              <p-inputMask  mask="09-99999999" [(ngModel)]="persona.celular"
                                   placeholder=""></p-inputMask>
                               <label for="float-input">Celular</label>
                           </span>
@@ -206,11 +206,25 @@
                           </span>
                       </div>
                       <div class="p-col-12 p-md-4">
-                          <span class="p-float-label">
-                              <p-password [toggleMask]="true" [(ngModel)]="usuario.password" [pKeyFilter]="'alphanum'"
-                                  maxlength="15" minlength="6"></p-password>
-                              <label for="float-input">Password</label>
-                          </span>
+                        <span class="p-float-label">
+                          <p-password [toggleMask]="true" name="password" [(ngModel)]="usuario.password" maxlength="15"
+                            minlength="6">
+                            <ng-template pTemplate="header">
+                              <h6>Pick a password</h6>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                              <p-divider></p-divider>
+                              <p class="mt-2">Suggestions</p>
+                              <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                <li>Al menos una minúscula</li>
+                                <li>Al menos una mayúscula</li>
+                                <li>Al menos un número</li>
+                                <li>Minimo 6 caracteres</li>
+                              </ul>
+                            </ng-template>
+                          </p-password>
+                          <label for="float-input">Password</label>
+                        </span>
                       </div>
                       <div>
                         <span class="p-float-label">
