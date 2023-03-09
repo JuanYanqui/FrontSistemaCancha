@@ -1,40 +1,33 @@
-
-
-
-
-
-
-
 <div class="container">
     <mat-tab-group preserveContent>
-        <mat-tab label="Registro de canchas">
+        <mat-tab label="Registro de canchass">
             <div class="content">
 
-                <p-panel id="paneregusuario" class="panel" header="Registro canchas">
+                <p-panel id="paneregusuario" class="panel" header="Registro canchass">
 
                     <div class="items panel over overflow-auto p-grid p-fluid">
                         <div class="row">
                             <div class="col">
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="canchas.nombre"
-                                            [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
+                                        <input id="float-input" type="text" [(ngModel)]="canchas.nombre" maxlength="30"
+                                            minlength="3" pInputText>
                                         <label for="float-input">Nombres</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="canchas.tarifa" 
-                                            maxlength="5" minlength="1" pInputText>
+                                        <input id="float-input"
+                                            oninput="if(this.value.toString().length > 6) this.value = this.value.toString().slice(0,6);"
+                                            [(ngModel)]="canchas.tarifa" type="number" step="0.01" pInputText>
                                         <label for="float-input">Tarifa</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
                                         <textarea id="float-input" type="text" [(ngModel)]="canchas.descripcion"
-                                            [pKeyFilter]="blockSpecial" maxlength="50" minlength="5" pInputText
-                                            rows="7"></textarea>
-                                        <label for="float-input">Descripción</label>
+                                            maxlength="500" minlength="5" pInputText rows="7"></textarea>
+                                        <label for="float-input">Descripcion</label>
                                     </span>
                                 </div>
                             </div>
@@ -47,17 +40,19 @@
                                                 <tr>
                                                     <td colspan=”2”>
                                                         <span class="p-float-label">
-                                                            <input id="float-input" type="text"
-                                                                [(ngModel)]="canchas.ancho" [pKeyFilter]="'int'"
-                                                                maxlength="3" minlength="1" pInputText>
+                                                            <input id="float-input"
+                                                                oninput="if(this.value.toString().length > 6) this.value = this.value.toString().slice(0,6);"
+                                                                [(ngModel)]="canchas.ancho" type="number" step="0.01"
+                                                                pInputText>
                                                             <label for="float-input">Ancho:</label>
                                                         </span>
                                                     </td>
                                                     <td colspan=”2”>
                                                         <span class="p-float-label">
-                                                            <input id="float-input" type="text"
-                                                                [(ngModel)]="canchas.altura" [pKeyFilter]="'int'"
-                                                                maxlength="3" minlength="1" pInputText>
+                                                            <input id="float-input"
+                                                                oninput="if(this.value.toString().length > 6) this.value = this.value.toString().slice(0,6);"
+                                                                [(ngModel)]="canchas.altura" type="number" step="0.01"
+                                                                pInputText>
                                                             <label for="float-input">Alto:</label>
                                                         </span>
                                                     </td>
@@ -107,8 +102,8 @@
             <!-- <a class="nav-link" aria-current="true" routerLink="../edit-user"
                             routerLinkActive="active">Registrar nueva empresa</a>
                             -->
- <app-editar-canchas></app-editar-canchas>
+            <app-editar-canchas></app-editar-canchas>
         </mat-tab>
 
     </mat-tab-group>
-</div> 
+</div>

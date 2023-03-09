@@ -8,10 +8,6 @@
 
                         <div class="row">
                             <div class="col">
-                                <form class="search-wrapper cf" (submit)="buscarDireccion()">
-                                    <input type="text" [(ngModel)]="direccion" name="direccion" id="search-input" placeholder="Ingrese una dirección" >
-                                    <button type="submit">Buscar</button>
-                                  </form>
                                 <div class="perfil-usuario-avatar text-center">
                                     <agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom" [mapTypeId]="mapTypeId"
                                         (mapClick)="getCoordinates($event)">
@@ -22,22 +18,7 @@
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
                                         <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
-                                            [(ngModel)]="this.pais" [(ngModel)]="vallatitud" pInputText required>
-                                        <label for="float-input">País</label>
-                                    </span>
-                                </div>
-                                <div class="p-col-12 p-md-4">
-                                    <span class="p-float-label">
-                                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
-                                            [(ngModel)]="this.ciudad" pInputText>
-                                        <label for="float-input">Ciudad</label>
-                                    </span>
-                                </div>
-
-                                <div class="p-col-12 p-md-4">
-                                    <span class="p-float-label">
-                                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
-                                            [(ngModel)]="ubicacion.latitud" [(ngModel)]="vallatitud" pInputText required>
+                                            [(ngModel)]="ubicacion.latitud" pInputText required>
                                         <label for="float-input">Latitud</label>
                                     </span>
                                 </div>
@@ -49,29 +30,29 @@
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
-
-
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.calle_principal" [(ngModel)]="valcalle1"
-                                            pInputText>
+                                        <textarea type="text" class="inputbox" name="descripcion" id="float-input"
+                                            [(ngModel)]="ubicacion.calle_principal" maxlength="200" minlength="3"
+                                            pInputText required></textarea>
                                         <label for="float-input">Calle principal</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.calle_secundaria" [(ngModel)]="valcalle2"
-                                            pInputText>
+                                        <textarea type="text" class="inputbox" name="descripcion" id="float-input"
+                                            [(ngModel)]="ubicacion.calle_secundaria" maxlength="200" minlength="3"
+                                            pInputText required></textarea>
                                         <label for="float-input">Calle secundaria</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="ubicacion.referencia" [(ngModel)]="valreferencia"
-                                            pInputText>
+                                        <textarea type="text" class="inputbox" name="descripcion" id="float-input"
+                                            [(ngModel)]="ubicacion.referencia" maxlength="200" minlength="3"
+                                            pInputText required></textarea>
                                         <label for="float-input">Referencia</label>
                                     </span>
                                 </div>
-
                             </div>
 
                             <div class="col">
@@ -79,50 +60,55 @@
 
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="number" [(ngModel)]="ubicacion.numero" [(ngModel)]="valnumero" pInputText>
-                                        <label for="float-input">Número propiedad</label>
+                                        <input id="float-input" type="number" [(ngModel)]="ubicacion.numero" 
+                                        oninput="if(this.value.toString().length > 5) this.value = this.value.toString().slice(0,5);"
+                                        pInputText>
+                                        <label for="float-input">Numero propiedad</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="persona.cedula"
+                                        <input iid="float-input" type="text" [(ngModel)]="persona.cedula"
                                             [pKeyFilter]="'int'" maxlength="10" minlength="10"
                                             (ngModelChange)='buscarPorCedula()' pInputText required>
-                                        <label for="float-input">Cédula</label>
+                                        <label for="float-input">Cedula</label>
                                     </span>
                                 </div>
 
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
-                                            [(ngModel)]="persona.nombre" pInputText>
-                                        <label for="float-input">Nombres</label>
+                                        <input id="float-input" type="text" [(ngModel)]="persona.nombre" disabled
+                                            pInputText>
+                                        <label for="float-input">Nombre</label>
+                                    </span>
+                                </div>
+    
+                                <div class="p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <input id="float-input" type="text" [(ngModel)]="persona.apellido" disabled
+                                            pInputText>
+                                        <label for="float-input">Apellido</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
-                                            [(ngModel)]="persona.apellido" pInputText>
-                                        <label for="float-input">Apellidos</label>
-                                    </span>
-                                </div>
-                                <div class="p-col-12 p-md-4">
-                                    <span class="p-float-label">
-                                        <input id="float-input" type="text" (keydown)="validarRuc($event)"
-                                            [(ngModel)]="establecimiento.ruc" maxlength="13" minlength="13" pInputText>
+                                        <input id="float-input" type="number"
+                                        oninput="if(this.value.toString().length > 13) this.value = this.value.toString().slice(0,13);"
+                                            [(ngModel)]="establecimiento.ruc" pInputText>
                                         <label for="float-input">Ruc</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="text" [(ngModel)]="establecimiento.nombre" [(ngModel)]="valnombre"
-                                            pInputText>
+                                        <textarea type="text" class="inputbox" name="descripcion" id="float-input"
+                                            [(ngModel)]="establecimiento.nombre" maxlength="200" minlength="3"
+                                            pInputText required></textarea>
                                         <label for="float-input">Nombre Establecimiento</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaApertura" [(ngModel)]="valhora1"
+                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaApertura"
                                             pInputText>
                                         <label for="float-input">Hora de Apertura</label>
                                     </span>
@@ -130,7 +116,7 @@
 
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaCierre" [(ngModel)]="valhora2"
+                                        <input id="float-input" type="time" [(ngModel)]="establecimiento.horaCierre"
                                             pInputText>
                                         <label for="float-input">Hora de Cierre</label>
                                     </span>

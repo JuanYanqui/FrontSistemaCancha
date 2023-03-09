@@ -19,21 +19,20 @@ import { Pago_Damage } from 'src/app/core/models/pago_damage';
   styleUrls: ['./registro-damage.component.css']
 })
 export class RegistroDamageComponent {
-  registro_damage: Registro_Damage = new Registro_Damage;
+
   persona: Persona = new Persona;
-  establecimiento: Establecimiento = new Establecimiento;
   pago_damage: Pago_Damage = new Pago_Damage;
+  registro_damage: Registro_Damage = new Registro_Damage;
+  establecimiento: Establecimiento = new Establecimiento;
 
+  listaEstablecimineto: Establecimiento[] = [];
 
-  estVerificarValor: boolean = false;
   isButtonEnabled: boolean = false;
   flapersona: boolean = true;
-  blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-  verfCedula: any;
-  verfDescripcion: any;
-  verfValor: any;
-  id_personaIsLoggin: any;
   displayEU: boolean = false;
+
+  id_personaIsLoggin: any;
+  dataEst: any;
 
   constructor(private cargarScripts: CargarScriptsService, private toast: ToastrService, private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private router: Router, private registroDamageService: Registro_DamageService, private establecimientoService: EstablecimientoService, private pagoService: Pago_DamageService) {
     cargarScripts.Carga(["register-user.component"])
@@ -56,14 +55,6 @@ export class RegistroDamageComponent {
     this.obtenerEst();
   }
 
-  listaEstablecimineto: Establecimiento[] = [];
-
-  validarValor(tari: string) {
-    const tarifaPattern: RegExp = /^[0-9]+(\.[0-9]+)?$/;
-    this.estVerificarValor = tarifaPattern.test(tari);
-  }
-
-
   obtenerEst() {
     this.establecimientoService.getListarEst(this.id_personaIsLoggin).subscribe(
       data => {
@@ -80,8 +71,6 @@ export class RegistroDamageComponent {
     )
   }
 
-  dataEst: any;
-
   capParaEdicion(idEstablecimiento: any) {
     this.displayEU = true
     this.dataEst = idEstablecimiento;
@@ -89,14 +78,15 @@ export class RegistroDamageComponent {
   }
 
   registarDamage() {
-    this.validarValor(String(this.registro_damage.valor));
+
     this.registro_damage.foto = this.nombre_orignal;
     this.cargarImagen();
 
-    if (String(this.persona.cedula).length === 0) { this.toastr.error("Campo cedula vacio!", "Error!"); }
-    else if (this.registro_damage.descripcion.length === 0) { this.toastr.error("Campo descripcion vacio!", "Error!"); }
-    else if (this.estVerificarValor == false || this.registro_damage.valor === 0) { this.toastr.error("Campo Valor erroneo ejem: 12.2!", "Error!"); }
-    else if (this.registro_damage.foto.length === 0) { this.toastr.error("Campo foto vacio!", "Error!"); }
+    if (this.persona.cedula == '' || this.persona.nombre == '' || this.persona.apellido == '') { this.toastr.error("Campo cedula erroneo!", "Error!"); }
+    else if (this.registro_damage.descripcion == '') { this.toastr.error("Campo descripcion erroneo!", "Error!"); }
+    else if (this.registro_damage.valor == 0) { this.toastr.error("Campo Valor erroneo!", "Error!"); }
+    else if (this.registro_damage.valor < 0) { this.toastr.error("Campo valor erroneo debe ser mayor a cero!", "Error!"); }
+    else if (this.registro_damage.foto.length === 0) { this.toastr.error("Campo foto erroneo!", "Error!"); }
     else {
       this.establecimientoService.getPorId(this.dataEst).subscribe(
         data => {
@@ -111,14 +101,24 @@ export class RegistroDamageComponent {
               this.pago_damage.registroDamage = this.registro_damage;
               this.pagoService.postPago(this.pago_damage).subscribe(
                 x => {
-                  console.log('funciono')
-                  Swal.fire(
-                    'PROCESO',
-                    'CON EXITO',
-                    'success'
-                  );
-                  this.cargarImagen();
-                  window.location.reload();
+                  this.displayEU = false;
+                  Swal.fire({
+                    title: 'Daño registrado correctamente!',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar!',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      this.ngOnInit();
+                    }
+                  })
                 }
               )
             }

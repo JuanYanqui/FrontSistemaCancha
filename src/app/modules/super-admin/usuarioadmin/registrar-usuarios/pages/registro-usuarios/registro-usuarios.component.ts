@@ -42,6 +42,12 @@ export class RegistroUsuariosComponent {
   estFechaNacimiento: boolean = false;
   estvalUsu: boolean = false;
 
+  estVerificarContraMay: boolean = false;
+  estVerificarContraMin: boolean = false;
+  estVerificarContraNum: boolean = false;
+  estVerificarContraCar: boolean = false;
+  estVerificarContraLon: boolean = false;
+
   ao1: string = '';
   ao2: string = '';
 
@@ -122,6 +128,40 @@ export class RegistroUsuariosComponent {
     this.estVerificarEmail = emailPattern.test(correo);
   }
 
+  validarContrasena(contra: string) {
+
+    this.estVerificarContraMin = false;
+    this.estVerificarContraMay = false;
+    this.estVerificarContraNum = false;
+    this.estVerificarContraCar = false;
+    this.estVerificarContraLon = false;
+
+    const contraPattern1: RegExp = /^(?=.*[a-z]).+$/g;
+    const contraPattern2: RegExp = /^(?=.*[A-Z]).+$/g;
+    const contraPattern3: RegExp = /[0-9]+/;
+    const contraPattern4: RegExp = /.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?].*/;
+
+    if (contraPattern1.test(contra)) {
+      this.estVerificarContraMin = true;
+    }
+
+    if (contraPattern2.test(contra)) {
+      this.estVerificarContraMay = true;
+    }
+
+    if (contraPattern3.test(contra)) {
+      this.estVerificarContraNum = true;
+    }
+
+    if (contraPattern4.test(contra)) {
+      this.estVerificarContraCar = true;
+    }
+
+    if (contra.length >= 8) {
+      this.estVerificarContraLon = true;
+    }
+  }
+
   validarFecha(){
     this.ao1 = String(new Date());
     this.ao1 = this.ao1[11] + this.ao1[12] + this.ao1[13] + this.ao1[14];
@@ -187,19 +227,18 @@ export class RegistroUsuariosComponent {
     this.persona.foto = this.nombre_orignal;
     this.validarFecha();
     this.cargarImagen();
-    console.log(this.persona.telefono);
 
-    if(this.estVerificarCedula == false || this.persona.cedula?.length != 10){ this.toastr.error("Campo cédula erróneo", "Error!"); }
-    else if(this.persona.nombre?.length === 0){ this.toastr.error("Campo nombre erróneo", "Error!"); }
-    else if(this.persona.apellido?.length === 0){ this.toastr.error("Campo apellido erróneo", "Error!"); }
-    else if(this.estVerificarEmail == false || this.persona.email?.length === 0){ this.toastr.error("Campo email erróneo", "Error!"); }
-    else if(this.persona.direccion?.length === 0){ this.toastr.error("Campo dirección erróneo", "Error!"); }
-    else if(this.estFechaNacimiento == false || String(this.persona.fechaNacimmiento).length === 0){ this.toastr.error("Campo fecha erróneo", "Error!"); }
-    else if(this.persona.genero?.length === 0){ this.toastr.error("Campo genero erróneo", "Error!"); }
-    else if(this.persona.telefono?.length != 11){ this.toastr.error("Campo teléfono erróneo", "Error!"); }
-    else if(this.persona.celular?.length != 11){ this.toastr.error("Campo celular erróneo", "Error!"); }
-    else if(this.persona.foto?.length === 0){ this.toastr.error("Campo foto erróneo", "Error!"); }
-    else {
+    if (this.estVerificarCedula == false || this.persona.cedula?.length != 10) { this.toastr.error("Campo cédula erróneo", "Error!"); }
+    else if (this.persona.nombre?.length === 0) { this.toastr.error("Campo nombre erróneo", "Error!"); }
+    else if (this.persona.apellido?.length === 0) { this.toastr.error("Campo apellido erróneo", "Error!"); }
+    else if (this.estVerificarEmail == false || this.persona.email?.length === 0) { this.toastr.error("Campo email erróneo", "Error!"); }
+    else if (typeof this.persona.direccion === 'undefined') { this.toastr.error("Campo direccion erróneo", "Error!"); }
+    else if (this.estFechaNacimiento == false || String(this.persona.fechaNacimmiento).length === 0) { this.toastr.error("Campo fecha erróneo", "Error!"); }
+    else if (typeof this.persona.genero === 'undefined') { this.toastr.error("Campo genero erróneo", "Error!"); }
+    else if (this.persona.telefono?.length != 11 || typeof this.persona.telefono === 'undefined') { this.toastr.error("Campo teléfono erróneo", "Error!"); }
+    else if (this.persona.celular?.length != 11 || this.persona.celular == '0_-________') { this.toastr.error("Campo celular erróneo", "Error!"); }
+    else if (this.persona.foto?.length === 0) { this.toastr.error("Campo foto erróneo", "Error!"); }
+    else{
 
       this.personaService.getPorCedula(this.persona.cedula).subscribe(
         data => {
@@ -227,15 +266,25 @@ export class RegistroUsuariosComponent {
           } else {
             this.personaService.postPersona(this.persona).subscribe(
               data => {
-                Swal.fire('Persona registrada correctamente!', 'success');
                 Swal.fire({
+                  title: 'Persona registrada correctamente!',
                   icon: 'success',
-                  title: 'En buena hora',
-                  text: 'Persona registrada correctamente!',
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Aceptar!',
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                  }
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    this.disablebtn()
+                    this.isButtonEnabled = true;
+                    this.persona.foto = "";
+                  }
                 })
-                this.disablebtn()
-                this.isButtonEnabled = true;
-                this.persona.foto = "";
               }
             );
           }
@@ -247,8 +296,16 @@ export class RegistroUsuariosComponent {
 
   registrarUsuario() {
 
-    if(this.usuario.username.length === 0 || this.usuario.username.length < 4){ this.toastr.error("Campo username erróneo", "Error!"); }
-    else if(this.usuario.password.length === 0 || this.usuario.password.length < 5){ this.toastr.error("Campo contraseña erróneo", "Error!"); }
+    this.validarContrasena(this.usuario.password)
+
+    if (this.usuario.username.length === 0 || this.usuario.username.length < 4) { this.toastr.error("Campo username erróneo", "Error!"); }
+    else if (this.usuario.password.length == 0) { this.toastr.error("La contraseña no cumple con lo rrequerido", "Error!"); }
+    else if (this.estVerificarContraMin == false) { this.toastr.error("La contraseña debe tener minimo una minuscula", "Error!"); }
+    else if (this.estVerificarContraMay == false) { this.toastr.error("La contraseña debe tener minimo una mayuscula", "Error!"); }
+    else if (this.estVerificarContraNum == false) { this.toastr.error("La contraseña debe tener minimo un digito", "Error!"); }
+    else if (this.estVerificarContraCar == false) { this.toastr.error("La contraseña debe tener minimo un caracter especial", "Error!"); }
+    else if (this.estVerificarContraLon == false) { this.toastr.error("La contraseña debe tener un minimo tamaño de 8 caracteres", "Error!"); }
+    else if (this.rol == null) { this.toastr.error("Seleccionar un rol", "Error!"); }
     else {
       this.usuarioService.verfUsername(this.usuario.username).subscribe(
         data => {
@@ -265,12 +322,23 @@ export class RegistroUsuariosComponent {
                     console.log(result);
                     this.usuario = result;
                     Swal.fire({
+                      title: 'Usuario registrado correctamente!',
                       icon: 'success',
-                      title: 'Usuario registrado correctamente',
-                      text: 'Bienvenido!',
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Aceptar!',
+                      showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                      },
+                      hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                      }
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        this.goToR();
+                        this.limpiarU();
+                      }
                     })
-                    this.goToR();
-                    this.limpiarU();
                   }
                   
                 )

@@ -18,20 +18,11 @@ export class RegistroCanchasComponent {
 
   canchas: Canchas = new Canchas;
   establecimiento: Establecimiento = new Establecimiento;
+
   listestablecimientos: any[] = [];
 
-  blockSpecial: RegExp = /^[^<>*!]+$/
-
-  verfNombres: any;
-  verfDescripcion: any;
-  verftarifa: any;
-  verfancho: any;
-  verfalto: any;
-
   idEst: number = 0;
-
   creareliminar: boolean = false;
-  estVerificarTarifa: boolean = false;
 
   id_personaIsLoggin:any;
   id_establ:any;
@@ -41,35 +32,25 @@ export class RegistroCanchasComponent {
   }
 
   ngOnInit(): void {
-    this.canchas.nombre = "";
-    this.canchas.descripcion = "";
-    this.canchas.tarifa = "";
-    this.canchas.foto = "";
-    this.canchas.ancho = 0;
-    this.canchas.altura = 0;
+    this.canchas = new Canchas;
 
     this.id_personaIsLoggin = localStorage.getItem('localIdPersona');
     this.id_establ = localStorage.getItem('EstablecimientoID');
- 
-
   }
-
-  validarTarifa(tari: string) {
-    const tarifaPattern: RegExp = /^[0-9]+(\.[0-9]+)?$/;
-    this.estVerificarTarifa = tarifaPattern.test(tari);
-  }
-
   
   registrar(){
-    this.validarTarifa(this.canchas.tarifa);
+
     this.canchas.foto = this.nombre_orignal;
     this.cargarImagen();
 
     if (this.canchas.nombre.length === 0) { this.toastr.error("Campo nombres vacio!", "Error!"); }
-    else if (this.estVerificarTarifa == false) { this.toastr.error("Campo tarifa erroneo ejem: 12.2!", "Error!"); }
+    else if (String(this.canchas.tarifa).length == 0) { this.toastr.error("Campo tarifa erroneo!", "Error!"); }
+    else if (Number(this.canchas.tarifa) < 0) { this.toastr.error("Campo tarifa erroneo debe ser mayor a cero!!", "Error!"); }
     else if (this.canchas.descripcion.length === 0) { this.toastr.error("Campo descripcion vacio!", "Error!"); }
-    else if (String(this.canchas.ancho).length === 0) { this.toastr.error("Campo ancho de cancha debe ser mayor a cero!", "Error!"); }
-    else if (String(this.canchas.altura).length === 0) { this.toastr.error("Campo alto de cancha debe ser mayor a cero!", "Error!"); }
+    else if (this.canchas.ancho == 0) { this.toastr.error("Campo ancho de cancha erroneo!", "Error!"); }
+    else if (this.canchas.ancho < 0) { this.toastr.error("Campo ancho de cancha erroneo debe ser mayor a cero!", "Error!"); }
+    else if (this.canchas.altura == 0) { this.toastr.error("Campo alto de cancha erroneo!", "Error!"); }
+    else if (this.canchas.altura < 0) { this.toastr.error("Campo alto de cancha erroneo debe ser mayor a cero!", "Error!"); }
     else if (this.canchas.foto.length === 0) { this.toastr.error("Campo foto vacio!", "Error!"); }
     else{
       this.establecimientoService.getPorId(this.id_establ).subscribe(
@@ -78,17 +59,30 @@ export class RegistroCanchasComponent {
           
           this.canchasService.postCanchas(this.canchas).subscribe(
             x=>{
-              Swal.fire("La canchas se creo exitosamente")
-              this.ngOnInit();
-              window.location.reload();
+              Swal.fire({
+                title: 'Cancha registrada correctamente!',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.ngOnInit();
+                  window.location.reload();
+                }
+              })
             }
           )
         }
       )
     }
   }
-
-  
 
   // IMAGEN
   image!: any;

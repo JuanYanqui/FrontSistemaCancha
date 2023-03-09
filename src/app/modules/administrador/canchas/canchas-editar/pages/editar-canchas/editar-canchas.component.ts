@@ -15,23 +15,27 @@ import Swal from 'sweetalert2';
 })
 export class EditarCanchasComponent {
 
-  loading: boolean = true;
   listaCancha: any[] = [];
-  cancha: Canchas = new Canchas;
-  blockSpecial: RegExp = /^[^<>*!]+$/
+
   pageActual: number = 1;
+  loading: boolean = true;
   displayEU: boolean = false;
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
+
   subcadena: string = '';
-  entrada:any;
-  estVerificarTarifa: boolean = false;
+
+  cancha: Canchas = new Canchas;
   establecimiento: Establecimiento = new Establecimiento;
+
+  entrada:any;
   id_establ:any;
+
+  estadoif: boolean = false;
+
   constructor(private toastr: ToastrService, private establecimientoService: EstablecimientoService, private fotoService: FotoService, private canchasService: CanchasService, private router: Router) {
     this.obtener();
   }
-
 
   obtener(){
     this.id_establ = localStorage.getItem('EstablecimientoID');
@@ -42,120 +46,46 @@ export class EditarCanchasComponent {
       }
     )
   }
-
-
-  obtenerCanchas() {
-    this.establecimientoService.getEstablecimiento().subscribe(
-      data => {
-
-        for (let a = 0; a < data.length; a++) {
-          if (data[a].persona?.idPersona == Number(localStorage.getItem("localIdPersona"))) {
-            this.establecimiento.idEstablecimiento = data[a].idEstablecimiento;
-            this.establecimiento.ruc = data[a].ruc;
-            this.establecimiento.nombre = data[a].nombre;
-            this.establecimiento.puntuacion = data[a].puntuacion;
-            this.establecimiento.horaApertura = data[a].horaApertura;
-            this.establecimiento.horaCierre = data[a].horaCierre;
-            this.establecimiento.bar = data[a].bar;
-            this.establecimiento.estacionamiento = data[a].estacionamiento;
-            this.establecimiento.vestidores = data[a].vestidores;
-            this.establecimiento.banios = data[a].banios;
-            this.establecimiento.estado = data[a].estado;
-            this.establecimiento.provincia = data[a].provincia;
-            this.establecimiento.ciudad = data[a].ciudad;
-            this.establecimiento.direccion = data[a].direccion;
-            this.establecimiento.codigoPostal = data[a].codigoPostal;
-            this.establecimiento.fotoestablecimiento = data[a].fotoestablecimiento;
-            this.establecimiento.persona = data[a].persona;
-            this.establecimiento.ubicacion = data[a].ubicacion;
-          }
-        }
-
-        this.entrada = this.establecimiento.idEstablecimiento;
-        this.canchasService.getByEstablecimiento( this.entrada).subscribe(
-          data => {
-            this.listaCancha = data;
-            console.log(data)
-          }
-        );
-
-
-      }
-
-    )
-  }
-
+  
   editarCancha(cancha: Canchas) {
-
     this.displayEU = true;
-
-    this.cancha.idCancha = cancha.idCancha;
-    this.cancha.nombre = cancha.nombre;
-    this.cancha.tarifa = cancha.tarifa;
-    this.cancha.descripcion = cancha.descripcion;
-    this.cancha.ancho = cancha.ancho;
-    this.cancha.altura = cancha.altura;
-    this.cancha.foto = cancha.foto;
+    this.cancha = cancha;
   }
 
-  ActDesCancha(cancha: Canchas) {
-    console.log(cancha)
+  darBajaCancha(canh: Canchas) {
+    let title = '';
 
-    this.cancha.idCancha = cancha.idCancha;
-    this.cancha.nombre = cancha.nombre;
-    this.cancha.tarifa = cancha.tarifa;
-    this.cancha.descripcion = cancha.descripcion;
-    this.cancha.ancho = cancha.ancho;
-    this.cancha.altura = cancha.altura;
-    this.cancha.foto = cancha.foto;
-
-    if (cancha.vacante == true) {
-      this.cancha.vacante = false;
-
-      Swal.fire({
-        title: 'Desea Activar esta cancha ?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Activar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire(
-            'Cancha Activar!',
-            ':)'
-          )
-          this.actDesCanchas(cancha)
-          this.goToR()
-          this.limpiar()
-          console.log(this.cancha.vacante)
-        }
-      })
-
+    if (!canh.vacante) {
+      this.estadoif = false;
+      title = 'Deshabilitado!';
     } else {
-      this.cancha.vacante = true;
-
-      Swal.fire({
-        title: 'Desea Inactivar esta cancha ?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Inactivar!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire(
-            'Cancha Inactivar!',
-            ':('
-          )
-          this.actDesCanchas(cancha)
-          this.goToR()
-          this.limpiar()
-          console.log(this.cancha.vacante)
-        }
-      })
-
+      this.estadoif = true;
+      title = 'Habilitado!';
     }
+
+    this.cancha.vacante = this.estadoif;
+    this.canchasService.putCanchas(canh, canh.idCancha).subscribe(
+      data => {
+        Swal.fire({
+          title: 'Estado de cancha actualizado correctamente!',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Aceptar!',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.limpiar();
+          }
+        })
+        
+      }
+    )
   }
 
   descripcionSubcadena(cadena: string) {
@@ -167,53 +97,49 @@ export class EditarCanchasComponent {
     this.displayEU = false;
     this.cancha = new Canchas;
     this.listaCancha = [];
-    this.obtenerCanchas();
-  }
-
-  actDesCanchas(cancha: Canchas) {
-    this.canchasService.putCanchas(cancha, cancha.idCancha).subscribe(
-      data => {
-        console.log(cancha)
-        console.log(cancha.idCancha)
-        this.cancha.idCancha = data.idCancha;
-        this.cancha = cancha;
-      }
-    )
-    this.cancha = new Canchas;
-    this.limpiar()
-  }
-
-  validarTarifa(tari: string) {
-    const tarifaPattern: RegExp = /^[0-9]+(\.[0-9]+)?$/;
-    this.estVerificarTarifa = tarifaPattern.test(tari);
+    this.obtener();
   }
 
   actualizarCanchas() {
-    this.validarTarifa(this.cancha.tarifa);
+
     this.cargarImagen();
 
-    if (this.cancha.nombre.length === 0) { this.toastr.error("Campo nombres vacio!", "Error!"); }
-    else if (this.estVerificarTarifa == false) { this.toastr.error("Campo tarifa erroneo ejem: 12.2!", "Error!"); }
-    else if (this.cancha.descripcion.length === 0) { this.toastr.error("Campo descripcion vacio!", "Error!"); }
-    else if (String(this.cancha.ancho).length === 0) { this.toastr.error("Campo ancho de cancha debe ser mayor a cero!", "Error!"); }
-    else if (String(this.cancha.altura).length === 0) { this.toastr.error("Campo alto de cancha debe ser mayor a cero!", "Error!"); }
+    if (this.cancha.nombre == '') { this.toastr.error("Campo nombres vacio!", "Error!"); }
+    else if (this.cancha.tarifa == null) { this.toastr.error("Campo tarifa erroneo!", "Error!"); }
+    else if (Number(this.cancha.tarifa) < 0) { this.toastr.error("Campo tarifa erroneo debe ser mayor a cero!!", "Error!"); }
+    else if (this.cancha.descripcion == '') { this.toastr.error("Campo descripcion vacio!", "Error!"); }
+    else if (this.cancha.ancho == null) { this.toastr.error("Campo ancho de cancha erroneo!", "Error!"); }
+    else if (this.cancha.ancho < 0) { this.toastr.error("Campo ancho de cancha erroneo debe ser mayor a cero!", "Error!"); }
+    else if (this.cancha.altura == null) { this.toastr.error("Campo alto de cancha erroneo!", "Error!"); }
+    else if (this.cancha.altura < 0) { this.toastr.error("Campo alto de cancha erroneo debe ser mayor a cero!", "Error!"); }
     else{
       if (this.nombre_orignal.length != 0) { this.cancha.foto = this.nombre_orignal; }
-      
+
       this.canchasService.putCanchas(this.cancha, this.cancha.idCancha).subscribe(
         data => {
           this.cancha.idCancha = data.idCancha;
           this.cancha = this.cancha;
-          this.limpiar();
-          this.goToR()
+          Swal.fire({
+            title: 'Cancha actualizada correctamente!',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar!',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.limpiar();
+            }
+          })
         }
       )
+      
     }
-  }
-
-  goToR(){
-    this.router.navigate(['/inicio-canchas']);
-    this.obtenerCanchas();
   }
 
   // IMAGEN

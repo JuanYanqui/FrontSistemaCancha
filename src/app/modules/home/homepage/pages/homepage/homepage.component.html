@@ -74,17 +74,18 @@
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
     <main class="contenedor">
-      <h1>Realiza tus reservas ya</h1>
-   
-      <p class="lead">La mejor plataforma web de reserva de canchas sinteticas que ofertan un catalogo de horarios disponibles..</p>
-      <p class="lead">
-        <a   (click)="goToR($event)"  id="btns" class="btn btn-lg btn-secondary fw-bold border-white ">Iniciar Sesion</a>
-        
-      </p>
-      <div>
-      
+      <div class="mask" style="background-color: transparent">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white text-center">
+            <h1 class="mb-3">¡Bienvenidos al sistema más avanzado del mercado!</h1>
+            <h5 class="mb-4">Si eres un amante del fútbol, sabes lo difícil que puede ser conseguir una cancha sintética
+              disponible para jugar con tus amigos. Pero gracias a nuestro sistema de reservas, ese problema será cosa
+              del pasado.</h5>
+            <a class="btn btn-outline-light btn-lg m-2" (click)="recargar()" target="_blank"
+              role="button">Registrarse</a>
+          </div>
+        </div>
       </div>
-
     </main>
 
 
@@ -92,35 +93,54 @@
 
   <section class="testimonial">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 d-none d-lg-block">
-                <ol class="carousel-indicators tabs">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-                        <figure>
-                            <img src="../../../../../../assets/img/circulo1.png" class="img-fluid" alt="">
-                        </figure>
-                    </li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1">
-                        <figure>
-                            <img src="../../../../../../assets/img/circulo22.png"  class="img-fluid" alt="">
-                        </figure>
-                    </li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2">
-                        <figure>
-                            <img src="../../../../../../assets/img/circulo3.png"  class="img-fluid" alt="">
-                        </figure>
-                    </li>
-                    <li>
-                          
-                
-      
-                    </li>
-                </ol>
-            </div>
-            <div class="col-lg-6 d-flex justify-content-center align-items-center">
-             
-            </div>
+      <div class="row">
+        <div class="col-lg-6 d-none d-lg-block">
+          <ol class="carousel-indicators tabs">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+              <figure>
+                <img style="  border-radius: 50%; overflow: hidden; object-fit: cover;   width: 200px; height: 200px;" src="../../../../../../assets/img/w_fondos1.jpeg"
+                  class="img-fluid" alt="">
+              </figure>
+            </li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1">
+              <figure>
+                <img style="  border-radius: 50%; overflow: hidden; object-fit: cover;   width: 200px; height: 200px;"src="../../../../../../assets/img/w_fondos2.jpeg"
+                  class="img-fluid" alt="">
+              </figure>
+            </li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2">
+              <figure>
+                <img style="  border-radius: 50%; overflow: hidden; object-fit: cover; width: 450px; height: 200px;" src="../../../../../../assets/img/w_fondos3.jpeg"
+                  class="img-fluid" alt="">
+              </figure>
+            </li>
+            <li>
+              <ng-container *ngFor="!firstMapShown">
+                <div *ngFor="let establecimiento of listaestablecimiento">
+                  <agm-map [latitude]="lat" [longitude]="long">
+                    <agm-marker [latitude]="establecimiento.ubicacion.latitud"
+                      [longitude]="establecimiento.ubicacion.longitud"
+                      [iconUrl]="'https://i.pinimg.com/originals/db/e8/ae/dbe8ae2e31e0f2f88615010bd5f6462e.gif'"
+                      class="marker">
+                      <agm-info-window>
+                        <h3>{{establecimiento.nombre}}</h3>
+                        <p>{{establecimiento.ubicacion.calle_principal}}, {{establecimiento.ubicacion.ciudad}},
+                          {{establecimiento.ubicacion.pais}}</p>
+                        <img class="circular--square2"
+                          [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento" />
+                      </agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+                </div>
+              </ng-container>
+
+            </li>
+          </ol>
         </div>
+        <div class="col-lg-6 d-flex justify-content-center align-items-center">
+
+        </div>
+      </div>
     </div>
   </section>
 

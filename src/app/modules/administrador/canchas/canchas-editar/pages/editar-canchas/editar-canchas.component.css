@@ -1,3 +1,17 @@
+.pDetalle {
+    word-wrap: break-word;
+  }
+  
+  .pDetalle::after {
+    content: "\a"; /* Agrega un salto de línea */
+    white-space: pre-wrap; /* Preserva los espacios y los saltos de línea */
+    display: none; /* Oculta el contenido generado */
+  }
+  
+  .pDetalle:hover::after {
+    display: block; /* Muestra el contenido generado al pasar el mouse sobre el elemento */
+  }
+
 .home-section {
     position: relative;
     background: linear-gradient(to right, rgb(69, 235, 182), 30%, #022543);

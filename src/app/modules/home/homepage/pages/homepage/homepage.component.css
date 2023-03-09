@@ -1,6 +1,56 @@
 /*
  * Globals
  */
+ .card {
+  width: 12rem;
+  cursor: pointer;
+}
+
+.content {
+  text-align: center;
+  position: relative;
+  transition: all 2.25s;
+  background-color: rgb(127, 143, 134);
+  padding: 15em;
+  transform-style: preserve-3d;
+}
+
+.card:hover .content {
+  transform: rotateY(0.5turn);
+}
+
+.front,
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 2em;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.title {
+  transform: translateZ(5rem);
+  font-size: 2rem;
+  text-align: center;
+  
+}
+
+.subtitle {
+  transform: translateZ(2rem);
+}
+
+.back {
+  transform: rotateY(0.5turn);
+  background-color: rgb(26,42,33);
+}
+
+.description {
+  font-size: 2rem;
+  transform: translateZ(3rem);
+}
 
 
 /* Custom default button */
@@ -22,7 +72,7 @@ agm-map{
  */
 
 body {
-background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../../../assets/img/portada2.jpg);
+background: linear-gradient(rgba(0,0,0,0.4), transparent), url(../../../../../../assets/img/w_fondos6.jpeg);
 background-repeat: no-repeat;
 background-position: center;
 background-size: cover;

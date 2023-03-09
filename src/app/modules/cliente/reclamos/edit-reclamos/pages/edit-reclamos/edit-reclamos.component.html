@@ -4,9 +4,9 @@
         <p-panel id="panellistreclamo">
             <div class="panel over overflow-auto p-grid p-fluid">
                 <p-table #dt3 [value]="listaReclamos" dataKey="id" [rowHover]="true" [rows]="10"
-                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" 
-                    [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [filterDelay]="0" [globalFilterFields]="['titulo','descripcion','fecha','cliente','admistrador']">
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                    [globalFilterFields]="['titulo','descripcion','fecha','cliente','admistrador']">
                     <ng-template pTemplate="caption">
                         <div class="table-header">
                             <span class="p-input-icon-right">
@@ -21,7 +21,7 @@
                         <tr>
                             <th pSortableColumn="cedula">
                                 <div class="p-d-flex p-jc-between p-ai-center">
-                                    Título
+                                    Titulo
                                     <p-sortIcon field="titulo"></p-sortIcon>
                                     <p-columnFilter type="text" field="titulo" display="menu" class="p-ml-auto">
                                     </p-columnFilter>
@@ -29,7 +29,7 @@
                             </th>
                             <th pSortableColumn="descripcion">
                                 <div class="p-d-flex p-jc-between p-ai-center">
-                                    Descripción
+                                    Descripcion
                                     <p-sortIcon field="descripcion"></p-sortIcon>
                                     <p-columnFilter type="text" field="descripcion" display="menu"
                                         class="p-ml-auto"></p-columnFilter>
@@ -50,7 +50,7 @@
                                     <p-columnFilter type="text" field="cliente" display="menu" class="p-ml-auto">
                                     </p-columnFilter>
                                 </div>
-                            </th> 
+                            </th>
                             <th pSortableColumn="admistrador">
                                 <div class="p-d-flex p-jc-between p-ai-center">
                                     Administrador
@@ -58,16 +58,27 @@
                                     <p-columnFilter type="text" field="admistrador" display="menu" class="p-ml-auto">
                                     </p-columnFilter>
                                 </div>
-                            </th>                            
+                            </th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-reclamo>
                         <tr class="p-selectable-row">
                             <td>
-                                {{reclamo.titulo}}
+                                <p class="pDetalle"  style="width: 200px; font-weight: bold;">
+                                    {{reclamo.titulo}}
+                                </p>
+
                             </td>
                             <td>
-                                {{reclamo.descripcion}}
+                                <details>
+                                    <summary>
+                                        {{descripcionSubcadena(reclamo.descripcion)}}
+                                        {{subcadena}}
+                                    </summary>
+                                    <p class="pDetalle" style="width: 200px; font-weight: bold;">
+                                        {{reclamo.descripcion}}
+                                    </p>
+                                </details>
                             </td>
                             <td>
                                 {{reclamo.fecha_reclamo}}
@@ -79,12 +90,12 @@
                                 {{reclamo.administrador?.nombre}} {{reclamo.administrador?.apellido}}
                             </td>
                             <td style="text-align: center">
-                                <button pButton pRipple type="button" icon="pi pi-pencil" label="" 
+                                <button pButton pRipple type="button" icon="pi pi-pencil" label=""
                                     class="p-button-warning" (click)="editarReclamo(reclamo)"></button>
                             </td>
                             <td style="text-align: center">
-                                <button pButton pRipple type="button" icon="fatrash" label="" 
-                                    class="p-button-danger" (click)="eliminarReclamo(reclamo.idReclamo)"></button>
+                                <button pButton pRipple type="button" icon="fatrash" label="" class="p-button-danger"
+                                    (click)="eliminarReclamo(reclamo.idReclamo)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -97,39 +108,40 @@
             </div>
         </p-panel>
     </body>
-  
+
     <p-dialog header="Editar reclamo" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
         [baseZIndex]="10000" [draggable]="false" [resizable]="false">
         <ng-template pTemplate="body">
             <div class="p-grid p-fluid">
-              <h2 class="form-label-p text-center">Modificar Reclamos</h2>
-  
-            
+                <h2 class="form-label-p text-center">Modificar Reclamos</h2>
+
+
                 <div class="row">
                     <div class="col">
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.titulo"
-                                    maxlength="100" minlength="2" pInputText required (keypress)="onKeyPressLetras($event)">
-                                <label for="float-input">Título</label>
+                                <input id="float-input" type="text" [(ngModel)]="reclamo.titulo" maxlength="100"
+                                    minlength="3" pInputText (keypress)="onKeyPressLetras($event)">
+                                <label for="float-input">Titulo</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <textarea id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.descripcion"
-                                    maxlength="1000" minlength="2" pInputText></textarea>
-                                <label for="float-input">Descripción</label>
+                                <textarea id="float-input" type="text" [(ngModel)]="reclamo.descripcion"
+                                    maxlength="10000" minlength="3" pInputText></textarea>
+                                <label for="float-input">Descripcion</label>
                             </span>
-                        </div>                        
+                        </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
-                                <input type="date" id="float-input" disabled="true" [(ngModel)]="reclamo.fecha_reclamo" pInputText>
+                                <input type="date" id="float-input" disabled="true" [(ngModel)]="reclamo.fecha_reclamo"
+                                    pInputText>
                                 <label for="float-input">Fecha Actual</label>
                             </span>
-                        </div>                        
+                        </div>
                     </div>
                     <br>
-  
+
                 </div>
                 <div class="p-col-12 p-md-4">
                     <div class="row">
@@ -146,5 +158,5 @@
             </div>
         </ng-template>
     </p-dialog>
-  
-  </div>
+
+</div>

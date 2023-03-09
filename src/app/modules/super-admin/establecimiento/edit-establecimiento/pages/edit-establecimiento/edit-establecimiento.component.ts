@@ -13,6 +13,7 @@ import { UbicacionService } from 'src/app/shared/services/ubicacion.sevice';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
 import { MouseEvent as MapMouseEvent } from '@agm/core';
 import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-establecimiento',
@@ -22,55 +23,65 @@ import { PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 export class EditEstablecimientoComponent {
 
   listaUsuarios: Usuario[] = [];
-listaestablecimiento: any []=[];
-listaubicaciones: any []=[];
-loaded = false;
+  listaestablecimiento: any[] = [];
+  listaubicaciones: any[] = [];
+
+  loaded = false;
   loading: boolean = true;
+  displayEU: boolean = false;
   showMe!: boolean;
   selectedId = 0;
-  arrayExcel:any;
-  arraySelected:any;
+  pageActual: number = 1;
 
-  displayEU: boolean = false;
+  arrayExcel: any;
+  arraySelected: any;
 
   genero: any;
-  pageActual:number=1;
   fecha: string = '';
-  latu: number = 0;
-longu: number= 0;
+
 
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario;
   establecimiento: Establecimiento = new Establecimiento;
-  ubicacion: Ubicacion= new Ubicacion;
-
-  blockSpecial: RegExp = /^[^<>*!]+$/ ///^[^<>*!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-  valCorreo: RegExp = /^[^<>*!$%^=\s+?`\|{}[~"']+$/
+  ubicacion: Ubicacion = new Ubicacion;
 
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
-hasBarControl = new FormControl(false);
-hasEstacionamientoControl = new FormControl(false);
-hasbanioControl = new FormControl(false);
-hasVestidirControl = new FormControl(false);
-isButtonEnabled2: boolean = false;
+
+  hasBarControl = new FormControl(false);
+  hasEstacionamientoControl = new FormControl(false);
+  hasbanioControl = new FormControl(false);
+  hasVestidirControl = new FormControl(false);
+  isButtonEnabled2: boolean = false;
+
+  latu: number = 0;
+  longu: number = 0;
   lat: number = 0;
-  long: number= 0;
+  long: number = 0;
   zoom: number;
+
   iconUrl?: String;
- mapTypeId: string;
+  mapTypeId: string;
+
   generos: string[] = [
     'Masculino', 'Femenino', 'Otro'
   ];
 
+  ao1: String = '';
+  ao2: String = '';
+  estHora: Boolean = false;
+
+  valorlati: any;
+  valorlongi: any;
+
   constructor(private fotoService: FotoService, private toastr: ToastrService, private personaService: PersonaService, private ubicacionService: UbicacionService, private establecimientoService: EstablecimientoService, private router: Router) {
-    this.lat=-1.831239;
-    this.long =-78.183406;
+    this.lat = -1.831239;
+    this.long = -78.183406;
     this.zoom = 25;
     this.mapTypeId = 'hybrid';
     this.obtenerEstablecimiento();
-   this. obtenerUbicacion();
-   }
+    this.obtenerUbicacion();
+  }
 
   ngOnInit(): void {
   }
@@ -81,7 +92,7 @@ isButtonEnabled2: boolean = false;
         this.listaestablecimiento = data;
         console.log(data);
         this.loaded = true;
-          this.loading = false;
+        this.loading = false;
       }
     );
   }
@@ -90,7 +101,7 @@ isButtonEnabled2: boolean = false;
     this.ubicacionService.getUbicacion().subscribe(
       data => {
         this.listaubicaciones = data;
-        
+
         console.log(data);
       }
     );
@@ -110,27 +121,67 @@ isButtonEnabled2: boolean = false;
     return [year, month, day].join('-');
   }
 
+  validarFecha() {
+    this.ao1 = String(this.establecimiento.horaApertura);
+    this.ao1 = this.ao1[0] + this.ao1[1]
+    this.ao2 = String(this.establecimiento.horaCierre);
+    this.ao2 = this.ao2[0] + this.ao2[1]
+
+    if (Number(this.ao1) != Number(this.ao2)) {
+      this.estHora = true;
+    } else {
+      this.estHora = false;
+    }
+  }
+
   actualizarEsta() {
 
-    this.establecimiento.fotoestablecimiento = this.nombre_orignal;
-    console.log( this.establecimiento.fotoestablecimiento);
-    this.ubicacionService.updateUbicacion(this.ubicacion, this.ubicacion.idUbicacion).subscribe(
-      data => {
-        this.ubicacion.idUbicacion = data.idUbicacion;
-        this.establecimiento.ubicacion = this.ubicacion;
-        
-        
-        this.cargarImagen();
-        this.establecimientoService.updateEstablecimiento(this.establecimiento, this.establecimiento.idEstablecimiento).subscribe(
-          result => {
-            console.log(result);
-            this.limpiar();
-            this.toastr.success('Establecimiento actualizado correctamente', 'Exitoso!');
+    this.validarFecha();
+    this.cargarImagen();
+    
+    if (this.establecimiento.nombre == '') { this.toastr.error("Campo nombre de establecimiento erroneo", "Error!"); }
+    else if (String(this.establecimiento.horaApertura) === '') { this.toastr.error("campos hora de apertura erroneo", "Error!"); }
+    else if (String(this.establecimiento.horaCierre) === '') { this.toastr.error("campos hora de cierre erroneo", "Error!"); }
+    else if (this.estHora == false) { this.toastr.error("campos hora no pueden ser iguales", "Error!"); }
+    else if (String(this.ubicacion.calle_principal) === '') { this.toastr.error("Campo calle principal erroneo", "Error!"); }
+    else if (String(this.ubicacion.calle_secundaria) === '') { this.toastr.error("Campo calle secundaria erroneo", "Error!"); }
+    else if (String(this.ubicacion.referencia) === '') { this.toastr.error("Campo referencia erroneo", "Error!"); }
+    else if (this.ubicacion.numero == null) { this.toastr.error("Campo numero de propiedad erroneo", "Error!"); }
+    else {
+      if (this.nombre_orignal.length != 0) { this.establecimiento.fotoestablecimiento = this.nombre_orignal; }
+      
+      console.log(this.establecimiento.fotoestablecimiento);
+      this.ubicacionService.updateUbicacion(this.ubicacion, this.ubicacion.idUbicacion).subscribe(
+        data => {
+          this.ubicacion.idUbicacion = data.idUbicacion;
+          this.establecimiento.ubicacion = this.ubicacion;
 
-          }
-        )
-      }
-    )
+
+          this.cargarImagen();
+          this.establecimientoService.updateEstablecimiento(this.establecimiento, this.establecimiento.idEstablecimiento).subscribe(
+            result => {
+              Swal.fire({
+                title: 'Establecimiento actualizado correctamente!',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.limpiar();
+                }
+              })
+            }
+          )
+        }
+      )
+    }
   }
 
   getCoordinates(event: MapMouseEvent) {
@@ -141,9 +192,9 @@ isButtonEnabled2: boolean = false;
     // this.getLocationData(this.latu, this.longu);
     // this.geocodeAddress(this.latu, this.longu);
     this.ubicacion.latitud = this.latu;
-console.log(this.ubicacion.latitud)
-this.ubicacion.longitud = this.longu;
-console.log(this.ubicacion.longitud)
+    console.log(this.ubicacion.latitud)
+    this.ubicacion.longitud = this.longu;
+    console.log(this.ubicacion.longitud)
   }
 
   checkHasBar() {
@@ -155,10 +206,10 @@ console.log(this.ubicacion.longitud)
       console.log('Has bar');
       this.establecimiento.bar = true;
       console.log(this.establecimiento.bar);
-    
+
     }
   }
-  
+
   checkHasEsta() {
     if (this.hasEstacionamientoControl.value) {
       console.log('Does not have esta');
@@ -168,9 +219,10 @@ console.log(this.ubicacion.longitud)
       console.log('Has esta');
       this.establecimiento.estacionamiento = true;
       console.log(this.establecimiento.estacionamiento);
-    
+
     }
   }
+
   checkHasBanio() {
     if (this.hasbanioControl.value) {
       console.log('Does not have banio');
@@ -180,9 +232,10 @@ console.log(this.ubicacion.longitud)
       console.log('Has banio');
       this.establecimiento.banios = true;
       console.log(this.establecimiento.banios);
-    
+
     }
   }
+
   checkHasVesti() {
     if (this.hasVestidirControl.value) {
       console.log('Does not have vesti');
@@ -192,29 +245,27 @@ console.log(this.ubicacion.longitud)
       console.log('Has vesti');
       this.establecimiento.vestidores = true;
       console.log(this.establecimiento.vestidores);
-    
+
     }
   }
 
-  valorlati: any;
-  valorlongi: any;
   editarEstablecimiento(establecimiento: Establecimiento) {
-    
+
     this.displayEU = true;
 
-   this.establecimiento.idEstablecimiento = establecimiento.idEstablecimiento;
+    this.establecimiento.idEstablecimiento = establecimiento.idEstablecimiento;
     this.establecimiento.nombre = establecimiento.nombre;
     this.establecimiento.horaApertura = establecimiento.horaApertura;
     this.establecimiento.horaCierre = establecimiento.horaCierre;
     this.ubicacion.calle_principal = establecimiento.ubicacion?.calle_principal;
     this.ubicacion.calle_secundaria = establecimiento.ubicacion?.calle_secundaria;
-    
+
     this.ubicacion.latitud = establecimiento.ubicacion?.latitud;
     this.valorlati = establecimiento.ubicacion?.latitud;
-    console.log("Valor de latitud"+this.valorlati);
+    console.log("Valor de latitud" + this.valorlati);
     this.ubicacion.longitud = establecimiento.ubicacion?.longitud;
     this.valorlongi = establecimiento.ubicacion?.longitud;
-    console.log("Vlor de longitd"+this.valorlongi);
+    console.log("Vlor de longitd" + this.valorlongi);
     this.ubicacion.numero = establecimiento.ubicacion?.numero;
 
     this.ubicacion.referencia = establecimiento.ubicacion?.referencia;
@@ -225,17 +276,9 @@ console.log(this.ubicacion.longitud)
     this.ubicacion.idUbicacion = establecimiento.ubicacion?.idUbicacion;
 
     this.establecimiento.fotoestablecimiento = establecimiento.fotoestablecimiento;
-  //  this.metodoubi();
+    //  this.metodoubi();
   }
 
-  // metodoubi(){
-  //   //  this.longitudF = localStorage.getItem('latitudguard');
-  //    const latitudcap = localStorage.getItem('latitudguard');
-  //   console.log(latitudcap);
-  //   // console.log(this.latitudF);
-  //   const longitdcap = localStorage.getItem('longitudguard');
-  //   console.log(latitudcap);
-  // }
   limpiar() {
     this.displayEU = false;
     this.establecimiento = new Establecimiento;
@@ -247,57 +290,6 @@ console.log(this.ubicacion.longitud)
     this.obtenerUbicacion();
   }
 
-
-
-  // actualizarUsuario() {
-  //   this.personaService.updatePersona(this.persona, this.persona.idPersona).subscribe(
-  //     data => {
-  //       this.persona.idPersona = data.idPersona;
-  //       this.usuario.persona = this.persona;
-
-  //       this.usuarioService.updateUsuario(this.usuario, this.usuario.idUsuario).subscribe(
-  //         result => {
-  //           console.log(result);
-  //           this.limpiar();
-  //           this.toastr.success('Usuario actualizado correctamente', 'Exitoso!');
-
-  //         }
-  //       )
-  //     }
-  //   )
-  // }
-
-  // darBajaUsuario(usuario: Usuario) {
-  //   let title = '';
-
-  //   if (!usuario.estado) {
-  //     usuario.estado = false;
-  //     title = 'Deshabilitado!';
-  //   } else {
-  //     usuario.estado = true;
-  //     title = 'Habilitado!';
-  //   }
-
-  //   this.usuarioService.updateUsuario(usuario, usuario.idUsuario).subscribe(
-  //     data => {
-  //       console.log(data);
-  //       this.toastr.warning('Usuario ' + title, 'Advertencia!')
-  //       this.limpiar();
-  //     }
-  //   )
-  // }
-
-  // limpiar() {
-  //   this.displayEU = false;
-  //   this.persona = new Persona;
-  //   this.usuario = new Usuario;
-
-  //   this.loading = true;
-  //   this.listaUsuarios = [];
-  //   this.obtenerUsuariosPrivilegios();
-  // }
-
-    
   // IMAGEN
   image!: any;
   file: any = '';
@@ -335,11 +327,11 @@ console.log(this.ubicacion.longitud)
     this.fotoService.guararImagenes(this.selectedFile);
   }
 
-
   extractData(datosTabla: any) {
     console.log(datosTabla)
-    return datosTabla.map((row: any) => [row.id || " ", row.ruc || " ", row.nombre || " ", row.calle_principal || " ", row.calle_secundaria || " ", row.representante || " ", row.apellido || " " ]);
+    return datosTabla.map((row: any) => [row.id || " ", row.ruc || " ", row.nombre || " ", row.calle_principal || " ", row.calle_secundaria || " ", row.representante || " ", row.apellido || " "]);
   }
+
   async generaraPDF() {
     if (this.arraySelected <= 0) {
       alert("Seleccione todos los productos para poder generara el pdf")
@@ -367,6 +359,7 @@ console.log(this.ubicacion.longitud)
       pdf.create().open();
     }
   }
+
   exportSelectedX() {
     if (this.arraySelected.length < 1) {
       alert('Por favor seleccione al menos un producto')
@@ -396,7 +389,7 @@ console.log(this.ubicacion.longitud)
       });
     }
     */
-  
+
     }
   }
 

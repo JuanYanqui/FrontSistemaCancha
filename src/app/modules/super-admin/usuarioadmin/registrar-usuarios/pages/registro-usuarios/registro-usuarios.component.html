@@ -22,10 +22,10 @@
                                     <div class="col">
                                         <div class="p-col-12 p-md-4">
                                             <span class="p-float-label">
-                                                <input id="float-input" type="text" [(ngModel)]="persona.cedula"
+                                                <input iid="float-input" type="text" [(ngModel)]="persona.cedula"
                                                     [pKeyFilter]="'int'" maxlength="10" minlength="10"
                                                     (ngModelChange)='buscarPorCedula()' pInputText required>
-                                                <label for="float-input">Cédula</label>
+                                                <label for="float-input">Cedula</label>
                                             </span>
                                         </div>
                                         <div class="p-col-12 p-md-4">
@@ -54,8 +54,9 @@
                                         <div class="p-col-12 p-md-4">
                                             <span class="p-float-label">
                                                 <input id="float-input" type="text" [(ngModel)]="persona.direccion"
-                                                    maxlength="30" minlength="5" pInputText>
-                                                <label for="float-input">Dirección</label>
+                                                    (keypress)="onKeyPressLetras($event)" maxlength="100" minlength="3"
+                                                    pInputText>
+                                                <label for="float-input">Direccion</label>
                                             </span>
                                         </div>
                                         <div class="p-col-12 p-md-4">
@@ -86,8 +87,8 @@
                                         </div>
                                         <div class="p-col-3 p-md-4">
                                             <span class="p-float-label">
-                                                <p-inputMask mask="09-99999999" [(ngModel)]="persona.celular"
-                                                    placeholder=""></p-inputMask>
+                                                <p-inputMask id="float-input" mask="09-99999999"
+                                                    [(ngModel)]="persona.celular" placeholder=""></p-inputMask>
                                                 <label for="float-input">Celular</label>
                                             </span>
                                         </div>
@@ -182,15 +183,15 @@
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input [disabled]="!isinactivo" id="float-input" type="text"
-                                            [(ngModel)]="persona.nombre" maxlength="30" minlength="3" pInputText>
-                                        <label for="float-input">Nombres</label>
+                                        <input id="float-input" type="text" [(ngModel)]="persona.nombre" pInputText
+                                            [disabled]="true">
+                                        <label for="float-input">Nombre</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
-                                        <input [disabled]="!isinactivo" id="float-input" type="text"
-                                            [(ngModel)]="persona.apellido" maxlength="30" minlength="3" pInputText>
+                                        <input id="float-input" type="text" [(ngModel)]="persona.apellido" pInputText
+                                            [disabled]="true">
                                         <label for="float-input">Apellidos</label>
                                     </span>
                                 </div>

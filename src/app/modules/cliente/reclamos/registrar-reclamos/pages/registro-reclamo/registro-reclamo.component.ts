@@ -26,11 +26,11 @@ import { DatePipe } from '@angular/common';
 })
 export class RegistroReclamoComponent {
 
-  personaCli: Persona = new Persona;
-
-  personaAdmi: Persona = new Persona;
-
   canchas: Canchas = new Canchas;
+  personaCli: Persona = new Persona;
+  personaAdmi: Persona = new Persona;
+  reclamo: Reclamos = new Reclamos();
+
   id: number = 0;
   idclient: number = 0;
   idCancha: number = 0;
@@ -40,17 +40,15 @@ export class RegistroReclamoComponent {
   apellido?: string;
   nombreAdmin?: String;
   apellidoAdmin?: string;
-  blockSpecial: RegExp = /^[^<>!]+$/ ///^[^<>!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-  reclamo: Reclamos = new Reclamos();
+
   cliente: Persona[] = [];
   administrador: Persona[] = [];
   listaReclamos: any[] = [];
+
   today = new Date().toLocaleString();
   displayEU: boolean = false;
   loading?: boolean
-  //this.getCliente();
 
-  //fecha
   currentDate = new Date();
   isoDate = this.currentDate.toISOString();
   formattedDate = this.isoDate.substring(0, 10);
@@ -60,27 +58,13 @@ export class RegistroReclamoComponent {
 
   }
 
-  recargar($event: any): void {
-
+  recargar(): void {
     this.router.navigate(['/cliente/reclamo/register-reclamo'])
-    console.log($event)
   }
 
   ngOnInit(): void {
-
-
-
-    //this.reclamoService.listarPorId(idUsuario)
-    //.subscribe(response => this.cliente = response)
-
     this.verpersona();
     this.verAdministrador(this.canchas.idCancha);
-    //const id = 3; 
-    //this.reclamoService.listarPorId(id).subscribe(persona => this.personaEncontrada = persona);
-    //console.log(persona);
-
-
-
   }
 
   onKeyPressLetras(event: KeyboardEvent) {
@@ -109,21 +93,25 @@ export class RegistroReclamoComponent {
       this.reclamoService.postReclamos(this.reclamo)
         .subscribe(response => console.log("EXITO!!"))
 
-      Swal.fire('Reclamo guardado correctamente!', 'success');
       Swal.fire({
+        title: 'Reclamo guardado correctamente!',
         icon: 'success',
-        title: 'En buena hora',
-        text: 'Reclamo registrado correctamente!',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar!',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.limpiar()
+          this.recargar()
+        }
       })
-      this.limpiar();
-
     }
-  }
-
-  onSubmit() {
-    console.log(this.reclamo)
-    this.guardarReclamo()
-    //this.getCliente();
   }
 
   limpiar() {
@@ -132,33 +120,32 @@ export class RegistroReclamoComponent {
 
     this.loading = true;
     this.listaReclamos = [];
-    window.location.reload()
+    //window.location.reload()
     this.verpersona();
     this.verAdministrador(this.canchas.idCancha);
   }
 
   verpersona() {
     this.id = Number(localStorage.getItem("localIdPersona"))
-    this.personaService.getPorId(this.id).subscribe(data => {
-      this.personaCli.idPersona = data.idPersona;
-      this.personaCli.nombre = data.nombre;
-      this.personaCli.apellido = data.apellido;
-      this.personaCli.fechaNacimmiento = data.fechaNacimmiento;
-      this.personaCli.genero = data.genero;
-      this.personaCli.direccion = data.direccion;
-      this.personaCli.email = data.email;
-      this.personaCli.telefono = data.telefono;
-      this.personaCli.celular = data.celular;
-      this.personaCli.foto = data.foto;
-      this.personaCli.fechaRegistro = data.fechaRegistro;
+      this.personaService.getPorId(this.id).subscribe(data => {
+        this.personaCli.idPersona = data.idPersona;
+        this.personaCli.nombre = data.nombre;
+        this.personaCli.apellido = data.apellido;
+        this.personaCli.fechaNacimmiento = data.fechaNacimmiento;
+        this.personaCli.genero = data.genero;
+        this.personaCli.direccion = data.direccion;
+        this.personaCli.email = data.email;
+        this.personaCli.telefono = data.telefono;
+        this.personaCli.celular = data.celular;
+        this.personaCli.foto = data.foto;
+        this.personaCli.fechaRegistro = data.fechaRegistro;
 
-      this.reclamo.cliente = this.personaCli
+        this.reclamo.cliente = this.personaCli
 
-      this.nombre = data.nombre;
-      this.apellido = data.apellido;
+        this.nombre = data.nombre;
+        this.apellido = data.apellido;
 
-    }
-
+      }
     )
   }
 
@@ -188,9 +175,6 @@ export class RegistroReclamoComponent {
 
       this.reclamo.administrador = this.personaAdmi
 
-
-      //this.reclamo.administrador = this.person
-
       this.idPersona = data.establecimiento?.persona?.idPersona;
       this.apellidoAdmin = data.establecimiento?.persona?.apellido;
       this.nombreAdmin = data.establecimiento?.persona?.nombre;
@@ -198,5 +182,4 @@ export class RegistroReclamoComponent {
 
     });
   }
-
 }

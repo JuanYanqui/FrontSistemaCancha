@@ -7,6 +7,7 @@ import { Reclamos } from 'src/app/core/models/reclamos';
 import { CanchasService } from 'src/app/shared/services/cancha.servicio';
 import { PersonaService } from 'src/app/shared/services/persona.service';
 import { ReclamoService } from 'src/app/shared/services/reclamo.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-reclamos',
@@ -14,50 +15,30 @@ import { ReclamoService } from 'src/app/shared/services/reclamo.service';
   styleUrls: ['./edit-reclamos.component.css']
 })
 export class EditReclamosComponent {
-  /*
-    personaCli: Persona = new Persona;
-  
-    personaAdmi: Persona = new Persona;
-    
-    canchas: Canchas = new Canchas;
-      id: number = 0;
-    idCancha: number = 0;
-    idPersona?: number = 0;
-    idP?: number = 0;
-    idsalida!: number;
-    nombre!: string;
-    apellido?: string;
-    nombreAdmin?: String;
-    apellidoAdmin?: string;
-  */
+
   listaReclamos: any[] = [];
   icnActivo: String = "pi pi-check";
   icnInactivo: String = "pi pi-times";
-  displayEU: boolean = false;
-  blockSpecial: RegExp = /^[^<>!]+$/ ///^[^<>!#@$%^_=+?`\|{}[\]~"'\.\,=0123456789/;:]+$/
-  valCorreo: RegExp = /^[^<>*!$%^=\s+?`\|{}[~"']+$/
+  
   reclamo: Reclamos = new Reclamos;
   persona: Persona = new Persona;
-  pageActual: number = 1;
 
   client: Persona[] = [];
   administrator: Persona[] = [];
-  totalRecords?: number;
 
+  pageActual: number = 1;
+  totalRecords?: number;
   loading?: boolean
 
   selectAll: boolean = false;
+  displayEU: boolean = false;
 
   idclient: number = 0;
+  subcadena: string = '';
 
   constructor(private canchaService: CanchasService, private toastr: ToastrService, private personaService: PersonaService, private router: Router, private reclamoService: ReclamoService) {
     this.obtenerReclamos();
 
-  }
-
-  ngOnInit(): void {
-    //this.verpersona();
-    //this.verAdministrador(this.canchas.idCancha);
   }
 
   onKeyPressLetras(event: KeyboardEvent) {
@@ -69,19 +50,14 @@ export class EditReclamosComponent {
     }
   }
 
+  descripcionSubcadena(cadena: string) {
+    this.subcadena = '';
+    this.subcadena = cadena.substring(0, 10) + "...";
+  }
 
   editarReclamo(reclamo: Reclamos) {
-
     this.displayEU = true;
-
-    this.reclamo.idReclamo = reclamo.idReclamo;
-    this.reclamo.titulo = reclamo.titulo;
-    this.reclamo.descripcion = reclamo.descripcion;
-    this.reclamo.fecha_reclamo = reclamo.fecha_reclamo;
-    this.reclamo.cliente = reclamo.cliente;
-    this.reclamo.administrador = reclamo.administrador;
-
-    console.log(this.reclamo.idReclamo);
+    this.reclamo = reclamo;
   }
 
   obtenerReclamos() {
@@ -92,9 +68,6 @@ export class EditReclamosComponent {
       }
     );
   }
-
-
-
 
   actualizarReclamo() {
     console.log(this.reclamo.idReclamo);
@@ -111,7 +84,24 @@ export class EditReclamosComponent {
           this.obtenerReclamos();
         }
       )
-      this.limpiar();
+      this.displayEU = false;
+      Swal.fire({
+        title: 'Reclamo actualizado correctamente!',
+        icon: 'success',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Aceptar!',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.limpiar()
+        }
+      })
     }
   }
 
@@ -125,16 +115,65 @@ export class EditReclamosComponent {
   }
 
   eliminarReclamo(idReclamo: number) {
-    this.reclamoService.deleteReclamoById(idReclamo).subscribe(
-      () => {
-        this.toastr.success('Reclamo eliminado correctamente', 'Eliminación exitosa');
-        // Aquí puedes actualizar la lista de reclamos si es necesario
+      Swal.fire({
+      title: 'Esta seguro de eliminar este reclamo!',
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar!',
+      showCancelButton: true,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
       },
-      error => {
-        console.log(error);
-        this.toastr.error('No se pudo eliminar el reclamo', 'Error');
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
       }
-    );
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.reclamoService.deleteReclamoById(idReclamo).subscribe(
+          () => {
+            Swal.fire({
+              title: 'Reclamo eliminado correctamente!',
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Aceptar!',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.limpiar();
+              }
+            })
+          },
+          error => {
+            Swal.fire({
+              title: 'No se pudo eliminar el reclamo!',
+              icon: 'error',
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Aceptar!',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.limpiar();
+              }
+            })
+          }
+        );
+
+
+      }
+    })
   }
 
 }

@@ -1,3 +1,18 @@
+.pDetalle {
+  word-wrap: break-word;
+}
+
+.pDetalle::after {
+  content: "\a"; /* Agrega un salto de línea */
+  white-space: pre-wrap; /* Preserva los espacios y los saltos de línea */
+  display: none; /* Oculta el contenido generado */
+}
+
+.pDetalle:hover::after {
+  display: block; /* Muestra el contenido generado al pasar el mouse sobre el elemento */
+}
+
+
 agm-map{
     width: 400px;
     height: 400px;
