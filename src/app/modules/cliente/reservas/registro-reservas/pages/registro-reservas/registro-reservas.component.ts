@@ -240,11 +240,12 @@ export class RegistroReservasComponent {
     });
   }
 
-  eliminarDisponibilidad(disponibilidad: Disponibilidad) {
-    const index = this.disponibilidades.indexOf(disponibilidad);
-    if (index >= 0) {
-      this.disponibilidades.splice(index, 1);
-    }
+  eliminarDisponibilidad(iddis:number) {
+    this.disponibilidadservice.deleteDiponibilidad(iddis).subscribe(data =>{
+console.log(data);
+this.toastr.warning("Hora eliminada");
+location.reload();
+    })
   }
 valor:any;
 crearReserva() {
@@ -264,6 +265,27 @@ crearReserva() {
     console.log(numDisponibilidades);
   });
 }
+
+fechaescogida: Date = new Date(); // inicializa fechaescogida con la fecha actual
+
+  hoyFecha(): string {
+    const hoy = new Date();
+    const dd = String(hoy.getDate()).padStart(2, '0');
+    const mm = String(hoy.getMonth() + 1).padStart(2, '0'); // Enero es 0!
+    const yyyy = hoy.getFullYear();
+
+    const hoyFecha = yyyy + '-' + mm + '-' + dd;
+    return hoyFecha;
+  }
+
+  validarFecha(event:any) {
+    if (this.fechaescogida < new Date()) {
+      event.target.setCustomValidity('La fecha no puede ser menor a la fecha actual');
+    } else {
+      event.target.setCustomValidity('');
+    }
+  }
+
 
 CrearNoPago() {
   if (this.reserva) { // Comprobar que la reserva tenga un valor

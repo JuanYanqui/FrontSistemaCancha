@@ -5,7 +5,7 @@ import { Ubicacion } from 'src/app/core/models/ubicacion';
 import { EstablecimientoService } from 'src/app/shared/services/establecimiento.service';
 import { FotoService } from 'src/app/shared/services/foto.service';
 import { UbicacionService } from 'src/app/shared/services/ubicacion.sevice';
-import { MouseEvent as MapMouseEvent } from '@agm/core';
+import { MapsAPILoader, MouseEvent as MapMouseEvent } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from 'src/app/core/models/persona';
 import { PersonaService } from 'src/app/shared/services/persona.service';
@@ -64,13 +64,22 @@ export class RegistrarEstablecimientoComponent {
   valnombre: string = '';
   valhora1: string = '';
   valhora2: string = '';
+  address!: string;
+  geocoder!: google.maps.Geocoder;
+  direccion = '';
 
-  constructor(private cargarScripts: CargarScriptsService, private personaService: PersonaService, private http: HttpClient, private toast: ToastrService, private establecimientoService: EstablecimientoService, private ubicacionService: UbicacionService, private usuarioService: UsuarioService, private fotoService: FotoService) {
+  constructor(private mapsAPILoader: MapsAPILoader,private cargarScripts: CargarScriptsService, private personaService: PersonaService, private http: HttpClient, private toast: ToastrService, private establecimientoService: EstablecimientoService, private ubicacionService: UbicacionService, private usuarioService: UsuarioService, private fotoService: FotoService) {
     this.lat = -1.831239;
     this.long = -78.183406;
     this.zoom = 6;
     this.mapTypeId = 'hybrid';
     cargarScripts.Carga(["establecimiento-foto.component"])
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.long = position.coords.longitude;
+      });
+    }
 
   }
 
@@ -198,6 +207,26 @@ export class RegistrarEstablecimientoComponent {
       })
       .catch(error => console.log(error));
   }
+
+  searchControl!: FormControl;
+
+buscarDireccion(): void {
+  // Obtener la ubicación de la dirección ingresada por el usuario
+  this.mapsAPILoader.load().then(() => {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': this.direccion }, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        const ubicacion = results[0].geometry.location;
+        this.lat = ubicacion.lat();
+        this.long = ubicacion.lng();
+        // Hacer zoom en la ubicación
+        this.zoom = 14;
+      } else {
+        console.error('Error al buscar la dirección: ' + status);
+      }
+    });
+  });
+}
 
   // getLocationData(lat: number, lng: number) {
   //   this.http

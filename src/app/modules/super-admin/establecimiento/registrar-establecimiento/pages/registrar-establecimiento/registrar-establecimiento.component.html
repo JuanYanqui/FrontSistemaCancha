@@ -8,11 +8,30 @@
 
                         <div class="row">
                             <div class="col">
+                                <form class="search-wrapper cf" (submit)="buscarDireccion()">
+                                    <input type="text" [(ngModel)]="direccion" name="direccion" id="search-input" placeholder="Ingrese una dirección" >
+                                    <button type="submit">Buscar</button>
+                                  </form>
                                 <div class="perfil-usuario-avatar text-center">
                                     <agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom" [mapTypeId]="mapTypeId"
                                         (mapClick)="getCoordinates($event)">
                                         <agm-marker eve [latitude]="lat" [longitude]="long"></agm-marker>
                                     </agm-map>
+                                </div>
+
+                                <div class="p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
+                                            [(ngModel)]="this.pais" [(ngModel)]="vallatitud" pInputText required>
+                                        <label for="float-input">País</label>
+                                    </span>
+                                </div>
+                                <div class="p-col-12 p-md-4">
+                                    <span class="p-float-label">
+                                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text"
+                                            [(ngModel)]="this.ciudad" pInputText>
+                                        <label for="float-input">Ciudad</label>
+                                    </span>
                                 </div>
 
                                 <div class="p-col-12 p-md-4">
@@ -61,7 +80,7 @@
                                 <div class="p-col-12 p-md-4">
                                     <span class="p-float-label">
                                         <input id="float-input" type="number" [(ngModel)]="ubicacion.numero" [(ngModel)]="valnumero" pInputText>
-                                        <label for="float-input">Numero propiedad</label>
+                                        <label for="float-input">Número propiedad</label>
                                     </span>
                                 </div>
                                 <div class="p-col-12 p-md-4">
