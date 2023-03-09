@@ -48,9 +48,7 @@ export class BienvenidoAdministradorComponent {
    
   }
 
-mostrarNotificaciones() {
-  this.notificacionesMostradas = !this.totalNotificaciones;
-}
+
 
 cliente: Persona= new Persona;
 listaReclamos: Reclamos[]=[];
@@ -89,8 +87,7 @@ listaPagos: any;
     this.reclamo.cliente = reclamo.cliente;
     this.reclamo.administrador = reclamo.administrador;
     this.persona.foto = reclamo.cliente?.foto;
-  }
-  
+  }  
   
   obtenerReclamosYReservas(): void {
     this.idAdmin = Number(localStorage.getItem("localIdPersona"));
@@ -139,62 +136,26 @@ listaPagos: any;
         this.reclamo.idReclamo = data.idReclamo;
         
             console.log(data);
-            this.mostrarNotificaciones();
+            this.obtenerReclamosYReservas();
+            this.displayReclamo = false;
+            window.location.reload();
             
           }
         )
-      }
-      
-
-      /*marcarComoAtendido(reclamo: any) {
-        const data = {
-          ...reclamo,
-          estado: true
-        };
-        this.reclamoService.updateReclamos(data, reclamo.idReclamo).subscribe(
-          data => {
-            console.log(data);
-            this.obtenerReclamos();
-          }
-        );
-        this.limpiar();
-      }
-
-      /*marcarComoAtendido(reclamo: any) {
-        const data = {
-          ...reclamo,
-          estado: true
-        };
-        const idReclamo = reclamo.idReclamo;
-        if (!idReclamo) {
-          console.error('ID de reclamo no encontrado');
-          return;
-        }
-        this.reclamoService.updateReclamos(data, idReclamo).subscribe(
-          data => {
-            console.log(data);
-            this.obtenerReclamos();
-          },
-          error => {
-            console.error(error);
-          }
-        );
-        this.limpiar();
-      }*/
-      
+      }      
 
       limpiar() {
         this.displayEU = false;
         this.reclamo = new Reclamos;
         this.loading = true;
         this.listaReclamos = [];
-        //this.obtenerReclamosYReservas();
-        //this.obtenerReclamos2();
-        //this.obtenerReservas2();
-        //this.obtenerNotificaciones();
-        //this.obtenerReclamosPorPersona();
-        this.mostrarNotificaciones();
+        this.obtenerReclamosYReservas();
         //window.location.reload()
+      }
+
+      recargar(){
+        window.location.reload();
+        this.obtenerReclamosYReservas();
       }
   
   ///////////////////////////////////////////////////////////////////////////////////
@@ -322,32 +283,51 @@ actualizarEstado(idReserva: number) {
   this.reservaService.actualizarEstado(idReserva, this.estado)
     .subscribe(reserva => {
       this.reservadata = reserva;
-      this.idReser = this.reservadata.idReserva;
       console.log('Reserva actualizada:', reserva);
       // Aquí puedes agregar la lógica adicional que necesites después de actualizar el estado de la reserva
     }, error => {
       console.error('Error al actualizar la reserva:', error);
       // Aquí puedes manejar el error si algo sale mal durante la actualización del estado de la reserva
     });
+    
 }
 
-idReser: any;
+/*actualizarEstado(reserva: Reserva): void {
+
+  this.reservaService.actualizarEstado(reserva.idReserva, this.estado)
+    .subscribe(reserva => {
+      console.log('Reserva actualizada:', reserva);
+      // Aquí puedes agregar la lógica adicional que necesites después de actualizar el estado de la reserva
+    }, error => {
+      console.error('Error al actualizar la reserva:', error);
+      // Aquí puedes manejar el error si algo sale mal durante la actualización del estado de la reserva
+    });
+    this.limpiar();this.limpiar();
+}*/
+
 idcliente:any;
-buscarid(idcli: number){
+buscarid(idcli: number, idMiRes: number){
+  //this.actualizarEstado(idReserva);
   console.log(idcli);
+  console.log(idMiRes);
+  
   this.idcliente = idcli;
   this.pagoreservaService.Reservasporpago(this.idcliente).subscribe(data => {
     console.log(data);
     this.clientedata = data;
     this.idcliente = this.clientedata.idPersona; // assign data to the array
-    this.idReser = this.reserva.idReserva;
-    //console.log(this.idcliente);
   this.listaPagos = data;
-    //this.obtenerreservas();
-    // loop through each reservation and get its payment information
+    
   });
  this.verReservas(this.reserva);
+ this.actualizarEstado(idMiRes);
+
 }
+/*ejecutarMetodos(idReserva: number, pago: number) {
+  this.actualizarEstado(idReserva);
+  this.abrir(p);
+  
+}*/
 
 
 
@@ -389,18 +369,33 @@ displayDialog = false;
     }
 
     abrir(pago: Pago_Reserva){
+
       pago.estadopago = "RESERVADO";
       this.pagoreservaService.updatePagoReserva(pago, pago.idPagoReserva).subscribe({
         
       })
-      this.actualizarEstado(this.reserva?.idReserva)
+      
       this.displayEU =false;
       ;
     }
+
+    /*abrir(pago: Pago_Reserva){
+      this.actualizarEstado(this.reserva.idReserva);
+      this.reservaService.actualizarEstado(this.reserva.idReserva, this.estado).subscribe(reserva => {
+        console.log('Reserva actualizada:', reserva);
+        pago.estadopago = "RESERVADO";
+        this.pagoreservaService.updatePagoReserva(pago, pago.idPagoReserva).subscribe({
+          // aquí puedes manejar la respuesta del servicio de actualización de pago de reserva
+        });
+        this.displayEU = false;
+      }, error => {
+        console.error('Error al actualizar la reserva:', error);
+        // aquí puedes manejar el error del servicio de actualización del estado de reserva
+      });   
+    }*/
     
     cancelar(){
       this.displayEU =false;
-      this.actualizarEstado(this.reserva?.idReserva);
     }
     
 }

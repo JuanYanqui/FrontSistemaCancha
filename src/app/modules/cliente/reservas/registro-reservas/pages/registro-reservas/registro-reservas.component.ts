@@ -52,6 +52,7 @@ export class RegistroReservasComponent {
   nombreestablecimiento:any;
   isButtonEnabled2: boolean = false;
   pago_reserva: Pago_Reserva = new Pago_Reserva;
+  today = new Date();
 
   constructor(private fotoService: FotoService, private cargarScripts: CargarScriptsService,private pagoreservaService: Pago_ReservaServicio, private establecimientoService: EstablecimientoService, private canchaService: CanchasService, private reservaService: ReservaService, private disponibilidadservice: DisponibilidadService, private toastr: ToastrService, private personaservice: PersonaService) {
     this.obtenercancha();
@@ -266,25 +267,6 @@ crearReserva() {
   });
 }
 
-fechaescogida: Date = new Date(); // inicializa fechaescogida con la fecha actual
-
-  hoyFecha(): string {
-    const hoy = new Date();
-    const dd = String(hoy.getDate()).padStart(2, '0');
-    const mm = String(hoy.getMonth() + 1).padStart(2, '0'); // Enero es 0!
-    const yyyy = hoy.getFullYear();
-
-    const hoyFecha = yyyy + '-' + mm + '-' + dd;
-    return hoyFecha;
-  }
-
-  validarFecha(event:any) {
-    if (this.fechaescogida < new Date()) {
-      event.target.setCustomValidity('La fecha no puede ser menor a la fecha actual');
-    } else {
-      event.target.setCustomValidity('');
-    }
-  }
 
 
 CrearNoPago() {

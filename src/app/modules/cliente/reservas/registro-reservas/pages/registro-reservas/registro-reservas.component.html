@@ -18,8 +18,7 @@
                         <span class="p-float-label">
 
 
-                          <input type="date" id="fecha" name="fecha" [(ngModel)]="fechaescogida" pInputText required 
-                          [min]="hoyFecha()" (change)="validarFecha($event)" #fecha="ngModel">
+                          <input type="date" id="fecha" name="fecha" [(ngModel)]="fechaescojida" pInputText required  min="{{today | date:'yyyy-MM-dd'}}">
 
                         </span>
                       </div>
