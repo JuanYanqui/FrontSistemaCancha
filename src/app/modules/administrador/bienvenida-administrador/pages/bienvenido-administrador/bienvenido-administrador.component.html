@@ -1,11 +1,10 @@
 <!-- Button trigger modal -->
-  <h1 style="color: aliceblue;">Bienvenido</h1>
+<h1 style="color: aliceblue;">Bienvenido</h1>
 <main class="contenedor">
-  
-  <button pButton pRipple id="btn-circle" *ngIf="notificacionesPendientes"
-    routerLink="/administrador/notificaciones/ver-reclamos" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button pButton pRipple id="btn-circle" *ngIf="notificacionesPendientes" data-bs-toggle="modal"
+    data-bs-target="#exampleModal" (click)="obtenerReclamosYReservas()">
     <i class="fa fa-bell" id="notificon"></i>
-    <span class="numero" id="btnnotif"><sup>{{ notificacionesPendientes }}</sup></span>
+    <span class="numero" id="btnnotif"><sup>{{totalNotificaciones}}</sup></span>
     <div class="desplegable" *ngIf="notificacionesMostradas">
       <ul>
         <li *ngFor="let notificacion of notificaciones">
@@ -14,101 +13,239 @@
       </ul>
     </div>
   </button>
-  </main>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="content">
-  
-          <body>
-            <main>
-              <header>
-  
-                <h2>NOTIFICACIONES</h2>
-                <div class="search">
-                  <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
-                  <input type="search" name="search" placeholder="Search" id="search-input">
-                </div>
-              </header>
-  
-              <div class="content">
-                <div class="line"></div>
-                <div *ngFor="let reclamo of listaReclamos; let i = index" class="box" (click)="verReclamo(reclamo)" id="fondo">
-                  <div class="circle" [ngClass]="'component-' + i"></div>
-                  <div class="info">
-                    <p>Tienes una notificacion de<strong> {{reclamo.cliente?.nombre}}
-                        {{reclamo.cliente?.apellido}}</strong></p>
-                    <p><label id="title">{{reclamo.titulo}}</label></p>
-                    <time>{{reclamo.fecha_reclamo}}</time>
-                  </div>
-                </div>
-                <ng-container *ngIf="!listaReclamos.length">
-                  <div class="box">
-                    <div class="info">
-                      <p>No se encontraron notificaciones</p>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </main>
-          </body>
-  
-          <p-dialog header="Reclamos" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
-            [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-            <ng-template pTemplate="body">
-              <div class="p-grid p-fluid">
-                <h2 class="form-label-p text-center">Reclamo</h2>
-  
-  
-                <div class="row">
-                  <div class="col">
-                    <div class="p-col-12 p-md-4">
-                      <span class="p-float-label">
-                        <input id="float-input" type="text" class="form-control" disabled="true"
-                          [(ngModel)]="reclamo.titulo" maxlength="100" minlength="2" pInputText required>
-                        <label for="float-input">Titulo</label>
-                      </span>
-                    </div>
-                    <div class="p-col-12 p-md-4">
-                      <span class="p-float-label">
-                        <textarea id="float-input" type="text" class="form-control" disabled="true"
-                          [(ngModel)]="reclamo.descripcion" maxlength="1000" minlength="2" pInputText></textarea>
-                        <label for="float-input">Descripcion</label>
-                      </span>
-                    </div>
-                    <div class="p-col-12 p-md-4">
-                      <span class="p-float-label">
-                        <input type="date" id="float-input" disabled="true" [(ngModel)]="reclamo.fecha_reclamo"
-                          pInputText>
-                        <label for="float-input">Fecha Registro</label>
-                      </span>
-                    </div>
-                    <div class="p-col-12 p-md-4">
-                      <span class="p-float-label">
-                        <label id="float-input" disabled="true" style="text-align: left;" class="form-control">Cliente:
-                          {{reclamo.cliente?.nombre}}
-                          {{reclamo.cliente?.apellido}}</label>
-  
-                      </span>
-                    </div>
-                  </div>
-                  <br>
-                </div>
-                <div class="p-col-12 p-md-4">
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="content">
+        <div class="line"></div>
+
+        <body>
+          <main>
+            <header>
+              <h2>NOTIFICACIONES</h2>
+            </header>
+            <!-- Diálogo de reclamo -->
+            <p-dialog header="Reclamos" [(visible)]="displayReclamo" [modal]="true" [style]="{width: '75vw'}"
+              [baseZIndex]="10000" [draggable]="false" [resizable]="false" *ngIf="displayReclamo" header="miReclamo">
+              <ng-template pTemplate="body">
+                <div class="p-grid p-fluid">
+
+
                   <div class="row">
                     <div class="col">
-                      <button pButton pRipple type="button" label="Marcar como leído" icon="pi pi-check" id="btnreg"
-                        iconPos="right" class="p-button-rounded p-button-success"
-                        (click)="marcarComoAtendido(reclamo.idReclamo)" (click)="limpiar()"></button>
+
+
+                      <img class="circular--square" [src]="'http://localhost:5000/image/images/' + reclamo.cliente?.foto"
+                        style="margin: 0 auto;  width: 150px; height: 150px;">
+
+                      <label style="font-size: 30px; text-decoration-style: solid;">
+                        {{reclamo.cliente?.nombre}} {{reclamo.cliente?.apellido}}
+                      </label>
+
+                      <div class="p-col-12 p-md-4">
+                        <span class="p-float-label">
+                          <input id="float-input" type="text" class="form-control" disabled="true"
+                            [(ngModel)]="reclamo.titulo" maxlength="100" minlength="2" pInputText required>
+                          <label for="float-input">Título</label>
+                        </span>
+                      </div>
+                      <div class="p-col-12 p-md-4">
+                        <span class="p-float-label">
+                          <textarea id="float-input" type="text" class="form-control" disabled="true"
+                            [(ngModel)]="reclamo.descripcion" maxlength="1000" minlength="2" pInputText></textarea>
+                          <label for="float-input">Descripción</label>
+                        </span>
+                      </div>
+                      <div class="p-col-12 p-md-4">
+                        <span class="p-float-label">
+                          <input type="date" id="float-input" disabled="true" [(ngModel)]="reclamo.fecha_reclamo"
+                            pInputText>
+                          <label for="float-input">Fecha Registro</label>
+                        </span>
+                      </div>
+                      <div class="p-col-12 p-md-4">
+
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="p-col-12 p-md-4">
+                    <div class="row">
+                      <div class="col">
+                        <button pButton pRipple type="button" label="Marcar como leído" icon="pi pi-check" id="btnreg"
+                          iconPos="right" class="p-button-rounded p-button-success"
+                          (click)="marcarComoAtendido(reclamo.idReclamo)" (click)="limpiar()"></button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ng-template>
-          </p-dialog>
+              </ng-template>
+            </p-dialog>
+
+            <!-- Diálogo de reserva -->
+            <p-dialog header="Reservas" [(visible)]="displayReserva" [modal]="true" [style]="{width: '75vw'}"
+              [baseZIndex]="10000" [draggable]="false" [resizable]="false" *ngIf="displayReserva">
+              <ng-template pTemplate="body">
+                <div class="container">
+                  <mat-tab-group preserveContent>
+                    <mat-tab label="Listado">
+                      <div class="content">
+                        <div>
+                        </div>
+                        <div class="table-users">
+                          <div class="header">Reserva</div>
+                          
+                          <table cellspacing="0">
+                            <tr>
+                               <th></th>
+                               <th>Establecimiento</th>
+                               <th width="100">Cancha</th>
+                               <th>Cliente</th>
+                               <th>Fecha Reserva</th>
+                               <th>Valor de Pago</th>
+                               <th width="150">Estado</th>
+                               <th></th>
+                               <th width="150"></th>
+                               
+                       
+                            </tr>
+                      
+                            <tr *ngFor="let pagos of listaPagos">
+                             <td> <img class="circular--square"
+                               [src]="'http://localhost:5000/image/images/' + pagos.reserva.disponibilidades[0]?.cancha?.foto"
+                               style="margin: 0 auto;  width: 70px; height: 70px;"></td>
+                             <td>{{pagos.reserva.disponibilidades?.[0]?.cancha?.establecimiento?.nombre}}</td>
+                             <td>{{ pagos.reserva.disponibilidades[0]?.cancha?.nombre }}</td>
+                             <td>{{ pagos.reserva.cliente.nombre }} {{ pagos.reserva.cliente.apellido }}</td>
+                             <td>{{pagos.reserva.disponibilidades[0]?.fecha | date:'dd/MM/yyyy'}} {{pagos.reserva.disponibilidades[0]?.hora}}:00</td>
+                             <td>${{pagos.valor}}</td>
+                             <td [ngClass]="{'estado-amarillo': pagos.estadopago === 'EN ESPERA', 'estado-rojo': pagos.estadopago === 'NO PAGADO'}">{{pagos.estadopago}}</td>
+                               <td><button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                                   class="p-button-rounded p-button-danger" (click)="cancelarPago(pagos.idPagoReserva)"></button></td>
+                               <td><button pButton pRipple type="button" label="Info" icon="pi pi-times" iconPos="right"
+                                   class="p-button-rounded p-button-info" (click)="abrirdatos(pagos)"></button></td>
+                            </tr>
+                      
+                         </table>
+                       </div>
+
+
+
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                  <p-dialog header="Aceptar Reserva" [(visible)]="displayEU" [modal]="true" [style]="{width: '40vw'}"
+[baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<div class="contendors">
+	<div class="container">
+        <div id="perfil" class="tituloperfil" *ngIf="pagoSeleccionado">
+
+            <!-- Capa do Perfil -->
+            <div  class="headers">
+
+            </div>
+        
+            <!-- Avatar do Utilizador -->
+            <div >
+                <img [src]="'http://localhost:5000/image/images/' + pagoSeleccionado.reserva?.cliente?.foto" class="avatar">
+            </div>
+        
+            <!-- Opções de Conta -->
+            <div class="opperfil">
+         
+            </div>
+           
+
+        
+            <!-- Título do Perfil -->
+            <div class="tituloperfil">
+                <!-- Nome do Utilizador -->
+                <h1>{{pagoSeleccionado.reserva?.cliente?.nombre}} {{pagoSeleccionado.reserva?.cliente?.apellido}}</h1>
+                <div>
+                    <h3>Comprovante de pago</h3>
+                    <p><img [src]="'http://localhost:5000/image/images/' + pagoSeleccionado.foto" style="border-radius: 10px; width: 500px; height: 300px;"></p>
+                    <p>Estado de Pago: {{ pagoSeleccionado.estadopago }}</p>
+                    <p>Fecha de Pago: {{ pagoSeleccionado.fecha_pago | date: 'dd/MM/yyyy' }}</p>
+                    <p>Valor: ${{ pagoSeleccionado.valor }}</p>
+                    <p>Reserva: {{ pagoSeleccionado.reserva?.idReserva }}</p>
+                  </div>
+
+                  <div class="col">
+                    <button pButton pRipple type="button" label="Aceptar  Solicitud" icon="pi pi-check" iconPos="right"
+                        class="p-button-rounded p-button-success" (click)="abrir(pagoSeleccionado)"></button>
+                </div>
+                <div class="col">
+                    <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                        class="p-button-rounded p-button-danger" (click)="cancelar()"></button>
+                </div>
+
+            </div>
+        
+            <br/><br/>
+        
         </div>
+	</div>
+</div>
+
+    <!-- <div class="perfil-usuario-avatar text-center">
+      <img  class="circular--square" style="max-width: 30%;" [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento">
+      </div> -->
+  
+</p-dialog>
+                </div>
+              </ng-template>
+            </p-dialog>
+
+
+            <!-- Registros de reclamo -->
+            <div *ngFor="let reclamo of listaReclamos; let i = index" class="box" (click)="verReclamos(reclamo)"
+              (click)="verReclamo" id="fondo">
+              <div class="circle" [ngClass]="'component-' + i"></div>
+
+
+              <div class="modal-dialog">
+                <div class="info">
+                  <img class="circular--square" [src]="'http://localhost:5000/image/images/' + reclamo.cliente?.foto">
+                  <div class="details">
+                    <p>Tienes una notificación de {{reclamo.cliente?.nombre}} {{reclamo.cliente?.apellido}}.</p>
+                    <p>{{reclamo.titulo}}</p>
+                    <p>{{reclamo.fecha_reclamo}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Registros de reserva -->
+            <div *ngFor="let reserva of listaReservas; let i = index" class="box"(click)="buscarid(reserva.cliente.idPersona)"
+              id="fondo">
+              <div class="circle" [ngClass]="'component-' + i"></div>
+
+              <div class="modal-dialog">
+                <div class="info">
+                  <img class="circular--square" [src]="'http://localhost:5000/image/images/' + reserva.cliente?.foto">
+                  <div class="details">
+                    <p>{{reserva.cliente?.nombre}} {{reserva.cliente?.apellido}} ha solicitado una reserva.</p>
+                    <p>{{reserva.disponibilidades[0]?.cancha?.nombre }}</p>
+                    <p>{{reserva.disponibilidades[0]?.fecha}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ng-container *ngIf="!listaReservas.length">
+              <div class="box">
+                <div class="info">
+                  <p>No se encontraron notificaciones</p>
+                </div>
+              </div>
+            </ng-container>
+
+          </main>
+        </body>
       </div>
     </div>
   </div>
+</div>

@@ -28,4 +28,13 @@ export class ReservaService {
     return this.http.get<any>(this.URL+`cliente/${idPersona}`);
   }
 
+  getReservasPorPersona(idPersona: number): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(this.URL + `reservasporpersona/${idPersona}`);
+  }
+
+  actualizarEstado(idReserva: number, estado: boolean): Observable<Reserva> {
+    const url = `${this.URL}reservas/${idReserva}/estado?estado=${estado}`;
+    return this.http.put<Reserva>(url, {});
+  }
+
 }

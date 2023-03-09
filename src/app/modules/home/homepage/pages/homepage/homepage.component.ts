@@ -15,15 +15,16 @@ export class HomepageComponent  implements OnInit{
  firstMapShown: boolean = false;
 
 constructor(private router : Router, private establecimientoService: EstablecimientoService){
-  this.lat=-1.831239;
-  this.long =-78.183406;
-  this.zoom = 25;
+  this.lat=-2.8953331;
+  this.long =-79.007535;
+  this.zoom = 13;
   this.mapTypeId = 'hybrid';
   this. obtenerEstablecimiento();
 }
 
 ngOnInit(): void {
 }
+
 
 goToR($event: any) :void{
  
@@ -44,5 +45,7 @@ goToR($event: any) :void{
   );
   this.firstMapShown = true;;
 }
+
+
 
 }

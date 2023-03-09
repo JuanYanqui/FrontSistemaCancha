@@ -1,0 +1,350 @@
+agm-map{
+    width: 800px;
+    height: 450px;
+  }
+
+  #map-container {
+    border-radius: 20px;
+    overflow: hidden;
+    float: right; /* Ajusta el contenedor a la derecha */
+    width: 50%;
+  }
+
+
+
+
+
+  .align-right {
+    float: right;
+  }
+
+
+
+
+
+
+  
+
+
+
+
+  
+/*Clearing Floats*/
+.cf:before, .cf:after{
+  content:"";
+  display:table;
+}
+
+.cf:after{
+  clear:both;
+}
+
+.cf{
+  zoom:1;
+}    
+/* Form wrapper styling */
+
+.search-wrapper {
+  width: 450px;
+  margin: px auto 50px auto;
+  border-radius: 40px;
+background: transparent;
+  box-shadow: 0 4px 20px -2px #e9e9e9;
+}
+
+/* Form text input */
+
+.search-wrapper input {
+padding-left: 20px;
+  width: 330px;
+  height: 40px;
+  padding: 10px 5px;
+  float: left;   
+  font: bold 13px 'lucida sans', 'trebuchet MS', 'Tahoma';
+  border: 0;
+  background: #fff;
+  border-radius: 40px;
+  border-top-style: none;
+}
+
+.search-wrapper input:focus {
+  outline: 0;
+  background: #fff;
+  box-shadow: 0 0 2px rgba(0,0,0,0.8) inset;
+}
+
+.search-wrapper input::-webkit-input-placeholder {
+ color: #999;
+ font-weight: normal;
+ font-style: italic;
+padding-left: 20px;
+}
+
+.search-wrapper input:-moz-placeholder {
+  
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.search-wrapper input:-ms-input-placeholder {
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+border-style: none;
+}   
+
+/* Form submit button */
+.search-wrapper button {
+  overflow: visible;
+  position: relative;
+  float: right;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  height: 40px;
+  width: 110px;
+  font: 13px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
+  color: #fff;
+  text-transform: uppercase;
+  background: #198cff;
+  border-radius: 40px;
+  text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+}  
+
+.search-wrapper button:hover{    
+/*     background: #e54040; */
+}  
+
+.search-wrapper button:active,
+.search-wrapper button:focus{  
+  background: #198cff;
+  outline: 0;  
+}
+
+.search-wrapper button:focus:before,
+.search-wrapper button:active:before{
+      border-right-color: #c42f2f;
+}     
+
+.search-wrapper button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
+  border: 0;
+  padding: 0;
+}   
+
+
+
+
+
+
+
+.btn-like-li {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background-color: #0e78e1;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-like-li:hover,
+.btn-like-li:focus {
+  background-color: #0c64b4;
+}
+
+.btn-like-li:active {
+  background-color: #0a4f90;
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#btn-mas{
+  display: none;
+}
+
+.redes a, .btn-mas label{
+  display: block;
+  text-decoration: none;
+  background: #cc2b2b;
+  color: #fff;
+  width: 150px;
+  height: 55px;
+  line-height: 55px;
+  text-align: center;
+  box-shadow: 0px 1px 10px rgba(0,0,0,0.4);
+  transition: all 500ms ease;
+}
+.redes a:hover{
+  background: #fff;
+  color: #cc2b2b;
+}
+.redes a{
+  margin-bottom: -15px;
+  opacity: 0;
+  visibility: hidden;
+}
+#btn-mas:checked~ .redes a{
+  margin-bottom: 10px;
+  opacity: 1;
+  visibility: visible;
+}
+.btn-mas label{
+  cursor: pointer;
+  background: #f44141;
+  font-size: 23px;
+}
+#btn-mas:checked ~ .btn-mas label{
+}
+
+
+
+
+.circular--square2 {
+  width: 200px;
+  height: 200px;
+  border-top-left-radius: 25% 25%;
+  border-top-right-radius: 25% 25%;
+  border-bottom-right-radius: 25% 25%;
+  border-bottom-left-radius: 25% 25%;
+}
+
+
+
+
+.product-card {
+  position: static;
+  max-width: 200px;
+  width: 100%;
+  border-radius: 25px;
+  padding: 30px 30px 30px 30px;
+  background: #6c7b78;
+  z-index: 4;
+  overflow: hidden;
+  margin-bottom: 15px;
+  margin-left: 12px;
+  
+  }
+  .product-card .logo-cart{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  }
+  .product-card .logo-cart img{
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  padding: 10px;
+  }
+  .product-card .logo-cart i{
+  font-size: 27px;
+  color: #707070;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  }
+  .product-card .logo-cart i:hover{
+  color: #333;
+  }
+  .product-card .main-images{
+  position: relative;
+  height: 210px;
+  }
+  .product-card .main-images img{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  
+  left: 12px;
+  top: -40px;
+  z-index: -1;
+  
+  transition: opacity 0.5s ease;
+  }
+  .product-card .main-images img.active{
+  opacity: 1;
+  }
+  .product-card .shoe-details .shoe_name{
+  font-size: 24px;
+  font-weight: 500;
+  color: #161616;
+  }
+  .product-card .shoe-details p{
+  font-size: 12px;
+  font-weight: 200;
+  color: #333;
+  text-align: justify;
+  }
+  .product-card .shoe-details .stars i{
+  margin: 0 -1px;
+  color: #333;
+  }
+  .product-card .color-price .color-option{
+  display: flex;
+  align-items: center;
+  }
+  .color-price{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  }
+  .color-price .color-option .color{
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-right: 8px;
+  }
+  .color-option  .circles{
+  display: flex;
+  }
+  
+  
+  .product-card .button{
+  position: relative;
+  height: 50px;
+  width: 100%;
+  border-radius: 25px;
+  margin-top: 30px;
+  overflow: hidden;
+  }
+  .product-card .button .button-layer{
+  position: absolute;
+  height: 100%;
+  width: 300%;
+  left: -100%;
+  background-color: #0df3a6;
+  background-color: #000000;
+  color: #fff;
+  transition: all 0.4s ease;
+  border-radius: 25PX;
+  border-bottom-color: rgb(8, 8, 8);
+  }
+  .product-card .button:hover .button-layer{
+  left: 0;
+  border-bottom-color: rgb(8, 8, 8);
+  background-color: #0df3a6;
+  color: #000000;
+  
+  }
+  .product-card .button button{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgb(254, 254, 254);
+  }

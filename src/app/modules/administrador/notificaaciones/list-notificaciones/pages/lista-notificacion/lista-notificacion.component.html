@@ -37,7 +37,7 @@
                   <div *ngFor="let reclamo of listaReclamos; let i = index" class="box" (click)="verReclamo(reclamo)" id="fondo">
                     <div class="circle" [ngClass]="'component-' + i"></div>
                     <div class="info">
-                      <p>Tienes una notificacion de<strong> {{reclamo.cliente?.nombre}}
+                      <p>Tienes una notificación de<strong> {{reclamo.cliente?.nombre}}
                           {{reclamo.cliente?.apellido}}</strong></p>
                       <p><label id="title">{{reclamo.titulo}}</label></p>
                       <time>{{reclamo.fecha_reclamo}}</time>
@@ -74,7 +74,7 @@
                         <span class="p-float-label">
                           <textarea id="float-input" type="text" class="form-control" disabled="true"
                             [(ngModel)]="reclamo.descripcion" maxlength="1000" minlength="2" pInputText></textarea>
-                          <label for="float-input">Descripcion</label>
+                          <label for="float-input">Descripción</label>
                         </span>
                       </div>
                       <div class="p-col-12 p-md-4">

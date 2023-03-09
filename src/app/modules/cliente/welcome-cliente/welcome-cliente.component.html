@@ -18,8 +18,18 @@
 
         <section id="contenedorbn" class="home-section">
 
+            
             <div class="home-content">
-
+                <!-- <agm-map  [latitude]="lat" [longitude]="long" [zoom]="zoom">
+                    <agm-marker *ngFor="let establecimiento of listaestablecimiento" [latitude]="establecimiento.ubicacion.latitud" [longitude]="establecimiento.ubicacion.longitud" [iconUrl]="'../../../../../../assets/img/mapafuntol.png'" class="marker">
+                      <agm-info-window > 
+                        <h3 style="color: black;">{{establecimiento.nombre}}</h3>
+                        <p style="color: black;"> Calle Principal: {{establecimiento.ubicacion.calle_principal}}</p>
+                        <p style="color: black;">Calle Secundaria: {{establecimiento.ubicacion.calle_secundaria}}</p>
+                        <img class="circular--square2" [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento"/>
+                      </agm-info-window>
+                    </agm-marker>
+                  </agm-map> -->
                 <app-headerlog></app-headerlog>
                 <app-sidebar-empresa-admin></app-sidebar-empresa-admin>
                 <router-outlet></router-outlet>

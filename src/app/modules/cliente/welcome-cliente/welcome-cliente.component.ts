@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { CargarscriptsService } from 'src/app/shared/services/cargarscripts.service';
+import { EstablecimientoService } from 'src/app/shared/services/establecimiento.service';
 
 @Component({
   selector: 'app-welcome-cliente',
@@ -12,7 +13,9 @@ export class WelcomeClienteComponent {
 
   title = 'dinamic-styles';
   cssUrl: string;
-  constructor(public sanitizer: DomSanitizer, private _CargarScripts: CargarscriptsService, private _Cargar: CargarscriptsService, private router: Router) {
+
+
+  constructor(private establecimientoService: EstablecimientoService, public sanitizer: DomSanitizer, private _CargarScripts: CargarscriptsService, private _Cargar: CargarscriptsService, private router: Router) {
     this.cssUrl = 'assets/css/swiper-bundle.min.css';
     {
       _CargarScripts.cargajs(["swiper-bundle.min"])
@@ -23,5 +26,8 @@ export class WelcomeClienteComponent {
 
     }
 
+
+    
   }
+
 }

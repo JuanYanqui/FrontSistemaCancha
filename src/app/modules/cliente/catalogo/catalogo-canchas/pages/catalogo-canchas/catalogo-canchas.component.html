@@ -1,14 +1,11 @@
-
-
 <div class="container">
     <mat-tab-group preserveContent>
         <mat-tab label="Catalogo">
             <div class="content">
 
-                <p-panel id="paneregusuario" class="panel">
+                <p-panel id="paneregusuario" class="panel" header="">
                     <div class="panel over overflow-auto p-grid p-fluid">
 
-                       
 
                         <h5 class="card-title mb-3"></h5>
                         <div class="tab-pane active" id="registrar">
@@ -177,7 +174,8 @@
 
 
                         </div>
-                        
+
+                    
                     </div>
                 </p-panel>
 
@@ -190,13 +188,9 @@
 
         </mat-tab>
 
-        
     </mat-tab-group>
 
-
-
-
-<p-dialog header="Informacion de canchas" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+    <p-dialog header="Informacion de canchas" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
 [baseZIndex]="10000" [draggable]="false" [resizable]="false">
 <ng-template pTemplate="body">
     <div class="p-grid p-fluid">
@@ -283,7 +277,6 @@
     </div>
 </ng-template>
 </p-dialog>
-
 </div>
 
 

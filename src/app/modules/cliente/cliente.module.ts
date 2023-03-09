@@ -5,6 +5,7 @@ import { ClienteRoutingModule } from './cliente-routing.module';
 import { WelcomeClienteComponent } from './welcome-cliente/welcome-cliente.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ClienteRoutingModule,
     SharedModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     WelcomeClienteComponent

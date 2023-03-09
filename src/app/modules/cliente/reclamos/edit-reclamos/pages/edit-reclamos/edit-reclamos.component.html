@@ -21,7 +21,7 @@
                         <tr>
                             <th pSortableColumn="cedula">
                                 <div class="p-d-flex p-jc-between p-ai-center">
-                                    Titulo
+                                    Título
                                     <p-sortIcon field="titulo"></p-sortIcon>
                                     <p-columnFilter type="text" field="titulo" display="menu" class="p-ml-auto">
                                     </p-columnFilter>
@@ -29,7 +29,7 @@
                             </th>
                             <th pSortableColumn="descripcion">
                                 <div class="p-d-flex p-jc-between p-ai-center">
-                                    Descripcion
+                                    Descripción
                                     <p-sortIcon field="descripcion"></p-sortIcon>
                                     <p-columnFilter type="text" field="descripcion" display="menu"
                                         class="p-ml-auto"></p-columnFilter>
@@ -111,14 +111,14 @@
                             <span class="p-float-label">
                                 <input id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.titulo"
                                     maxlength="100" minlength="2" pInputText required (keypress)="onKeyPressLetras($event)">
-                                <label for="float-input">Titulo</label>
+                                <label for="float-input">Título</label>
                             </span>
                         </div>
                         <div class="p-col-12 p-md-4">
                             <span class="p-float-label">
                                 <textarea id="float-input" type="text" class="form-control" [(ngModel)]="reclamo.descripcion"
                                     maxlength="1000" minlength="2" pInputText></textarea>
-                                <label for="float-input">Descripcion</label>
+                                <label for="float-input">Descripción</label>
                             </span>
                         </div>                        
                         <div class="p-col-12 p-md-4">

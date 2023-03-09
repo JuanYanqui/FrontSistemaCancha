@@ -164,6 +164,39 @@ export class RegistrarEstablecimientoComponent {
     console.log(this.ubicacion.latitud)
     this.ubicacion.longitud = this.long;
     console.log(this.ubicacion.longitud)
+    this.getReverseGeocode(this.ubicacion.latitud, this.ubicacion.longitud);
+  }
+
+  ciudad:any;
+  pais:any;
+  getReverseGeocode(lat: any, long: any) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`;
+  
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const address = data.address;
+        console.log(address)
+        const country = address.country;
+        this.pais = country;
+        console.log(country);
+        const city = address.city;
+        this.ciudad = city;
+        console.log(city);
+        const road = address.road;
+        this.ubicacion.calle_secundaria = road;
+        console.log(road);
+        const house_number = address.house_number;
+        console.log(house_number);
+        this.ubicacion.numero = house_number;
+        const suburb = address.suburb;
+        this.ubicacion.calle_principal = suburb;
+        console.log(suburb);
+        const full_address = `${house_number} ${road}, ${city}, ${country}`;
+        console.log(full_address);
+      })
+      .catch(error => console.log(error));
   }
 
   // getLocationData(lat: number, lng: number) {

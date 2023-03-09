@@ -133,7 +133,7 @@
 
   </mat-tab-group>
 
-  <p-dialog header="Elija Metodo de Pago" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+  <p-dialog header="Elija Método de Pago" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
     <ng-template pTemplate="body">
       <div class="p-grid p-fluid">
@@ -150,7 +150,7 @@
               <span class="p-float-label">
                 <input [disabled]="!isButtonEnabled2" id='float-input' type="text" name="cedula"
                   [(ngModel)]="datocliente.cedula" pInputText>
-                <label for="float-input">Cedula</label>
+                <label for="float-input">Cédula</label>
               </span>
             </div>
             <div class="p-col-12 p-md-4">
@@ -185,7 +185,7 @@
               <div id="informacion">
                 <input [disabled]="!isButtonEnabled2" id='float-input' type="text" name="cedula"
                   [(ngModel)]="datocliente.cedula" pInputText>
-                <label for="float-input">Cedula</label><!-- Aquí va la información que deseas mostrar u ocultar -->
+                <label for="float-input">Cedula</label>Aquí va la información que deseas mostrar u ocultar -->
 
             
 
@@ -205,7 +205,7 @@
                 class="p-button-rounded p-button-success" routerLink="/cliente/reserva/register-reserva" (click)="CrearNoPago()" routerLink="/cliente/reserva/listar-reserva"></button>
             </div>
             <div class="col">
-              <button pButton pRipple type="button" label="Pago con desposito" icon="pi pi-check" iconPos="right"
+              <button pButton pRipple type="button" label="Pago con depósito" icon="pi pi-check" iconPos="right"
                 class="p-button-rounded p-button-success" (click)="Accederadialogofoto()"></button>
             </div>
             <div class="col">
@@ -218,7 +218,7 @@
     </ng-template>
   </p-dialog>
 
-  <p-dialog header="Elija Metodo de Pago" [(visible)]="displayEU2" [modal]="true" [style]="{width: '75vw'}"
+  <p-dialog header="Elija Método de Pago" [(visible)]="displayEU2" [modal]="true" [style]="{width: '75vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
     <ng-template pTemplate="body">
       <div class="p-grid p-fluid">
@@ -229,7 +229,7 @@
           <div class="col">
             <div class="perfil-usuario-avatar text-center">
               <img  class="circular--square2" style="max-width: 30%;" [src]="'http://localhost:5000/image/images/' + datocancha.foto">
-              <h2>Foto Deposito</h2>
+              <h2>Foto Depósito</h2>
               </div>
               <div class="p-col-12 p-md-4">
                 <span class="p-float-label">
@@ -260,7 +260,7 @@
         <div class="p-col-12 p-md-4">
           <div class="row">
             <div class="col">
-              <button pButton pRipple type="button" label="Enviar Deposito " icon="pi pi-check" iconPos="right"
+              <button pButton pRipple type="button" label="Enviar Depósito " icon="pi pi-check" iconPos="right"
                 class="p-button-rounded p-button-success" routerLink="/cliente/reserva/register-reserva" (click)="CrearPago()" routerLink="/cliente/reserva/listar-reserva"></button>
             </div>
             <div class="col">

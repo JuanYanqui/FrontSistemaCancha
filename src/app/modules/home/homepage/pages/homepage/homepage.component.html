@@ -81,6 +81,10 @@
         <a   (click)="goToR($event)"  id="btns" class="btn btn-lg btn-secondary fw-bold border-white ">Iniciar Sesion</a>
         
       </p>
+      <div>
+      
+      </div>
+
     </main>
 
 
@@ -107,19 +111,8 @@
                         </figure>
                     </li>
                     <li>
-                      <ng-container *ngFor="!firstMapShown">
-                        <div *ngFor="let establecimiento of listaestablecimiento">
-                          <agm-map [latitude]="lat" [longitude]="long">
-                            <agm-marker [latitude]="establecimiento.ubicacion.latitud" [longitude]="establecimiento.ubicacion.longitud" [iconUrl]="'https://i.pinimg.com/originals/db/e8/ae/dbe8ae2e31e0f2f88615010bd5f6462e.gif'" class="marker">
-                              <agm-info-window>
-                                <h3>{{establecimiento.nombre}}</h3>
-                                <p>{{establecimiento.ubicacion.calle_principal}}, {{establecimiento.ubicacion.ciudad}}, {{establecimiento.ubicacion.pais}}</p>
-                                <img class="circular--square2" [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento"/>
-                              </agm-info-window>
-                            </agm-marker>
-                          </agm-map>
-                        </div>
-                      </ng-container>
+                          
+                
       
                     </li>
                 </ol>

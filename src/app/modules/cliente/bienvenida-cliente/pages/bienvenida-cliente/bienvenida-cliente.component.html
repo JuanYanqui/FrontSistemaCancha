@@ -1,0 +1,390 @@
+<h1 style="color: aliceblue;">Bienvenido</h1>
+<form class="search-wrapper cf" (submit)="buscarDireccion()">
+  <input type="text" [(ngModel)]="direccion" name="direccion" id="search-input" placeholder="Ingrese una dirección" >
+  <button type="submit">Buscar</button>
+</form>
+    <button   pButton pRipple type="button" label="Ver Catálogo" icon="pi pi-check" iconPos="right"
+    class="p-button-rounded " class="align-right" (click)="abrircatalogo()"></button>
+
+<div>
+  .
+</div>
+<img style="left: 60;" src="../../../../../../assets/img/celular.gif" width="500">
+<div id="map-container">
+  <agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom">
+    <agm-marker *ngFor="let establecimiento of listaestablecimiento" [latitude]="establecimiento.ubicacion.latitud" [longitude]="establecimiento.ubicacion.longitud" [iconUrl]="'../../../../../../assets/img/mapafuntol.png'" class="marker">
+      <agm-info-window > 
+        <h3 style="color: black;" >{{establecimiento.nombre}}</h3>
+        <p style="color: black;"> Calle Principal: {{establecimiento.ubicacion.calle_principal}}</p>
+        <p style="color: black;">Calle Secundaria: {{establecimiento.ubicacion.calle_secundaria}}</p>
+        <img class="circular--square2" [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento"  (click)="obtenerEsta(establecimiento.idEstablecimiento)">
+      </agm-info-window>
+    </agm-marker> 
+  </agm-map>
+</div>
+<div>
+    <p-dialog header="Catálogo Establecimiento" [(visible)]="displayEU2" [modal]="true" [style]="{width: '75vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false" pButton>
+    <p-panel id="paneregusuario" class="panel" header="">
+      <div class="panel over overflow-auto p-grid p-fluid">
+    
+    
+          <h5 class="card-title mb-3"></h5>
+          <div class="tab-pane active" id="registrar">
+                  <!-- cards productos -->
+                  <div  id="tabla"   *ngIf="showMe; then thentrue; else elseBlock"></div>
+                  <ng-template    #thentrue>
+                      <p-table   #dt [value]="listaestablecimiento" dataKey="id" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-gridlines" [paginator]="true" [rowHover]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="[
+                  'id',
+                  'ruc',
+                  'nombre',
+                  'calle_principal',
+                  'calle_secundaria',
+                  'representante',
+                  'apellido',
+                ]">
+                      
+                 
+                          <ng-template pTemplate="header">
+                              <tr>
+                                  <th>
+      
+                                  </th>
+                                  <th pResizableColumn>
+                                      Id
+                                  </th>
+                                  <th pResizableColumn>
+                                      RUC
+                                  </th>
+                                  <th pResizableColumn>
+                                      Nombre
+                                  </th>
+                                  <th pResizableColumn>
+                                      Calle Principal
+                                  </th>
+                                  <th pResizableColumn>
+                                      Calle Secundaria
+                                  </th>
+                                  <th pResizableColumn>
+                                      Representante
+                                  </th>
+                                  <th pResizableColumn>
+                                      Apellido
+                                  </th>
+                                  <th pSortableColumn="">
+                                      <div class="p-d-flex p-jc-between p-ai-center">Accion</div>
+                                  </th>
+                              </tr>
+                              <tr>
+                                  <th style="width: 3rem">
+                                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                  </th>
+                                  <th pResizableColumn>
+                                      <p-columnFilter type="text" field="id"></p-columnFilter>
+                                  </th>
+                                  <th pResizableColumn>
+                                      <p-columnFilter type="text" field="ruc"></p-columnFilter>
+                                  </th>
+                                  <th pResizableColumn>
+                                      <p-columnFilter type="text" field="nombre"></p-columnFilter>
+                                  </th>
+                                  <th pResizableColumn>
+                                      <p-columnFilter type="text" field="Calle principal"></p-columnFilter>
+                                  </th>
+                                  <th pResizableColumn>
+                                      <p-columnFilter type="text" field="Calle Secundaria"></p-columnFilter>
+                                  </th>
+                                  <th pResizableColumn>
+                                      <p-columnFilter type="text" field="Representante"></p-columnFilter>
+                                  </th>
+                                  <th pResizableColumn>
+                                      <p-columnFilter type="text" field="Apellido"></p-columnFilter>
+                                  </th>
+                              </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-establecimiento>
+                              <tr class="p-selectable-row">
+                                  <td>
+                                      <p-tableCheckbox [value]="establecimiento"></p-tableCheckbox>
+                                  </td>
+                                  <td>
+                                      {{ establecimiento.idEstablecimiento }}
+                                  </td>
+                                  <td>
+                                      {{ establecimiento.ruc }}
+                                  </td>
+                                  <td>
+                                      {{ establecimiento.nombre }}
+                                  </td>
+                                  <td>
+                                      {{ establecimiento.ubicacion.calle_principal }}
+                                  </td>
+                                  <td>
+                                      {{ establecimiento.ubicacion.calle_secundaria }}
+                                  </td>
+                                  <td>
+                                      {{ establecimiento.persona.nombre }}
+                                  </td>
+                                  <td>
+                                      {{ establecimiento.persona.apellido}}
+                                  </td>
+      
+                                  <td style="text-align: center">
+                                      <a  (click)="editarEstablecimiento(establecimiento)"  icon="pi pi-pencil" class="btn btn-warning"><i class="bi bi-pencil-square"  (click)="editarEstablecimiento(establecimiento)"  icon="pi pi-pencil"></i></a>
+                                  </td>
+                              </tr>
+                          </ng-template>
+                      
+                      </p-table>
+                  </ng-template>
+              
+      
+                        <ng-template pTemplate="body" let-establecimiento #elseBlock>
+                      <div class="row g-3" style="position: relative">
+                  
+                          <div id="tarjetascontenedor" class="row row-cols-auto row-cols-md-3 g-3">
+                              <div class="" *ngFor="let establecimiento of listaestablecimiento">
+      
+                                      <div class="product-card">
+                                          <div class="logo-cart">
+                                              <img class="circular--square" src="../../../../../../../assets/img/Reservegame.jpg" width="30px" height="30px">
+                                            <i class='bx bx-shopping-bag'></i>
+                                          </div>
+                                          
+                                          <div class="shoe-details">
+                                              <img imageLoader [src]="'http://localhost:5000/image/images/' + establecimiento.fotoestablecimiento" class="rounded mx-auto d-bloc card-img-top" alt="..."/>
+                                              <ngx-spinner bdColor="rgba(0,0,0,0.1)" size="large" color="#696969" type="square-loader" [fullScreen]="false">
+                                                  <p style="color: #0e78e1"></p>
+                                              </ngx-spinner>
+                                              <span class="shoe_name">{{ establecimiento.nombre }}</span>
+                                           
+                                              <p class="card-text" > 
+                                                  {{ establecimiento.ubicacion?.calle_principal }}
+                                           
+                                          </div>
+                                          
+    <!--     
+                                            <div class="button-layer" *ngFor="let cancha of listacanchaporesta"></div>
+                                            <div class="btn-mas" >
+                                              <label for="btn-mas" class="fa fa-plus"></label> -->
+                                          <!-- </div> -->
+                                         
+                                              <!-- <input type="checkbox" id="btn-mas" *ngFor="let establecimiento of listaestablecimiento" (click)="obtenerCanchaporEsta(establecimiento.idEstablecimiento)">
+                                              <div class="redes"  *ngFor="let cancha of listacanchaporesta">
+                                                  <a (click)="abrirDilog(cancha.idCancha)">{{cancha.nombre}}</a>
+                                                  
+                                              </div> -->
+    
+                  
+                                              <button pButton pRipple type="button" label="Ver canchas" class="p-button-rounded p-button-success" (click)="toggleCanchas(establecimiento.idEstablecimiento)"></button>
+    
+                                              <div *ngIf="mostrarCanchas && listacanchaporesta && idEstablecimientoSeleccionado === establecimiento.idEstablecimiento" (click)="capidEstablecimiento(establecimiento.idEstablecimiento)">
+                                                  <ul>
+                                                      <li class="btn-like-li" (click)="abrirDilog(cancha.idCancha)"  (click)="enviarId(cancha.idCancha)" (click)="capParaEdicion(cancha.idCancha)"*ngFor="let cancha of listacanchaporesta">{{ cancha.nombre }}</li>
+                                                  </ul>
+                                              </div>
+                           
+                                          
+                                        </div>
+                                                              
+                              </div>
+      
+                          </div>
+                      </div>
+                  
+                  </ng-template>
+    
+    
+          </div>
+    
+      
+      </div>
+    </p-panel>
+    </p-dialog>
+    
+    
+</div>
+<p-dialog header="Establecimiento Selecionado" [(visible)]="Vistaescogido" [modal]="true" [style]="{width: '75vw'}"
+[baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<p-header>
+    <button  class="align-right" pButton icon="pi pi-check" (click)="abrircatalogo()">Ver todos los establecimientos</button>
+    <span>Establecimiento Selecionado"</span>
+</p-header>
+<p-panel id="panelestablecimiento" class="panel" header="">
+  <div class="panel over overflow-auto p-grid p-fluid">
+
+   
+      <h5 class="card-title mb-3"></h5>
+      <div class="tab-pane active" >
+              <!-- cards productos -->
+              <div  id="tabla2"   *ngIf="showMe; then thentrue; else elseBlock1"></div>
+  
+                    <ng-template pTemplate="body" let-establecimiento #elseBlock1>
+                  <div class="row g-3" style="position: relative">
+              
+                      <div id="tarjetascontenedor" class="row row-cols-auto row-cols-md-3 g-3">
+                          <div class="" *ngIf="establecimientoescogido">
+  
+                                  <div class="product-card">
+                                      <div class="logo-cart">
+                                          <img class="circular--square" src="../../../../../../../assets/img/Reservegame.jpg" width="30px" height="30px">
+                                        <i class='bx bx-shopping-bag'></i>
+                                      </div>
+                                      
+                                      <div class="shoe-details">
+                                          <img imageLoader [src]="'http://localhost:5000/image/images/' + establecimientoescogido.fotoestablecimiento" class="rounded mx-auto d-bloc card-img-top" alt="..."/>
+                                          <ngx-spinner bdColor="rgba(0,0,0,0.1)" size="large" color="#696969" type="square-loader" [fullScreen]="false">
+                                              <p style="color: #0e78e1"></p>
+                                          </ngx-spinner>
+                                          <span class="shoe_name">{{ establecimientoescogido.nombre }}</span>
+                                       
+                                          <p class="card-text" > 
+                                              {{ establecimientoescogido.ubicacion?.calle_principal }}
+                                       
+                                      </div>
+                                      
+<!--     
+                                        <div class="button-layer" *ngFor="let cancha of listacanchaporesta"></div>
+                                        <div class="btn-mas" >
+                                          <label for="btn-mas" class="fa fa-plus"></label> -->
+                                      <!-- </div> -->
+                                     
+                                          <!-- <input type="checkbox" id="btn-mas" *ngFor="let establecimiento of listaestablecimiento" (click)="obtenerCanchaporEsta(establecimiento.idEstablecimiento)">
+                                          <div class="redes"  *ngFor="let cancha of listacanchaporesta">
+                                              <a (click)="abrirDilog(cancha.idCancha)">{{cancha.nombre}}</a>
+                                              
+                                          </div> -->
+
+              
+                                          <button pButton pRipple type="button" label="Ver canchas" class="p-button-rounded p-button-success" (click)="toggleCanchas(establecimientoescogido.idEstablecimiento)"></button>
+
+                                          <div *ngIf="mostrarCanchas && listacanchaporesta && idEstablecimientoSeleccionado === establecimientoescogido.idEstablecimiento" (click)="capidEstablecimiento(establecimientoescogido.idEstablecimiento)">
+                                              <ul>
+                                                  <li class="btn-like-li" (click)="abrirDilog(cancha.idCancha)"  (click)="enviarId(cancha.idCancha)" (click)="capParaEdicion(cancha.idCancha)"*ngFor="let cancha of listacanchaporesta">{{ cancha.nombre }}</li>
+                                              </ul>
+                                          </div>
+                       
+                                      
+                                    </div>
+                                                          
+                          </div>
+  
+                      </div>
+                  </div>
+              
+              </ng-template>
+
+
+      </div>
+
+  
+  </div>
+</p-panel>
+</p-dialog>
+
+<div>
+
+
+</div>
+
+
+
+
+<div>
+
+
+
+
+
+
+
+<p-dialog header="Información de canchas" [(visible)]="displayEU" [modal]="true" [style]="{width: '75vw'}"
+[baseZIndex]="10000" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="body">
+    <div class="p-grid p-fluid">
+        
+
+        <div class="perfil-usuario-avatar text-center">
+            <h2 class="form-label-p text-center">Datos cancha</h2>
+            <img class="circular--square2" style="max-width: 30%;"
+                [src]="'http://localhost:5000/image/images/' + canchas.foto">
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text" [(ngModel)]="canchas.nombre"
+                            [pKeyFilter]="blockSpecial" maxlength="30" minlength="3" pInputText>
+                        <label for="float-input">Nombres</label>
+                    </span>
+                </div>
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <input [disabled]="!isButtonEnabled2" id="float-input" type="text" [(ngModel)]="canchas.tarifa" [pKeyFilter]="'int'"
+                            maxlength="5" minlength="1" pInputText>
+                        <label for="float-input">Tarifa</label>
+                    </span>
+                </div>
+                <div class="p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <textarea  [disabled]="!isButtonEnabled2" id="float-input" type="text" [(ngModel)]="canchas.descripcion"
+                            [pKeyFilter]="blockSpecial" maxlength="50" minlength="5" pInputText
+                            rows="7"></textarea>
+                        <label for="float-input">Descripción</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="p-col-3 p-md-4">
+                    <span class="p-float-label">
+                        <div class="form-group">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan=”2”>
+                                        <span class="p-float-label">
+                                            <input  [disabled]="!isButtonEnabled2" id="float-input" type="text" [(ngModel)]="canchas.ancho"
+                                                [pKeyFilter]="'int'" maxlength="3" minlength="1" pInputText>
+                                            <label for="float-input">Ancho:</label>
+                                        </span>
+                                    </td>
+                                    <td colspan=”2”>
+                                        <span class="p-float-label">
+                                            <input [disabled]="!isButtonEnabled2" id="float-input" type="text" [(ngModel)]="canchas.altura"
+                                                [pKeyFilter]="'int'" maxlength="3" minlength="1" pInputText>
+                                            <label for="float-input">Alto:</label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </span>
+                </div>
+
+            </div>
+            <br>
+
+        </div>
+        <div class="p-col-12 p-md-4">
+            <div class="row">
+                <div class="col">
+                    <button pButton pRipple type="button" label="Realizar Reserva" icon="pi pi-check" iconPos="right"
+                        class="p-button-rounded p-button-success" routerLink="/cliente/reserva/register-reserva" (click)="limpiar()"></button>
+                </div>
+                <div class="col">
+                    <button pButton pRipple type="button" label="Realizar Reclamo" icon="pi pi-check" iconPos="right" routerLink="/cliente/reclamo/register-reclamo"
+                        class="p-button-rounded p-button-success"  ></button>
+                </div>
+                <div class="col">
+                    <button pButton pRipple type="button" label="Cancelar" icon="pi pi-times" iconPos="right"
+                        class="p-button-rounded p-button-danger" (click)="limpiar()"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+</p-dialog>
+
+
+</div>
